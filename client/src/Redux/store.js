@@ -1,4 +1,6 @@
-import { createStore } from 'redux';
-import rootReducer from './rootReducer';
+import { combineReducers } from 'redux';
+import { propertiesReducer } from '../Components/Properties/PropList/reducers'
 
-export const store = createStore(rootReducer);
+export default combineReducers({
+  properties: propertiesReducer
+});
