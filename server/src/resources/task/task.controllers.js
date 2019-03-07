@@ -1,5 +1,5 @@
 import { Task } from './task.model';
-import { BaseConroller } from '../../utils/BaseController';
+import { BaseController } from '../../utils/BaseController';
 
 class TaskControllers extends BaseController {
   constructor(mongooseModel) {
