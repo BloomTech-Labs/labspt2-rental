@@ -11,6 +11,7 @@ describe('Task model', () => {
         maxLength: 200
       });
     });
+
     test('createdBy', () => {
       const { createdBy } = Task.schema.obj;
       expect(createdBy).toEqual({
@@ -19,18 +20,21 @@ describe('Task model', () => {
         required: [true, 'createdBy is a required field']
       });
     });
+
     test('startDate', () => {
       const { startDate } = Task.schema.obj;
       expect(startDate).toEqual({
         type: Date
       });
     });
+
     test('endDate', () => {
       const { endDate } = Task.schema.obj;
       expect(endDate).toEqual({
         type: Date
       });
     });
+
     test('completed', () => {
       const { completed } = Task.schema.obj;
       expect(completed).toEqual({
@@ -39,6 +43,7 @@ describe('Task model', () => {
         default: false
       });
     });
+
     test('house', () => {
       const { house } = Task.schema.obj;
       expect(house).toEqual({
@@ -46,6 +51,7 @@ describe('Task model', () => {
         ref: 'house'
       });
     });
+
     test('reservation', () => {
       const { reservation } = Task.schema.obj;
       expect(reservation).toEqual({
