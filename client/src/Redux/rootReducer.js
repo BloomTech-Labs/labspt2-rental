@@ -1,0 +1,8 @@
+import { combineReducers } from 'redux';
+import { propertiesReducer } from '../Components/Properties/PropList/reducers'
+import registrationReducer from '../Components/Registration/reducer'
+
+export default combineReducers({
+  properties: () => null,
+  registration: registrationReducer
+});
