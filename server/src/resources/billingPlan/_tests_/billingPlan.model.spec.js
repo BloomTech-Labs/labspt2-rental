@@ -1,4 +1,4 @@
-import { Billing } from '../billing.model';
+import { Billing } from '../billingPlan.model';
 
 //name test will fail because unsure how to check enum value
 

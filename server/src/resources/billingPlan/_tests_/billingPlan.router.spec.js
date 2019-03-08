@@ -1,4 +1,4 @@
-import router from '../billing.router';
+import router from '../billingPlan.router';
 
 describe('billing router', () => {
     test('has crud routes', () => {

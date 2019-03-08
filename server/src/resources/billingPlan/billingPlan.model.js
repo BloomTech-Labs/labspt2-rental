@@ -2,7 +2,7 @@ import mongoose from 'mongoose';
 
 const { Schema } = mongoose;
 
-const billingSchema = new Schema(
+const billingPlanSchema = new Schema(
   {
     name: {
         type: String,
@@ -21,4 +21,4 @@ const billingSchema = new Schema(
   { timestamps: true }
 );
 
-export const Billing = mongoose.model('billing', billingSchema);
+export const BillingPlan = mongoose.model('billingPlan', billingPlanSchema);

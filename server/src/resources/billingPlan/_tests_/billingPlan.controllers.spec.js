@@ -1,4 +1,4 @@
-import { controllers } from '../billing.controllers';
+import { controllers } from '../billingPlan.controllers';
 import { isFunction } from 'lodash';
 
 describe('billing controllers', () => {
