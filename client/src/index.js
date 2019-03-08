@@ -1,27 +1,18 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
+import 'semantic-ui-css/semantic.min.css'
 import { Provider } from 'react-redux';
-import { createStore, applyMiddleware, compose } from 'redux';
-import { BrowserRouter as Router, Route } from 'react-router-dom';
+import { BrowserRouter as Router } from 'react-router-dom';
 import App from './App';
 import * as serviceWorker from './serviceWorker';
 
-import reduxStore from './Redux/store';
-
-// ReactDOM.render(<App />, document.getElementById('root'));
-
-const composeEnchancers =
-  (process.env.NODE_ENV === 'development' &&
-    window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__) ||
-  compose;
-
-const store = createStore(reduxStore, composeEnchancers(applyMiddleware()));
+import { store } from './Redux/store';
 
 ReactDOM.render(
   <Provider store={store}>
     <Router>
-      <Route render={props => <App {...props} />} />
+      <App />
     </Router>
   </Provider>,
   document.getElementById('root')
