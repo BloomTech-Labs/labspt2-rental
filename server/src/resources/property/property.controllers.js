@@ -1,12 +1,13 @@
 import { Property } from './property.model';
-import BaseController from '../../utils/BaseController';
+import { BaseController } from '../../utils/BaseController';
 
 class PropertyControllers extends BaseController {
-  // Create specific methods here
   constructor(mongooseModel) {
     super(mongooseModel);
     this.mongooseModel = mongooseModel;
   }
+
+  // add custon methods if needed
 }
 
 const controllers = new PropertyControllers(Property);
