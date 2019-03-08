@@ -1,4 +1,4 @@
-import BaseController from '../../utils/BaseController';
+import { BaseController } from '../../utils/BaseController';
 import { Discount } from './discount.model';
 
 class DiscountControllers extends BaseController {
@@ -9,6 +9,6 @@ class DiscountControllers extends BaseController {
   }
 }
 
-const discountControllers = DiscountControllers(Discount);
+const discountControllers = new DiscountControllers(Discount);
 
 export { discountControllers };

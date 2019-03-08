@@ -1,4 +1,4 @@
-import router from '../invoice-items.router';
+import router from '../invoice_items.router';
 
 describe('invoice items router', () => {
   test('has crud routes', () => {

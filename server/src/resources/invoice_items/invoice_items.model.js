@@ -18,12 +18,10 @@ const invoiceItemSchema = new Schema(
       required: [true, 'A price must be assigned'],
       min: 0
     },
-    owner: [
-      {
-        type: mongoose.Types.ObjectId,
+    owner: {
+        type: mongoose.SchemaTypes.ObjectId,
         ref: 'user'
-      }
-    ],
+      },
     defaultItem: { 
       type: Boolean,
       default: false,
@@ -31,7 +29,7 @@ const invoiceItemSchema = new Schema(
     },
     lastUsed: { 
       type: Date,
-      default: Date.now(),
+      default: Date.now,
       required: [true, 'Last used date is a required field'] 
     }
   },

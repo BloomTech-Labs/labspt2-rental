@@ -7,7 +7,7 @@ describe('discount model', () => {
       const { name } = Discount.schema.obj;
       expect(name).toEqual({
         type: String,
-        required: [true, 'Name is a required field'],
+        required: [true, 'Discount requires a name'],
         maxlength: 100
       });
     });
@@ -24,7 +24,7 @@ describe('discount model', () => {
       const { discountPercentage } = Discount.schema.obj;
       expect(discountPercentage).toEqual({
         type: Number,
-        required: [true, 'A discount percentage must be assigned'],
+        required: [true, 'A discount amount is required'],
         min: 0,
         max: 1
       });
@@ -32,19 +32,17 @@ describe('discount model', () => {
 
     test('owner', () => {
       const { owner } = Discount.schema.obj;
-      expect(owner).toEqual([
-        {
-          type: mongoose.Types.ObjectId,
+      expect(owner).toEqual({
+          type: mongoose.SchemaTypes.ObjectId,
           ref: 'user'
-        }
-      ]);
+        });
     });
 
     test('lastUsed', () => {
       const { lastUsed } = Discount.schema.obj;
       expect(lastUsed).toEqual({ 
         type: Date,
-        default: Date.now(),
+        default: Date.now,
         required: [true, 'Last used date is a required field'] 
       });
     });

@@ -19,15 +19,13 @@ const discountSchema = new Schema(
       min: 0,
       max: 1
     },
-    owner: [
-      {
-        type: mongoose.Types.ObjectId,
+    owner: {
+        type: mongoose.SchemaTypes.ObjectId,
         ref: 'user'
-      }
-    ],
+      },
     lastUsed: {
       type: Date,
-      default: Date.now(),
+      default: Date.now,
       required: [true, 'Last used date is a required field']
     }
   },
