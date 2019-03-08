@@ -2,7 +2,7 @@ import mongoose from 'mongoose';
 
 const { Schema } = mongoose;
 
-const houseSchema = new Schema(
+const propertySchema = new Schema(
   {
     name: {
       type: String,
@@ -11,12 +11,12 @@ const houseSchema = new Schema(
     },
     assistants: [
       {
-        type: mongoose.Types.ObjectId,
+        type: mongoose.SchemaTypes.ObjectId,
         ref: 'user'
       }
     ],
     createdBy: {
-      type: mongoose.Types.ObjectId,
+      type: mongoose.SchemaTypes.ObjectId,
       ref: 'user'
     },
     address: {
@@ -29,7 +29,7 @@ const houseSchema = new Schema(
     },
     tasks: [
       {
-        type: mongoose.Types.ObjectId,
+        type: mongoose.SchemaTypes.ObjectId,
         ref: 'task'
       }
     ]
@@ -37,4 +37,4 @@ const houseSchema = new Schema(
   { timestamps: true }
 );
 
-export const House = mongoose.model('house', houseSchema);
+export const Property = mongoose.model('property', propertySchema);

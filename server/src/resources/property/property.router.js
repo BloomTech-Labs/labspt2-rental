@@ -1,8 +1,7 @@
-import express from 'express';
-import controllers from './house.controllers';
+import { Router } from 'express';
+import { controllers } from './property.controllers';
 
-const { Router } = express;
-const router = Router;
+const router = Router();
 
 router
   .route('/')
@@ -14,3 +13,5 @@ router
   .get(controllers.getOne)
   .put(controllers.updateOne)
   .delete(controllers.deleteOne);
+
+export default router;

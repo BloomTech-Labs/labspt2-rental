@@ -1,7 +1,7 @@
+import { Property } from './property.model';
 import BaseController from '../../utils/BaseController';
-import { House } from './house.model';
 
-class HouseControllers extends BaseController {
+class PropertyControllers extends BaseController {
   // Create specific methods here
   constructor(mongooseModel) {
     super(mongooseModel);
@@ -9,6 +9,6 @@ class HouseControllers extends BaseController {
   }
 }
 
-const houseControllers = HouseControllers(House);
+const controllers = new PropertyControllers(Property);
 
-export { houseControllers };
+export { controllers };
