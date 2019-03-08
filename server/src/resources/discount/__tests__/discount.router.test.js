@@ -1,6 +1,6 @@
-import router from '../invoice_items.router';
+import router from '../discount.router';
 
-describe('invoice items router', () => {
+describe('discount router', () => {
   test('has crud routes', () => {
     const routes = [
       { path: '/', method: 'get' },

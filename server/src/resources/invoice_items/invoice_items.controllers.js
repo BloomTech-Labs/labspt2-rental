@@ -1,4 +1,4 @@
-import BaseController from '../../utils/BaseController';
+import { BaseController } from '../../utils/BaseController';
 import { InvoiceItems } from './invoice_items.model';
 
 class InvoiceItemsControllers extends BaseController {
@@ -9,6 +9,6 @@ class InvoiceItemsControllers extends BaseController {
   }
 }
 
-const invoiceItemsControllers = InvoiceItemsControllers(InvoiceItems);
+const invoiceItemsControllers = new InvoiceItemsControllers(InvoiceItems);
 
 export { invoiceItemsControllers };
