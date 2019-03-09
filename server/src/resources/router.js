@@ -12,7 +12,5 @@ export const protectedRouter = app => {
   app.use(protect)
   app.use('/api/projects', projectRouter)
   app.use('/api/tasks', taskRouter)
-  app.use('/api/property', propertyRouter)
-  // or do we want to make property plural with '/api/properties'? Any guidance there on naming conventions?
+  app.use('/api/properties', propertyRouter)
 }
-
