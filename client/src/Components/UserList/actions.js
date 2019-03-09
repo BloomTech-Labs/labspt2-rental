@@ -10,7 +10,7 @@ export const fetchUsers = () => {
       type: LOADING
     });
     axios
-      .get("http://138.197.202.158/api/users/all")
+      .get("http://138.197.202.158/api/users")
       .then(response => {
         dispatch({
           type: FOUND_USERS,
