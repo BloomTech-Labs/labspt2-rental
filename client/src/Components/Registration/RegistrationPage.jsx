@@ -15,6 +15,7 @@ class RegistrationPage extends Component {
   }
 
   handleSubmit = (event) => {
+    event.preventDefault();
     const { registerUser } = this.props
     console.log('logging')
     const user = {
@@ -23,7 +24,6 @@ class RegistrationPage extends Component {
       password: this.state.password
     };
     
-    event.preventDefault();
     registerUser(user);
   }
   render() {
@@ -31,8 +31,9 @@ class RegistrationPage extends Component {
       <Container>
         <Form onSubmit={this.handleSubmit}>
         <Form.Field>
-          <label>Username</label>
-          <input 
+          <label htmlFor="username-input">Username</label>
+          <input
+            id="username-input" 
             placeholder='Username'
             name="username"
             value={this.state.username}
@@ -40,8 +41,9 @@ class RegistrationPage extends Component {
           />
         </Form.Field>
         <Form.Field>
-          <label>Email</label>
-          <input 
+          <label htmlFor="email-input">Email</label>
+          <input
+            id="email-input" 
             placeholder='Email'
             name="email"
             value={this.state.email}
@@ -49,8 +51,9 @@ class RegistrationPage extends Component {
           />
         </Form.Field>
         <Form.Field>
-          <label>Password</label>
-          <input 
+          <label htmlFor="password-input">Password</label>
+          <input
+            id="password-input" 
             placeholder='Password'
             name="password"
             type="password"
