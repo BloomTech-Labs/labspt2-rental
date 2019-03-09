@@ -23,13 +23,7 @@ class LoginPage extends Component {
             password: this.state.password
         };
 
-        this.props.login(credentials);
-        const token = localStorage.getItem('jwt');
-        const options = {
-            headers: {
-                Authorization: token,
-            }
-        }
+        this.props.loginUser(credentials);
         this.props.history.push('/dashboard');
     }
 
