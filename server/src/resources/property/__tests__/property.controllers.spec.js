@@ -1,7 +1,7 @@
-import { controllers } from '../task.controllers';
+import { controllers } from '../property.controllers';
 import { isFunction } from 'lodash';
 
-describe('task controllers', () => {
+describe('property controllers', () => {
   test('has crud controllers', () => {
     const crudMethods = [
       'getOne',

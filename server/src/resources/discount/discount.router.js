@@ -1,11 +1,11 @@
 import { Router } from 'express';
-import { controllers } from './task.controllers';
+import { controllers } from './discount.controllers';
 
 const router = Router();
 
 router
   .route('/')
-  .get(controllers.getOne)
+  .get(controllers.getMany)
   .post(controllers.createOne);
 
 router
@@ -14,4 +14,4 @@ router
   .put(controllers.updateOne)
   .delete(controllers.removeOne);
 
-export default router;
+  export default router;

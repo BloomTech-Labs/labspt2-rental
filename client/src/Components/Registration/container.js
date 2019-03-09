@@ -1,8 +1,13 @@
 import { connect } from 'react-redux';
-import RegistrationPage from './RegistrationPage'
+import { registerUser } from './actionCreators'; 
+import RegistrationPage from './RegistrationPage';
 
 const mapStateToProps = ({ registration }) => ({
   registration
 })
 
-export default connect(mapStateToProps)(RegistrationPage)
+const mapDispatchToProps = () => ({
+  registerUser
+})
+
+export default connect(mapStateToProps, {registerUser})(RegistrationPage)

@@ -1,4 +1,4 @@
-import { LOADING, FOUND_USERS, ERROR } from "./actions";
+import { FETCH_USERS_ATTEMPT, FETCH_USERS_SUCCESS, FETCH_USERS_FAILURE } from "./actions";
 
 const initialState = {
   users: [],
@@ -8,11 +8,11 @@ const initialState = {
 
 const userListReducer = (state = initialState, action) => {
   switch (action.type) {
-    case LOADING:
+    case FETCH_USERS_ATTEMPT:
       return { ...state, loading: true };
-    case FOUND_USERS:
+    case FETCH_USERS_SUCCESS:
       return { ...state, users: action.payload, loading: false };
-    case ERROR:
+    case FETCH_USERS_FAILURE:
       return { ...state, error: action.payload, loading: false };
     default:
       return state;

@@ -31,12 +31,10 @@ describe('Invoice items model', () => {
 
     test('owner', () => {
       const { owner } = InvoiceItem.schema.obj;
-      expect(owner).toEqual([
-        {
-          type: mongoose.Types.ObjectId,
+      expect(owner).toEqual({
+          type: mongoose.SchemaTypes.ObjectId,
           ref: 'user'
-        }
-      ]);
+        });
     });
 
     test('defaultItem', () => {
@@ -52,7 +50,7 @@ describe('Invoice items model', () => {
       const { lastUsed } = InvoiceItem.schema.obj;
       expect(lastUsed).toEqual({ 
         type: Date,
-        default: Date.now(),
+        default: Date.now,
         required: [true, 'Last used date is a required field'] 
       });
     });
