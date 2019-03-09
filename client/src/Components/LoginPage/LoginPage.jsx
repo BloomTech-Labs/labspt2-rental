@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { Button, Form } from 'semantic-ui-react'
+import { Container, Button, Form } from 'semantic-ui-react'
 
 class LoginPage extends Component {
     constructor(props){
@@ -14,7 +14,6 @@ class LoginPage extends Component {
         this.setState({
             [e.target.name]: e.target.value
         })
-        console.log(this.state.email, this.state.password)
     }
 
     submitHandler = (e) => {
@@ -25,23 +24,35 @@ class LoginPage extends Component {
         };
 
         this.props.login(credentials);
-        //use auth for login for now
+        const token = localStorage.getItem('jwt');
+        const options = {
+            headers: {
+                Authorization: token,
+            }
+        }
         this.props.history.push('/dashboard');
     }
 
     render() {
         return (
-            <Form>
-            <Form.Field>
-              <label>Email address</label>
-              <input name= "email" type="email" placeholder='hello@gmail.com' />
-            </Form.Field>
-            <Form.Field>
-              <label>Password</label>
-              <input name="password" type="password" placeholder='Password' />
-            </Form.Field>
-            <Button type='submit'>Login</Button>
-          </Form>
+            <Container>
+
+                <Form onSubmit={this.submitHandler}>
+                    <Form.Field>
+                    <label>Email address</label>
+                    <input name="email" type="email" placeholder='hello@gmail.com' value={this.state.email} onChange={this.inputHandler} />
+                    </Form.Field>
+
+                    <Form.Field>
+                    <label>Password</label>
+                    <input name="password" type="password" placeholder='Password' value={this.state.password} onChange={this.inputHandler} />
+                    </Form.Field>
+
+                    <Button type='submit'>Login</Button>
+                </Form>
+
+            </Container>
+
         )
     }
 }
