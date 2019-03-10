@@ -10,7 +10,7 @@
     "dev": "nodemon --exec npm run restart",
     "restart": "rimraf dist && npm run build && npm start",
     "start": "node dist/index.js",
-    "db": "mongod --dbpath data"
+    "db": "mongod"
   },
   "dependencies": {
     "bcrypt": "^3.0.4",
