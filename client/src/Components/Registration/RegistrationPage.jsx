@@ -15,6 +15,7 @@ class RegistrationPage extends Component {
   }
 
   handleSubmit = (event) => {
+    event.preventDefault();
     const { registerUser } = this.props
     console.log('logging')
     const user = {
