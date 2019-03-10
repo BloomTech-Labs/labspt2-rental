@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import { Button, Form, Divider, Segment, Header } from 'semantic-ui-react'
-import { FlexColumn, FlexRow } from '../../styled-components/components'
+import { FlexColumn, FlexRow } from 'custom-components'
 
 class RegistrationPage extends Component {
   state = {
