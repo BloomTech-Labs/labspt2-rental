@@ -1,4 +1,3 @@
-
 import _ from 'lodash';
 
 export class BaseController {
@@ -18,7 +17,6 @@ export class BaseController {
       next(e);
     }
   };
-
 
   getOne = async (req, res, next) => {
     try {
@@ -40,7 +38,6 @@ export class BaseController {
       next(e);
     }
   };
- 
 
   getMany = async (req, res, next) => {
     try {
@@ -56,7 +53,6 @@ export class BaseController {
       next(e);
     }
   };
-
 
   updateOne = async (req, res, next) => {
     try {
@@ -83,13 +79,11 @@ export class BaseController {
     }
   };
 
-
   removeOne = async (req, res, next) => {
     try {
       const removed = await this.mongooseModel.findOneAndRemove({
         createdBy: req.user._id,
         _id: req.params.id
-
       });
 
       if (!removed) {
@@ -108,6 +102,4 @@ export class BaseController {
   };
 
   destroy = async (req, res) => {};
-
-
-};
+}

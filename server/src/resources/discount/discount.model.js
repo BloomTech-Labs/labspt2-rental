@@ -20,9 +20,9 @@ const discountSchema = new Schema(
       max: 1
     },
     owner: {
-        type: mongoose.SchemaTypes.ObjectId,
-        ref: 'user'
-      },
+      type: mongoose.SchemaTypes.ObjectId,
+      ref: 'user'
+    },
     lastUsed: {
       type: Date,
       default: Date.now,
