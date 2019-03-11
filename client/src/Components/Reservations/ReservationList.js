@@ -4,15 +4,17 @@ import { FlexColumn, FlexRow } from 'custom-components'
 import ReservationListItem from './ReservationListItem'
 
 export default class ReservationList extends Component {
-  constructor() {
-    super();
+  constructor () {
+    super()
 
   }
 
   render () {
+    const { status } = this.props
+
     return (
       <FlexColumn>
-        <ReservationListItem/>
+        <ReservationListItem/> {/*Here we'll map each item from data fetched from the server and filter by status*/}
       </FlexColumn>
     )
   }
