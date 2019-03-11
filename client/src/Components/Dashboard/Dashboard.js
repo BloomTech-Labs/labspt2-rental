@@ -32,8 +32,8 @@ class Dashboard extends Component {
     const { active } = this.state
 
     return (
-      <Container padding>
-        <Segment style={{ width: '100%' }}>
+      <Container alignCenter padding>
+        <Segment>
           <FlexRow>
             <div style={{ width: '200px' }}>
               <Menu color="green" fluid vertical tabular style={{ borderColor: "#35ba45"}}> {/*Border color can be set in the theme if we like it*/}
