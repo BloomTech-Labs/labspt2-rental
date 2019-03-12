@@ -1,0 +1,8 @@
+.top-nav {
+  display: flex;
+  justify-content: space-between;
+}
+
+.home-menu {
+  display: flex;
+}
