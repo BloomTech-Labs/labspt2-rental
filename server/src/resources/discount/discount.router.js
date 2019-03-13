@@ -14,4 +14,4 @@ router
   .put(controllers.updateOne)
   .delete(controllers.removeOne);
 
-  export default router;
+export default router;
