@@ -1,5 +1,5 @@
 /*!
- * # Semantic UI 2.4.2 - Sidebar
+ * # Semantic UI undefined - Sidebar
  * http://github.com/semantic-org/semantic-ui/
  *
  *
@@ -135,7 +135,7 @@ body.pushable {
   z-index: 2;
 }
 body.pushable > .pusher {
-  background: #FFFFFF;
+  background: #f1f1f1;
 }
 
 /* Pusher should inherit background from context */

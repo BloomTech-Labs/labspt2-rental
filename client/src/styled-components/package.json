@@ -1,0 +1,11 @@
+{
+  "name": "custom-components",
+  "version": "1.0.0",
+  "description": "Custom styled components",
+  "main": "index.js",
+  "author": "Kyle Baker",
+  "license": "MIT",
+  "dependencies": {
+    "styled-components": "^4.1.3"
+  }
+}
