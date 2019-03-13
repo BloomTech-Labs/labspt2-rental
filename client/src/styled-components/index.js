@@ -31,3 +31,10 @@ export const FlexColumn = styled.div`
     max-width: 100%;
     flex-grow: ${props => ((g = props.grow) => g ? parseFloat(g) > -1 ? g : "1" : "0")()}
 `;
+
+export const Container = styled(FlexColumn)`
+  width: 100vw;
+  height: 100vh;
+  padding:${props => props.padding ? "40px" : "0"};
+  box-sizing: border-box;
+`;

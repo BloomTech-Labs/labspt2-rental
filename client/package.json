@@ -21,7 +21,7 @@
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
-    "theme": "cd src/semantic && gulp build && cd ../../ && yarn start",
+    "theme": "cd src/semantic && gulp build && cd ../../ && npm start",
     "test": "react-scripts test",
     "eject": "react-scripts eject"
   },
