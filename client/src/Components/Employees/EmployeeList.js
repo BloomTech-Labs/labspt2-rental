@@ -4,6 +4,7 @@ import { Button, Icon } from "semantic-ui-react";
 import { FlexRow, Container } from "custom-components";
 import { Reservations } from "../Reservations";
 import Card from "../shared/Card/Card";
+import EmployeeSingle from './EmployeeSingle'
 
 class EmployeeList extends Component {
   constructor(props) {
@@ -22,6 +23,10 @@ class EmployeeList extends Component {
   //   this.setState({ active: ev.target.innerHTML });
   // };
 
+  cardHandleClick = e => {
+    console.log(e)
+  }
+
   render() {
     return (
       <Container>
@@ -35,7 +40,7 @@ class EmployeeList extends Component {
         </FlexRow>
         {this.props.employees.map(employee => {
           // need to have a shared info card
-          return <div>this is a card with the employee</div>;
+          return <div key={employee} name={employee} onClick={this.cardHandleClick}>this is a card with the employee</div>;
         })}
       </Container>
     );
