@@ -4,7 +4,7 @@ import { Segment, Menu, Sidebar, Icon, Header, Image } from "semantic-ui-react";
 import { FlexRow, Container } from "custom-components";
 import { Reservations } from "../Reservations";
 import { EmployeeList } from "../Employees";
-import { PropertyList } from "../Properties";
+import { PropertyList } from "../Properties/PropList";
 
 class Dashboard extends Component {
   constructor(props) {

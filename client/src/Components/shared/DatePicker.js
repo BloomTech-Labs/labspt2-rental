@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import Calendar from "react-calendar";
-import FlexRow from "../../styled-components/index";
+import { FlexRow } from "custom-components";
 
 class DatePicker extends Component {
   state = {
