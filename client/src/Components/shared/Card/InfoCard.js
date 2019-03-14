@@ -6,7 +6,7 @@ const InfoCard = props => {
   return (
       <Card className='info-card-main' raised>
         <FlexRow>
-          <Image src={props.imageLoc} size="small" />
+          <Image src={props.imageLoc} size="small" onClick={props.singlePageHandler} />
           <div className="card-info">
             <Header>{props.header}</Header>
             {props.lineOneTitle ? (

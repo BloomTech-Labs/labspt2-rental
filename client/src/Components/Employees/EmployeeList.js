@@ -1,9 +1,7 @@
 import React, { Component } from "react";
-// import { Route, Link, withRouter } from "react-router-dom";
 import { Button, Icon } from "semantic-ui-react";
 import { FlexRow, Container } from "custom-components";
-import { Reservations } from "../Reservations";
-import Card from "../shared/Card/Card";
+import EmployeeListItem from "./EmployeeListItem";
 
 class EmployeeList extends Component {
   constructor(props) {
@@ -18,9 +16,9 @@ class EmployeeList extends Component {
     this.setState({ owner: true });
   }
 
-  // handleClick = ev => {
-  //   this.setState({ active: ev.target.innerHTML });
-  // };
+  cardHandleClick = id => {
+    this.props.history.push(`/dashboard/employees/${id}`)
+  }
 
   render() {
     return (
@@ -35,7 +33,9 @@ class EmployeeList extends Component {
         </FlexRow>
         {this.props.employees.map(employee => {
           // need to have a shared info card
-          return <div>this is a card with the employee</div>;
+          return (
+            <EmployeeListItem key={employee.userID} employee={employee} clickHandler={this.cardHandleClick} />
+            );
         })}
       </Container>
     );
