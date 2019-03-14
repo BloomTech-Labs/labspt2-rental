@@ -1,17 +1,18 @@
 const keyPublishable = process.env.PUBLISHABLE_KEY;
 const keySecret = process.env.SECRET_KEY;
 
-const config = require('../../config');
+import config from '../../config';
 
-console.log(config.keys.stripePublishable);
+// const config = require('../../config');
 
-const stripe = require('stripe')(keySecret);
+// const stripe = require('stripe')(keySecret);
 
-const payment = require('express')();
+// payment.get('/', (req, res) => {
+//   res.render('index.push', { keyPublishable });
+// });
 
-payment.set('view engine', 'pug');
-payment.use(require('body-parser').urlencoded({ extended: false }));
-
-payment.get('/', (req, res) => {
-  res.render('index.push', { keyPublishable });
-});
+// console.log(
+//     `Keys are ${config.keys.stripePublishable} and ${
+//       config.keys.stripeSecret
+//     }`
+//   );

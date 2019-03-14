@@ -7,3 +7,5 @@ const router = Router();
 router.route('/').get(controllers.getMany);
 
 router.route('/:id').get(controllers.getOne);
+
+export default router;
