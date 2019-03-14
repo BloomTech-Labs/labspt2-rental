@@ -1,6 +1,6 @@
 import React from "react";
 import Calendar from "react-calendar";
-import FlexRow from "../../styled-components/index";
+import { FlexRow } from "custom-components";
 
 const DatePicker = props => {
   return (
