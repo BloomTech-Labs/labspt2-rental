@@ -1,6 +1,7 @@
 import React from 'react'
-import { Header, Statistic, Label, Icon, Button } from 'semantic-ui-react'
+import { Header, Statistic, Label, Button } from 'semantic-ui-react'
 import { FlexRow, FlexColumn } from 'custom-components'
+import CheckoutDetailCard from './CheckoutDetailCard'
 
 const Checkout = () => {
   return (
@@ -10,7 +11,7 @@ const Checkout = () => {
         <Header size='medium'>Guest Name</Header>
         <p>email@email.com</p>
         <p>Phone Number</p>
-        <Label color='red' horizontal>House 1</Label>
+        <Label color='violet' horizontal>House 1</Label>
 
         <FlexRow style={{paddingTop: "20px"}}>
           <Statistic size='tiny'>
@@ -23,55 +24,11 @@ const Checkout = () => {
           </Statistic>
         </FlexRow> 
 
-        <FlexRow alignCenter justifyBetween style={{width: "650px"}}>
-
-          <FlexRow alignCenter justifyBetween style={{paddingTop: "20px"}}>
-            <FlexColumn>
-              <Icon name='moon' size='massive'/>
-            </FlexColumn>
-            <FlexColumn alignCenter justifyBetween>
-              <Statistic size='tiny'>
-                <Statistic.Label>Nights</Statistic.Label>
-                <Statistic.Value>3</Statistic.Value>
-              </Statistic>
-              <Button size='tiny' style={{marginBottom: "2px", width: "55px"}}><Icon name='caret up' size='big'/></Button>
-              <Button size='tiny' style={{marginTop: "2px", width: "55px"}}><Icon name='caret down' size='big'/></Button>
-            </FlexColumn>
-          </FlexRow>
-          
-          <FlexRow style={{paddingTop: "20px"}}>
-            <FlexColumn>
-              <Icon name='users' size='massive'/>
-            </FlexColumn>
-            <FlexColumn alignCenter justifyBetween>
-              <Statistic size='tiny'>
-                <Statistic.Label>Guests</Statistic.Label>
-                <Statistic.Value>3</Statistic.Value>
-              </Statistic>
-              <Button size='tiny' style={{marginBottom: "2px", width: "55px"}}><Icon name='caret up' size='big'/></Button>
-              <Button size='tiny' style={{marginTop: "2px", width: "55px"}}><Icon name='caret down' size='big'/></Button>
-            </FlexColumn>
-          </FlexRow>
-          
-          <FlexRow style={{paddingTop: "20px"}}>
-            <FlexColumn>
-              <Icon name='leaf' size='massive'/>
-            </FlexColumn>
-            <FlexColumn alignCenter justifyBetween>
-              <Statistic size='tiny'>
-                <Statistic.Label>Cleaning Fee</Statistic.Label>
-                <Statistic.Value>$65</Statistic.Value>
-              </Statistic>
-              <Button size='tiny' style={{marginBottom: "2px", width: "55px"}}><Icon name='caret up' size='big'/></Button>
-              <Button size='tiny' style={{marginTop: "2px", width: "55px"}}><Icon name='caret down' size='big'/></Button>
-            </FlexColumn>
-          </FlexRow>
-
-        </FlexRow>
+        <CheckoutDetailCard />
 
         <FlexRow style={{paddingTop: "20px"}}>
           <h2>Employee:</h2>
-          <p>Name</p>
+          <Label color="grey">Name</Label>
         </FlexRow>
 
         <FlexRow>
