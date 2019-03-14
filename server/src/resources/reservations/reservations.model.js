@@ -45,27 +45,32 @@ const reservationSchema = new Schema(
       type: String,
       enum: ['upcoming', 'incomplete', 'complete']
     },
-    tasks: [Task],
+    tasks: [
+      {
+        type: mongoose.SchemaTypes.ObjectId,
+        ref: 'task'
+      }
+    ],
     nights: {
-      type: Number, 
+      type: Number,
       required: true
     },
     cleaningFee: {
       type: Number
     },
     guests: {
-      type: Number, 
+      type: Number,
       required: true
     },
     paid: {
-      type: Boolean, 
+      type: Boolean,
       default: false
     },
     guestLoginCode: {
       type: String,
       required: true
     }
-  }, 
+  },
   { timestamps: true }
 );
 
