@@ -4,19 +4,23 @@ import DatePicker from "../../shared/DatePicker";
 
 class PropertyList extends Component {
   state = {
-    startDate: new Date(),
-    endDate: new Date()
+    startDate: null,
+    endDate: null,
+    focusedInput: null
   };
-  startDate = date => this.setState({ startDate: date });
-  endDate = date => this.setState({ endDate: date });
+
+  onDatesChange = ({ startDate, endDate }) => this.setState({ startDate, endDate })
+  
+  onFocusChange = focusedInput => this.setState({ focusedInput })
 
   render() {
     return (
       <DatePicker
         start={this.startDate}
         end={this.endDate}
-        startDate={this.state.startDate}
-        endDate={this.state.endDate}
+        onDatesChange={this.onDatesChange}
+        focusedInput={this.state.focusedInput}
+        onFocusChange={this.onFocusChange}
       />
     );
   }

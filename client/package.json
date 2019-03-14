@@ -5,10 +5,7 @@
   "dependencies": {
     "axios": "^0.18.0",
     "custom-components": "file:src/styled-components",
-<<<<<<< HEAD
-=======
     "gulp": "^4.0.0",
->>>>>>> 32d4283047c01905e16bd85aea27a0b707e2c09d
     "moment": "^2.24.0",
     "react": "^16.8.4",
     "react-calendar": "^2.18.1",
