@@ -10,10 +10,9 @@ import { publicRouter, protectedRouter } from './resources/router';
 export const app = express();
 
 app.use(cors());
-app.use(express.json());
-app.use(bodyParser.urlencoded({ extended: false }));
 app.use(morgan('dev'));
 app.use(express.json());
+app.set('view engine', 'pug');
 app.use(bodyParser.urlencoded({ extended: false }));
 
 publicRouter(app);
