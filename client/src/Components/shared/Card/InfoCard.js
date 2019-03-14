@@ -1,11 +1,10 @@
 import React from "react";
 import { Header, Image, Card, Button } from "semantic-ui-react";
-import { FlexRow, Container } from "custom-components";
+import { FlexRow } from "custom-components";
 
 const InfoCard = props => {
   return (
-    <div>
-      <Card raised>
+      <Card className='info-card-main' raised>
         <FlexRow>
           <Image src={props.imageLoc} size="small" />
           <div className="card-info">
@@ -36,7 +35,6 @@ const InfoCard = props => {
           <Button onClick={props.buttonFunction}>More Info</Button>
         </FlexRow>
       </Card>
-    </div>
   );
 };
 
