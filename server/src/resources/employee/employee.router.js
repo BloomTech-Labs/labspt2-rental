@@ -1,7 +1,8 @@
-import { Router } from 'express';
-import { controllers } from './discount.controllers';
+import express from 'express';
+import controllers from './employee.controllers';
 
-const router = Router();
+const { Router } = express;
+const router = Router;
 
 router
   .route('/')
@@ -13,5 +14,3 @@ router
   .get(controllers.getOne)
   .put(controllers.updateOne)
   .delete(controllers.removeOne);
-
-export default router;

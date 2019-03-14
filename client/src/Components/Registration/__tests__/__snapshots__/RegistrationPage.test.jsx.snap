@@ -2,63 +2,83 @@
 
 exports[`RegistrationPage snapshot 1`] = `
 <div
-  class="ui container"
+  class="sc-bwzfXH fnoZsX"
+  width="full"
 >
-  <form
-    class="ui form"
+  <div
+    class="ui segment sm-container"
   >
     <div
-      class="field"
+      class="ui large header"
     >
-      <label
-        for="username-input"
-      >
-        Username
-      </label>
-      <input
-        id="username-input"
-        name="username"
-        placeholder="Username"
-        value=""
-      />
+      Registration
     </div>
     <div
-      class="field"
+      class="ui divider"
+    />
+    <form
+      class="ui form"
     >
-      <label
-        for="email-input"
+      <div
+        class="field"
       >
-        Email
-      </label>
-      <input
-        id="email-input"
-        name="email"
-        placeholder="Email"
-        value=""
-      />
-    </div>
-    <div
-      class="field"
-    >
-      <label
-        for="password-input"
+        <label
+          for="username-input"
+        >
+          Username
+        </label>
+        <input
+          id="username-input"
+          name="username"
+          placeholder="Username"
+          value=""
+        />
+      </div>
+      <div
+        class="field"
       >
-        Password
-      </label>
-      <input
-        id="password-input"
-        name="password"
-        placeholder="Password"
-        type="password"
-        value=""
-      />
-    </div>
-    <button
-      class="ui button"
-      type="submit"
-    >
-      Submit
-    </button>
-  </form>
+        <label>
+          Email
+        </label>
+        <input
+          id="email-input"
+          name="email"
+          placeholder="Email"
+          value=""
+        />
+      </div>
+      <div
+        class="field"
+      >
+        <label>
+          Password
+        </label>
+        <input
+          id="password-input"
+          name="password"
+          placeholder="Password"
+          type="password"
+          value=""
+        />
+      </div>
+      <br />
+      <div
+        class="sc-bdVaJa biWxYW"
+        width="full"
+      >
+        <button
+          class="ui button"
+        >
+          Login
+        </button>
+        <button
+          class="ui green button"
+          type="submit"
+        >
+          Submit
+        </button>
+      </div>
+    </form>
+  </div>
 </div>
 `;

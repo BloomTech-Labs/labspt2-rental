@@ -27,3 +27,63 @@ code {
   width: 100%;
   max-width: 1200px;
 }
+
+.space-top {
+  margin-top: 10px!important;
+}
+
+.space-top-20 {
+  margin-top: 20px!important;
+}
+
+.space-top-40 {
+  margin-top: 40px!important;
+}
+
+.space-bottom {
+  margin-bottom: 10px!important;
+}
+
+.space-bottom-20 {
+  margin-bottom: 20px!important;
+}
+
+.space-bottom-40 {
+  margin-bottom: 40px!important;
+}
+
+.space-left {
+  margin-left: 10px!important;
+}
+
+.space-left-20 {
+  margin-left: 20px!important;
+}
+
+.space-left-40 {
+  margin-left: 40px!important;
+}
+
+.space-right {
+  margin-right: 10px!important;
+}
+
+.space-right-20 {
+  margin-right: 20px!important;
+}
+
+.space-right-40 {
+  margin-right: 40px!important;
+}
+
+.space-around {
+  margin: 10px!important;
+}
+
+.space-around-20 {
+  margin: 20px!important;
+}
+
+.space-around-40 {
+  margin: 40px!important;
+}

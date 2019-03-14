@@ -5,19 +5,19 @@ const { Schema } = mongoose;
 const billingPlanSchema = new Schema(
   {
     name: {
-        type: String,
-        required: true,
-        enum: ['Free', 'Midlevel', 'Enterprise']
+      type: String,
+      required: true,
+      enum: ['Free', 'Midlevel', 'Enterprise']
     },
     perPropertyPrice: {
-        type: Number,
-        required: true
+      type: Number,
+      required: true
     },
     perTransactionFee: {
-        type: Number,
-        required: true
+      type: Number,
+      required: true
     }
-  }, 
+  },
   { timestamps: true }
 );
 

@@ -1,7 +1,7 @@
 import { BaseController } from '../../utils/BaseController';
-import { Discount } from './discount.model';
+import { Employees } from './employee.model';
 
-class DiscountControllers extends BaseController {
+class EmployeesControllers extends BaseController {
   // Create specific methods here
   constructor(mongooseModel) {
     super(mongooseModel);
@@ -9,6 +9,6 @@ class DiscountControllers extends BaseController {
   }
 }
 
-const controllers = new DiscountControllers(Discount);
+const controllers = new EmployeesControllers(Employees);
 
 export { controllers };
