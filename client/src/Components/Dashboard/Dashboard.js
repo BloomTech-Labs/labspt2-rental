@@ -51,7 +51,7 @@ class Dashboard extends Component {
           <Sidebar.Pusher as={Segment} style={{marginLeft: "140px"}}>
               <Segment className="space-left-20" >
                 <Route path="/dashboard/reservations" render={() => <Reservations/>}/>
-                <Route path="/dashboard/employees" render={() => <EmployeeList/>}/>
+                <Route path="/dashboard/employees" render={props => <EmployeeList {...props}/>}/>
                 {/*TODO work on these pages*/}
                 {/*<Route path="/dashboard/checkout" render={() => <Checkout/>}/>*/}
                 {/*<Route path="/dashboard/properties" render={() => <Properties/>}/>*/}
