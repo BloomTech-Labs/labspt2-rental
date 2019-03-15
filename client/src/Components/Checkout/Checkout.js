@@ -31,12 +31,12 @@ const Checkout = () => {
         <CheckoutEnvioceItemCard />
 
         <FlexRow style={{paddingTop: "10px"}}>
-          <h2>Employee:</h2>
+          <Header size='medium'>Employee:</Header>
           <Label color="grey" style={{marginLeft: '10px'}}>Name</Label>
         </FlexRow>
 
         <FlexRow style={{marginTop: "10px"}}>
-          <h2>Billing Status:</h2>
+          <Header size='medium'>Billing Status:</Header>
           <Label color='red' style={{marginLeft: '10px'}}>Unpaid</Label>
         </FlexRow>
 
