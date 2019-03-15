@@ -19,7 +19,7 @@ try {
   protectedRouter(app);
   app.use(statusHandler);
 } catch (e) {
-  console.error(e)
+  console.error(e);
 }
 
 export const start = async () => {
