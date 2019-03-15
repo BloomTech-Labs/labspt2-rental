@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { Button, Icon } from "semantic-ui-react";
+import { Button, Icon, Input } from "semantic-ui-react";
 import { FlexRow, Container } from "custom-components";
 import EmployeeListItem from "./EmployeeListItem";
 
@@ -7,7 +7,8 @@ class EmployeeList extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      owner: true
+      owner: true,
+      searchText: ""
     };
   }
 
@@ -15,6 +16,11 @@ class EmployeeList extends Component {
     // here we'll grab the role and securities of the user
     this.setState({ owner: true });
   }
+
+  searchChangeHandler = e => {
+    console.log(this.state.searchText);
+    this.setState({ searchText: e.target.value });
+  };
 
   cardHandleClick = id => {
     this.props.history.push(`/dashboard/employees/${id}`);
@@ -24,7 +30,13 @@ class EmployeeList extends Component {
     return (
       <Container>
         <FlexRow>
-          <div>Search Bar Goes here</div>
+          <Input
+            fluid
+            icon="address card"
+            iconPosition="left"
+            placeholder="Name, City, Property Name"
+            onChange={this.searchChangeHandler}
+          />
           {this.state.owner ? (
             <Button icon>
               <Icon name="plus circle" />
