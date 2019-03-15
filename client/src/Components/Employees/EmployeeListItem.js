@@ -12,7 +12,7 @@ const EmployeeListItem = props => {
       lineOneInfo={props.employee.todayTasks}
       lineTwoInfo={props.employee.overdueTasks}
       lineThreeInfo={props.employee.properties}
-      singlePageHandler={() => props.clickHandler(props.employee.userID)}
+      buttonFunction={() => props.clickHandler(props.employee.userID)}
     />
   );
 };

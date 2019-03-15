@@ -17,8 +17,8 @@ class EmployeeList extends Component {
   }
 
   cardHandleClick = id => {
-    this.props.history.push(`/dashboard/employees/${id}`)
-  }
+    this.props.history.push(`/dashboard/employees/${id}`);
+  };
 
   render() {
     return (
@@ -34,8 +34,12 @@ class EmployeeList extends Component {
         {this.props.employees.map(employee => {
           // need to have a shared info card
           return (
-            <EmployeeListItem key={employee.userID} employee={employee} clickHandler={this.cardHandleClick} />
-            );
+            <EmployeeListItem
+              key={employee.userID}
+              employee={employee}
+              clickHandler={this.cardHandleClick}
+            />
+          );
         })}
       </Container>
     );
