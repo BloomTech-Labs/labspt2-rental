@@ -1,19 +1,23 @@
 import React from 'react'
+import { Link } from 'react-router-dom'
 import { Header, Statistic, Label, Button } from 'semantic-ui-react'
 import { FlexRow, FlexColumn } from 'custom-components'
-import CheckoutDetailCard from './CheckoutDetailCard'
+import CheckoutEnvioceItemCard from './CheckoutEnvioceItemCard'
 
 const Checkout = () => {
   return (
     <FlexRow alignCenter justifyBetween style={{width: "650px"}}>
       <FlexColumn>
+
         <Header size='large' color='orange'>Booking ID: Some ID Number</Header>
         <Header size='medium'>Guest Name</Header>
         <p>email@email.com</p>
         <p>Phone Number</p>
-        <Label color='violet' horizontal>House 1</Label>
 
-        <FlexRow style={{paddingTop: "20px"}}>
+        <Label color='blue' horizontal style={{marginTop: "20px"}}>House 1</Label>
+        <Header>Address: Some Address, ST 12345</Header>
+
+        <FlexRow style={{paddingTop: "10px"}}>
           <Statistic size='tiny'>
             <Statistic.Label>Check-in</Statistic.Label>
             <Statistic.Value>1/27</Statistic.Value>
@@ -24,20 +28,22 @@ const Checkout = () => {
           </Statistic>
         </FlexRow> 
 
-        <CheckoutDetailCard />
+        <CheckoutEnvioceItemCard />
 
-        <FlexRow style={{paddingTop: "20px"}}>
+        <FlexRow style={{paddingTop: "10px"}}>
           <h2>Employee:</h2>
-          <Label color="grey">Name</Label>
+          <Label color="grey" style={{marginLeft: '10px'}}>Name</Label>
         </FlexRow>
 
-        <FlexRow>
+        <FlexRow style={{marginTop: "10px"}}>
           <h2>Billing Status:</h2>
-          <Label color='red'>Unpaid</Label>
+          <Label color='red' style={{marginLeft: '10px'}}>Unpaid</Label>
         </FlexRow>
 
-        <FlexRow>
-          <Button color='grey'>Exit</Button>
+        <FlexRow style={{marginTop: "10px"}}>
+          <Link to='/dashboard/reservations'>
+            <Button color='grey'>Exit</Button>
+          </Link>
           <Button color='teal'>Send Invoice</Button>
           <Button color='orange'>Process Payment</Button>
         </FlexRow>

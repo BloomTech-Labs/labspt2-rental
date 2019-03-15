@@ -3,7 +3,7 @@ import { Route, Link, withRouter } from 'react-router-dom'
 import { Segment, Menu, Sidebar, Icon, Header, Image } from 'semantic-ui-react'
 import { FlexRow, Container } from 'custom-components'
 import { Reservations } from '../Reservations'
-import { Checkout } from '../Reservations'
+import { Checkout } from '../Checkout'
 import { EmployeeList } from '../Employees'
 
 
@@ -20,7 +20,8 @@ class Dashboard extends Component {
 
     this.links = [
       { url: `/dashboard/reservations`, name: 'Reservations', icon: 'book' },
-      { url: `/dashboard/checkout`, name: 'Checkout', icon: 'cart' },
+      // I commented this line of code out because the checkout page should be accessed through clicking on a link on a reservations card; I added that onto the card
+      // { url: `/dashboard/checkout`, name: 'Checkout', icon: 'cart' },
       { url: `/dashboard/properties`, name: 'Properties', icon: 'home' },
       { url: `/dashboard/employees`, name: 'Employees', icon: 'address card' },
       { url: `/dashboard/tasks`, name: 'Tasks', icon: 'tasks' },
