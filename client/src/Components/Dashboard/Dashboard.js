@@ -6,6 +6,7 @@ import { Reservations } from "../Reservations";
 import { EmployeeList } from "../Employees";
 import { PropertyList } from "../Properties/PropList";
 
+
 class Dashboard extends Component {
   constructor(props) {
     super(props);
@@ -59,6 +60,7 @@ class Dashboard extends Component {
             ))}
           </Sidebar>
 
+<<<<<<< HEAD
           <Sidebar.Pusher as={Segment} style={{ marginLeft: "140px" }}>
             <Segment className="space-left-20">
               <Route
@@ -78,6 +80,18 @@ class Dashboard extends Component {
               {/*<Route path="/dashboard/tasks" render={() => <Tasks/>}/>*/}
               {/*<Route path="/dashboard/settings" render={() => <Settings/>}/>*/}
             </Segment>
+=======
+          <Sidebar.Pusher as={Segment} style={{marginLeft: "140px"}}>
+              <Segment className="space-left-20" >
+                <Route path="/dashboard/reservations" render={() => <Reservations/>}/>
+                <Route path="/dashboard/employees" render={props => <EmployeeList {...props}/>}/>
+                {/*TODO work on these pages*/}
+                <Route path="/dashboard/checkout" render={() => <Checkout/>}/>
+                {/*<Route path="/dashboard/properties" render={() => <Properties/>}/>*/}
+                {/*<Route path="/dashboard/tasks" render={() => <Tasks/>}/>*/}
+                {/*<Route path="/dashboard/settings" render={() => <Settings/>}/>*/}
+              </Segment>
+>>>>>>> 0ec7d1d9881e865f9dbac6a8d0d8dad616dba1d9
           </Sidebar.Pusher>
         </Sidebar.Pushable>
       </Container>
