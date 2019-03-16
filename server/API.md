@@ -24,7 +24,7 @@
 
 #### User Route Data Objects
 
-POST `/register`
+##### POST `/register`
 ---
 ```
 {
@@ -34,7 +34,7 @@ POST `/register`
 }
 ```
 
-POST `/login`
+##### POST `/login`
 ---
 ```
 {
@@ -43,7 +43,7 @@ POST `/login`
 }
 ```
 
-PUT `/me`
+##### PUT `/me`
 ---
 ```
 {

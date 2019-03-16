@@ -18,8 +18,8 @@ export const protectedRouter = app => {
     app.use('/api/tasks', taskRouter);
     app.use('/api/properties', propertyRouter);
     app.use('/api/discounts', discountRouter);
-    app.use('/api/billing-plans', billingPlanRouter);
-    app.use('/api/invoice-items', invoiceItemsRouter);
+    app.use('/api/billing', billingPlanRouter);
+    app.use('/api/invoice', invoiceItemsRouter);
   } catch (e) {
     console.error(e);
   }
