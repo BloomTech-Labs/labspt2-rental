@@ -87,3 +87,8 @@ code {
 .space-around-40 {
   margin: 40px!important;
 }
+
+.input-square input {
+  border-radius: 4px!important;
+  margin: 5px!important;
+}

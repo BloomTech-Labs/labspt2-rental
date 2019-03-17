@@ -5,6 +5,9 @@
   "dependencies": {
     "axios": "^0.18.0",
     "custom-components": "file:src/styled-components",
+    "config": "file:src/config",
+    "faker": "^4.1.0",
+    "lodash": "^4.17.11",
     "react": "^16.8.3",
     "react-dom": "^16.8.3",
     "react-redux": "^6.0.1",

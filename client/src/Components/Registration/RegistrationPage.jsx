@@ -74,7 +74,6 @@ class RegistrationPage extends Component {
 
             <FlexRow width="full" alignCenter justifyBetween>
               <Button>Login</Button>
-
               <Button color="green" type='submit'>Submit</Button>
             </FlexRow>
           </Form>
