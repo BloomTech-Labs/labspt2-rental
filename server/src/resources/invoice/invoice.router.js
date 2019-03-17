@@ -1,8 +1,7 @@
-import express from 'express';
-import controllers from './invoice.controllers';
+import { Router } from 'express';
+import { controllers } from './invoice.controllers';
 
-const { Router } = express;
-const router = Router;
+const router = Router();
 
 router
   .route('/')
