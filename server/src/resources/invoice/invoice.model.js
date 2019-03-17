@@ -6,22 +6,35 @@ const invoiceSchema = new Schema(
   {
     reservation: {
       type: mongoose.SchemaTypes.ObjectId,
-      ref: 'reservation'
+      ref: 'reservation',
+      required: [true, 'A reservation link is required']
     },
     createdBy: {
-      type: ''
+      type: mongoose.SchemaTypes.ObjectId,
+      ref: 'user',
+      required: [true, 'createdBy is a required field']
     },
-    lineItems: {
-      type: ''
-    },
-    discounts: {
-      type: ''
-    },
+    lineItems: [
+      {
+        type: mongoose.SchemaTypes.ObjectId,
+        ref: 'invoice-item',
+        required: [true, 'Invoice must have line items']
+      }
+    ],
+    discounts: [
+      {
+        type: mongoose.SchemaTypes.ObjectId,
+        ref: 'discount'
+      }
+    ],
     invoiceDate: {
-      type: ''
+      type: Date,
+      default: Date.now,
+      required: [true, 'An invoice date is required']
     },
     message: {
-      type: ''
+      type: String,
+      default: 'We hope you enjoyed your stay.'
     }
   },
   { timestamps: true }

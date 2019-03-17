@@ -3,20 +3,12 @@ import mongoose from 'mongoose';
 
 describe('Invoices model', () => {
   describe('schema', () => {
-    test('name', () => {
-      const { name } = Invoices.schema.obj;
-      expect(name).toEqual({
-        type: String,
-        required: [true, 'Employee name is a required field'],
-        maxlength: 100
-      });
-    });
-
-    test('user', () => {
-      const { user } = Invoices.schema.obj;
-      expect(user).toEqual({
+    test('reservation', () => {
+      const { reservation } = Invoices.schema.obj;
+      expect(reservation).toEqual({
         type: mongoose.SchemaTypes.ObjectId,
-        ref: 'user'
+        ref: 'reservation',
+        required: [true, 'A reservation link is required']
       });
     });
 
@@ -25,48 +17,45 @@ describe('Invoices model', () => {
       expect(createdBy).toEqual({
         type: mongoose.SchemaTypes.ObjectId,
         ref: 'user',
-        required: [true, 'createdBy is required']
+        required: [true, 'createdBy is a required field']
       });
     });
 
-    test('employer', () => {
-      const { employer } = Invoices.schema.obj;
-      expect(employer).toEqual({
-        type: mongoose.SchemaTypes.ObjectId,
-        ref: 'user',
-        required: [true, 'Employer is a required field']
+    test('lineItems', () => {
+      const { lineItems } = Invoices.schema.obj;
+      expect(lineItems).toEqual([
+        {
+          type: mongoose.SchemaTypes.ObjectId,
+          ref: 'invoice-item',
+          required: [true, 'Invoice must have line items']
+        }
+      ]);
+    });
+
+    test('discounts', () => {
+      const { discounts } = Invoices.schema.obj;
+      expect(discounts).toEqual([
+        {
+          type: mongoose.SchemaTypes.ObjectId,
+          ref: 'discount'
+        }
+      ]);
+    });
+
+    test('invoiceDate', () => {
+      const { invoiceDate } = Invoices.schema.obj;
+      expect(invoiceDate).toEqual({
+        type: Date,
+        default: Date.now,
+        required: [true, 'An invoice date is required']
       });
     });
 
-    test('baseAddress', () => {
-      const { baseAddress } = Invoices.schema.obj;
-      expect(baseAddress).toEqual({
+    test('message', () => {
+      const { message } = Invoices.schema.obj;
+      expect(message).toEqual({
         type: String,
-        required: [true, 'Employee must have an address']
-      });
-    });
-
-    test('taskPermission', () => {
-      const { taskPermission } = Invoices.schema.obj;
-      expect(taskPermission).toEqual({
-        type: Boolean,
-        default: false
-      });
-    });
-
-    test('propertyPermission', () => {
-      const { propertyPermission } = Invoices.schema.obj;
-      expect(propertyPermission).toEqual({
-        type: Boolean,
-        default: false
-      });
-    });
-
-    test('checkoutPermission', () => {
-      const { checkoutPermission } = Invoices.schema.obj;
-      expect(checkoutPermission).toEqual({
-        type: Boolean,
-        default: false
+        default: 'We hope you enjoyed your stay.'
       });
     });
   });
