@@ -3,6 +3,7 @@ import config from '../config';
 import { User } from '../resources/user/user.model';
 import { Property } from '../resources/property/property.model';
 import { Task } from '../resources/task/task.model';
+import { Reservation } from '../resources/reservations/reservations.model';
 
 export default async () => {
   if (config.isProd) {
@@ -130,6 +131,87 @@ export default async () => {
       });
     };
 
+    const seedReservations = (
+      managerId,
+      guestId,
+      assistantId,
+      properties,
+      tasks
+    ) => {
+      return new Promise((resolve, reject) => {
+        Reservation.find({ manager: managerId }, (err, reservations) => {
+          if (!reservations.length) {
+            let promiseArr = [];
+
+            for (let property of properties) {
+              let reservationsArr = [];
+              reservationsArr.push({
+                manager: managerId,
+                assistant: assistantId,
+                guest: guestId,
+                property: property._id,
+                checkIn: faker.date.soon(),
+                checkOut: faker.date.future(),
+                status: 'upcoming',
+                tasks: tasks.filter(t => t.property === property._id),
+                nights: faker.random.number({ min: 1, max: 5 }),
+                cleaningFee: faker.random.number({ min: 10, max: 100 }),
+                guests: faker.random.number({ min: 1, max: 4 }),
+                paid: true,
+                guestLoginCode: faker.random.uuid()
+              });
+
+              reservationsArr.push({
+                manager: managerId,
+                assistant: assistantId,
+                guest: guestId,
+                property: property._id,
+                checkIn: faker.date.recent(),
+                checkOut: faker.date.soon(),
+                status: 'incomplete',
+                tasks: tasks.filter(t => t.property === property._id),
+                nights: faker.random.number({ min: 1, max: 5 }),
+                cleaningFee: faker.random.number({ min: 10, max: 100 }),
+                guests: faker.random.number({ min: 1, max: 4 }),
+                paid: true,
+                guestLoginCode: faker.random.uuid()
+              });
+
+              reservationsArr.push({
+                manager: managerId,
+                assistant: assistantId,
+                guest: guestId,
+                property: property._id,
+                checkIn: faker.date.past(),
+                checkOut: faker.date.recent(),
+                status: 'complete',
+                tasks: tasks.filter(t => t.property === property._id),
+                nights: faker.random.number({ min: 1, max: 5 }),
+                cleaningFee: faker.random.number({ min: 10, max: 100 }),
+                guests: faker.random.number({ min: 1, max: 4 }),
+                paid: true,
+                guestLoginCode: faker.random.uuid()
+              });
+
+              promiseArr.push(
+                new Promise((rs, rj) => {
+                  Reservation.insertMany(reservationsArr, (err, docs) => {
+                    rs(docs);
+                  });
+                })
+              );
+            }
+
+            Promise.all(promiseArr).then(([insertedReservations]) =>
+              resolve(insertedReservations)
+            );
+          } else {
+            resolve(reservations);
+          }
+        });
+      });
+    };
+
     const [manager, employee, guest] = await Promise.all([
       seedManager,
       seedEmployee,
@@ -138,12 +220,20 @@ export default async () => {
 
     const properties = await seedProperties(manager._id, employee._id);
     const tasks = await seedTasks(manager._id, properties);
+    const reservations = await seedReservations(
+      manager._id,
+      guest._id,
+      employee._id,
+      properties,
+      tasks
+    );
 
     console.log('Seeded manager        :      ', !!manager._id);
     console.log('Seeded employee       :      ', !!employee._id);
     console.log('Seeded guest          :      ', !!guest._id);
     console.log('Seeded properties     :      ', !!properties[0]);
     console.log('Seeded tasks          :      ', !!tasks[0]);
+    console.log('Seeded reservations   :      ', !!reservations[0]);
 
     return tasks;
   }
