@@ -17,67 +17,27 @@ export default class Reservations extends Component {
     super(props);
 
     this.state = {
-      panes: []
+      page: 1,
+      pageSize: 10,
+      sort: "_id",
+      filter: { status: "upcoming" },
+      loading: true,
+      error: false,
+      tabs: ["Upcoming", "Incomplete", "Complete"],
+      reservations: []
     };
   }
 
   componentDidMount() {
-    const getReservations = this.props.getReservations;
+    const { page, pageSize, sort, filter } = this.state;
+    this.props.getReservations({ page, pageSize, sort, filter });
+  }
 
+  componentWillReceiveProps(nextProps) {
     this.setState({
-      panes: [
-        {
-          menuItem: "Upcoming",
-          render: () => (
-            <Tab.Pane attached={false}>
-              <ReservationList
-                status="upcoming"
-                getReservations={getReservations}
-              />
-            </Tab.Pane>
-          )
-        },
-        {
-          menuItem: "Incomplete",
-          render: () => (
-            <Tab.Pane attached={false}>
-              <ReservationList
-                status="incomplete"
-                getReservations={getReservations}
-              />
-            </Tab.Pane>
-          )
-        },
-        {
-          menuItem: "Complete",
-          render: () => (
-            <Tab.Pane attached={false}>
-              <ReservationList
-                status="complete"
-                getReservations={getReservations}
-              />
-            </Tab.Pane>
-          )
-        },
-        {
-          menuItem: (
-            <Search
-              style={{ flexGrow: 1, flexShrink: 0 }}
-              input={{
-                icon: "search",
-                iconPosition: "left",
-                className: "input-square",
-                fluid: true
-              }}
-              onSearchChange={_.debounce(this.handleSearchChange, 500, {
-                leading: true
-              })}
-              value={this.state.value}
-              {...this.props}
-            />
-          )
-        }
-      ]
+      reservations: nextProps.reservations,
+      loading: nextProps.loading,
+      error: nextProps.error
     });
   }
 
@@ -100,13 +60,50 @@ export default class Reservations extends Component {
     }, 300);
   };
 
+  handleTabChange = (e, data) => {
+    const { page, pageSize, sort, filter, tabs } = this.state;
+    this.setState({ filter: { status: tabs[data.activeIndex].toLowerCase() } });
+    this.props.getReservations({ page, pageSize, sort, filter });
+  };
+
   render() {
-    const { panes } = this.state;
+    const { tabs, reservations } = this.state;
 
     return (
       <FlexColumn>
         <Header as="h1">Reservations</Header>
-        <Tab menu={{ attached: false }} panes={panes} />
+        <Tab
+          onTabChange={this.handleTabChange}
+          menu={{ attached: false }}
+          panes={[
+            ...tabs.map(tab => ({
+              menuItem: tab,
+              render: () => (
+                <Tab.Pane attached={false}>
+                  <ReservationList status={tab} reservations={reservations} />
+                </Tab.Pane>
+              )
+            })),
+            {
+              menuItem: (
+                <Search
+                  style={{ flexGrow: 1, flexShrink: 0 }}
+                  input={{
+                    icon: "search",
+                    iconPosition: "left",
+                    className: "input-square",
+                    fluid: true
+                  }}
+                  onSearchChange={_.debounce(this.handleSearchChange, 500, {
+                    leading: true
+                  })}
+                  value={this.state.value}
+                  {...this.props}
+                />
+              )
+            }
+          ]}
+        />
       </FlexColumn>
     );
   }

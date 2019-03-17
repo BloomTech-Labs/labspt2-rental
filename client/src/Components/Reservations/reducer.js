@@ -2,11 +2,11 @@ import * as actions from "./actions";
 
 const initialState = {
   loading: false,
-  error: null,
-  reservations: null
+  error: false,
+  reservations: []
 };
 
-const registrationReducer = (state = initialState, action) => {
+const reservationsReducer = (state = initialState, action) => {
   switch (action.type) {
     case actions.RESERVATION_STARTED:
       return {
@@ -26,8 +26,8 @@ const registrationReducer = (state = initialState, action) => {
         error: action.error
       };
     default:
-      return state;
+      return { ...state };
   }
 };
 
-export default registrationReducer;
+export default reservationsReducer;

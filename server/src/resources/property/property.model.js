@@ -15,7 +15,7 @@ const propertySchema = new Schema(
         ref: 'user'
       }
     ],
-    manager: {
+    createdBy: {
       type: mongoose.SchemaTypes.ObjectId,
       ref: 'user'
     },
@@ -41,7 +41,8 @@ const propertySchema = new Schema(
     price: {
       type: Number,
       required: true
-    }
+    },
+    image: String
   },
   { timestamps: true }
 );

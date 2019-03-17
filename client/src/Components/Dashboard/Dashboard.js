@@ -61,24 +61,29 @@ class Dashboard extends Component {
           </Sidebar>
 
           <Sidebar.Pusher as={Segment} style={{ marginLeft: "140px" }}>
-            <Segment className="space-left-20">
-              <Route
-                path="/dashboard/reservations"
-                render={() => <Reservations />}
-              />
-              <Route
-                path="/dashboard/employees"
-                render={() => <EmployeeList />}
-              />
-              {/*TODO work on these pages*/}
-              {/*<Route path="/dashboard/checkout" render={() => <Checkout />} />*/}
-              <Route
-                path="/dashboard/properties"
-                render={() => <PropertyList />}
-              />
-              {/*<Route path="/dashboard/tasks" render={() => <Tasks/>}/>*/}
-              {/*<Route path="/dashboard/settings" render={() => <Settings/>}/>*/}
-            </Segment>
+            <FlexRow width="full" justifyCenter>
+              <Segment
+                className="space-left-20"
+                style={{ width: "fit-content" }}
+              >
+                <Route
+                  path="/dashboard/reservations"
+                  render={() => <Reservations />}
+                />
+                <Route
+                  path="/dashboard/employees"
+                  render={() => <EmployeeList />}
+                />
+                {/*TODO work on these pages*/}
+                {/*<Route path="/dashboard/checkout" render={() => <Checkout />} />*/}
+                <Route
+                  path="/dashboard/properties"
+                  render={() => <PropertyList />}
+                />
+                {/*<Route path="/dashboard/tasks" render={() => <Tasks/>}/>*/}
+                {/*<Route path="/dashboard/settings" render={() => <Settings/>}/>*/}
+              </Segment>
+            </FlexRow>
           </Sidebar.Pusher>
         </Sidebar.Pushable>
       </Container>

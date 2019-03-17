@@ -16,7 +16,9 @@ export default async () => {
             role: 'manager',
             username: 'test_manager',
             password: '12345',
-            email: 'manager@roostr.io'
+            email: 'manager@roostr.io',
+            firstName: faker.name.firstName(),
+            lastName: faker.name.lastName()
           })
             .then(created => {
               resolve(created);
@@ -35,7 +37,9 @@ export default async () => {
             role: 'employee',
             username: 'test_employee',
             password: '12345',
-            email: 'employee@roostr.io'
+            email: 'employee@roostr.io',
+            firstName: faker.name.firstName(),
+            lastName: faker.name.lastName()
           })
             .then(created => {
               resolve(created);
@@ -54,7 +58,9 @@ export default async () => {
             role: 'guest',
             username: 'test_guest',
             password: '12345',
-            email: 'guest@roostr.io'
+            email: 'guest@roostr.io',
+            firstName: faker.name.firstName(),
+            lastName: faker.name.lastName()
           })
             .then(created => {
               resolve(created);
@@ -68,7 +74,7 @@ export default async () => {
 
     const seedProperties = (managerId, employeeId) => {
       return new Promise((resolve, reject) => {
-        Property.find({ manager: managerId }, (err, properties) => {
+        Property.find({ createdBy: managerId }, (err, properties) => {
           if (!properties.length) {
             let propertiesArr = [];
 
@@ -76,12 +82,13 @@ export default async () => {
               propertiesArr.push({
                 name: 'House ' + (i + 1),
                 assistants: [employeeId],
-                manager: managerId,
+                createdBy: managerId,
                 address1: faker.address.streetAddress(),
                 city: faker.address.city(),
                 state: faker.address.state(),
                 zip: faker.address.zipCode(),
-                price: faker.random.number({ min: 50, max: 1000 })
+                price: faker.random.number({ min: 50, max: 1000 }),
+                image: faker.random.image()
               });
             }
 
@@ -139,14 +146,14 @@ export default async () => {
       tasks
     ) => {
       return new Promise((resolve, reject) => {
-        Reservation.find({ manager: managerId }, (err, reservations) => {
+        Reservation.find({ createdBy: managerId }, (err, reservations) => {
           if (!reservations.length) {
             let promiseArr = [];
 
             for (let property of properties) {
               let reservationsArr = [];
               reservationsArr.push({
-                manager: managerId,
+                createdBy: managerId,
                 assistant: assistantId,
                 guest: guestId,
                 property: property._id,
@@ -162,7 +169,7 @@ export default async () => {
               });
 
               reservationsArr.push({
-                manager: managerId,
+                createdBy: managerId,
                 assistant: assistantId,
                 guest: guestId,
                 property: property._id,
@@ -178,7 +185,7 @@ export default async () => {
               });
 
               reservationsArr.push({
-                manager: managerId,
+                createdBy: managerId,
                 assistant: assistantId,
                 guest: guestId,
                 property: property._id,

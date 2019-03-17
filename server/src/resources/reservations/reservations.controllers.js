@@ -3,7 +3,7 @@ import { Reservation } from './reservations.model';
 
 class ReservationControllers extends BaseController {
   constructor(mongooseModel) {
-    super(mongooseModel);
+    super(mongooseModel, ['property', 'guest']);
     this.mongooseModel = mongooseModel;
   }
 }

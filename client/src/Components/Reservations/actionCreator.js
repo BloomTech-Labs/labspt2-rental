@@ -9,14 +9,12 @@ export const getReservations = (filterSort = {}) => dispatch => {
 
   return axios
     .get(
-      `${
-        config.apiUrl
-      }/api/reservations?filter=${filter}&sort=${sort}&limit=${pageSize}&skip=${(page -
-        1) *
-        pageSize}`
+      `${config.apiUrl}/api/reservations?filter=${JSON.stringify(
+        filter
+      )}&sort=${sort}&limit=${pageSize}&skip=${(page - 1) * pageSize}`
     )
     .then(({ data }) => {
-      dispatch({ type: actions.RESERVATION_SUCCESS, reservations: data });
+      dispatch({ type: actions.RESERVATION_SUCCESS, reservations: data.data });
     })
     .catch(err => {
       dispatch({ type: actions.RESERVATION_FAILURE, error: err });

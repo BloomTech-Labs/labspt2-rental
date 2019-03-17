@@ -1,8 +1,9 @@
 import _ from 'lodash';
 
 export class BaseController {
-  constructor(mongooseModel) {
+  constructor(mongooseModel, populate) {
     this.mongooseModel = mongooseModel;
+    this.populate = populate;
   }
 
   createOne = async (req, res, next) => {
@@ -10,7 +11,6 @@ export class BaseController {
     _.isNil(req.user) ? (createdBy = 'default') : (createdBy = req.user._id);
 
     try {
-      console.log(req.body);
       const doc = await this.mongooseModel.create({ ...req.body, createdBy });
       res.status(201).json({ data: doc });
     } catch (e) {
@@ -23,7 +23,7 @@ export class BaseController {
       const doc = await this.mongooseModel
         .findOne({ createdBy: req.user._id, _id: req.params.id })
         .lean()
-        .populate()
+        .populate(this.populate)
         .exec();
 
       if (!doc) {
@@ -40,7 +40,7 @@ export class BaseController {
   };
 
   getMany = async (req, res, next) => {
-    let skip, limit, query, search, sort;
+    let skip, limit, query, sort;
 
     if (req.query.sort) {
       let order = -1;
@@ -71,8 +71,7 @@ export class BaseController {
     try {
       const docs = await this.mongooseModel
         .find({ ...query, createdBy: req.user._id })
-        .lean()
-        .populate()
+        .populate(this.populate)
         .sort(sort)
         .limit(limit)
         .skip(skip)
