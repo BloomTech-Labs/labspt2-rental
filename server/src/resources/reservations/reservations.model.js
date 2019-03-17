@@ -14,6 +14,11 @@ const reservationSchema = new Schema(
       ref: 'users',
       required: true
     },
+    guest: {
+      type: mongoose.Types.ObjectId,
+      ref: 'users',
+      required: true
+    },
     property: {
       type: mongoose.Types.ObjectId,
       ref: 'property',
@@ -25,25 +30,6 @@ const reservationSchema = new Schema(
     },
     checkOut: {
       type: Date,
-      required: true
-    },
-    address1: {
-      type: String,
-      required: true
-    },
-    address2: {
-      type: String
-    },
-    city: {
-      type: String,
-      required: true
-    },
-    state: {
-      type: String,
-      required: true
-    },
-    zip: {
-      type: String,
       required: true
     },
     status: {
@@ -78,5 +64,16 @@ const reservationSchema = new Schema(
   },
   { timestamps: true }
 );
+
+reservationSchema.index({
+  _id: 1,
+  'property.name': 1,
+  'property.address1': 1,
+  'property.address2': 1,
+  'property.city': 1,
+  'property.state': 1,
+  'guest.lastName': 1,
+  'assistant.lastName': 1
+});
 
 export const Reservation = mongoose.model('reservation', reservationSchema);

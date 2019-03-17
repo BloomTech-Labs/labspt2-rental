@@ -19,9 +19,24 @@ const propertySchema = new Schema(
       type: mongoose.SchemaTypes.ObjectId,
       ref: 'user'
     },
-    address: {
+    address1: {
       type: String,
-      required: [true, 'Address is a required field']
+      required: true
+    },
+    address2: {
+      type: String
+    },
+    city: {
+      type: String,
+      required: true
+    },
+    state: {
+      type: String,
+      required: true
+    },
+    zip: {
+      type: String,
+      required: true
     },
     price: {
       type: Number,

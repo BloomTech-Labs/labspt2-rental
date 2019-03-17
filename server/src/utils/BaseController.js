@@ -40,11 +40,42 @@ export class BaseController {
   };
 
   getMany = async (req, res, next) => {
+    let skip, limit, query, search, sort;
+
+    if (req.query.sort) {
+      let order = -1;
+      if (req.query.sort.substring(0, 1) === '-') {
+        order = 1;
+        req.query.sort = req.query.sort.substr(1);
+      }
+
+      sort = { [req.query.sort]: order };
+    }
+
+    if (req.query.skip) {
+      skip = +req.query.skip;
+    }
+
+    if (req.query.limit) {
+      limit = +req.query.limit;
+    }
+
+    if (req.query.filter) {
+      query = JSON.parse(req.query.filter);
+    }
+
+    if (req.query.search) {
+      query = { $text: { $search: req.query.search } };
+    }
+
     try {
       const docs = await this.mongooseModel
-        .find({ createdBy: req.user._id })
+        .find({ ...query, createdBy: req.user._id })
         .lean()
         .populate()
+        .sort(sort)
+        .limit(limit)
+        .skip(skip)
         .exec();
 
       res.status(200).json({ data: docs });

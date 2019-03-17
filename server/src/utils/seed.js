@@ -76,14 +76,10 @@ export default async () => {
                 name: 'House ' + (i + 1),
                 assistants: [employeeId],
                 manager: managerId,
-                address:
-                  faker.address.streetAddress() +
-                  ' ' +
-                  faker.address.city() +
-                  ' ' +
-                  faker.address.state() +
-                  ' ' +
-                  faker.address.zipCode(),
+                address1: faker.address.streetAddress(),
+                city: faker.address.city(),
+                state: faker.address.state(),
+                zip: faker.address.zipCode(),
                 price: faker.random.number({ min: 50, max: 1000 })
               });
             }
