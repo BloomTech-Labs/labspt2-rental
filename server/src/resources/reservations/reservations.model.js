@@ -4,14 +4,19 @@ const { Schema } = mongoose;
 
 const reservationSchema = new Schema(
   {
-    userID: {
+    manager: {
       type: mongoose.Types.ObjectId,
       ref: 'users',
       required: true
     },
-    house: {
+    assistant: {
       type: mongoose.Types.ObjectId,
-      ref: 'house',
+      ref: 'users',
+      required: true
+    },
+    property: {
+      type: mongoose.Types.ObjectId,
+      ref: 'property',
       required: true
     },
     checkIn: {

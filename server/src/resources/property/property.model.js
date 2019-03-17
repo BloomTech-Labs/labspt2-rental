@@ -15,7 +15,7 @@ const propertySchema = new Schema(
         ref: 'user'
       }
     ],
-    createdBy: {
+    manager: {
       type: mongoose.SchemaTypes.ObjectId,
       ref: 'user'
     },
@@ -26,13 +26,7 @@ const propertySchema = new Schema(
     price: {
       type: Number,
       required: true
-    },
-    tasks: [
-      {
-        type: mongoose.SchemaTypes.ObjectId,
-        ref: 'task'
-      }
-    ]
+    }
   },
   { timestamps: true }
 );
