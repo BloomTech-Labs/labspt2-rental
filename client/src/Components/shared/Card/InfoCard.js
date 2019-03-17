@@ -1,13 +1,16 @@
 import React from "react";
 import { Header, Image, Card, Button } from "semantic-ui-react";
-import { FlexRow } from "custom-components";
+import { FlexRow, FlexColumn } from "custom-components";
 
 const InfoCard = props => {
   return (
-    <Card className="info-card-main" raised>
-      <FlexRow>
+    <Card className="info-card-main" style={{ width: "60%" }} raised>
+      <FlexRow alignCenter justifyBetween>
         <Image src={props.imageLoc} size="small" />
-        <div className="card-info">
+        <FlexColumn
+          className="space-left-20"
+          style={{ width: "60%", padding: "5px" }}
+        >
           <Header>{props.header}</Header>
           {props.lineOneTitle ? (
             <p className="lineOne card-info">
@@ -31,7 +34,7 @@ const InfoCard = props => {
               </p>
             ) : null}
           </FlexRow>
-        </div>
+        </FlexColumn>
         <Button onClick={props.buttonFunction}>More Info</Button>
       </FlexRow>
     </Card>

@@ -8,17 +8,19 @@ import { statusHandler } from './utils/errorHandler';
 import { publicRouter, protectedRouter } from './resources/router';
 
 export const app = express();
+try {
+  app.use(cors());
+  app.use(morgan('dev'));
+  app.use(express.json());
+  app.set('view engine', 'pug');
+  app.use(bodyParser.urlencoded({ extended: false }));
 
-app.use(cors());
-app.use(express.json());
-app.use(bodyParser.urlencoded({ extended: false }));
-app.use(morgan('dev'));
-app.use(express.json());
-app.use(bodyParser.urlencoded({ extended: false }));
-
-publicRouter(app);
-protectedRouter(app);
-app.use(statusHandler);
+  publicRouter(app);
+  protectedRouter(app);
+  app.use(statusHandler);
+} catch (e) {
+  console.error(e);
+}
 
 export const start = async () => {
   try {

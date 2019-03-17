@@ -13,12 +13,16 @@ export const publicRouter = app => {
 };
 
 export const protectedRouter = app => {
-  app.use(protect);
-  app.use('/api/projects', projectRouter);
-  app.use('/api/tasks', taskRouter);
-  app.use('/api/properties', propertyRouter);
-  app.use('/api/discounts', discountRouter);
-  app.use('/api/billing-plans', billingPlanRouter);
-  app.use('/api/invoice-items', invoiceItemsRouter);
-  app.use('/api/reservations', reservationsRouter);
+  try {
+    app.use(protect);
+    app.use('/api/projects', projectRouter);
+    app.use('/api/tasks', taskRouter);
+    app.use('/api/properties', propertyRouter);
+    app.use('/api/discounts', discountRouter);
+    app.use('/api/billing-plans', billingPlanRouter);
+    app.use('/api/invoice-items', invoiceItemsRouter);
+    app.use('/api/reservations', reservationsRouter);
+  } catch (e) {
+    console.error(e);
+  }
 };
