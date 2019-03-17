@@ -13,55 +13,72 @@ const source = _.times(5, () => ({
 }));
 
 export default class Reservations extends Component {
-  constructor() {
-    super();
+  constructor(props) {
+    super(props);
 
-    this.state = {};
+    this.state = {
+      panes: []
+    };
+  }
 
-    this.panes = [
-      {
-        menuItem: "Upcoming",
-        render: () => (
-          <Tab.Pane attached={false}>
-            <ReservationList status="upcoming" />
-          </Tab.Pane>
-        )
-      },
-      {
-        menuItem: "Incomplete",
-        render: () => (
-          <Tab.Pane attached={false}>
-            <ReservationList status="incomplete" />
-          </Tab.Pane>
-        )
-      },
-      {
-        menuItem: "Complete",
-        render: () => (
-          <Tab.Pane attached={false}>
-            <ReservationList status="complete" />
-          </Tab.Pane>
-        )
-      },
-      {
-        menuItem: (
-          <Search
-            style={{ flexGrow: 1, flexShrink: 0 }}
-            input={{
-              icon: "search",
-              iconPosition: "left",
-              className: "input-square",
-              fluid: true
-            }}
-            onSearchChange={_.debounce(this.handleSearchChange, 500, {
-              leading: true
-            })}
-            value={this.state.value}
-            {...this.props}
-          />
-        )
-      }
-    ];
+  componentDidMount() {
+    const getReservations = this.props.getReservations;
+
+    this.setState({
+      panes: [
+        {
+          menuItem: "Upcoming",
+          render: () => (
+            <Tab.Pane attached={false}>
+              <ReservationList
+                status="upcoming"
+                getReservations={getReservations}
+              />
+            </Tab.Pane>
+          )
+        },
+        {
+          menuItem: "Incomplete",
+          render: () => (
+            <Tab.Pane attached={false}>
+              <ReservationList
+                status="incomplete"
+                getReservations={getReservations}
+              />
+            </Tab.Pane>
+          )
+        },
+        {
+          menuItem: "Complete",
+          render: () => (
+            <Tab.Pane attached={false}>
+              <ReservationList
+                status="complete"
+                getReservations={getReservations}
+              />
+            </Tab.Pane>
+          )
+        },
+        {
+          menuItem: (
+            <Search
+              style={{ flexGrow: 1, flexShrink: 0 }}
+              input={{
+                icon: "search",
+                iconPosition: "left",
+                className: "input-square",
+                fluid: true
+              }}
+              onSearchChange={_.debounce(this.handleSearchChange, 500, {
+                leading: true
+              })}
+              value={this.state.value}
+              {...this.props}
+            />
+          )
+        }
+      ]
+    });
   }
 
   resetComponent = () =>
@@ -84,10 +101,12 @@ export default class Reservations extends Component {
   };
 
   render() {
+    const { panes } = this.state;
+
     return (
       <FlexColumn>
         <Header as="h1">Reservations</Header>
-        <Tab menu={{ attached: false }} panes={this.panes} />
+        <Tab menu={{ attached: false }} panes={panes} />
       </FlexColumn>
     );
   }

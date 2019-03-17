@@ -1,1 +1,1 @@
-export { default as LoginPage } from './container'
+export { default as LoginPage } from "./container";

@@ -1,16 +1,14 @@
 import { connect } from "react-redux";
-import { registerUser } from "./actionCreator";
+import { getReservations } from "./actionCreator";
 import Reservations from "./Reservations";
 
-const mapStateToProps = ({ registration }) => ({
-  registration
-});
-
-const mapDispatchToProps = () => ({
-  registerUser
+const mapStateToProps = ({ loading, error, reservations }) => ({
+  loading,
+  error,
+  reservations
 });
 
 export default connect(
   mapStateToProps,
-  { registerUser }
+  { getReservations }
 )(Reservations);

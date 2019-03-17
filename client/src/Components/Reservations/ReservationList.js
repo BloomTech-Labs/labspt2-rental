@@ -4,8 +4,22 @@ import { FlexColumn, FlexRow, Divider } from "custom-components";
 import ReservationListItem from "./ReservationListItem";
 
 export default class ReservationList extends Component {
-  constructor() {
-    super();
+  constructor(props) {
+    super(props);
+    console.log(props);
+    this.state = {
+      page: 1,
+      pageSize: 10
+    };
+  }
+
+  componentDidMount() {
+    const { page, pageSize } = this.state;
+    this.props.getReservations({ page, pageSize });
+  }
+
+  componentWillReceiveProps(nextProps) {
+    console.log("next props", nextProps);
   }
 
   render() {
