@@ -47,6 +47,8 @@ userSchema.pre('save', function(next) {
   });
 });
 
+userSchema.index({ '$**': 'text' });
+
 userSchema.methods.checkPassword = function(password) {
   const passwordHash = this.password;
   return new Promise((resolve, reject) => {

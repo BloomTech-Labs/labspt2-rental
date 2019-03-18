@@ -1,7 +1,8 @@
 import React, { Component } from "react";
-import { Header, Tab, Search, Button } from "semantic-ui-react";
+import { Header, Tab, Button } from "semantic-ui-react";
 import { FlexColumn, FlexRow } from "custom-components";
 import ReservationList from "./ReservationList";
+import Search from "../shared/Search/Search";
 import faker from "faker";
 import _ from "lodash";
 
@@ -18,9 +19,10 @@ export default class Reservations extends Component {
 
     this.state = {
       page: 1,
-      pageSize: 10,
+      pageSize: 5,
       sort: "_id",
       filter: { status: "upcoming" },
+      search: "",
       loading: true,
       error: false,
       tabs: ["Upcoming", "Incomplete", "Complete"],
@@ -41,28 +43,17 @@ export default class Reservations extends Component {
     });
   }
 
-  resetComponent = () =>
-    this.setState({ isLoading: false, results: [], value: "" });
-
-  handleSearchChange = (e, { value }) => {
-    this.setState({ isLoading: true, value });
-
-    setTimeout(() => {
-      if (this.state.value.length < 1) return this.resetComponent();
-
-      const re = new RegExp(_.escapeRegExp(this.state.value), "i");
-      const isMatch = result => re.test(result.title);
-
-      this.setState({
-        isLoading: false,
-        results: _.filter(source, isMatch)
-      });
-    }, 300);
+  handleSearchChange = value => {
+    const { page, pageSize, sort, filter } = this.state;
+    const search = value || "";
+    this.setState({ search });
+    this.props.getReservations({ page, pageSize, sort, search, filter });
   };
 
   handleTabChange = (e, data) => {
-    const { page, pageSize, sort, filter, tabs } = this.state;
-    this.setState({ filter: { status: tabs[data.activeIndex].toLowerCase() } });
+    const { page, pageSize, sort, tabs } = this.state;
+    const filter = { status: tabs[data.activeIndex].toLowerCase() };
+    this.setState({ filter });
     this.props.getReservations({ page, pageSize, sort, filter });
   };
 
@@ -85,22 +76,7 @@ export default class Reservations extends Component {
               )
             })),
             {
-              menuItem: (
-                <Search
-                  style={{ flexGrow: 1, flexShrink: 0 }}
-                  input={{
-                    icon: "search",
-                    iconPosition: "left",
-                    className: "input-square",
-                    fluid: true
-                  }}
-                  onSearchChange={_.debounce(this.handleSearchChange, 500, {
-                    leading: true
-                  })}
-                  value={this.state.value}
-                  {...this.props}
-                />
-              )
+              menuItem: <Search onChange={this.handleSearchChange} />
             }
           ]}
         />

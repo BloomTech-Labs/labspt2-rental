@@ -47,4 +47,6 @@ const propertySchema = new Schema(
   { timestamps: true }
 );
 
+propertySchema.index({ '$**': 'text' });
+
 export const Property = mongoose.model('property', propertySchema);

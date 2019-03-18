@@ -1,9 +1,10 @@
 import _ from 'lodash';
 
 export class BaseController {
-  constructor(mongooseModel, populate) {
+  constructor(mongooseModel, lookup, search) {
     this.mongooseModel = mongooseModel;
-    this.populate = populate;
+    this.lookup = lookup;
+    this.search = search;
   }
 
   createOne = async (req, res, next) => {
@@ -40,7 +41,36 @@ export class BaseController {
   };
 
   getMany = async (req, res, next) => {
-    let skip, limit, query, sort;
+    let pipeline = [];
+
+    if (this.lookup && this.lookup.length) {
+      pipeline.push(...this.lookup);
+    }
+
+    if (req.query.filter) {
+      const filter = { $match: JSON.parse(req.query.filter) };
+      pipeline.push(filter);
+    }
+
+    if (req.query.search && this.search && this.search.length) {
+      const match = new RegExp(req.query.search, 'i');
+      const searchFields = this.search.reduce(
+        ($match, field) => {
+          $match['$match']['$or'].push({ [field]: match });
+          return $match;
+        },
+        { $match: { $or: [] } }
+      );
+
+      pipeline.push(searchFields);
+    }
+
+    if (this.lookup && this.lookup.length) {
+      const unwindFields = this.lookup.map(l => ({
+        $unwind: '$' + l['$lookup'].as
+      }));
+      pipeline.push(...unwindFields);
+    }
 
     if (req.query.sort) {
       let order = -1;
@@ -49,39 +79,28 @@ export class BaseController {
         req.query.sort = req.query.sort.substr(1);
       }
 
-      sort = { [req.query.sort]: order };
+      pipeline.push({ $sort: { [req.query.sort]: order } });
     }
 
     if (req.query.skip) {
-      skip = +req.query.skip;
+      const skip = +req.query.skip;
+      pipeline.push({ $skip: skip });
     }
 
     if (req.query.limit) {
-      limit = +req.query.limit;
+      const limit = +req.query.limit;
+      pipeline.push({ $limit: limit });
     }
 
-    if (req.query.filter) {
-      query = JSON.parse(req.query.filter);
-    }
+    console.log(pipeline);
 
-    if (req.query.search) {
-      query = { $text: { $search: req.query.search } };
-    }
-
-    try {
-      const docs = await this.mongooseModel
-        .find({ ...query, createdBy: req.user._id })
-        .populate(this.populate)
-        .sort(sort)
-        .limit(limit)
-        .skip(skip)
-        .exec();
+    this.mongooseModel.aggregate(pipeline, (err, docs) => {
+      if (err) {
+        return next(err);
+      }
 
       res.status(200).json({ data: docs });
-    } catch (e) {
-      console.error(e);
-      next(e);
-    }
+    });
   };
 
   updateOne = async (req, res, next) => {

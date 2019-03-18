@@ -14,7 +14,7 @@ export default class ReservationList extends Component {
 
   componentWillReceiveProps(nextProps) {
     this.setState({
-      reservations: nextProps.reservations.slice(0, 5),
+      reservations: nextProps.reservations,
       status: nextProps.status
     });
   }
