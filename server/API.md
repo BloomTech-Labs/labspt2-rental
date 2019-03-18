@@ -159,9 +159,9 @@ All endpoints expect a matching object to the Tasks Model
 {
   _id: UUID,
   name: STRING, required, unique
-  **assistants: ARRAY, of employee userIDs, (employee foreign key? User foreign key?)
+  **assistants: ARRAY, of employee userIDs, (employee foreign key? User foreign key?) (should be called employees)
   **createdBy: OBJECT, user foreign key?
-  address: STRING, required
+  **address: STRING, required (should be object of strings, not string for all address properties)
   price: NUMBER, required
   tasks: ARRAY, task foregin key, task_id
 
@@ -180,8 +180,6 @@ All endpoints expect a matching object to the Tasks Model
 
 #### Property Route Data Objects
 
-##### POST `/register`
-
 All endpoints expect a matching object to the Tasks Model
 
 
@@ -196,13 +194,38 @@ All endpoints expect a matching object to the Tasks Model
 
 
 
+### Billing Plans
 
+#### Billing Plans Model
+---
+```
+{
+  _id: UUID,
+  name: STRING, required, ['Free', 'Midlevel', 'Enterprise']
+  perPropertyPrice: NUMBER, required
+  perTransactionFee: NUMBER, required
+}
+```
 
 #### Billing Plan Routes
 
 | Method | Endpoint                        | Access Control        | Description                                      |
 |--------|---------------------------------|-----------------------|--------------------------------------------------|
-| GET    | `/api/billing/`                   | coordinators, donors  | Returns all stories                              |
+| GET    | `/api/billing/`                 | Owner                 | Returns all billing plans                        |
+| GET    | `/api/billing/:id`              | Owner                 | Returns billing plan by id                       |
+
+
+#### Billing Plan Route Data Objects
+
+All endpoints expect a matching object to the Tasks Model
+
+
+#### Billing Plan Actions
+
+`getMany()` -> Returns all billing plans
+`getOne(id)` -> Returns billing plan by ID
+
+
 
 #### Invoice Items Routes
 
