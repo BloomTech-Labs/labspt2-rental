@@ -1,10 +1,12 @@
 import _ from 'lodash';
 
 export class BaseController {
-  constructor(mongooseModel, lookup, search) {
+  constructor(mongooseModel, opts = {}) {
+    const { lookup, search, populate } = opts;
     this.mongooseModel = mongooseModel;
     this.lookup = lookup;
     this.search = search;
+    this.populate = populate;
   }
 
   createOne = async (req, res, next) => {
@@ -41,15 +43,24 @@ export class BaseController {
   };
 
   getMany = async (req, res, next) => {
-    let pipeline = [];
+    let pipeline = [],
+      _filter,
+      _sort,
+      _skip,
+      _limit,
+      _populate;
 
     if (this.lookup && this.lookup.length) {
       pipeline.push(...this.lookup);
     }
 
+    pipeline.push({ $match: { createdBy: req.user._id } });
+
     if (req.query.filter) {
       const filter = { $match: JSON.parse(req.query.filter) };
       pipeline.push(filter);
+
+      _filter = JSON.parse(req.query.filter); // for normal query
     }
 
     if (req.query.search && this.search && this.search.length) {
@@ -79,28 +90,56 @@ export class BaseController {
         req.query.sort = req.query.sort.substr(1);
       }
 
-      pipeline.push({ $sort: { [req.query.sort]: order } });
+      const sort = { [req.query.sort]: order };
+
+      pipeline.push({ $sort: sort });
+
+      _sort = sort; // for normal query
     }
 
     if (req.query.skip) {
       const skip = +req.query.skip;
       pipeline.push({ $skip: skip });
+
+      _skip = skip;
     }
 
     if (req.query.limit) {
       const limit = +req.query.limit;
       pipeline.push({ $limit: limit });
+
+      _limit = limit;
     }
 
     console.log(pipeline);
 
-    this.mongooseModel.aggregate(pipeline, (err, docs) => {
-      if (err) {
-        return next(err);
-      }
+    // If no lookup provided do a normal query, otherwise do an aggregation
+    if (!this.lookup) {
+      _populate = this.populate && this.populate.length ? this.populate : '';
 
-      res.status(200).json({ data: docs });
-    });
+      try {
+        const docs = await this.mongooseModel
+          .find({ ..._filter, createdBy: req.user._id })
+          .lean()
+          .populate(_populate)
+          .sort(_sort)
+          .limit(_limit)
+          .skip(_skip)
+          .exec();
+        console.log(docs);
+        res.status(200).json({ data: docs });
+      } catch (e) {
+        next(e);
+      }
+    } else {
+      this.mongooseModel.aggregate(pipeline, (err, docs) => {
+        if (err) {
+          return next(err);
+        }
+
+        res.status(200).json({ data: docs });
+      });
+    }
   };
 
   updateOne = async (req, res, next) => {

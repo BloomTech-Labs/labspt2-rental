@@ -33,7 +33,7 @@ class ReservationControllers extends BaseController {
       '_id'
     ];
 
-    super(mongooseModel, lookup, search);
+    super(mongooseModel, { lookup, search });
     this.mongooseModel = mongooseModel;
   }
 }
