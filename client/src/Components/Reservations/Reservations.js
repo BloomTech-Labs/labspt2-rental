@@ -3,15 +3,6 @@ import { Header, Tab, Button } from "semantic-ui-react";
 import { FlexColumn, FlexRow } from "custom-components";
 import ReservationList from "./ReservationList";
 import Search from "../shared/Search/Search";
-import faker from "faker";
-import _ from "lodash";
-
-const source = _.times(5, () => ({
-  title: faker.company.companyName(),
-  description: faker.company.catchPhrase(),
-  image: faker.internet.avatar(),
-  price: faker.finance.amount(0, 100, 2, "$")
-}));
 
 export default class Reservations extends Component {
   constructor(props) {

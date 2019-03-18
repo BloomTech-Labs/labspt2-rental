@@ -16,6 +16,7 @@ export default class extends Component {
     return (
       <Debounce time="500" handler="onSearchChange">
         <Search
+          showNoResults={false}
           style={{ flexGrow: 1, flexShrink: 0 }}
           input={{
             icon: "search",
