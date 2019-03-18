@@ -176,11 +176,11 @@ All endpoints expect a matching object to the Tasks Model
 | POST   | `/api/properties/`              | Owner               | Adds new property                                  |
 | GET    | `/api/properties/:id`           | Owner, Employee     | Returns a single property's data                   |
 | PUT    | `/api/properties/:id`           | Owner               | Updates a single property's data                   |
-| DELETE | `/api/properties/:id`           | Owner               | Deletes a single property's data                  |
+| DELETE | `/api/properties/:id`           | Owner               | Deletes a single property's data                   |
 
 #### Property Route Data Objects
 
-All endpoints expect a matching object to the Tasks Model
+All endpoints expect a matching object to the Property Model
 
 
 #### Proprty Actions
@@ -215,11 +215,6 @@ All endpoints expect a matching object to the Tasks Model
 | GET    | `/api/billing/:id`              | Owner                 | Returns billing plan by id                       |
 
 
-#### Billing Plan Route Data Objects
-
-All endpoints expect a matching object to the Tasks Model
-
-
 #### Billing Plan Actions
 
 `getMany()` -> Returns all billing plans
@@ -227,14 +222,92 @@ All endpoints expect a matching object to the Tasks Model
 
 
 
+### Invoice Items Plans
+
+#### Invoice Items Plans Model
+---
+```
+{
+  _id: UUID,
+  name: STRING, required, max 100 chars
+  description: STRING, max 500 chars
+  price: NUMBER, required, >=0
+  owner: user foreign key, user_id
+  defaultItem: BOOLEAN, required, default = false
+  lastUsed: DATE, required, default = now
+}
+```
+
 #### Invoice Items Routes
 
-| Method | Endpoint                        | Access Control        | Description                                      |
-|--------|---------------------------------|-----------------------|--------------------------------------------------|
-| GET    | `/api/invoice/`                   | coordinators, donors  | Returns all stories                              |
+| Method | Endpoint                        | Access Control      | Description                                        |
+|--------|---------------------------------|---------------------|----------------------------------------------------|
+| GET    | `/api/invoice/`                 | Owner, Employee     | Returns all invoice items for that owner? property?|
+| POST   | `/api/invoice/`                 | Owner               | Adds new invoice item                              |
+| GET    | `/api/invoice/:id`              | Owner, Employee     | Returns a single invoice's data                    |
+| PUT    | `/api/invoice/:id`              | Owner               | Updates a single invoice's data                    |
+| DELETE | `/api/invoice/:id`              | Owner               | Deletes a single invoice's data                    |
+
+#### Invoice Item Route Data Objects
+
+All endpoints expect a matching object to the Invoice Item Model
 
 
-## models
+#### Proprty Actions
+
+`createOne(invoiceItem)` -> Creates new invoice item
+** `getMany()` -> Returns invoice items created by that Owner?
+`getOne(id)` -> Returns invoice item by ID
+`updateOne(id)` -> Updates invoice item by ID
+`removeOne(id)` -> Deletes invoice item by ID
+
+
+
+
+
+
+### Discounts Plans
+
+#### Discounts Plans Model
+---
+```
+{
+  _id: UUID,
+  name: STRING, required, max 100 chars
+  description: STRING, max 500 chars
+  discountPercentage: NUMBER, required, 0 <= x <= 1
+  owner: user foreign key, user_id
+  lastUsed: DATE, required, default = now
+}
+```
+
+#### Discounts Routes
+
+| Method | Endpoint                        | Access Control      | Description                                        |
+|--------|---------------------------------|---------------------|----------------------------------------------------|
+| GET    | `/api/discounts/`                 | Owner, Employee     | Returns all discounts for that owner             |
+| POST   | `/api/discounts/`                 | Owner               | Adds new discount                                |
+| GET    | `/api/discounts/:id`              | Owner, Employee     | Returns a single discount's data                 |
+| PUT    | `/api/discounts/:id`              | Owner               | Updates a single discount's data                 |
+| DELETE | `/api/discounts/:id`              | Owner               | Deletes a single discount's data                 |
+
+#### Discounts Route Data Objects
+
+All endpoints expect a matching object to the Discounts Item Model
+
+
+#### Proprty Actions
+
+`createOne(invoiceItem)` -> Creates new discount
+** `getMany()` -> Returns discounts created by that Owner?
+`getOne(id)` -> Returns discount by ID
+`updateOne(id)` -> Updates discount by ID
+`removeOne(id)` -> Deletes discount by ID
+
+
+
+
+
 
 #### Example
 ---
