@@ -97,7 +97,7 @@ All endpoints expect a matching object to the Employee Model
 #### User actions
 
 `createOne(employee)` -> Creates employee
-`getMany()` -> Returns employees created by that Owner
+** `getMany()` -> Returns employees created by that Owner
 `getOne(id)` -> Returns employee by ID
 `updateOne(id)` -> Updates employee by ID
 `removeOne(id)` -> Deletes employee by ID
@@ -126,51 +126,26 @@ All endpoints expect a matching object to the Employee Model
 
 #### Tasks Routes
 
-| Method | Endpoint                        | Access Control         | Description                                      |
-|--------|---------------------------------|------------------------|--------------------------------------------------|
-| GET    | `/api/tasks/`                   | Owner, Employee        | Returns all task lists                           |
-| POST   | `/api/tasks/`                   | Owner                  | Add new task list                                |
-| GET    | `/api/tasks/:id`                |     |              |
-| PUT    | `/api/tasks/:id`                |     |              |
-| DELETE | `/api/tasks/:id`                |     |              |
+| Method | Endpoint                        | Access Control                  | Description                             |
+|--------|---------------------------------|---------------------------------|-----------------------------------------|
+| GET    | `/api/tasks/`                   | Owner, Employee(w/ permissions) | Returns all task lists                  |
+| POST   | `/api/tasks/`                   | Owner, Employee(w/ permissions) | Add new task list                       |
+| GET    | `/api/tasks/:id`                | Owner, Employee(w/ permissions) | Returns a single task list's data       |
+| PUT    | `/api/tasks/:id`                | Owner, Employee(w/ permissions) | Updates a single task list's data       |
+| DELETE | `/api/tasks/:id`                | Owner, Employee(w/ permissions) | Deletes a single task list's data       |
 
 
 #### Task Route Data Objects
 
-##### POST `/register`
----
-```
-{
-  username: STRING, required, unique, max 50 chars
-  password: STRING, required
-  email: STRING, required, unique
-}
-```
-
-##### POST `/login`
----
-```
-{
-  password: STRING, required
-  email: STRING, required
-}
-```
-
-##### PUT `/me`
----
-```
-{
-  username: STRING, required, unique, max 50 chars
-  password: STRING, required
-  email: STRING, required, unique
-}
-```
+All endpoints expect a matching object to the Tasks Model
 
 #### Task Actions
 
-`me(userID)` -> Returns user by ID
-
-`updateMe(userID)` -> Updates user by user ID
+`createOne(tasks)` -> Creates task
+** `getMany()` -> Returns tasks created by that Owner? Employee?
+`getOne(id)` -> Returns task list by ID
+`updateOne(id)` -> Updates task list by ID
+`removeOne(id)` -> Deletes task list by ID
 
 
 
