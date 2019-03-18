@@ -303,23 +303,3 @@ All endpoints expect a matching object to the Discounts Item Model
 `getOne(id)` -> Returns discount by ID
 `updateOne(id)` -> Updates discount by ID
 `removeOne(id)` -> Deletes discount by ID
-
-
-
-
-
-
-#### Example
----
-```
-{
-  id: UUID
-  username: STRING, unique, max 100 chars
-  password: STRING
-  email: STRING, unique
-  role: STRING [ 'Coordinator', 'Donor' ]
-  country: STRING [ 'Bolivia', 'Brazil', 'Cambodia', 'Colombia', 'Ecuador', 'El Salvador', 'Ghana', 'Guatemala', 'Haiti', 'Honduras', 'Kiribati', 'Madagascar', 'Mongolia', 'Nicaragua', 'Paraguay', 'Peru', 'Philippines', 'Sierra Leone', 'Zimbabwe' ]
-  organization_title: STRING
-  created_at: DATE & TIME STRING in YYYY-MM-DD [ 0 - 23 ] [HH:MM:SS]
-}
-```
