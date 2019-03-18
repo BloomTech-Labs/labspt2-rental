@@ -10,7 +10,7 @@ export default class Reservations extends Component {
 
     this.state = {
       page: 1,
-      pageSize: 5,
+      pageSize: 4,
       sort: "_id",
       filter: { status: "upcoming" },
       search: "",
@@ -49,7 +49,7 @@ export default class Reservations extends Component {
   };
 
   render() {
-    const { tabs, reservations } = this.state;
+    const { tabs, reservations, page, pageSize } = this.state;
 
     return (
       <FlexColumn>
@@ -62,7 +62,12 @@ export default class Reservations extends Component {
               menuItem: tab,
               render: () => (
                 <Tab.Pane attached={false}>
-                  <ReservationList status={tab} reservations={reservations} />
+                  <ReservationList
+                    status={tab}
+                    reservations={reservations}
+                    page={page}
+                    pageSize={pageSize}
+                  />
                 </Tab.Pane>
               )
             })),
