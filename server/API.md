@@ -87,7 +87,7 @@
 | POST   | `/api/employees/`               | Owner               | Allows a valid user to access the application      |
 | GET    | `/api/employees/:id`            | Owner, Employee     | Returns a single employees's data                  |
 | PUT    | `/api/employees/:id`            | Owner               | Updates a single employee's data                   |
-| DELETE | `/api/employees/:id`            | Owner               | Delete's a single employee's data                  |
+| DELETE | `/api/employees/:id`            | Owner               | Deletes a single employee's data                   |
 
 
 #### Employee Route Data Objects
@@ -158,59 +158,40 @@ All endpoints expect a matching object to the Tasks Model
 ```
 {
   _id: UUID,
-  description: STRING, required, max 200 chars,
-  createdBy: userID, required,
-  startDate: Date,
-  endDate: Date,
-  completed: Boolean, required,
-  house: propertyID,
-  reservation: reservationID
+  name: STRING, required, unique
+  **assistants: ARRAY, of employee userIDs, (employee foreign key? User foreign key?)
+  **createdBy: OBJECT, user foreign key?
+  address: STRING, required
+  price: NUMBER, required
+  tasks: ARRAY, task foregin key, task_id
+
 }
 ```
 
 #### Properties Routes
 
-| Method | Endpoint                        | Access Control        | Description                                      |
-|--------|---------------------------------|-----------------------|--------------------------------------------------|
-| GET    | `/api/properties/`                   | coordinators, donors  | Returns all stories                         |
-
+| Method | Endpoint                        | Access Control      | Description                                        |
+|--------|---------------------------------|---------------------|----------------------------------------------------|
+| GET    | `/api/properties/`              | Owner, Employee     | Returns all properties for that owner              |
+| POST   | `/api/properties/`              | Owner               | Adds new property                                  |
+| GET    | `/api/properties/:id`           | Owner, Employee     | Returns a single property's data                   |
+| PUT    | `/api/properties/:id`           | Owner               | Updates a single property's data                   |
+| DELETE | `/api/properties/:id`           | Owner               | Deletes a single property's data                  |
 
 #### Property Route Data Objects
 
 ##### POST `/register`
----
-```
-{
-  username: STRING, required, unique, max 50 chars
-  password: STRING, required
-  email: STRING, required, unique
-}
-```
 
-##### POST `/login`
----
-```
-{
-  password: STRING, required
-  email: STRING, required
-}
-```
+All endpoints expect a matching object to the Tasks Model
 
-##### PUT `/me`
----
-```
-{
-  username: STRING, required, unique, max 50 chars
-  password: STRING, required
-  email: STRING, required, unique
-}
-```
 
 #### Proprty Actions
 
-`me(userID)` -> Returns user by ID
-
-`updateMe(userID)` -> Updates user by user ID
+`createOne(property)` -> Creates new property
+** `getMany()` -> Returns properties created by that Owner?
+`getOne(id)` -> Returns property by ID
+`updateOne(id)` -> Updates property by ID
+`removeOne(id)` -> Deletes property by ID
 
 
 
