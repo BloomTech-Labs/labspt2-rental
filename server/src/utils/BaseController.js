@@ -126,7 +126,7 @@ export class BaseController {
           .limit(_limit)
           .skip(_skip)
           .exec();
-        console.log(docs);
+
         res.status(200).json({ data: docs });
       } catch (e) {
         next(e);

@@ -44,11 +44,11 @@ describe('Task model', () => {
       });
     });
 
-    test('house', () => {
-      const { house } = Task.schema.obj;
-      expect(house).toEqual({
+    test('property', () => {
+      const { property } = Task.schema.obj;
+      expect(property).toEqual({
         type: mongoose.SchemaTypes.ObjectId,
-        ref: 'house'
+        ref: 'property'
       });
     });
 
