@@ -1,6 +1,6 @@
-## API Documentation
+# API Documentation
 
-### Users
+## Users
 
 #### User Model
 ---
@@ -61,7 +61,7 @@
 
 
 
-### Employees
+## Employees
 
 #### Employee Model
 ---
@@ -111,7 +111,7 @@ All endpoints expect a matching object to the Employee Model
 
 
 
-### Tasks
+## Tasks
 
 #### Tasks Model
 ---
@@ -159,7 +159,7 @@ All endpoints expect a matching object to the Tasks Model
 
 
 
-### Properties
+## Properties
 
 #### Properties Model
 ---
@@ -206,7 +206,7 @@ All endpoints expect a matching object to the Property Model
 
 
 
-### Billing Plans
+## Billing Plans
 
 #### Billing Plans Model
 ---
@@ -235,9 +235,9 @@ All endpoints expect a matching object to the Property Model
 
 
 
-### Invoice Items Plans
+## Invoice Items
 
-#### Invoice Items Plans Model
+#### Invoice Items Model
 ---
 ```
 {
@@ -283,9 +283,9 @@ All endpoints expect a matching object to the Invoice Item Model
 
 
 
-### Discounts Plans
+## Discounts
 
-#### Discounts Plans Model
+#### Discounts Model
 ---
 ```
 {
