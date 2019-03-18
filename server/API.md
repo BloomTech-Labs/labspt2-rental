@@ -97,9 +97,13 @@ All endpoints expect a matching object to the Employee Model
 #### User actions
 
 `createOne(employee)` -> Creates employee
+
 ** `getMany()` -> Returns employees created by that Owner
+
 `getOne(id)` -> Returns employee by ID
+
 `updateOne(id)` -> Updates employee by ID
+
 `removeOne(id)` -> Deletes employee by ID
 
 
@@ -142,9 +146,13 @@ All endpoints expect a matching object to the Tasks Model
 #### Task Actions
 
 `createOne(tasks)` -> Creates task
+
 ** `getMany()` -> Returns tasks created by that Owner? Employee?
+
 `getOne(id)` -> Returns task list by ID
+
 `updateOne(id)` -> Updates task list by ID
+
 `removeOne(id)` -> Deletes task list by ID
 
 
@@ -186,9 +194,13 @@ All endpoints expect a matching object to the Property Model
 #### Proprty Actions
 
 `createOne(property)` -> Creates new property
+
 ** `getMany()` -> Returns properties created by that Owner?
+
 `getOne(id)` -> Returns property by ID
+
 `updateOne(id)` -> Updates property by ID
+
 `removeOne(id)` -> Deletes property by ID
 
 
@@ -218,6 +230,7 @@ All endpoints expect a matching object to the Property Model
 #### Billing Plan Actions
 
 `getMany()` -> Returns all billing plans
+
 `getOne(id)` -> Returns billing plan by ID
 
 
@@ -256,9 +269,13 @@ All endpoints expect a matching object to the Invoice Item Model
 #### Proprty Actions
 
 `createOne(invoiceItem)` -> Creates new invoice item
+
 ** `getMany()` -> Returns invoice items created by that Owner?
+
 `getOne(id)` -> Returns invoice item by ID
+
 `updateOne(id)` -> Updates invoice item by ID
+
 `removeOne(id)` -> Deletes invoice item by ID
 
 
@@ -299,7 +316,11 @@ All endpoints expect a matching object to the Discounts Item Model
 #### Proprty Actions
 
 `createOne(invoiceItem)` -> Creates new discount
+
 ** `getMany()` -> Returns discounts created by that Owner?
+
 `getOne(id)` -> Returns discount by ID
+
 `updateOne(id)` -> Updates discount by ID
+
 `removeOne(id)` -> Deletes discount by ID
