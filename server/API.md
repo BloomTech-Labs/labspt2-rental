@@ -73,9 +73,11 @@
   createdBy: user foreign key, **Currently does not exist**
   employer: user foreign key, employer's user_id
   baseAddress: STRING, required
-  taskPermission: BOOLEAN, default = false
-  propertyPermission: BOOLEAN, default = false
-  checkoutPermission: BOOLEAN, default = false
+  permissions: {
+  task: BOOLEAN, default = false
+  property: BOOLEAN, default = false
+  checkout: BOOLEAN, default = false
+  }
 }
 ```
 
