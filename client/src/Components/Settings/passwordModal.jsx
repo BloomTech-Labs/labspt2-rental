@@ -10,7 +10,7 @@ export default class PasswordModal extends Component {
      }
 
     close = () => this.setState({ open: false })
-    
+
     show = () => this.setState({ open: true })
 
     handleChange = (e) => {
@@ -33,7 +33,7 @@ export default class PasswordModal extends Component {
             <div>
                 <Button onClick={this.show}>Change Password</Button>
 
-                <Modal open={open} onClose={this.close}>
+                <Modal size='mini' open={open} onClose={this.close}>
                 <Modal.Header>Update Password</Modal.Header>
 
                     {/* Inline isn't working? */}
@@ -76,8 +76,8 @@ export default class PasswordModal extends Component {
                     </Modal.Content>
 
                     <Modal.Actions>
-                        <Button negative onClick={this.close} >No</Button>
-                        <Button onClick={this.handleSubmit} positive icon='checkmark' labelPosition='right' content='Yes' />
+                        <Button negative onClick={this.close} >Cancel</Button>
+                        <Button onClick={this.handleSubmit} positive content='Update' />
                     </Modal.Actions>
             </Modal>
             </div>
