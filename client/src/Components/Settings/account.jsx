@@ -1,18 +1,21 @@
 import React, { Component } from 'react';
-import { Header, Form } from 'semantic-ui-react';
-import PasswordModal from './passwordModal.jsx';
+import { Header } from 'semantic-ui-react';
+import AccountForm from './accountForm.jsx';
 
 export default class Account extends Component {
-    constructor() {
-        super();
 
+    user = {
+        firstName: 'Julie',
+        lastName: 'Jonak',
+        email: 'juliejonak@gmail.com',
+        phone: '832-859-5441'
     }
 
     render(){
         return(
             <div>
                 <Header as='h1'>Account Settings</Header>
-                <PasswordModal/>
+                <AccountForm props={this.user}/>
             </div>
         )
     }

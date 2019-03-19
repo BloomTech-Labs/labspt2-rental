@@ -12,11 +12,15 @@ export default class PasswordModal extends Component {
     close = () => this.setState({ open: false })
     show = () => this.setState({ open: true })
 
-    handleChange = (e, { name, value }) => this.setState({ [name]: value })
+    handleChange = (e) => {
+        this.setState({
+            [e.target.name]: e.target.value,
+        })
+    }
 
-    handleSubmit = () => {
-        const { oldPassword, newPassword } = this.state
-        this.setState({ oldPassword: oldPassword, newPassword: newPassword })
+    handleSubmit = (e) => {
+        e.preventDefault();
+        // send axios call
     }
 
     // Add logic to check that both New password fields match
@@ -30,35 +34,46 @@ export default class PasswordModal extends Component {
 
                 <Modal open={open} onClose={this.close}>
                 <Modal.Header>Update Password</Modal.Header>
+
+                    {/* Inline isn't working? */}
                     <Modal.Content>
                         <Form>
-                            {/* Would like to make these inline */}
-                        <Form.Field inline required>
-                            <label>Old Password</label>
-                            <Form.Input 
-                                name='oldPassword'
-                                value={oldPassword}
-                                type='password'
-                                onChange={this.handleChange} />
-                        </Form.Field>
-                        <Form.Field inline required>
-                            <label>New Password</label>
-                            <Form.Input 
-                                name='newPassword'
-                                value={newPassword}
-                                type='password'
-                                onChange={this.handleChange} />
-                        </Form.Field>
-                        <Form.Field inline required>
-                            <label>New Password</label>
-                            <Form.Input 
-                                name='checkPassword'
-                                value={checkPassword}
-                                type='password'
-                                onChange={this.handleChange} />
-                        </Form.Field>
+                            <Form.Group inline>
+                                <Form.Field required>
+                                    <label>Old Password</label>
+                                    <Form.Input 
+                                        name='oldPassword'
+                                        value={oldPassword}
+                                        type='password'
+                                        onChange={this.handleChange} />
+                                </Form.Field>
+                            </Form.Group>
+
+                            <Form.Group inline>
+                                <Form.Field required>
+                                    <label>New Password</label>
+                                    <Form.Input 
+                                        name='newPassword'
+                                        value={newPassword}
+                                        type='password'
+                                        onChange={this.handleChange} />
+                                </Form.Field>
+                            </Form.Group>
+
+                            <Form.Group inline>
+                                <Form.Field required>
+                                    <label>New Password</label>
+                                    <Form.Input 
+                                        name='checkPassword'
+                                        value={checkPassword}
+                                        type='password'
+                                        onChange={this.handleChange} />
+                                </Form.Field>
+                            </Form.Group>
                         </Form>
+                        
                     </Modal.Content>
+
                     <Modal.Actions>
                         <Button negative onClick={this.close} >No</Button>
                         <Button onClick={this.handleSubmit} positive icon='checkmark' labelPosition='right' content='Yes' />
