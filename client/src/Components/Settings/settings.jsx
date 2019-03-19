@@ -11,8 +11,7 @@ export default class Settings extends Component {
 
         this.panes = [
             { menuItem: 'Account', render: () => <Tab.Pane attached={false}><Account/></Tab.Pane>},
-            { menuItem: 'Billing', render: () => <Tab.Pane attached={false}><Billing/></Tab.Pane>},
-            { menuItem: 'Checkout', render: () => <Tab.Pane attached={false}><CheckoutForm/></Tab.Pane>}
+            { menuItem: 'Billing', render: () => <Tab.Pane attached={false}><Billing/></Tab.Pane>}
         ]
     }
 
