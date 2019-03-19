@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
-import { Header, Tab } from 'semantic-ui-react';
-import Account from './account';
-import Billing from './billing'
+import { Tab } from 'semantic-ui-react';
+import Billing from './billing';
+import Account from './account.js';
 
 export default class Settings extends Component {
     constructor() {

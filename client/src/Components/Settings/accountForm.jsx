@@ -46,6 +46,7 @@ export default class AccountForm extends Component {
 
         return (
             <Form>
+                {/* Not rendering value in input boxes from state */}
             <Form.Group inline>
               <Form.Field>
                 <label>First Name</label>
@@ -87,7 +88,7 @@ export default class AccountForm extends Component {
                     onChange={this.handleChange} />
                 </Form.Field>
             </Form.Group>
-            
+
             <Form.Group inline>
                 {button}
                 <PasswordModal/>
