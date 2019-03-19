@@ -2,7 +2,6 @@ import { InvoiceItem } from './invoice_items.model';
 import { BaseController } from '../../utils/BaseController';
 
 class InvoiceItemsControllers extends BaseController {
-  // Create specific methods here
   constructor(mongooseModel) {
     super(mongooseModel);
     this.mongooseModel = mongooseModel;
