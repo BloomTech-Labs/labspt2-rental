@@ -101,14 +101,14 @@ export class BaseController {
       const skip = +req.query.skip;
       pipeline.push({ $skip: skip });
 
-      _skip = skip;
+      _skip = skip; // for normal query
     }
 
     if (req.query.limit) {
       const limit = +req.query.limit;
       pipeline.push({ $limit: limit });
 
-      _limit = limit;
+      _limit = limit; // for normal query
     }
 
     console.log(pipeline);

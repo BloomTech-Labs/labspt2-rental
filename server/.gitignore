@@ -82,3 +82,5 @@ typings/
 # Ignore build folders
 dist/
 build/
+yarn.lock
+package-lock.json

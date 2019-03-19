@@ -9,14 +9,14 @@ export default async () => {
   if (config.isProd) {
     return;
   } else {
-    const seedManager = new Promise((resolve, reject) => {
-      User.findOne({ username: 'test_manager' }, (err, manager) => {
-        if (!manager) {
+    const seedowner = new Promise((resolve, reject) => {
+      User.findOne({ username: 'test_owner' }, (err, owner) => {
+        if (!owner) {
           User.create({
-            role: 'manager',
-            username: 'test_manager',
+            role: 'owner',
+            username: 'test_owner',
             password: '12345',
-            email: 'manager@roostr.io',
+            email: 'owner@roostr.io',
             firstName: faker.name.firstName(),
             lastName: faker.name.lastName()
           })
@@ -25,7 +25,7 @@ export default async () => {
             })
             .catch(() => reject(false));
         } else {
-          resolve(manager);
+          resolve(owner);
         }
       });
     });
@@ -72,9 +72,9 @@ export default async () => {
       });
     });
 
-    const seedProperties = (managerId, employeeId) => {
+    const seedProperties = (ownerId, employeeId) => {
       return new Promise((resolve, reject) => {
-        Property.find({ createdBy: managerId }, (err, properties) => {
+        Property.find({ createdBy: ownerId }, (err, properties) => {
           if (!properties.length) {
             let propertiesArr = [];
 
@@ -82,7 +82,7 @@ export default async () => {
               propertiesArr.push({
                 name: 'House ' + (i + 1),
                 assistants: [employeeId],
-                createdBy: managerId,
+                createdBy: ownerId,
                 address1: faker.address.streetAddress(),
                 city: faker.address.city(),
                 state: faker.address.state(),
@@ -102,9 +102,9 @@ export default async () => {
       });
     };
 
-    const seedTasks = (managerId, properties) => {
+    const seedTasks = (ownerId, properties) => {
       return new Promise((resolve, reject) => {
-        Task.find({ createdBy: managerId }, (err, tasks) => {
+        Task.find({ createdBy: ownerId }, (err, tasks) => {
           if (!tasks.length) {
             let promiseArr = [];
 
@@ -112,7 +112,7 @@ export default async () => {
               let tasksArr = [];
               for (let i = 0; i < 5; i++) {
                 tasksArr.push({
-                  createdBy: managerId,
+                  createdBy: ownerId,
                   description: faker.lorem.sentence(),
                   property: property._id,
                   completed: false
@@ -139,21 +139,21 @@ export default async () => {
     };
 
     const seedReservations = (
-      managerId,
+      ownerId,
       guestId,
       assistantId,
       properties,
       tasks
     ) => {
       return new Promise((resolve, reject) => {
-        Reservation.find({ createdBy: managerId }, (err, reservations) => {
+        Reservation.find({ createdBy: ownerId }, (err, reservations) => {
           if (!reservations.length) {
             let promiseArr = [];
 
             for (let property of properties) {
               let reservationsArr = [];
               reservationsArr.push({
-                createdBy: managerId,
+                createdBy: ownerId,
                 assistant: assistantId,
                 guest: guestId,
                 property: property._id,
@@ -169,7 +169,7 @@ export default async () => {
               });
 
               reservationsArr.push({
-                createdBy: managerId,
+                createdBy: ownerId,
                 assistant: assistantId,
                 guest: guestId,
                 property: property._id,
@@ -185,7 +185,7 @@ export default async () => {
               });
 
               reservationsArr.push({
-                createdBy: managerId,
+                createdBy: ownerId,
                 assistant: assistantId,
                 guest: guestId,
                 property: property._id,
@@ -219,23 +219,23 @@ export default async () => {
       });
     };
 
-    const [manager, employee, guest] = await Promise.all([
-      seedManager,
+    const [owner, employee, guest] = await Promise.all([
+      seedowner,
       seedEmployee,
       seedGuest
     ]);
 
-    const properties = await seedProperties(manager._id, employee._id);
-    const tasks = await seedTasks(manager._id, properties);
+    const properties = await seedProperties(owner._id, employee._id);
+    const tasks = await seedTasks(owner._id, properties);
     const reservations = await seedReservations(
-      manager._id,
+      owner._id,
       guest._id,
       employee._id,
       properties,
       tasks
     );
 
-    console.log('Seeded manager        :      ', !!manager._id);
+    console.log('Seeded owner          :      ', !!owner._id);
     console.log('Seeded employee       :      ', !!employee._id);
     console.log('Seeded guest          :      ', !!guest._id);
     console.log('Seeded properties     :      ', !!properties[0]);

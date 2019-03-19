@@ -3,6 +3,12 @@ import bcrypt from 'bcrypt';
 
 const { Schema } = mongoose;
 
+const Permissions = new Schema({
+  task: Boolean,
+  property: Boolean,
+  checkout: Boolean
+});
+
 const userSchema = new Schema(
   {
     email: {
@@ -24,9 +30,10 @@ const userSchema = new Schema(
     },
     firstName: String,
     lastName: String,
+    permissions: Permissions,
     role: {
       type: String,
-      enum: ['admin', 'manager', 'employee', 'guest']
+      enum: ['admin', 'owner', 'employee', 'guest']
     }
   },
   { timestamps: true }

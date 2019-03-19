@@ -5,7 +5,7 @@ import { FlexRow, Container } from "custom-components";
 import { Reservations } from "../Reservations";
 import { EmployeeList } from "../Employees";
 import { PropertyList } from "../Properties/PropList";
-// import { Checkout } from "../Reservations";
+import { Checkout } from "../Reservations";
 
 class Dashboard extends Component {
   constructor(props) {
@@ -75,7 +75,7 @@ class Dashboard extends Component {
                   render={() => <EmployeeList />}
                 />
                 {/*TODO work on these pages*/}
-                {/*<Route path="/dashboard/checkout" render={() => <Checkout />} />*/}
+                <Route path="/dashboard/checkout" render={() => <Checkout />} />
                 <Route
                   path="/dashboard/properties"
                   render={() => <PropertyList />}

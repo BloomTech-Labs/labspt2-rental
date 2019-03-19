@@ -1,7 +1,0 @@
-{
-  "name": "config",
-  "version": "1.0.0",
-  "description": "Client side config",
-  "main": "index.js",
-  "author": "Kyle Baker"
-}
