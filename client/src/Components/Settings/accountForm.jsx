@@ -52,7 +52,7 @@ export default class AccountForm extends Component {
                 <label>First Name</label>
                 <Input
                 name='firstName' 
-                value={firstName}
+                value={firstName || ''}
                 type='text'
                 onChange={this.handleChange} />
               </Form.Field>
@@ -61,7 +61,7 @@ export default class AccountForm extends Component {
                 <label>Last Name</label>
                 <Input 
                 name='lastName'
-                value={lastName}
+                value={lastName || ''}
                 type='text'
                 onChange={this.handleChange} />
               </Form.Field>
@@ -72,7 +72,7 @@ export default class AccountForm extends Component {
                     <label>Email Address</label>
                     <Input 
                     name='email'
-                    placeholder={email}
+                    placeholder={email || ''}
                     type='email'
                     onChange={this.handleChange} />
                 </Form.Field>
@@ -83,7 +83,7 @@ export default class AccountForm extends Component {
                     <label>Phone</label>
                     <Input 
                     name='phone'
-                    placeholder={phone}
+                    placeholder={phone || ''}
                     type='tel'
                     onChange={this.handleChange} />
                 </Form.Field>
