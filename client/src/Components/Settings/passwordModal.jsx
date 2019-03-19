@@ -10,6 +10,7 @@ export default class PasswordModal extends Component {
      }
 
     close = () => this.setState({ open: false })
+    
     show = () => this.setState({ open: true })
 
     handleChange = (e) => {

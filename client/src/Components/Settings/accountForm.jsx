@@ -10,7 +10,7 @@ export default class AccountForm extends Component {
             lastName: '',
             email: '',
             phone: '',
-            disabled: 'disabled'
+            disabled: true
         }
     }
 
@@ -26,7 +26,7 @@ export default class AccountForm extends Component {
     handleChange = (e) => {
         this.setState({
             [e.target.name]: e.target.value,
-            disabled: 'active'
+            disabled: false
         })
     }
 
@@ -37,6 +37,12 @@ export default class AccountForm extends Component {
 
     render () {
         const { firstName, lastName, email, phone, disabled } = this.state;
+        let button;
+        if (disabled) {
+            button = <Button disabled>Save</Button>
+        } else {
+            button = <Button active>Save</Button>
+        }
 
         return (
             <Form>
@@ -81,10 +87,9 @@ export default class AccountForm extends Component {
                     onChange={this.handleChange} />
                 </Form.Field>
             </Form.Group>
+            
             <Form.Group inline>
-                <Button basic>Save</Button>
-                {/* { disabled === 'true' : <Button disabled>Save</Button> ? <Button active>Save</Button> } */}
-
+                {button}
                 <PasswordModal/>
             </Form.Group>
 
