@@ -38,6 +38,11 @@ export default async () => {
             username: 'test_employee',
             password: '12345',
             email: 'employee@roostr.io',
+            permissions: {
+              task: true,
+              property: true,
+              checkout: true
+            },
             firstName: faker.name.firstName(),
             lastName: faker.name.lastName()
           })
