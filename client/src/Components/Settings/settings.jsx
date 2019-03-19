@@ -1,7 +1,9 @@
 import React, { Component } from 'react';
+import {Elements, StripeProvider} from 'react-stripe-elements';
 import { Tab } from 'semantic-ui-react';
 import Billing from './billing';
 import Account from './account.js';
+import CheckoutForm from './updatePlan';
 
 export default class Settings extends Component {
     constructor() {
@@ -9,15 +11,15 @@ export default class Settings extends Component {
 
         this.panes = [
             { menuItem: 'Account', render: () => <Tab.Pane attached={false}><Account/></Tab.Pane>},
-            { menuItem: 'Billing', render: () => <Tab.Pane attached={false}><Billing/></Tab.Pane>}
+            { menuItem: 'Billing', render: () => <Tab.Pane attached={false}><Billing/></Tab.Pane>},
+            { menuItem: 'Checkout', render: () => <Tab.Pane attached={false}><CheckoutForm/></Tab.Pane>}
         ]
     }
 
     render () {
         return (
-            <div>
-                <Tab menu={{ attached: false }} panes={this.panes}/>
-            </div>
+            <Tab menu={{ attached: false }} panes={this.panes}/>
         )
     }
 }
+  

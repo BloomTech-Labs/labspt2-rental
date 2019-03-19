@@ -1,6 +1,10 @@
 import React, { Component } from 'react';
 import { Header, Segment } from 'semantic-ui-react';
 import CreditCard from './creditCard';
+import CheckoutForm from './updatePlan';
+import {CardElement} from 'react-stripe-elements';
+import {Elements, StripeProvider} from 'react-stripe-elements';
+
 
 export default class Billing extends Component {
     constructor(){
@@ -35,11 +39,17 @@ export default class Billing extends Component {
 
         return(
             <div>
-                <Header as='h1'>Billing Details</Header>
-                <CreditCard cc={cc}/>
-                <p>Your next bill will be sent on {nextBilling}.</p>
-                <Header as='h2'>Current Plan:</Header>
-                <Segment.Inline> {plan}: {description}</Segment.Inline>
+            <Header as='h1'>Billing Details</Header>
+            <CreditCard cc={cc}/>
+            <p>Your next bill will be sent on {nextBilling}.</p>
+            <Header as='h2'>Current Plan:</Header>
+            <Segment.Inline> {plan}: {description}</Segment.Inline>
+            
+            <StripeProvider apiKey="pk_test_Il1MCOR4thnvsuNgiwCaJzOw">
+                <Elements>
+                <CheckoutForm />
+                </Elements>
+            </StripeProvider>
             </div>
         )
     }

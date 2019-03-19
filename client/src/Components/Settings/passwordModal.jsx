@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { Button, Input, Modal, Form } from 'semantic-ui-react'
+import { Button, Modal, Form } from 'semantic-ui-react'
 
 export default class PasswordModal extends Component {
     state = { 
