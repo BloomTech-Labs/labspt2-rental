@@ -7,14 +7,12 @@ const TaskPageTop = () => {
     <div>
       <FlexRow>
         <Segment style={{width: "75%"}}>
-          <FlexRow>
-            <FlexColumn>
-              <FlexRow>
-                <Icon name='clipboard list icon' size='big'/>
-                <Header size='medium'>Assistant, Property Name</Header>
-              </FlexRow>
-            </FlexColumn>
-          </FlexRow>
+          <FlexColumn>
+            <div style={{display: "flex", flexDirection: "row", alignItems: "baseline"}}>
+              <Icon name='clipboard list icon' size='big'/>
+              <Header size='medium'>Assistant, Property Name</Header>
+            </div>
+          </FlexColumn>
         </Segment>
         <FlexColumn style={{marginLeft: "20px"}}>
           <Checkbox label='Due Today' style={{padding: "5px"}}/>

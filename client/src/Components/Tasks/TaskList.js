@@ -38,7 +38,7 @@ export default class TaskList extends Component {
   
   render () {
     return ( 
-        <Segment>
+        <Segment style={{display: "flex", flexDirction: "row", flexWrap: "wrap"}}>
         {this.taskList.map(tasklists =>
           <TaskTitle key={this.taskList.id} tasklists={tasklists}/>
         )}
