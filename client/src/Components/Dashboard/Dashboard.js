@@ -1,14 +1,3 @@
-<<<<<<< HEAD
-import React, { Component } from 'react'
-import { Route, Link, withRouter } from 'react-router-dom'
-import { Segment, Menu, Sidebar, Icon, Header, Image } from 'semantic-ui-react'
-import { FlexRow, Container } from 'custom-components'
-import { Reservations } from '../Reservations'
-import { Checkout } from '../Reservations'
-import { EmployeeList } from '../Employees'
-import { Settings } from '../Settings'
-
-=======
 import React, { Component } from "react";
 import { Route, Link, withRouter } from "react-router-dom";
 import { Segment, Menu, Sidebar, Icon, Header, Image } from "semantic-ui-react";
@@ -16,7 +5,7 @@ import { FlexRow, Container } from "custom-components";
 import { Reservations } from "../Reservations";
 import { EmployeeList } from "../Employees";
 import { PropertyList } from "../Properties/PropList";
->>>>>>> development
+import { Settings } from "../Settings";
 
 class Dashboard extends Component {
   constructor(props) {
