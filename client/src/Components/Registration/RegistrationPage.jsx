@@ -17,7 +17,6 @@ class RegistrationPage extends Component {
   handleSubmit = (event) => {
     event.preventDefault();
     const { registerUser } = this.props
-    console.log('logging')
     const user = {
       email: this.state.email,
       username: this.state.username,
@@ -74,7 +73,6 @@ class RegistrationPage extends Component {
 
             <FlexRow width="full" alignCenter justifyBetween>
               <Button>Login</Button>
-
               <Button color="green" type='submit'>Submit</Button>
             </FlexRow>
           </Form>

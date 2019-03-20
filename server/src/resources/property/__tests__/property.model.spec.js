@@ -1,5 +1,6 @@
 import { Property } from '../property.model';
 import mongoose from 'mongoose';
+import { Reservation } from '../../reservations/reservations.model';
 
 describe('Property model', () => {
   describe('schema', () => {
@@ -30,11 +31,38 @@ describe('Property model', () => {
       });
     });
 
-    test('address', () => {
-      const { address } = Property.schema.obj;
-      expect(address).toEqual({
+    test('address1', () => {
+      const { address1 } = Reservation.schema.obj;
+      expect(address1).toEqual({
         type: String,
-        required: [true, 'Address is a required field']
+        required: true
+      });
+    });
+    test('address2', () => {
+      const { address2 } = Reservation.schema.obj;
+      expect(address2).toEqual({
+        type: String
+      });
+    });
+    test('city', () => {
+      const { city } = Reservation.schema.obj;
+      expect(city).toEqual({
+        type: String,
+        required: true
+      });
+    });
+    test('state', () => {
+      const { state } = Reservation.schema.obj;
+      expect(state).toEqual({
+        type: String,
+        required: true
+      });
+    });
+    test('zip', () => {
+      const { zip } = Reservation.schema.obj;
+      expect(zip).toEqual({
+        type: String,
+        required: true
       });
     });
 
@@ -46,14 +74,9 @@ describe('Property model', () => {
       });
     });
 
-    test('tasks', () => {
-      const { tasks } = Property.schema.obj;
-      expect(tasks).toEqual([
-        {
-          type: mongoose.SchemaTypes.ObjectId,
-          ref: 'task'
-        }
-      ]);
+    test('image', () => {
+      const { image } = Property.schema.obj;
+      expect(image).toEqual(String);
     });
   });
 });

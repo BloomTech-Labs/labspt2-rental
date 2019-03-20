@@ -1,4 +1,5 @@
 import axios from "axios";
+import config from "config";
 
 export const FETCH_USERS_ATTEMPT = "FETCH_USERS_ATTEMPT";
 export const FETCH_USERS_SUCCESS = "FETCH_USERS_SUCCESS";
@@ -10,7 +11,7 @@ export const fetchUsers = () => {
       type: FETCH_USERS_ATTEMPT
     });
     axios
-      .get("http://138.197.202.158/api/users")
+      .get(`${config.apiUrl}/api/users`)
       .then(response => {
         dispatch({
           type: FETCH_USERS_SUCCESS,

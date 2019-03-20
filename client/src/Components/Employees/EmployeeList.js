@@ -1,13 +1,14 @@
 import React, { Component } from "react";
-import { Button, Icon } from "semantic-ui-react";
-import { FlexRow, Container } from "custom-components";
+import { Button, Icon, Input } from "semantic-ui-react";
+import { FlexRow, FlexColumn } from "custom-components";
 import EmployeeListItem from "./EmployeeListItem";
 
 class EmployeeList extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      owner: true
+      owner: true,
+      searchText: ""
     };
   }
 
@@ -16,15 +17,31 @@ class EmployeeList extends Component {
     this.setState({ owner: true });
   }
 
+  searchChangeHandler = e => {
+    console.log(this.state.searchText);
+    this.setState({ searchText: e.target.value });
+  };
+
   cardHandleClick = id => {
     this.props.history.push(`/dashboard/employees/${id}`);
   };
 
   render() {
     return (
-      <Container>
-        <FlexRow>
-          <div>Search Bar Goes here</div>
+      <FlexColumn style={{ width: "full", maxWidth: "880px" }}>
+        <FlexRow justifyBetween style={{ width: "90%" }}>
+          <Input
+            style={{ width: "80%" }}
+            icon="address card"
+            iconPosition="left"
+            placeholder="Name, City, Property Name"
+            onChange={this.searchChangeHandler}
+          />
+          {this.state.searchText ? (
+            <Button basic attached="right">
+              Clear
+            </Button>
+          ) : null}
           {this.state.owner ? (
             <Button icon>
               <Icon name="plus circle" />
@@ -41,7 +58,7 @@ class EmployeeList extends Component {
             />
           );
         })}
-      </Container>
+      </FlexColumn>
     );
   }
 }
