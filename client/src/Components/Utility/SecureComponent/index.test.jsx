@@ -52,6 +52,6 @@ describe('<SecuredComponent />', () => {
                 <div>It must have children</div>
             </SecuredComponent>
         );
-        expect(securedComponentSnapshot.toJSON).toMatchSnapshot()
+        expect(securedComponentSnapshot.toJSON()).toMatchSnapshot()
     })
 })
