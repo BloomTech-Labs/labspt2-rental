@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import DatePicker from "../../shared/DatePicker/DatePicker.jsx";
 import PropertyList from "./PropertyList";
 import { FlexRow, FlexColumn } from "../../../custom-components/index";
-import { Search } from "../../shared/Search/Search";
+import Search from "../../shared/Search/Search";
 
 class Properties extends Component {
   render() {
@@ -12,7 +12,7 @@ class Properties extends Component {
           <Search />
           <DatePicker />;
         </FlexRow>
-        <PropertyList />
+        {/* <PropertyList /> */}
       </FlexColumn>
     );
   }

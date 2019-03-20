@@ -4,7 +4,7 @@ import { Segment, Menu, Sidebar, Icon, Header, Image } from "semantic-ui-react";
 import { FlexRow, Container } from "custom-components";
 import { Reservations } from "../Reservations";
 import { EmployeeList } from "../Employees";
-import { PropertyList } from "../Properties/PropList";
+import { Properties } from "../Properties/PropList";
 import { Checkout } from "../Reservations";
 
 class Dashboard extends Component {
@@ -78,7 +78,7 @@ class Dashboard extends Component {
                 <Route path="/dashboard/checkout" render={() => <Checkout />} />
                 <Route
                   path="/dashboard/properties"
-                  render={() => <PropertyList />}
+                  render={() => <Properties />}
                 />
                 {/*<Route path="/dashboard/tasks" render={() => <Tasks/>}/>*/}
                 {/*<Route path="/dashboard/settings" render={() => <Settings/>}/>*/}
