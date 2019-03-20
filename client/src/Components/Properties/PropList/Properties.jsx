@@ -1,10 +1,10 @@
 import React, { Component } from "react";
-//import card component when finished
 import DatePicker from "../../shared/DatePicker/DatePicker.jsx";
+import PropertyList from "./PropertyList";
 import { FlexRow, FlexColumn } from "../../../custom-components/index";
 import { Search } from "../../shared/Search/Search";
 
-class PropertyList extends Component {
+class Properties extends Component {
   render() {
     return (
       <FlexColumn>
@@ -12,9 +12,10 @@ class PropertyList extends Component {
           <Search />
           <DatePicker />;
         </FlexRow>
+        <PropertyList />
       </FlexColumn>
     );
   }
 }
 
-export default PropertyList;
+export default Properties;
