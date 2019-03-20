@@ -5,7 +5,6 @@ import { FlexRow, Container } from "custom-components";
 import { Reservations } from "../Reservations";
 import { EmployeeList } from "../Employees";
 import { PropertyList } from "../Properties/PropList";
-import { Checkout } from "../Reservations";
 
 class Dashboard extends Component {
   constructor(props) {
@@ -23,7 +22,6 @@ class Dashboard extends Component {
 
     this.links = [
       { url: `/dashboard/reservations`, name: "Reservations", icon: "book" },
-      { url: `/dashboard/checkout`, name: "Checkout", icon: "cart" },
       { url: `/dashboard/properties`, name: "Properties", icon: "home" },
       { url: `/dashboard/employees`, name: "Employees", icon: "address card" },
       { url: `/dashboard/tasks`, name: "Tasks", icon: "tasks" },
@@ -74,8 +72,6 @@ class Dashboard extends Component {
                   path="/dashboard/employees"
                   render={() => <EmployeeList />}
                 />
-                {/*TODO work on these pages*/}
-                <Route path="/dashboard/checkout" render={() => <Checkout />} />
                 <Route
                   path="/dashboard/properties"
                   render={() => <PropertyList />}
