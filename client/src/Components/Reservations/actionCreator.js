@@ -1,21 +1,22 @@
-import axios from 'axios'
-import * as actions from './actions'
+import axios from "axios";
+import * as actions from "./actions";
+import config from "config";
 
-export const registerUser = (newUser) => {
-  return async dispatch => {
-    dispatch({type: actions.REGISTER_USER_STARTED})
-    try {
-      const token = await axios.post(`http://localhost:5000/api/users/register`,
-        newUser)
-      console.log(actions.REGISTER_USER_SUCCESS)
-      dispatch({
-        type: actions.REGISTER_USER_SUCCESS,
-        payload: 'Bearer ' + token
-      })
-    } catch (err) {
-      console.log('inside of catch')
-      console.error(err)
-      dispatch({type: actions.REIGSTER_USER_FAILURE, payload: err})
-    }
-  }
-}
+export const getReservations = (filterSort = {}) => dispatch => {
+  const { filter, sort, page, pageSize, search } = filterSort;
+
+  dispatch({ type: actions.RESERVATION_STARTED });
+
+  return axios
+    .get(
+      `${config.apiUrl}/api/reservations?search=${search ||
+        ""}&filter=${JSON.stringify(filter) ||
+        ""}&sort=${sort}&limit=${pageSize}&skip=${(page - 1) * pageSize}`
+    )
+    .then(({ data }) => {
+      dispatch({ type: actions.RESERVATION_SUCCESS, reservations: data.data });
+    })
+    .catch(err => {
+      dispatch({ type: actions.RESERVATION_FAILURE, error: err });
+    });
+};

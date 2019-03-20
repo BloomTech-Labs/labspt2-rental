@@ -19,6 +19,7 @@
     "cuid": "^2.1.6",
     "dotenv": "^6.2.0",
     "express": "^4.16.4",
+    "faker": "github:Marak/faker.js#master",
     "helmet": "^3.15.1",
     "jsonwebtoken": "^8.4.0",
     "lodash": "^4.17.11",

@@ -13,7 +13,7 @@ export const updateUser = (user) => {
     return async dispatch => {
         dispatch({type: actions.UPDATE_USER_STARTED})
         try {
-            const updatedUser = await axios.put(`${config.apiUrl}/api/endpoint`, user)
+            const updatedUser = await axios.put(`http://138.197.202.158/me`, user)
             console.log(updatedUser)
             dispatch({
                 type: actions.UPDATE_USER_SUCCESS,
