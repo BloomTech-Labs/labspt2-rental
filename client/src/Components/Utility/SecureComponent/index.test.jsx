@@ -30,7 +30,7 @@ describe('<SecuredComponent />', () => {
                 <div>child3</div>
             </SecuredComponent>
         );
-        expect(securedComponent.props().children.length).toBe(3)
+        expect(securedComponent.find('div').length).toBe(3)
         securedComponent.unmount()
     });
 
