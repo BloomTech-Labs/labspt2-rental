@@ -32,26 +32,26 @@ describe('Invoice items model', () => {
     test('owner', () => {
       const { owner } = InvoiceItem.schema.obj;
       expect(owner).toEqual({
-          type: mongoose.SchemaTypes.ObjectId,
-          ref: 'user'
-        });
+        type: mongoose.SchemaTypes.ObjectId,
+        ref: 'user'
+      });
     });
 
     test('defaultItem', () => {
       const { defaultItem } = InvoiceItem.schema.obj;
-      expect(defaultItem).toEqual({ 
+      expect(defaultItem).toEqual({
         type: Boolean,
         default: false,
-        required: [true, 'Default distinction is required'] 
+        required: [true, 'Default distinction is required']
       });
     });
 
     test('lastUsed', () => {
       const { lastUsed } = InvoiceItem.schema.obj;
-      expect(lastUsed).toEqual({ 
+      expect(lastUsed).toEqual({
         type: Date,
         default: Date.now,
-        required: [true, 'Last used date is a required field'] 
+        required: [true, 'Last used date is a required field']
       });
     });
   });
