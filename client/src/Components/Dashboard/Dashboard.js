@@ -5,6 +5,7 @@ import { FlexRow, Container } from "custom-components";
 import { Reservations } from "../Reservations";
 import { EmployeeList } from "../Employees";
 import { PropertyList } from "../Properties/PropList";
+import { Settings } from "../Settings";
 
 class Dashboard extends Component {
   constructor(props) {
@@ -77,7 +78,7 @@ class Dashboard extends Component {
                   render={() => <PropertyList />}
                 />
                 {/*<Route path="/dashboard/tasks" render={() => <Tasks/>}/>*/}
-                {/*<Route path="/dashboard/settings" render={() => <Settings/>}/>*/}
+                <Route path="/dashboard/settings" render={() => <Settings/>}/>
               </Segment>
             </FlexRow>
           </Sidebar.Pusher>
