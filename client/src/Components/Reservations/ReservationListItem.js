@@ -10,6 +10,7 @@ import {
 } from "semantic-ui-react";
 import { FlexRow, FlexColumn, Text } from "custom-components";
 import moment from "moment";
+import { Link } from "react-router-dom";
 
 const ReservationListItem = ({ reservation }) => {
   return (
@@ -71,7 +72,10 @@ const ReservationListItem = ({ reservation }) => {
       </FlexRow>
 
       <FlexColumn>
-        <Button>MORE INFO</Button>
+        <Link className="space-bottom" to="/dashboard/checkout">
+          <Button color="orange">Check out</Button>
+        </Link>
+        <Button>More Info</Button>
       </FlexColumn>
     </FlexRow>
   );
