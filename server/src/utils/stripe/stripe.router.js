@@ -5,3 +5,5 @@ const router = Router();
 
 router.get('/', render);
 router.post('/charge', charge);
+
+export default router;

@@ -6,6 +6,7 @@ import discountRouter from './discount/discount.router';
 import billingPlanRouter from './billingPlan/billingPlan.router';
 import invoiceItemsRouter from './invoice_items/invoice_items.router';
 import { protect } from '../utils/auth';
+import stripeRouter from '../utils/stripe/stripe.router';
 
 export const publicRouter = app => {
   app.use('/api/users', userRouter);
@@ -20,6 +21,7 @@ export const protectedRouter = app => {
     app.use('/api/discounts', discountRouter);
     app.use('/api/billing-plans', billingPlanRouter);
     app.use('/api/invoice-items', invoiceItemsRouter);
+    app.use('/api/stripe', stripeRouter);
   } catch (e) {
     console.error(e);
   }
