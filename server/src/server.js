@@ -6,6 +6,7 @@ import config from './config';
 import { connect } from './utils/db';
 import { statusHandler } from './utils/errorHandler';
 import { publicRouter, protectedRouter } from './resources/router';
+import seed from './utils/seed';
 
 export const app = express();
 try {
@@ -25,6 +26,7 @@ try {
 export const start = async () => {
   try {
     await connect();
+    await seed();
     app.listen(config.port, () => {
       console.log('------------------------------------');
       console.log(`API Up and Running on PORT: ${config.port}`);

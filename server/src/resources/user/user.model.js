@@ -3,6 +3,12 @@ import bcrypt from 'bcrypt';
 
 const { Schema } = mongoose;
 
+const Permissions = new Schema({
+  task: Boolean,
+  property: Boolean,
+  checkout: Boolean
+});
+
 const userSchema = new Schema(
   {
     email: {
@@ -21,6 +27,13 @@ const userSchema = new Schema(
     password: {
       type: String,
       required: true
+    },
+    firstName: String,
+    lastName: String,
+    permissions: Permissions,
+    role: {
+      type: String,
+      enum: ['admin', 'owner', 'employee', 'guest']
     }
   },
   { timestamps: true }
@@ -40,6 +53,8 @@ userSchema.pre('save', function(next) {
     next();
   });
 });
+
+userSchema.index({ '$**': 'text' });
 
 userSchema.methods.checkPassword = function(password) {
   const passwordHash = this.password;

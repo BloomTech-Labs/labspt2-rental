@@ -3,19 +3,35 @@ import mongoose from 'mongoose';
 
 describe('Reservation model', () => {
   describe('schema', () => {
-    test('userID', () => {
-      const { userID } = Reservation.schema.obj;
-      expect(userID).toEqual({
+    test('createdBy', () => {
+      const { createdBy } = Reservation.schema.obj;
+      expect(createdBy).toEqual({
         type: mongoose.Types.ObjectId,
         ref: 'users',
         required: true
       });
     });
-    test('house', () => {
-      const { house } = Reservation.schema.obj;
-      expect(house).toEqual({
+    test('guest', () => {
+      const { guest } = Reservation.schema.obj;
+      expect(guest).toEqual({
         type: mongoose.Types.ObjectId,
-        ref: 'house',
+        ref: 'users',
+        required: true
+      });
+    });
+    test('assistant', () => {
+      const { assistant } = Reservation.schema.obj;
+      expect(assistant).toEqual({
+        type: mongoose.Types.ObjectId,
+        ref: 'users',
+        required: true
+      });
+    });
+    test('property', () => {
+      const { property } = Reservation.schema.obj;
+      expect(property).toEqual({
+        type: mongoose.Types.ObjectId,
+        ref: 'property',
         required: true
       });
     });
@@ -30,40 +46,6 @@ describe('Reservation model', () => {
       const { checkOut } = Reservation.schema.obj;
       expect(checkOut).toEqual({
         type: Date,
-        required: true
-      });
-    });
-    test('address1', () => {
-      const { address1 } = Reservation.schema.obj;
-      expect(address1).toEqual({
-        type: String,
-        required: true
-      });
-    });
-    test('address2', () => {
-      const { address2 } = Reservation.schema.obj;
-      expect(address2).toEqual({
-        type: String
-      });
-    });
-    test('city', () => {
-      const { city } = Reservation.schema.obj;
-      expect(city).toEqual({
-        type: String,
-        required: true
-      });
-    });
-    test('state', () => {
-      const { state } = Reservation.schema.obj;
-      expect(state).toEqual({
-        type: String,
-        required: true
-      });
-    });
-    test('zip', () => {
-      const { zip } = Reservation.schema.obj;
-      expect(zip).toEqual({
-        type: String,
         required: true
       });
     });

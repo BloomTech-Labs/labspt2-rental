@@ -25,9 +25,9 @@ const taskSchema = new Schema(
       required: true,
       default: false
     },
-    house: {
+    property: {
       type: mongoose.SchemaTypes.ObjectId,
-      ref: 'house'
+      ref: 'property'
     },
     reservation: {
       type: mongoose.SchemaTypes.ObjectId,
