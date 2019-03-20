@@ -3,8 +3,8 @@ import { Route, Link, withRouter } from "react-router-dom";
 import { Segment, Menu, Sidebar, Icon, Header, Image } from "semantic-ui-react";
 import { FlexRow, Container } from "custom-components";
 import { Reservations } from "../Reservations";
+import { Checkout } from "../Checkout";
 import { EmployeeList } from "../Employees";
-import { PropertyList } from "../Properties/PropList";
 
 class Dashboard extends Component {
   constructor(props) {
@@ -22,6 +22,8 @@ class Dashboard extends Component {
 
     this.links = [
       { url: `/dashboard/reservations`, name: "Reservations", icon: "book" },
+      // I commented this line of code out because the checkout page should be accessed through clicking on a link on a reservations card; I added that onto the card
+      // { url: `/dashboard/checkout`, name: 'Checkout', icon: 'cart' },
       { url: `/dashboard/properties`, name: "Properties", icon: "home" },
       { url: `/dashboard/employees`, name: "Employees", icon: "address card" },
       { url: `/dashboard/tasks`, name: "Tasks", icon: "tasks" },
@@ -59,27 +61,21 @@ class Dashboard extends Component {
           </Sidebar>
 
           <Sidebar.Pusher as={Segment} style={{ marginLeft: "140px" }}>
-            <FlexRow width="full" justifyCenter>
-              <Segment
-                className="space-left-20"
-                style={{ width: "fit-content" }}
-              >
-                <Route
-                  path="/dashboard/reservations"
-                  render={() => <Reservations />}
-                />
-                <Route
-                  path="/dashboard/employees"
-                  render={() => <EmployeeList />}
-                />
-                <Route
-                  path="/dashboard/properties"
-                  render={() => <PropertyList />}
-                />
-                {/*<Route path="/dashboard/tasks" render={() => <Tasks/>}/>*/}
-                {/*<Route path="/dashboard/settings" render={() => <Settings/>}/>*/}
-              </Segment>
-            </FlexRow>
+            <Segment className="space-left-20">
+              <Route
+                path="/dashboard/reservations"
+                render={() => <Reservations />}
+              />
+              <Route
+                path="/dashboard/employees"
+                render={props => <EmployeeList {...props} />}
+              />
+              {/*TODO work on these pages*/}
+              <Route path="/dashboard/checkout" render={() => <Checkout />} />
+              {/*<Route path="/dashboard/properties" render={() => <Properties/>}/>*/}
+              {/*<Route path="/dashboard/tasks" render={() => <Tasks/>}/>*/}
+              {/*<Route path="/dashboard/settings" render={() => <Settings/>}/>*/}
+            </Segment>
           </Sidebar.Pusher>
         </Sidebar.Pushable>
       </Container>
