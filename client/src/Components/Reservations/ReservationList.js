@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import { Button, Header, Tab, Pagination } from "semantic-ui-react";
-import { FlexColumn, FlexRow, Divider } from "custom-components";
+import { FlexColumn, Divider } from "custom-components";
 import ReservationListItem from "./ReservationListItem";
 
 export default class ReservationList extends Component {
@@ -37,7 +37,7 @@ export default class ReservationList extends Component {
         {reservations.map((reservation, ind) => (
           <>
             <ReservationListItem reservation={reservation} />
-            <Divider />
+            {/* <Divider /> */}
           </>
         ))}
 
