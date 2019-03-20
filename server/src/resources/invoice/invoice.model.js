@@ -35,6 +35,12 @@ const invoiceSchema = new Schema(
     message: {
       type: String,
       default: 'We hope you enjoyed your stay.'
+    },
+    total: {
+      type: Number,
+      default: 0,
+      min: 0,
+      required: [true, 'Invoice total is a required field']
     }
   },
   { timestamps: true }
