@@ -3,6 +3,12 @@ import { Reservation } from './reservations.model';
 
 class ReservationControllers extends BaseController {
   constructor(mongooseModel) {
+    super(mongooseModel);
+    this.mongooseModel = mongooseModel;
+  }
+
+  searchAll = (req, res, next) => {
+    // Other collections to join
     const lookup = [
       {
         $lookup: {
@@ -22,6 +28,7 @@ class ReservationControllers extends BaseController {
       }
     ];
 
+    // Properties to search
     const search = [
       'property.name',
       'property.address1',
@@ -33,9 +40,8 @@ class ReservationControllers extends BaseController {
       '_id'
     ];
 
-    super(mongooseModel, { lookup, search });
-    this.mongooseModel = mongooseModel;
-  }
+    return this.search(req, res, next, { lookup, search });
+  };
 }
 
 const controllers = new ReservationControllers(Reservation);

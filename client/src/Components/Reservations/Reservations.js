@@ -38,7 +38,7 @@ export default class Reservations extends Component {
     const { page, pageSize, sort, filter } = this.state;
     const search = value || "";
     this.setState({ search });
-    this.props.getReservations({ page, pageSize, sort, search, filter });
+    this.props.searchReservations({ page, pageSize, sort, search, filter });
   };
 
   handleTabChange = (e, data) => {

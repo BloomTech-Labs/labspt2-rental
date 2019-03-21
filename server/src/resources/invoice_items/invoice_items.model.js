@@ -20,7 +20,8 @@ const invoiceItemSchema = new Schema(
     },
     owner: {
       type: mongoose.SchemaTypes.ObjectId,
-      ref: 'user'
+      ref: 'user',
+      autopopulate: true
     },
     defaultItem: {
       type: Boolean,
@@ -35,5 +36,7 @@ const invoiceItemSchema = new Schema(
   },
   { timestamps: true }
 );
+
+invoiceItemSchema.plugin(require('mongoose-autopopulate'));
 
 export const InvoiceItem = mongoose.model('invoice_item', invoiceItemSchema);
