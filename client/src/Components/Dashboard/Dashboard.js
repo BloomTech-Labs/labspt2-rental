@@ -1,9 +1,9 @@
-import React, { Component } from 'react'
-import { Route, Link, withRouter } from 'react-router-dom'
-import { Segment, Menu, Sidebar, Icon, Header, Image } from 'semantic-ui-react'
-import { FlexRow, Container } from 'custom-components'
-import { Reservations } from '../Reservations'
-import { EmployeeList } from '../Employees'
+import React, { Component } from "react";
+import { Route, Link, withRouter } from "react-router-dom";
+import { Segment, Menu, Sidebar, Icon, Header, Image } from "semantic-ui-react";
+import { FlexRow, Container } from "custom-components";
+import { Reservations } from "../Reservations";
+import { EmployeeList, EmployeeSingle } from "../Employees";
 import { PropertyList } from "../Properties/PropList";
 import { Checkout } from "../Checkout";
 import { Tasks } from '../Tasks'
@@ -73,12 +73,17 @@ class Dashboard extends Component {
                   render={() => <Reservations />}
                 />
                 <Route
+                  exact
                   path="/dashboard/checkout"
                   render={() => <Checkout />}
                 />
                 <Route
                   path="/dashboard/employees"
-                  render={() => <EmployeeList />}
+                  render={props => <EmployeeList {...props} />}
+                />
+                <Route
+                  path="/dashboard/employees/:id"
+                  render={() => <EmployeeSingle />}
                 />
 
                 {/*TODO work on these pages*/}
@@ -93,7 +98,7 @@ class Dashboard extends Component {
                   render={() => <PropertyList />}
                 />
                 {/*<Route path="/dashboard/tasks" render={() => <Tasks/>}/>*/}
-                <Route path="/dashboard/settings" render={() => <Settings/>}/>
+                <Route path="/dashboard/settings" render={() => <Settings />} />
               </Segment>
             </FlexRow>
           </Sidebar.Pusher>
