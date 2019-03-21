@@ -19,20 +19,25 @@ const projectSchema = new Schema(
     createdBy: {
       type: mongoose.SchemaTypes.ObjectId,
       ref: 'user',
-      required: true
+      required: true,
+      autopopulate: true
     },
     manager: {
       type: mongoose.SchemaTypes.ObjectId,
-      ref: 'user'
+      ref: 'user',
+      autopopulate: true
     },
     team: [
       {
         type: mongoose.SchemaTypes.ObjectId,
-        ref: 'user'
+        ref: 'user',
+        autopopulate: true
       }
     ]
   },
   { timestamps: true }
 );
+
+projectSchema.plugin(require('mongoose-autopopulate'));
 
 export const Project = mongoose.model('project', projectSchema);

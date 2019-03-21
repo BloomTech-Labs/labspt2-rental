@@ -10,6 +10,10 @@ router
   .post(controllers.createOne);
 
 router
+  .route('/search')
+  .get(controllers.searchAll)
+
+router
   .route('/:id')
   .get(controllers.getOne)
   .put(controllers.updateOne)

@@ -17,7 +17,6 @@ export const render = async (req, res, next) => {
 // amount variable passed in x100
 // need: amount, stripeEmail, stripeToken, description
 
-
 export const charge = async (req, res, next) => {
   // console.log("req.body", req.body)
   try {
@@ -38,8 +37,8 @@ export const charge = async (req, res, next) => {
           })
           .then(charge => {
             // console.log('charge', charge)
-            res.status(200).send()
-          })
+            res.status(200).send();
+          });
       });
   } catch (err) {
     console.error(err);
