@@ -3,12 +3,13 @@ import { Header } from 'semantic-ui-react';
 import AccountForm from './accountForm.jsx';
 import { FlexColumn } from '../../custom-components/index.js';
 
+
 const user = {
-    firstName: 'Hayley',
-    lastName: 'Steingarten',
-    email: 'hayley@gmail.com',
-    phone: '466-462-9353'
-}
+  firstName: "Hayley",
+  lastName: "Steingarten",
+  email: "hayley@gmail.com",
+  phone: "466-462-9353"
+};
 
 const Account = () => {
     return(
@@ -17,7 +18,6 @@ const Account = () => {
             <AccountForm user={user}/>
         </FlexColumn>
     )
-    
 }
 
 export default Account;

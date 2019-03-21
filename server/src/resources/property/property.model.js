@@ -12,12 +12,14 @@ const propertySchema = new Schema(
     assistants: [
       {
         type: mongoose.SchemaTypes.ObjectId,
-        ref: 'user'
+        ref: 'user',
+        autopopulate: true
       }
     ],
     createdBy: {
       type: mongoose.SchemaTypes.ObjectId,
-      ref: 'user'
+      ref: 'user',
+      autopopulate: true
     },
     address1: {
       type: String,
@@ -47,6 +49,6 @@ const propertySchema = new Schema(
   { timestamps: true }
 );
 
-propertySchema.index({ '$**': 'text' });
+propertySchema.plugin(require('mongoose-autopopulate'));
 
 export const Property = mongoose.model('property', propertySchema);

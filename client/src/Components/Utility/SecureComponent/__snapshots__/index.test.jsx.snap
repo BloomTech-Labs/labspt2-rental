@@ -1,0 +1,7 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<SecuredComponent /> snapshot 1`] = `
+<div>
+  It must have children
+</div>
+`;
