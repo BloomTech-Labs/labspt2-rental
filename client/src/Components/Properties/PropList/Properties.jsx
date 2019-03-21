@@ -10,7 +10,7 @@ class Properties extends Component {
       <FlexColumn>
         <FlexRow>
           <Search />
-          <DatePicker />;
+          <DatePicker />
         </FlexRow>
         {/* <PropertyList /> */}
       </FlexColumn>
