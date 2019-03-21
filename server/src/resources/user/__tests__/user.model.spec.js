@@ -52,7 +52,6 @@ describe('User model', () => {
     // test('permissions', () => {
     //   const { permissions } = User.schema.obj;
     //   expect(permissions).toEqual({
-    
     //   });
     // });
 
@@ -68,7 +67,7 @@ describe('User model', () => {
       const { createdBy } = User.schema.obj;
       expect(createdBy).toEqual({
         type: mongoose.SchemaTypes.ObjectId,
-        ref: 'user',
+        ref: 'user'
       });
     });
   });
