@@ -2,7 +2,7 @@ import axios from "axios";
 import * as actions from "./actions";
 import config from "config";
 
-export const getProperties = () => {
+const getProperties = () => {
   return dispatch => {
     dispatch({
       type: actions.FETCH_PROPERTY_ATTEMPT
@@ -10,6 +10,7 @@ export const getProperties = () => {
     axios
       .get(`${config.apiUrl}/api/properties`)
       .then(response => {
+        console.log(response);
         dispatch({
           type: actions.FETCH_PROPERTY_SUCCESS,
           payload: response.data
@@ -19,8 +20,10 @@ export const getProperties = () => {
         console.log(err);
         dispatch({
           type: actions.FETCH_PROPERTY_FAILURE,
-          payload: "Could not fetch properties."
+          error: err
         });
       });
   };
 };
+
+export default getProperties;
