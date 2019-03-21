@@ -3,7 +3,7 @@ import { Route, Link, withRouter } from "react-router-dom";
 import { Segment, Menu, Sidebar, Icon, Header, Image } from "semantic-ui-react";
 import { FlexRow, Container } from "custom-components";
 import { Reservations } from "../Reservations";
-import { EmployeeList } from "../Employees";
+import { EmployeeList, EmployeeSingle } from "../Employees";
 import { PropertyList } from "../Properties/PropList";
 import { Settings } from "../Settings";
 
@@ -70,15 +70,20 @@ class Dashboard extends Component {
                   render={() => <Reservations />}
                 />
                 <Route
+                  exact
                   path="/dashboard/employees"
-                  render={() => <EmployeeList />}
+                  render={props => <EmployeeList {...props} />}
+                />
+                <Route
+                  path="/dashboard/employees/:id"
+                  render={() => <EmployeeSingle />}
                 />
                 <Route
                   path="/dashboard/properties"
                   render={() => <PropertyList />}
                 />
                 {/*<Route path="/dashboard/tasks" render={() => <Tasks/>}/>*/}
-                <Route path="/dashboard/settings" render={() => <Settings/>}/>
+                <Route path="/dashboard/settings" render={() => <Settings />} />
               </Segment>
             </FlexRow>
           </Sidebar.Pusher>
