@@ -26,7 +26,6 @@ export const charge = async (req, res, next) => {
     stripe.customers
       .create({
         email: req.body.stripeEmail,
-        // source: 'tok_KPte7942xySKBKyrBu11yEpf'
         source: id
       })
       .then(customer => {
@@ -38,8 +37,8 @@ export const charge = async (req, res, next) => {
             customer: customer.id
           })
           .then(charge => {
-            console.log('charge', charge)
-            res.status(200).send(charge)
+            // console.log('charge', charge)
+            res.status(200).send()
           })
       });
   } catch (err) {
