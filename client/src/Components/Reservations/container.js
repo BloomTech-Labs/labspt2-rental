@@ -1,5 +1,5 @@
 import { connect } from "react-redux";
-import { getReservations } from "./actionCreator";
+import { getReservations, searchReservations } from "./actionCreator";
 import Reservations from "./Reservations";
 
 const mapStateToProps = ({ reservations }) => ({
@@ -10,5 +10,5 @@ const mapStateToProps = ({ reservations }) => ({
 
 export default connect(
   mapStateToProps,
-  { getReservations }
+  { getReservations, searchReservations }
 )(Reservations);
