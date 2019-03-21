@@ -1,11 +1,16 @@
-import React, { Component } from "react";
-import { Route, Link, withRouter } from "react-router-dom";
-import { Segment, Menu, Sidebar, Icon, Header, Image } from "semantic-ui-react";
-import { FlexRow, Container } from "custom-components";
-import { Reservations } from "../Reservations";
-import { EmployeeList } from "../Employees";
+import React, { Component } from 'react'
+import { Route, Link, withRouter } from 'react-router-dom'
+import { Segment, Menu, Sidebar, Icon, Header, Image } from 'semantic-ui-react'
+import { FlexRow, Container } from 'custom-components'
+import { Reservations } from '../Reservations'
+import { Checkout } from '../Reservations'
+import { EmployeeList } from '../Employees'
 import { PropertyList } from "../Properties/PropList";
+
+import { Tasks } from '../Tasks'
+
 import { Settings } from "../Settings";
+
 
 class Dashboard extends Component {
   constructor(props) {
@@ -73,6 +78,14 @@ class Dashboard extends Component {
                   path="/dashboard/employees"
                   render={() => <EmployeeList />}
                 />
+
+                {/*TODO work on these pages*/}
+
+           
+                <Route path="/dashboard/tasks" render={() => <Tasks/>}/>
+
+                <Route path="/dashboard/checkout" render={() => <Checkout />} />
+
                 <Route
                   path="/dashboard/properties"
                   render={() => <PropertyList />}

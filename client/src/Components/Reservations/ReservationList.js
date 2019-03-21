@@ -26,7 +26,7 @@ export default class ReservationList extends Component {
     return (
       <FlexColumn width="800px" alignCenter style={{ position: "relative" }}>
         <Pagination
-          style={{ marginBottom: "10px" }}
+          className="space-bottom"
           boundaryRange={1}
           defaultActivePage={1}
           firstItem={null}
@@ -37,7 +37,7 @@ export default class ReservationList extends Component {
         {reservations.map((reservation, ind) => (
           <>
             <ReservationListItem reservation={reservation} />
-            {/* <Divider /> */}
+            <Divider />
           </>
         ))}
 

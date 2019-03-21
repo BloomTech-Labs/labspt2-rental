@@ -21,7 +21,9 @@ const discountSchema = new Schema(
     },
     owner: {
       type: mongoose.SchemaTypes.ObjectId,
-      ref: 'user'
+      ref: 'user',
+      autopopulate: true
+
     },
     lastUsed: {
       type: Date,
@@ -31,5 +33,7 @@ const discountSchema = new Schema(
   },
   { timestamps: true }
 );
+
+discountSchema.plugin(require('mongoose-autopopulate'));
 
 export const Discount = mongoose.model('discount', discountSchema);

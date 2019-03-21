@@ -18,25 +18,30 @@ export const render = async (req, res, next) => {
 // need: amount, stripeEmail, stripeToken, description
 
 export const charge = async (req, res, next) => {
+  // console.log("req.body", req.body)
   try {
-    let amount = req.body.amount;
+    const { id, email, amount, description } = req.body;
 
     stripe.customers
       .create({
         email: req.body.stripeEmail,
-        source: req.body.stripeToken
+        source: id
       })
       .then(customer => {
         stripe.charges
           .create({
-            amount,
-            description: req.body.description,
+            amount: 2000,
+            description: 'test charge!',
             currency: 'usd',
             customer: customer.id
           })
-          .then(charge => res.render('charge.pug'));
+          .then(charge => {
+            // console.log('charge', charge)
+            res.status(200).send();
+          });
       });
   } catch (err) {
     console.error(err);
+    res.status(500).end();
   }
 };
