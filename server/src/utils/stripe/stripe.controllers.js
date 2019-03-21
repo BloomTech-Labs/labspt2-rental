@@ -19,7 +19,7 @@ export const render = async (req, res, next) => {
 
 
 export const charge = async (req, res, next) => {
-  console.log("req.body", req.body)
+  // console.log("req.body", req.body)
   try {
     const { id, email, amount, description } = req.body;
 
