@@ -7,7 +7,7 @@ describe('Reservation model', () => {
       const { createdBy } = Reservation.schema.obj;
       expect(createdBy).toEqual({
         type: mongoose.Types.ObjectId,
-        ref: 'users',
+        ref: 'user',
         required: true
       });
     });
@@ -15,7 +15,7 @@ describe('Reservation model', () => {
       const { guest } = Reservation.schema.obj;
       expect(guest).toEqual({
         type: mongoose.Types.ObjectId,
-        ref: 'users',
+        ref: 'user',
         required: true
       });
     });
@@ -23,7 +23,7 @@ describe('Reservation model', () => {
       const { assistant } = Reservation.schema.obj;
       expect(assistant).toEqual({
         type: mongoose.Types.ObjectId,
-        ref: 'users',
+        ref: 'user',
         required: true
       });
     });

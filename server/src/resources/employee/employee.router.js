@@ -1,7 +1,6 @@
-import express from 'express';
+import { Router } from 'express';
 import { controllers } from './employee.controllers';
 
-const { Router } = express;
 const router = Router();
 
 router
