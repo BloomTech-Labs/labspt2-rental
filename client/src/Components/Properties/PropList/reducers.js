@@ -17,7 +17,7 @@ const propertyReducer = (state = initialState, action) => {
       return {
         ...state,
         loading: false,
-        properties: action.properties
+        properties: action.payload
       };
     case actions.FETCH_PROPERTY_FAILURE:
       return {

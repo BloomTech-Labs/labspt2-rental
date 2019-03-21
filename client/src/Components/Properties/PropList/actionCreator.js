@@ -2,7 +2,7 @@ import axios from "axios";
 import * as actions from "./actions";
 import config from "config";
 
-const getProperties = () => {
+export const getProperties = () => {
   return dispatch => {
     dispatch({
       type: actions.FETCH_PROPERTY_ATTEMPT
@@ -25,5 +25,3 @@ const getProperties = () => {
       });
   };
 };
-
-export default getProperties;

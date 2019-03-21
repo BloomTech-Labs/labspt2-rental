@@ -3,9 +3,10 @@ import { Route, Link, withRouter } from "react-router-dom";
 import { Segment, Menu, Sidebar, Icon, Header, Image } from "semantic-ui-react";
 import { FlexRow, Container } from "custom-components";
 import { Reservations } from "../Reservations";
-import { EmployeeList } from "../Employees";
 import { Properties } from "../Properties/PropList";
-import { Checkout } from "../Reservations";
+import { EmployeeList, EmployeeSingle } from "../Employees";
+import { Checkout } from "../Checkout";
+import { Tasks } from "../Tasks";
 import { Settings } from "../Settings";
 
 class Dashboard extends Component {
@@ -71,9 +72,25 @@ class Dashboard extends Component {
                   render={() => <Reservations />}
                 />
                 <Route
-                  path="/dashboard/employees"
-                  render={() => <EmployeeList />}
+                  exact
+                  path="/dashboard/checkout"
+                  render={() => <Checkout />}
                 />
+                <Route
+                  path="/dashboard/employees"
+                  render={props => <EmployeeList {...props} />}
+                />
+                <Route
+                  path="/dashboard/employees/:id"
+                  render={() => <EmployeeSingle />}
+                />
+
+                {/*TODO work on these pages*/}
+
+                <Route path="/dashboard/tasks" render={() => <Tasks />} />
+
+                <Route path="/dashboard/checkout" render={() => <Checkout />} />
+
                 <Route
                   path="/dashboard/properties"
                   render={() => <Properties />}

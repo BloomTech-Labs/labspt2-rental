@@ -7,26 +7,11 @@ import DatePicker from "../../shared/DatePicker/DatePicker";
 class Properties extends Component {
   constructor(props) {
     super(props);
-    this.state = {
-      properties: [],
-      loading: true,
-      error: false,
-      page: 1,
-      pageSize: 4,
-      sort: "_id",
-      search: ""
-    };
   }
   componentDidMount() {
-    const { page, pageSize, sort, filter } = this.state;
-    this.props.getProperties({ page, pageSize, sort, filter });
+    this.props.getProperties();
   }
 
-  componentWillReceiveProps(nextProps) {
-    this.setState({
-      properties: nextProps.properties
-    });
-  }
   cardHandleClick = id => {
     this.props.history.push(`/dashboard/properties/${id}`);
   };
@@ -37,7 +22,7 @@ class Properties extends Component {
           <Search />
           <DatePicker />
         </FlexRow>
-        {this.state.properties.map(property => {
+        {this.props.properties.map(property => {
           return (
             <PropertyCard
               imageLoc={property.image}
