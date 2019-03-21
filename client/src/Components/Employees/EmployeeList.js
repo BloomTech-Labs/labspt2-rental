@@ -28,8 +28,8 @@ class EmployeeList extends Component {
 
   render() {
     return (
-      <FlexColumn style={{width: 'full', maxWidth: '880px' }}>
-        <FlexRow justifyBetween style={{width: "90%"}}>
+      <FlexColumn style={{ width: "full", maxWidth: "880px" }}>
+        <FlexRow justifyBetween style={{ width: "90%" }}>
           <Input
             style={{ width: "80%" }}
             icon="address card"

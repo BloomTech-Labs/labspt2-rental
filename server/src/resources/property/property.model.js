@@ -12,29 +12,43 @@ const propertySchema = new Schema(
     assistants: [
       {
         type: mongoose.SchemaTypes.ObjectId,
-        ref: 'user'
+        ref: 'user',
+        autopopulate: true
       }
     ],
     createdBy: {
       type: mongoose.SchemaTypes.ObjectId,
-      ref: 'user'
+      ref: 'user',
+      autopopulate: true
     },
-    address: {
+    address1: {
       type: String,
-      required: [true, 'Address is a required field']
+      required: true
+    },
+    address2: {
+      type: String
+    },
+    city: {
+      type: String,
+      required: true
+    },
+    state: {
+      type: String,
+      required: true
+    },
+    zip: {
+      type: String,
+      required: true
     },
     price: {
       type: Number,
       required: true
     },
-    tasks: [
-      {
-        type: mongoose.SchemaTypes.ObjectId,
-        ref: 'task'
-      }
-    ]
+    image: String
   },
   { timestamps: true }
 );
+
+propertySchema.plugin(require('mongoose-autopopulate'));
 
 export const Property = mongoose.model('property', propertySchema);

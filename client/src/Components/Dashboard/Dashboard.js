@@ -1,11 +1,16 @@
-import React, { Component } from "react";
-import { Route, Link, withRouter } from "react-router-dom";
-import { Segment, Menu, Sidebar, Icon, Header, Image } from "semantic-ui-react";
-import { FlexRow, Container } from "custom-components";
-import { Reservations } from "../Reservations";
-import { EmployeeList } from "../Employees";
+import React, { Component } from 'react'
+import { Route, Link, withRouter } from 'react-router-dom'
+import { Segment, Menu, Sidebar, Icon, Header, Image } from 'semantic-ui-react'
+import { FlexRow, Container } from 'custom-components'
+import { Reservations } from '../Reservations'
+import { Checkout } from '../Reservations'
+import { EmployeeList } from '../Employees'
 import { PropertyList } from "../Properties/PropList";
-import { Checkout } from "../Reservations";
+
+import { Tasks } from '../Tasks'
+
+import { Settings } from "../Settings";
+
 
 class Dashboard extends Component {
   constructor(props) {
@@ -23,7 +28,6 @@ class Dashboard extends Component {
 
     this.links = [
       { url: `/dashboard/reservations`, name: "Reservations", icon: "book" },
-      { url: `/dashboard/checkout`, name: "Checkout", icon: "cart" },
       { url: `/dashboard/properties`, name: "Properties", icon: "home" },
       { url: `/dashboard/employees`, name: "Employees", icon: "address card" },
       { url: `/dashboard/tasks`, name: "Tasks", icon: "tasks" },
@@ -61,24 +65,35 @@ class Dashboard extends Component {
           </Sidebar>
 
           <Sidebar.Pusher as={Segment} style={{ marginLeft: "140px" }}>
-            <Segment className="space-left-20">
-              <Route
-                path="/dashboard/reservations"
-                render={() => <Reservations />}
-              />
-              <Route
-                path="/dashboard/employees"
-                render={() => <EmployeeList />}
-              />
-              {/*TODO work on these pages*/}
-              <Route path="/dashboard/checkout" render={() => <Checkout />} />
-              <Route
-                path="/dashboard/properties"
-                render={() => <PropertyList />}
-              />
-              {/*<Route path="/dashboard/tasks" render={() => <Tasks/>}/>*/}
-              {/*<Route path="/dashboard/settings" render={() => <Settings/>}/>*/}
-            </Segment>
+            <FlexRow width="full" justifyCenter>
+              <Segment
+                className="space-left-20"
+                style={{ width: "fit-content" }}
+              >
+                <Route
+                  path="/dashboard/reservations"
+                  render={() => <Reservations />}
+                />
+                <Route
+                  path="/dashboard/employees"
+                  render={() => <EmployeeList />}
+                />
+
+                {/*TODO work on these pages*/}
+
+           
+                <Route path="/dashboard/tasks" render={() => <Tasks/>}/>
+
+                <Route path="/dashboard/checkout" render={() => <Checkout />} />
+
+                <Route
+                  path="/dashboard/properties"
+                  render={() => <PropertyList />}
+                />
+                {/*<Route path="/dashboard/tasks" render={() => <Tasks/>}/>*/}
+                <Route path="/dashboard/settings" render={() => <Settings/>}/>
+              </Segment>
+            </FlexRow>
           </Sidebar.Pusher>
         </Sidebar.Pushable>
       </Container>

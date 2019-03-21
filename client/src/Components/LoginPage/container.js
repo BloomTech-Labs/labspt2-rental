@@ -1,13 +1,16 @@
-import { connect } from 'react-redux';
-import { loginUser } from './actions';
-import LoginPage from './LoginPage';
+import { connect } from "react-redux";
+import { loginUser } from "./actions";
+import LoginPage from "./LoginPage";
 
 const mapStateToProps = ({ login }) => ({
-    login
-})
+  login
+});
 
 const mapDispatchToProps = () => ({
-    loginUser
-})
+  loginUser
+});
 
-export default connect(mapStateToProps, { loginUser })(LoginPage)
+export default connect(
+  mapStateToProps,
+  { loginUser }
+)(LoginPage);

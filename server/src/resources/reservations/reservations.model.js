@@ -4,15 +4,28 @@ const { Schema } = mongoose;
 
 const reservationSchema = new Schema(
   {
-    userID: {
+    createdBy: {
       type: mongoose.Types.ObjectId,
-      ref: 'users',
+      ref: 'user',
+      required: true,
+      autopopulate: true
+    },
+    assistant: {
+      type: mongoose.Types.ObjectId,
+      ref: 'user',
+      required: true,
+      autopopulate: true
+    },
+    guest: {
+      type: mongoose.Types.ObjectId,
+      ref: 'user',
       required: true
     },
-    house: {
+    property: {
       type: mongoose.Types.ObjectId,
-      ref: 'house',
-      required: true
+      ref: 'property',
+      required: true,
+      autopopulate: true
     },
     checkIn: {
       type: Date,
@@ -22,25 +35,6 @@ const reservationSchema = new Schema(
       type: Date,
       required: true
     },
-    address1: {
-      type: String,
-      required: true
-    },
-    address2: {
-      type: String
-    },
-    city: {
-      type: String,
-      required: true
-    },
-    state: {
-      type: String,
-      required: true
-    },
-    zip: {
-      type: String,
-      required: true
-    },
     status: {
       type: String,
       enum: ['upcoming', 'incomplete', 'complete']
@@ -48,7 +42,8 @@ const reservationSchema = new Schema(
     tasks: [
       {
         type: mongoose.SchemaTypes.ObjectId,
-        ref: 'task'
+        ref: 'task',
+        autopopulate: true
       }
     ],
     nights: {
@@ -73,5 +68,7 @@ const reservationSchema = new Schema(
   },
   { timestamps: true }
 );
+
+reservationSchema.plugin(require('mongoose-autopopulate'));
 
 export const Reservation = mongoose.model('reservation', reservationSchema);

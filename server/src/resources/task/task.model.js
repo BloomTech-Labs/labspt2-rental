@@ -25,16 +25,20 @@ const taskSchema = new Schema(
       required: true,
       default: false
     },
-    house: {
+    property: {
       type: mongoose.SchemaTypes.ObjectId,
-      ref: 'house'
+      ref: 'property',
+      autopopulate: true
     },
     reservation: {
       type: mongoose.SchemaTypes.ObjectId,
-      ref: 'reservation'
+      ref: 'reservation',
+      autopopulate: true
     }
   },
   { timestamps: true }
 );
+
+taskSchema.plugin(require('mongoose-autopopulate'));
 
 export const Task = mongoose.model('task', taskSchema);
