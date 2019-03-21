@@ -13,7 +13,7 @@ const Account = () => {
     return(
         <div>
             <Header as='h1'>Account Settings</Header>
-            <AccountForm props={user}/>
+            <AccountForm user={user}/>
         </div>
     )
     
