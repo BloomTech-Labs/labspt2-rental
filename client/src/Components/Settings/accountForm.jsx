@@ -41,7 +41,7 @@ export default class AccountForm extends Component {
         if (disabled) {
             button = <Button disabled>Save</Button>
         } else {
-            button = <Button active>Save</Button>
+            button = <Button basic color="blue" active>Save</Button>
         }
         console.log('first name', firstName)
 

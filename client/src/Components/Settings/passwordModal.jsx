@@ -31,7 +31,7 @@ export default class PasswordModal extends Component {
 
         return (
             <div>
-                <Button onClick={this.show}>Change Password</Button>
+                <Button basic color="blue" onClick={this.show}>Change Password</Button>
 
                 <Modal size='mini' open={open} onClose={this.close}>
                 <Modal.Header>Update Password</Modal.Header>

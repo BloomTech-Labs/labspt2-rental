@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { Header, Segment } from 'semantic-ui-react';
 import CreditCard from './creditCard';
 import PlanModal from './planModal';
+import { FlexRow } from '../../custom-components';
 
 export default class Billing extends Component {
     constructor(){
@@ -38,10 +39,18 @@ export default class Billing extends Component {
             <div>
             <Header as='h1'>Billing Details</Header>
             <CreditCard cc={cc}/>
-            <p>Your next bill will be sent on {nextBilling}.</p>
-            <Header as='h2'>Current Plan:</Header>
-            <Segment.Inline> {plan}: {description}</Segment.Inline>
-            <PlanModal />
+
+            <FlexRow style={{ marginTop: "25px", marginBottom: "35px"}}>
+                <p>Your next bill will be sent on {nextBilling}.</p>
+            </FlexRow>
+
+            <Segment>
+                <Header as='h2'>Current Plan:</Header>
+                <Segment.Inline> {plan}: {description}</Segment.Inline>
+                <FlexRow style={{ marginTop: "25px"}}>
+                    <PlanModal />
+                </FlexRow>
+            </Segment>
             </div>
         )
     }

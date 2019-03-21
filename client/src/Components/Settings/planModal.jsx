@@ -51,7 +51,7 @@ export default class PlanModal extends Component {
 
         return (
             <div>
-                <Button onClick={this.show}>Update Plan</Button>
+                <Button basic color="blue" onClick={this.show}>Update Plan</Button>
 
                 <Modal open={open} onClose={this.close}>
                 <Modal.Header>Choose Your Billing Plan</Modal.Header>
