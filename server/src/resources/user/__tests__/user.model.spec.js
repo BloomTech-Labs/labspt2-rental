@@ -63,5 +63,13 @@ describe('User model', () => {
         enum: ['admin', 'owner', 'employee', 'guest']
       });
     });
+
+    test('createdBy', () => {
+      const { createdBy } = User.schema.obj;
+      expect(createdBy).toEqual({
+        type: mongoose.SchemaTypes.ObjectId,
+        ref: 'user',
+      });
+    });
   });
 });

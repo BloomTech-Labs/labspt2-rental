@@ -40,6 +40,10 @@ const userSchema = new Schema(
     role: {
       type: String,
       enum: ['admin', 'owner', 'employee', 'guest']
+    },
+    createdBy: {
+      type: mongoose.SchemaTypes.ObjectId,
+      ref: 'user'
     }
   },
   { timestamps: true }
