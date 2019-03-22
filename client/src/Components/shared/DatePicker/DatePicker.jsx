@@ -135,6 +135,8 @@ class DateRangePickerWrapper extends Component {
         onDatesChange={this.onDatesChange}
         onFocusChange={this.onFocusChange}
         focusedInput={focusedInput}
+        endDateId="end date"
+        startDateId="start date"
         startDate={startDate}
         endDate={endDate}
         showClearDates

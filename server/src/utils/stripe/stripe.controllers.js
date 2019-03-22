@@ -28,6 +28,7 @@ export const charge = async (req, res, next) => {
         source: id
       })
       .then(customer => {
+        // save customer id for billing
         stripe.charges
           .create({
             amount: 2000,
@@ -42,6 +43,19 @@ export const charge = async (req, res, next) => {
       });
   } catch (err) {
     console.error(err);
+    res.status(500).end();
+  }
+};
+
+// allows customer to update their CC information on file
+export const update = async (req, res, next) => {
+  try {
+    const { customer, id } = req.body;
+    stripe.customers.update(`${customer.id}`, {
+      source: id
+    });
+  } catch (err) {
+    console.log(err);
     res.status(500).end();
   }
 };

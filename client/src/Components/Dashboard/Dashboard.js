@@ -3,12 +3,11 @@ import { Route, Link, withRouter } from "react-router-dom";
 import { Segment, Menu, Sidebar, Icon, Header, Image } from "semantic-ui-react";
 import { FlexRow, Container } from "custom-components";
 import { Reservations } from "../Reservations";
+import { Properties } from "../Properties/PropList";
 import { EmployeeList, EmployeeSingle } from "../Employees";
-import { PropertyList } from "../Properties/PropList";
 import { Checkout } from "../Checkout";
-import { Tasks } from '../Tasks'
+import { Tasks } from "../Tasks";
 import { Settings } from "../Settings";
-
 
 class Dashboard extends Component {
   constructor(props) {
@@ -88,14 +87,13 @@ class Dashboard extends Component {
 
                 {/*TODO work on these pages*/}
 
-           
-                <Route path="/dashboard/tasks" render={() => <Tasks/>}/>
+                <Route path="/dashboard/tasks" render={() => <Tasks />} />
 
                 <Route path="/dashboard/checkout" render={() => <Checkout />} />
 
                 <Route
                   path="/dashboard/properties"
-                  render={() => <PropertyList />}
+                  render={() => <Properties />}
                 />
                 {/*<Route path="/dashboard/tasks" render={() => <Tasks/>}/>*/}
                 <Route path="/dashboard/settings" render={() => <Settings />} />
