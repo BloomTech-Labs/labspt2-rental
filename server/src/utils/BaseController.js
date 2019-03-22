@@ -38,11 +38,15 @@ export class BaseController {
     }
   }
 
-  getMany = async (req, res, next) => {
+  getMany = async (req, res, next, query) => {
     let filter,
       sort,
       skip,
       limit;
+
+    if (query) {
+      filter = {...filter, ...query}
+    }
 
     if (req.query.filter) {
       filter = JSON.parse(req.query.filter)
