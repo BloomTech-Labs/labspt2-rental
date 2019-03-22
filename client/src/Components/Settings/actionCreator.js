@@ -1,11 +1,6 @@
-<<<<<<< HEAD
-import axios from 'axios';
-import * as actions from './actions';
-=======
 import axios from "axios";
 import * as actions from "./actions";
 import config from "../../config/index";
->>>>>>> 9c167efa0de2ce2693a11b3069766a5662b7f703
 
 // updateUser
 // CC info and next billing will come from Stripe
