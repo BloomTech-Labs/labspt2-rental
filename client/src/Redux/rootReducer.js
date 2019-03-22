@@ -11,5 +11,6 @@ export default combineReducers({
   registration: registrationReducer,
   auth: loginReducer,
   userList: userListReducer,
-  reservations: reservationsReducer
+  reservations: reservationsReducer,
+  employees: employeesReducer
 });
