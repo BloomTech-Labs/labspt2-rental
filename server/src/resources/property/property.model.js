@@ -44,6 +44,10 @@ const propertySchema = new Schema(
       type: Number,
       required: true
     },
+    occupants: {
+      type: Number,
+      required: true
+    },
     image: String
   },
   { timestamps: true }

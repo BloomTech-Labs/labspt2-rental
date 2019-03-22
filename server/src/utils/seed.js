@@ -93,6 +93,7 @@ export default async () => {
                 state: faker.address.state(),
                 zip: faker.address.zipCode(),
                 price: faker.random.number({ min: 50, max: 1000 }),
+                occupants: faker.random.number({ min: 1, max: 10 }),
                 image: faker.random.image()
               });
             }

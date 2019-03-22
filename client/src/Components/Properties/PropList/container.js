@@ -1,6 +1,14 @@
 import { connect } from "react-redux";
-import PropertyList from "./PropertyList";
+import { getProperties } from "./actionCreator";
+import Properties from "./Properties";
 
-const mapStateToProps = ({ propertyList }) => ({ propertyList });
+const mapStateToProps = data => ({
+  properties: data.properties.properties,
+  loading: data.properties.loading,
+  error: data.properties.error
+});
 
-export default connect(mapStateToProps)(PropertyList);
+export default connect(
+  mapStateToProps,
+  { getProperties }
+)(Properties);

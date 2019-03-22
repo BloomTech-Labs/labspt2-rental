@@ -1,1 +1,1 @@
-export { default as PropertyList } from "./container";
+export { default as Properties } from "./container";
