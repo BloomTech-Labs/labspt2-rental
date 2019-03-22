@@ -49,8 +49,10 @@ class EmployeeList extends Component {
           ) : null}
         </FlexRow>
         {console.log(this.props)}
-        {this.props.loading ? (
-          this.props.employees.map(employee => {
+        {this.props.employees.loading ? (
+          <div>Loading...</div>
+        ) : (
+          this.props.employees.employees.map(employee => {
             return (
               <EmployeeListItem
                 key={employee.userID}
@@ -59,8 +61,6 @@ class EmployeeList extends Component {
               />
             );
           })
-        ) : (
-          <div>Loading...</div>
         )}
       </FlexColumn>
     );
