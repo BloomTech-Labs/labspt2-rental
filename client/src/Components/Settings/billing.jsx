@@ -1,17 +1,15 @@
 import React, { Component } from 'react';
 import { Header, Segment } from 'semantic-ui-react';
 import CreditCard from './creditCard';
-import CheckoutForm from './updatePlan';
-import {CardElement} from 'react-stripe-elements';
-import {Elements, StripeProvider} from 'react-stripe-elements';
-
+import PlanModal from './planModal';
+import { FlexRow } from '../../custom-components';
 
 export default class Billing extends Component {
     constructor(){
         super();
         this.state = {
             nextBilling: '',
-            billingPlan: 3
+            billingPlan: 3,
         }
     }
 
@@ -41,15 +39,18 @@ export default class Billing extends Component {
             <div>
             <Header as='h1'>Billing Details</Header>
             <CreditCard cc={cc}/>
-            <p>Your next bill will be sent on {nextBilling}.</p>
-            <Header as='h2'>Current Plan:</Header>
-            <Segment.Inline> {plan}: {description}</Segment.Inline>
-            
-            <StripeProvider apiKey="pk_test_Il1MCOR4thnvsuNgiwCaJzOw">
-                <Elements>
-                <CheckoutForm />
-                </Elements>
-            </StripeProvider>
+
+            <FlexRow style={{ marginTop: "25px", marginBottom: "35px"}}>
+                <p>Your next bill will be sent on {nextBilling}.</p>
+            </FlexRow>
+
+            <Segment>
+                <Header as='h2'>Current Plan:</Header>
+                <Segment.Inline> {plan}: {description}</Segment.Inline>
+                <FlexRow style={{ marginTop: "25px"}}>
+                    <PlanModal />
+                </FlexRow>
+            </Segment>
             </div>
         )
     }

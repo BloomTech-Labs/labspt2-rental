@@ -16,10 +16,10 @@ export default class AccountForm extends Component {
 
     componentDidMount = () => {
         this.setState({
-            firstName: this.props.firstName,
-            lastName: this.props.lastName,
-            email: this.props.email,
-            phone: this.props.phone
+            firstName: this.props.user.firstName,
+            lastName: this.props.user.lastName,
+            email: this.props.user.email,
+            phone: this.props.user.phone
         })
     }
 
@@ -41,8 +41,9 @@ export default class AccountForm extends Component {
         if (disabled) {
             button = <Button disabled>Save</Button>
         } else {
-            button = <Button active>Save</Button>
+            button = <Button basic color="blue" active>Save</Button>
         }
+        console.log('first name', firstName)
 
         return (
             <Form>
@@ -72,7 +73,7 @@ export default class AccountForm extends Component {
                     <label>Email Address</label>
                     <Input 
                     name='email'
-                    placeholder={email || ''}
+                    value={email || ''}
                     type='email'
                     onChange={this.handleChange} />
                 </Form.Field>
@@ -83,7 +84,7 @@ export default class AccountForm extends Component {
                     <label>Phone</label>
                     <Input 
                     name='phone'
-                    placeholder={phone || ''}
+                    value={phone || ''}
                     type='tel'
                     onChange={this.handleChange} />
                 </Form.Field>

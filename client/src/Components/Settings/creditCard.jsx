@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { Segment, Header, Container, Button } from 'semantic-ui-react';
+import { FlexColumn, FlexRow } from '../../custom-components';
 
 export default class CreditCard extends Component {
     constructor(props){
@@ -36,6 +37,8 @@ export default class CreditCard extends Component {
             <Segment>
                 <Header as='h2'>Credit Card {this.state.cardType}</Header>
 
+                <FlexRow width="800px" alignCenter>
+                    <FlexColumn width="400px">
                 <Container>
                     <Header as='h4'>{cardType}</Header>
                     <p>**** **** **** {lastFour}</p>
@@ -45,14 +48,20 @@ export default class CreditCard extends Component {
                     <Header as='h4'>Expires</Header>
                     <p>{expiration}</p>
                 </Container>
+                </FlexColumn>
 
+                <FlexColumn width="400px">
                 <Container>
                     <Header as='h3'>Billing Address</Header>
                     <p>{address}</p>
                     <p>{city}, {state} {zip}</p>
                 </Container>
+                </FlexColumn>
+                </FlexRow>
 
+                <FlexRow style={{marginTop: "25px"}}>
                 <Button basic color="blue">Update Credit Card</Button>
+                </FlexRow>
             </Segment>
         )
     }
