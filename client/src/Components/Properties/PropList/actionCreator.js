@@ -10,7 +10,6 @@ export const getProperties = () => {
     axios
       .get(`${config.apiUrl}/api/properties`)
       .then(response => {
-        console.log(response);
         dispatch({
           type: actions.FETCH_PROPERTY_SUCCESS,
           payload: response.data

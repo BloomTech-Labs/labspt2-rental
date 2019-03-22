@@ -1,9 +1,9 @@
 import { combineReducers } from "redux";
-import propertyReducer from "../Components/Properties/PropList/reducers";
+import propertyReducer from "../Components/Properties/PropList/reducer";
 import registrationReducer from "../Components/Registration/reducer";
 import userListReducer from "../Components/UserList/reducer";
 import reservationsReducer from "../Components/Reservations/reducer";
-import employeesReducer from '../Components/Employees/reducers'
+import employeesReducer from "../Components/Employees/reducers";
 import loginReducer from "../Components/LoginPage/reducer";
 
 export default combineReducers({

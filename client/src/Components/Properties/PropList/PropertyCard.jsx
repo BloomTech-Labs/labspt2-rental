@@ -4,15 +4,14 @@ import InfoCard from "../../shared/Card/InfoCard";
 const PropertyCard = props => {
   return (
     <InfoCard
-      imageLoc={props.property.image}
-      header={props.property.name}
-      lineOneTitle="Address:"
-      lineTwoTitle="Employee:"
-      lineThreeTitle="Max Guests:"
-      lineOneInfo={props.property.address}
-      lineTwoInfo={props.property.assistants}
-      lineThreeInfo={props.property.occupants}
-      buttonFunction={() => props.clickHandler(props.property.id)}
+      imageLoc={props.image}
+      header={props.name}
+      lineOneTitle="Address"
+      lineTwoTitle="Employee"
+      lineThreeTitle="Max Guests"
+      lineOneInfo={props.address}
+      lineTwoInfo={props.assistants}
+      lineThreeInfo={props.occupants}
     />
   );
 };

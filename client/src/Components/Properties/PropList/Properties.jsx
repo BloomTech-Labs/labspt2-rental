@@ -7,9 +7,22 @@ import DatePicker from "../../shared/DatePicker/DatePicker";
 class Properties extends Component {
   constructor(props) {
     super(props);
+    this.state = {
+      properties: [],
+      loading: false,
+      error: null
+    };
   }
   componentDidMount() {
     this.props.getProperties();
+  }
+
+  componentWillReceiveProps(nextProps) {
+    this.setState({
+      properties: nextProps.properties,
+      loading: nextProps.loading,
+      error: nextProps.error
+    });
   }
 
   cardHandleClick = id => {
@@ -22,14 +35,23 @@ class Properties extends Component {
           <Search />
           <DatePicker />
         </FlexRow>
-        {this.props.properties.map(property => {
+        {console.log(this.props)}
+        {this.state.properties.map(property => {
           return (
             <PropertyCard
-              imageLoc={property.image}
-              header={property.name}
-              lineOneInfo={property.address}
-              lineTwoInfo={property.assistants}
-              lineThreeInfo={property.occupants}
+              image={property.image}
+              name={property.name}
+              address={
+                property.address1 +
+                " " +
+                property.city +
+                " " +
+                property.state +
+                " " +
+                property.zip
+              }
+              assistants={property.assistants[0].firstName}
+              occupants={property.occupants}
               buttonFunction={() => this.cardHandleClick(property._id)}
             />
           );
