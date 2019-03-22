@@ -1,5 +1,11 @@
+<<<<<<< HEAD
 import axios from 'axios';
 import * as actions from './actions';
+=======
+import axios from "axios";
+import * as actions from "./actions";
+import config from "../../config/index";
+>>>>>>> 9c167efa0de2ce2693a11b3069766a5662b7f703
 
 // updateUser
 // CC info and next billing will come from Stripe
@@ -8,19 +14,19 @@ import * as actions from './actions';
 // keep Store updated with user info. If it changes, update
 // use the billing plan ID to query billing table and send that to Stripe
 
-export const updateUser = (user) => {
-    return async dispatch => {
-        dispatch({type: actions.UPDATE_USER_STARTED})
-        try {
-            const updatedUser = await axios.put(`http://138.197.202.158/me`, user)
-            console.log(updatedUser)
-            dispatch({
-                type: actions.UPDATE_USER_SUCCESS,
-                payload: updatedUser
-            })   
-        } catch (err) {
-            console.error(err)
-            dispatch({type: actions.UPDATE_USER_ERROR, payload: err})
-        }
+export const updateUser = user => {
+  return async dispatch => {
+    dispatch({ type: actions.UPDATE_USER_STARTED });
+    try {
+      const updatedUser = await axios.put(`http://138.197.202.158/me`, user);
+      console.log(updatedUser);
+      dispatch({
+        type: actions.UPDATE_USER_SUCCESS,
+        payload: updatedUser
+      });
+    } catch (err) {
+      console.error(err);
+      dispatch({ type: actions.UPDATE_USER_ERROR, payload: err });
     }
-}
+  };
+};

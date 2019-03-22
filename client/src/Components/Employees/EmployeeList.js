@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import { Button, Icon, Input } from "semantic-ui-react";
 import { FlexRow, FlexColumn } from "custom-components";
 import EmployeeListItem from "./EmployeeListItem";
+import EmployeeSingle from "./EmployeeSingle";
 
 class EmployeeList extends Component {
   constructor(props) {
@@ -14,11 +15,10 @@ class EmployeeList extends Component {
 
   componentDidMount() {
     // here we'll grab the role and securities of the user
-    this.setState({ owner: true });
+    this.props.getEmployees();
   }
 
   searchChangeHandler = e => {
-    console.log(this.state.searchText);
     this.setState({ searchText: e.target.value });
   };
 
@@ -48,16 +48,20 @@ class EmployeeList extends Component {
             </Button>
           ) : null}
         </FlexRow>
-        {this.props.employees.map(employee => {
-          // need to have a shared info card
-          return (
-            <EmployeeListItem
-              key={employee.userID}
-              employee={employee}
-              clickHandler={this.cardHandleClick}
-            />
-          );
-        })}
+        {console.log(this.props)}
+        {this.props.employees.loading ? (
+          <div>Loading...</div>
+        ) : (
+          this.props.employees.employees.map(employee => {
+            return (
+              <EmployeeListItem
+                key={employee.userID}
+                employee={employee}
+                clickHandler={this.cardHandleClick}
+              />
+            );
+          })
+        )}
       </FlexColumn>
     );
   }

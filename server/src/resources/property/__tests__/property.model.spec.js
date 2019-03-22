@@ -1,6 +1,5 @@
 import { Property } from '../property.model';
 import mongoose from 'mongoose';
-import { Reservation } from '../../reservations/reservations.model';
 
 describe('Property model', () => {
   describe('schema', () => {
@@ -32,34 +31,34 @@ describe('Property model', () => {
     });
 
     test('address1', () => {
-      const { address1 } = Reservation.schema.obj;
+      const { address1 } = Property.schema.obj;
       expect(address1).toEqual({
         type: String,
         required: true
       });
     });
     test('address2', () => {
-      const { address2 } = Reservation.schema.obj;
+      const { address2 } = Property.schema.obj;
       expect(address2).toEqual({
         type: String
       });
     });
     test('city', () => {
-      const { city } = Reservation.schema.obj;
+      const { city } = Property.schema.obj;
       expect(city).toEqual({
         type: String,
         required: true
       });
     });
     test('state', () => {
-      const { state } = Reservation.schema.obj;
+      const { state } = Property.schema.obj;
       expect(state).toEqual({
         type: String,
         required: true
       });
     });
     test('zip', () => {
-      const { zip } = Reservation.schema.obj;
+      const { zip } = Property.schema.obj;
       expect(zip).toEqual({
         type: String,
         required: true
