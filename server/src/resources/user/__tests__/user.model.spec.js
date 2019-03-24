@@ -31,5 +31,44 @@ describe('User model', () => {
         required: true
       });
     });
+
+    test('firstName', () => {
+      const { firstName } = User.schema.obj;
+      expect(firstName).toEqual({
+        type: String,
+        required: true
+      });
+    });
+
+    test('lastName', () => {
+      const { lastName } = User.schema.obj;
+      expect(lastName).toEqual({
+        type: String,
+        required: true
+      });
+    });
+
+    // not sure about this test for permissions
+    // test('permissions', () => {
+    //   const { permissions } = User.schema.obj;
+    //   expect(permissions).toEqual({
+    //   });
+    // });
+
+    test('role', () => {
+      const { role } = User.schema.obj;
+      expect(role).toEqual({
+        type: String,
+        enum: ['admin', 'owner', 'employee', 'guest']
+      });
+    });
+
+    test('createdBy', () => {
+      const { createdBy } = User.schema.obj;
+      expect(createdBy).toEqual({
+        type: mongoose.SchemaTypes.ObjectId,
+        ref: 'user'
+      });
+    });
   });
 });

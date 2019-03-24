@@ -1,4 +1,4 @@
-import BaseController from '../../utils/BaseController';
+import { BaseController } from '../../utils/BaseController';
 import { BillingPlan } from './billingPlan.model';
 
 class BillingPlanControllers extends BaseController {
@@ -8,6 +8,6 @@ class BillingPlanControllers extends BaseController {
   }
 }
 
-const billingPlanControllers = BillingPlanControllers(BillingPlan);
+const controllers = new BillingPlanControllers(BillingPlan);
 
-export { billingPlanControllers };
+export { controllers };

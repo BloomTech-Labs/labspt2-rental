@@ -1,13 +1,11 @@
 import express from 'express';
-import controllers from './billingPlan.controllers';
+import { controllers } from './billingPlan.controllers';
 
 const { Router } = express;
-const router = Router;
+const router = Router();
 
-router 
-  .route('/')
-  .get(controllers.getMany)
+router.route('/').get(controllers.getMany);
 
-router 
-  .route('/:id')
-  .get(controllers.getOne)
+router.route('/:id').get(controllers.getOne);
+
+export default router;

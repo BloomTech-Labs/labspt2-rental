@@ -1,14 +1,13 @@
+import { InvoiceItem } from './invoice_items.model';
 import { BaseController } from '../../utils/BaseController';
-import { InvoiceItems } from './invoice_items.model';
 
 class InvoiceItemsControllers extends BaseController {
-  // Create specific methods here
   constructor(mongooseModel) {
     super(mongooseModel);
     this.mongooseModel = mongooseModel;
   }
 }
 
-const invoiceItemsControllers = new InvoiceItemsControllers(InvoiceItems);
+const controllers = new InvoiceItemsControllers(InvoiceItem);
 
-export { invoiceItemsControllers };
+export { controllers };

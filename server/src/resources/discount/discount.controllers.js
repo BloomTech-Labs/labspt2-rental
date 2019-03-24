@@ -9,6 +9,6 @@ class DiscountControllers extends BaseController {
   }
 }
 
-const discountControllers = new DiscountControllers(Discount);
+const controllers = new DiscountControllers(Discount);
 
-export { discountControllers };
+export { controllers };

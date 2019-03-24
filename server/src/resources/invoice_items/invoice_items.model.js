@@ -19,21 +19,24 @@ const invoiceItemSchema = new Schema(
       min: 0
     },
     owner: {
-        type: mongoose.SchemaTypes.ObjectId,
-        ref: 'user'
-      },
-    defaultItem: { 
+      type: mongoose.SchemaTypes.ObjectId,
+      ref: 'user',
+      autopopulate: true
+    },
+    defaultItem: {
       type: Boolean,
       default: false,
-      required: [true, 'Default distinction is required'] 
+      required: [true, 'Default distinction is required']
     },
-    lastUsed: { 
+    lastUsed: {
       type: Date,
       default: Date.now,
-      required: [true, 'Last used date is a required field'] 
+      required: [true, 'Last used date is a required field']
     }
   },
   { timestamps: true }
 );
+
+invoiceItemSchema.plugin(require('mongoose-autopopulate'));
 
 export const InvoiceItem = mongoose.model('invoice_item', invoiceItemSchema);

@@ -19,11 +19,15 @@
     "cuid": "^2.1.6",
     "dotenv": "^6.2.0",
     "express": "^4.16.4",
+    "faker": "github:Marak/faker.js#master",
     "helmet": "^3.15.1",
     "jsonwebtoken": "^8.4.0",
     "lodash": "^4.17.11",
     "mongoose": "^5.4.11",
-    "morgan": "^1.9.1"
+    "mongoose-autopopulate": "^0.9.1",
+    "morgan": "^1.9.1",
+    "pug": "^2.0.3",
+    "stripe": "^6.26.0"
   },
   "devDependencies": {
     "@babel/cli": "^7.2.3",
@@ -42,7 +46,7 @@
     "eslint-plugin-prettier": "^3.0.1",
     "eslint-plugin-promise": "^4.0.1",
     "eslint-plugin-standard": "^4.0.0",
-    "jest": "^24.1.0",
+    "jest": "^24.2.0-alpha.0",
     "nodemon": "^1.18.10",
     "prettier": "^1.16.4",
     "rimraf": "^2.6.3"

@@ -30,11 +30,38 @@ describe('Property model', () => {
       });
     });
 
-    test('address', () => {
-      const { address } = Property.schema.obj;
-      expect(address).toEqual({
+    test('address1', () => {
+      const { address1 } = Property.schema.obj;
+      expect(address1).toEqual({
         type: String,
-        required: [true, 'Address is a required field']
+        required: true
+      });
+    });
+    test('address2', () => {
+      const { address2 } = Property.schema.obj;
+      expect(address2).toEqual({
+        type: String
+      });
+    });
+    test('city', () => {
+      const { city } = Property.schema.obj;
+      expect(city).toEqual({
+        type: String,
+        required: true
+      });
+    });
+    test('state', () => {
+      const { state } = Property.schema.obj;
+      expect(state).toEqual({
+        type: String,
+        required: true
+      });
+    });
+    test('zip', () => {
+      const { zip } = Property.schema.obj;
+      expect(zip).toEqual({
+        type: String,
+        required: true
       });
     });
 
@@ -46,14 +73,9 @@ describe('Property model', () => {
       });
     });
 
-    test('tasks', () => {
-      const { tasks } = Property.schema.obj;
-      expect(tasks).toEqual([
-        {
-          type: mongoose.SchemaTypes.ObjectId,
-          ref: 'task'
-        }
-      ]);
+    test('image', () => {
+      const { image } = Property.schema.obj;
+      expect(image).toEqual(String);
     });
   });
 });
