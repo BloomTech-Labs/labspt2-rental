@@ -10,6 +10,7 @@ import employeeRouter from './employee/employee.router';
 import reservationsRouter from './reservations/reservations.router';
 import { protect } from '../utils/auth';
 import stripeRouter from '../utils/stripe/stripe.router';
+import applePayRouter from '../utils/stripe/applePay.router';
 
 export const publicRouter = app => {
   app.use('/api/users', userRouter);
