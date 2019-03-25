@@ -28,6 +28,10 @@ export const protectedRouter = app => {
     app.use('/api/employees', employeeRouter);
     app.use('/api/stripe', stripeRouter);
     app.use('/api/reservations', reservationsRouter);
+    app.use(
+      '/.well-known/apple-developer-merchantid-domain-association',
+      applePayRouter
+    );
   } catch (e) {
     console.error(e);
   }
