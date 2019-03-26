@@ -17,9 +17,10 @@ export const render = async (req, res, next) => {
 // amount variable passed in x100
 // need: amount, stripeEmail, stripeToken, description
 
-export const charge = async (req, res, next) => {
+export const subscribe = async (req, res, next) => {
   // console.log("req.body", req.body)
   try {
+    // will need billing address, email, amount
     const { id, email, amount, description } = req.body;
 
     stripe.customers
@@ -29,18 +30,18 @@ export const charge = async (req, res, next) => {
       })
       .then(customer => {
         // save customer id for billing
-        stripe.charges
+        stripe.subscriptions
           .create({
-            amount: 2000,
-            description: 'test charge!',
-            currency: 'usd',
-            customer: customer.id
+            customer: customer.id,
+            items: [{ plan: planid }]
           })
           .then(charge => {
-            // console.log('charge', charge)
+            console.log('charge', charge);
             res.status(200).send();
-          });
-      });
+          })
+          .catch(err => res.send(err));
+      })
+      .catch(err => res.send(err));
   } catch (err) {
     console.error(err);
     res.status(500).end();
