@@ -16,7 +16,6 @@ export const getTasks = () => {
         });
       })
     .catch(err => {
-      console.log(err);
       dispatch({
         type: actions.FETCH_TASK_FAILURE,
         error: err
