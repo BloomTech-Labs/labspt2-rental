@@ -8,7 +8,7 @@ export const getTasks = () => {
       type: actions.FETCH_TASK_ATTEMPT
     });
     axios
-      .get(`${config.apiURL}/api/tasks`)
+      .get(`${config.apiUrl}/api/tasks`)
       .then(response => {
         dispatch({
           type: actions.FETCH_TASK_SUCCESS,

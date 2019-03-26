@@ -6,7 +6,7 @@ const initialState = {
   tasks: []
 };
 
-const taskReducer = (state =  initialState, action) => {
+const taskReducer = (state = initialState, action) => {
   switch (action.type) {
     case actions.FETCH_TASK_ATTEMPT:
       return {

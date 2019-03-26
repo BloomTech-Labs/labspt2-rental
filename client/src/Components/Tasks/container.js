@@ -5,7 +5,7 @@ import Tasks from "./Tasks";
 const mapStateToProps = data => ({
   tasks: data.tasks.tasks,
   loading: data.tasks.loading,
-  error: data.properties.error
+  error: data.tasks.error
 });
 
 export default connect(
