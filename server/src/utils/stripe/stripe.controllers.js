@@ -27,10 +27,21 @@ export const subscribe = async (req, res, next) => {
     const { id, stripeEmail } = req.body;
 
     stripe.customers
-      .create({
-        email: stripeEmail,
-        source: id
-      })
+      .create(
+        {
+          email: stripeEmail,
+          source: id
+        },
+        (err, customer) => {
+          if (err) {
+            return res
+              .status(500)
+              .json({ message: 'Failed to create new customer', err });
+          } else {
+            // do below
+          }
+        }
+      )
       .then(customer => {
         // save customer id for billing
         stripe.subscriptions
