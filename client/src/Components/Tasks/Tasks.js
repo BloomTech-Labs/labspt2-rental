@@ -16,13 +16,13 @@ class Tasks extends Component {
       this.props.getTasks();
     }
 
-    componentWillReceiveProps(nextProps) {
-      this.setState({
-        tasks: nextProps.tasks,
-        loading: nextProps.loading,
-        error: nextProps.error
-      });
-    }
+    // componentWillReceiveProps(nextProps) {
+    //   this.setState({
+    //     tasks: nextProps.tasks,
+    //     loading: nextProps.loading,
+    //     error: nextProps.error
+    //   });
+    // }
 
   render () {
     return (
