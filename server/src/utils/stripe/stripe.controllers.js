@@ -20,12 +20,9 @@ export const render = async (req, res, next) => {
 // amount variable passed in x100
 // need: amount, stripeEmail, stripeToken id, description
 
-export const subscribe = async (req, res, next) => {
-  // console.log("req.body", req.body)
+export const subscribe = async (req, res) => {
   try {
-    // will need billing address, email, amount
     const { id, stripeEmail } = req.body;
-
     stripe.customers
       .create(
         {
@@ -38,30 +35,40 @@ export const subscribe = async (req, res, next) => {
               .status(500)
               .json({ message: 'Failed to create new customer', err });
           } else {
-            // do below
+            // save customer id to user
+            console.log('customer id', customer.id);
+            stripe.subscriptions.create(
+              {
+                customer: customer.id,
+                items: [
+                  {
+                    plan: planid,
+                    quantity: propertyQuantity
+                  }
+                ]
+              },
+              (err, subscription) => {
+                if (err) {
+                  return res.status(500).json({
+                    message: 'Failed to create new subscription',
+                    err
+                  });
+                } else {
+                  // save subscription.id to the user for updating quantities later
+                  console.log('subscription id', subscription.id);
+                  res.status(200).send();
+                }
+              }
+            );
           }
         }
       )
-      .then(customer => {
-        // save customer id for billing
-        stripe.subscriptions
-          .create({
-            customer: customer.id,
-            items: [
-              {
-                plan: planid,
-                quantity: propertyQuantity
-              }
-            ]
-          })
-          .then(subscription => {
-            // save subscription id to the user for updating
-            console.log('subscription id', subscription.id);
-            res.status(200).send();
-          })
-          .catch(err => res.send(err));
+      .then(() => {
+        return res.status(201).json({ message: 'Success!' });
       })
-      .catch(err => res.send(err));
+      .catch(err => {
+        return res.status(500).json(err);
+      });
   } catch (err) {
     console.error(err);
     res.status(500).end();
