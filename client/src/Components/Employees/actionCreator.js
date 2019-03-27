@@ -2,22 +2,42 @@ import axios from "axios";
 import * as actions from "./actions";
 import config from "../../config/index";
 
-export const getEmployees = () => {
-  return dispatch => {
-    dispatch({ type: actions.EMPLOYEE_STARTED })
-    axios
-      .get(
-        `${config.apiUrl}/api/employees`
-      )
-      .then(({ data }) => {
-          console.log(data)
-        dispatch({
-          type: actions.EMPLOYEE_SUCCESS,
-          employees: data.data
-        });
-      })
-      .catch(err => {
-        dispatch({ type: actions.EMPLOYEE_FAILURE, error: err });
+export const getEmployees = (filterSort = {}) => dispatch => {
+  const { filter, sort, page, pageSize, search } = filterSort;
+
+  dispatch({ type: actions.EMPLOYEE_STARTED });
+
+  return axios
+    .get(
+      `${config.apiUrl}/api/employees?filter=${JSON.stringify(filter) ||
+        ""}&sort=${sort}&limit=${pageSize}&skip=${(page - 1) * pageSize}`
+    )
+    .then(({ data }) => {
+      dispatch({
+        type: actions.EMPLOYEE_SUCCESS,
+        employees: data.data
       });
-  };
+    })
+    .catch(err => {
+      dispatch({ type: actions.EMPLOYEE_FAILURE, error: err });
+    });
+};
+
+export const searchEmployees = (filterSort = {}) => dispatch => {
+  const { filter, sort, page, pageSize, search } = filterSort;
+
+  dispatch({ type: actions.EMPLOYEE_STARTED });
+
+  return axios
+    .get(
+      `${config.apiUrl}/api/employees/search?search=${search ||
+        ""}&filter=${JSON.stringify(filter) ||
+        ""}&sort=${sort}&limit=${pageSize}&skip=${(page - 1) * pageSize}`
+    )
+    .then(({ data }) => {
+      dispatch({ type: actions.EMPLOYEE_SUCCESS, employees: data.data });
+    })
+    .catch(err => {
+      dispatch({ type: actions.EMPLOYEE_FAILURE, error: err });
+    });
 };

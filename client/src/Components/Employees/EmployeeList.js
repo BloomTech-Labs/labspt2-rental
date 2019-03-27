@@ -1,6 +1,6 @@
 import React, { Component } from "react";
-import { Button, Icon, Input } from "semantic-ui-react";
-import { FlexRow, FlexColumn } from "custom-components";
+import { Button, Pagination, Icon, Input } from "semantic-ui-react";
+import { FlexRow, FlexColumn, Divider } from "custom-components";
 import EmployeeListItem from "./EmployeeListItem";
 import EmployeeSingle from "./EmployeeSingle";
 
@@ -9,59 +9,34 @@ class EmployeeList extends Component {
     super(props);
     this.state = {
       owner: true,
-      searchText: ""
+      employees: []
     };
   }
 
-  componentDidMount() {
-    // here we'll grab the role and securities of the user
-    this.props.getEmployees();
+  componentWillReceiveProps(nextProps) {
+    this.setState({
+      employees: nextProps.employees,
+      status: nextProps.status
+    });
   }
-
-  searchChangeHandler = e => {
-    this.setState({ searchText: e.target.value });
-  };
 
   cardHandleClick = id => {
     this.props.history.push(`/dashboard/employees/${id}`);
   };
 
   render() {
+    const { employees } = this.state;
+    const { pageSize } = this.props;
+
     return (
-      <FlexColumn style={{ width: "full", maxWidth: "880px" }}>
-        <FlexRow justifyBetween style={{ width: "90%" }}>
-          <Input
-            style={{ width: "80%" }}
-            icon="address card"
-            iconPosition="left"
-            placeholder="Name, City, Property Name"
-            onChange={this.searchChangeHandler}
-          />
-          {this.state.searchText ? (
-            <Button basic attached="right">
-              Clear
-            </Button>
-          ) : null}
-          {this.state.owner ? (
-            <Button icon>
-              <Icon name="plus circle" />
-            </Button>
-          ) : null}
-        </FlexRow>
-        {console.log(this.props)}
-        {this.props.employees.loading ? (
-          <div>Loading...</div>
-        ) : (
-          this.props.employees.employees.map(employee => {
-            return (
-              <EmployeeListItem
-                key={employee.userID}
-                employee={employee}
-                clickHandler={this.cardHandleClick}
-              />
-            );
-          })
-        )}
+      <FlexColumn width="800px" alignCenter style={{ position: "relative" }}>
+        <Pagination className="space-bottom" boundaryRange={1} defaultActivePage={1} firstItem={null} lastItem={null} siblingRange={1} totalPages={10} />
+        {employees.map(item => (
+          <>
+            <EmployeeListItem employee={item} />
+            <Divider />
+          </>
+        ))}
       </FlexColumn>
     );
   }
