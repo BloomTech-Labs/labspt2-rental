@@ -1,0 +1,1554 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`User model snapshot 1`] = `
+Schema {
+  "$globalPluginsApplied": true,
+  "$id": 2,
+  "$timestamps": Object {
+    "createdAt": "createdAt",
+    "updatedAt": "updatedAt",
+  },
+  "_indexes": Array [
+    Array [
+      Object {
+        "$**": "text",
+      },
+      Object {
+        "background": true,
+      },
+    ],
+  ],
+  "_userProvidedOptions": Object {
+    "timestamps": true,
+  },
+  "aliases": Object {},
+  "callQueue": Array [],
+  "childSchemas": Array [
+    Object {
+      "model": [Function],
+      "schema": Schema {
+        "$globalPluginsApplied": true,
+        "$id": 1,
+        "_indexes": Array [],
+        "_userProvidedOptions": Object {},
+        "aliases": Object {},
+        "callQueue": Array [],
+        "childSchemas": Array [],
+        "inherits": Object {},
+        "methodOptions": Object {},
+        "methods": Object {},
+        "nested": Object {},
+        "obj": Object {
+          "checkout": [Function],
+          "property": [Function],
+          "task": [Function],
+        },
+        "options": Object {
+          "_id": true,
+          "autoIndex": null,
+          "bufferCommands": true,
+          "capped": false,
+          "discriminatorKey": "__t",
+          "id": true,
+          "minimize": true,
+          "noId": false,
+          "noVirtualId": false,
+          "read": null,
+          "shardKey": null,
+          "strict": true,
+          "typeKey": "type",
+          "validateBeforeSave": true,
+          "versionKey": "__v",
+        },
+        "paths": Object {
+          "_id": ObjectId {
+            "_index": null,
+            "defaultValue": [Function],
+            "getters": Array [],
+            "instance": "ObjectID",
+            "options": Object {
+              "auto": true,
+              "type": [Function],
+            },
+            "path": "_id",
+            "setters": Array [
+              [Function],
+            ],
+            "validators": Array [],
+            Symbol(mongoose#schemaType): true,
+          },
+          "checkout": SchemaBoolean {
+            "_index": null,
+            "getters": Array [],
+            "instance": "Boolean",
+            "options": Object {
+              "type": [Function],
+            },
+            "path": "checkout",
+            "setters": Array [],
+            "validators": Array [],
+            Symbol(mongoose#schemaType): true,
+          },
+          "property": SchemaBoolean {
+            "_index": null,
+            "getters": Array [],
+            "instance": "Boolean",
+            "options": Object {
+              "type": [Function],
+            },
+            "path": "property",
+            "setters": Array [],
+            "validators": Array [],
+            Symbol(mongoose#schemaType): true,
+          },
+          "task": SchemaBoolean {
+            "_index": null,
+            "getters": Array [],
+            "instance": "Boolean",
+            "options": Object {
+              "type": [Function],
+            },
+            "path": "task",
+            "setters": Array [],
+            "validators": Array [],
+            Symbol(mongoose#schemaType): true,
+          },
+        },
+        "plugins": Array [
+          Object {
+            "fn": [Function],
+            "opts": Object {
+              "deduplicate": true,
+            },
+          },
+          Object {
+            "fn": [Function],
+            "opts": Object {
+              "deduplicate": true,
+            },
+          },
+          Object {
+            "fn": [Function],
+            "opts": Object {
+              "deduplicate": true,
+            },
+          },
+          Object {
+            "fn": [Function],
+            "opts": Object {
+              "deduplicate": true,
+            },
+          },
+          Object {
+            "fn": [Function],
+            "opts": Object {
+              "deduplicate": true,
+            },
+          },
+        ],
+        "query": Object {},
+        "s": Object {
+          "hooks": Kareem {
+            "_posts": Map {
+              "save" => Array [
+                Object {
+                  "fn": [Function],
+                },
+                Object {
+                  "fn": [Function],
+                },
+              ],
+              "init" => Array [
+                Object {
+                  "fn": [Function],
+                },
+              ],
+            },
+            "_pres": Map {
+              "save" => Array [
+                Object {
+                  "fn": [Function],
+                  "isAsync": false,
+                },
+                Object {
+                  "fn": [Function],
+                  "isAsync": false,
+                },
+                Object {
+                  "fn": [Function],
+                  "isAsync": false,
+                },
+              ],
+              "remove" => Array [
+                Object {
+                  "fn": [Function],
+                  "isAsync": false,
+                },
+                Object {
+                  "fn": [Function],
+                  "isAsync": false,
+                },
+              ],
+            },
+          },
+        },
+        "singleNestedPaths": Object {},
+        "statics": Object {},
+        "subpaths": Object {},
+        "tree": Object {
+          "_id": Object {
+            "auto": true,
+            "type": [Function],
+          },
+          "checkout": [Function],
+          "id": VirtualType {
+            "getters": Array [
+              [Function],
+            ],
+            "options": Object {},
+            "path": "id",
+            "setters": Array [],
+          },
+          "property": [Function],
+          "task": [Function],
+        },
+        "virtuals": Object {
+          "id": VirtualType {
+            "getters": Array [
+              [Function],
+            ],
+            "options": Object {},
+            "path": "id",
+            "setters": Array [],
+          },
+        },
+        Symbol(Mongoose.helpers.setParentPointers): true,
+      },
+    },
+  ],
+  "inherits": Object {},
+  "methodOptions": Object {},
+  "methods": Object {
+    "checkPassword": [Function],
+    "initializeTimestamps": [Function],
+  },
+  "nested": Object {},
+  "obj": Object {
+    "createdBy": Object {
+      "ref": "user",
+      "type": [Function],
+    },
+    "email": Object {
+      "maxlength": 50,
+      "required": true,
+      "trim": true,
+      "type": [Function],
+      "unique": true,
+    },
+    "firstName": [Function],
+    "lastName": [Function],
+    "password": Object {
+      "required": true,
+      "type": [Function],
+    },
+    "permissions": Schema {
+      "$globalPluginsApplied": true,
+      "$id": 1,
+      "_indexes": Array [],
+      "_userProvidedOptions": Object {},
+      "aliases": Object {},
+      "callQueue": Array [],
+      "childSchemas": Array [],
+      "inherits": Object {},
+      "methodOptions": Object {},
+      "methods": Object {},
+      "nested": Object {},
+      "obj": Object {
+        "checkout": [Function],
+        "property": [Function],
+        "task": [Function],
+      },
+      "options": Object {
+        "_id": true,
+        "autoIndex": null,
+        "bufferCommands": true,
+        "capped": false,
+        "discriminatorKey": "__t",
+        "id": true,
+        "minimize": true,
+        "noId": false,
+        "noVirtualId": false,
+        "read": null,
+        "shardKey": null,
+        "strict": true,
+        "typeKey": "type",
+        "validateBeforeSave": true,
+        "versionKey": "__v",
+      },
+      "paths": Object {
+        "_id": ObjectId {
+          "_index": null,
+          "defaultValue": [Function],
+          "getters": Array [],
+          "instance": "ObjectID",
+          "options": Object {
+            "auto": true,
+            "type": [Function],
+          },
+          "path": "_id",
+          "setters": Array [
+            [Function],
+          ],
+          "validators": Array [],
+          Symbol(mongoose#schemaType): true,
+        },
+        "checkout": SchemaBoolean {
+          "_index": null,
+          "getters": Array [],
+          "instance": "Boolean",
+          "options": Object {
+            "type": [Function],
+          },
+          "path": "checkout",
+          "setters": Array [],
+          "validators": Array [],
+          Symbol(mongoose#schemaType): true,
+        },
+        "property": SchemaBoolean {
+          "_index": null,
+          "getters": Array [],
+          "instance": "Boolean",
+          "options": Object {
+            "type": [Function],
+          },
+          "path": "property",
+          "setters": Array [],
+          "validators": Array [],
+          Symbol(mongoose#schemaType): true,
+        },
+        "task": SchemaBoolean {
+          "_index": null,
+          "getters": Array [],
+          "instance": "Boolean",
+          "options": Object {
+            "type": [Function],
+          },
+          "path": "task",
+          "setters": Array [],
+          "validators": Array [],
+          Symbol(mongoose#schemaType): true,
+        },
+      },
+      "plugins": Array [
+        Object {
+          "fn": [Function],
+          "opts": Object {
+            "deduplicate": true,
+          },
+        },
+        Object {
+          "fn": [Function],
+          "opts": Object {
+            "deduplicate": true,
+          },
+        },
+        Object {
+          "fn": [Function],
+          "opts": Object {
+            "deduplicate": true,
+          },
+        },
+        Object {
+          "fn": [Function],
+          "opts": Object {
+            "deduplicate": true,
+          },
+        },
+        Object {
+          "fn": [Function],
+          "opts": Object {
+            "deduplicate": true,
+          },
+        },
+      ],
+      "query": Object {},
+      "s": Object {
+        "hooks": Kareem {
+          "_posts": Map {
+            "save" => Array [
+              Object {
+                "fn": [Function],
+              },
+              Object {
+                "fn": [Function],
+              },
+            ],
+            "init" => Array [
+              Object {
+                "fn": [Function],
+              },
+            ],
+          },
+          "_pres": Map {
+            "save" => Array [
+              Object {
+                "fn": [Function],
+                "isAsync": false,
+              },
+              Object {
+                "fn": [Function],
+                "isAsync": false,
+              },
+              Object {
+                "fn": [Function],
+                "isAsync": false,
+              },
+            ],
+            "remove" => Array [
+              Object {
+                "fn": [Function],
+                "isAsync": false,
+              },
+              Object {
+                "fn": [Function],
+                "isAsync": false,
+              },
+            ],
+          },
+        },
+      },
+      "singleNestedPaths": Object {},
+      "statics": Object {},
+      "subpaths": Object {},
+      "tree": Object {
+        "_id": Object {
+          "auto": true,
+          "type": [Function],
+        },
+        "checkout": [Function],
+        "id": VirtualType {
+          "getters": Array [
+            [Function],
+          ],
+          "options": Object {},
+          "path": "id",
+          "setters": Array [],
+        },
+        "property": [Function],
+        "task": [Function],
+      },
+      "virtuals": Object {
+        "id": VirtualType {
+          "getters": Array [
+            [Function],
+          ],
+          "options": Object {},
+          "path": "id",
+          "setters": Array [],
+        },
+      },
+      Symbol(Mongoose.helpers.setParentPointers): true,
+    },
+    "role": Object {
+      "enum": Array [
+        "admin",
+        "owner",
+        "employee",
+        "guest",
+      ],
+      "type": [Function],
+    },
+    "username": Object {
+      "required": true,
+      "trim": true,
+      "type": [Function],
+      "unique": true,
+    },
+  },
+  "options": Object {
+    "_id": true,
+    "autoIndex": null,
+    "bufferCommands": true,
+    "capped": false,
+    "discriminatorKey": "__t",
+    "id": true,
+    "minimize": true,
+    "noId": false,
+    "noVirtualId": false,
+    "pluralization": true,
+    "read": null,
+    "shardKey": null,
+    "strict": true,
+    "timestamps": true,
+    "typeKey": "type",
+    "validateBeforeSave": true,
+    "versionKey": "__v",
+  },
+  "paths": Object {
+    "__v": SchemaNumber {
+      "_index": null,
+      "getters": Array [],
+      "instance": "Number",
+      "options": Object {
+        "type": [Function],
+      },
+      "path": "__v",
+      "setters": Array [],
+      "validators": Array [],
+      Symbol(mongoose#schemaType): true,
+    },
+    "_id": ObjectId {
+      "_index": null,
+      "defaultValue": [Function],
+      "getters": Array [],
+      "instance": "ObjectID",
+      "options": Object {
+        "auto": true,
+        "type": [Function],
+      },
+      "path": "_id",
+      "setters": Array [
+        [Function],
+      ],
+      "validators": Array [],
+      Symbol(mongoose#schemaType): true,
+    },
+    "createdAt": SchemaDate {
+      "_index": null,
+      "getters": Array [],
+      "instance": "Date",
+      "options": Object {
+        "type": [Function],
+      },
+      "path": "createdAt",
+      "setters": Array [],
+      "validators": Array [],
+      Symbol(mongoose#schemaType): true,
+    },
+    "createdBy": ObjectId {
+      "_index": null,
+      "getters": Array [],
+      "instance": "ObjectID",
+      "options": Object {
+        "ref": "user",
+        "type": [Function],
+      },
+      "path": "createdBy",
+      "setters": Array [],
+      "validators": Array [],
+      Symbol(mongoose#schemaType): true,
+    },
+    "email": SchemaString {
+      "_index": Object {
+        "background": true,
+        "unique": true,
+      },
+      "enumValues": Array [],
+      "getters": Array [],
+      "instance": "String",
+      "isRequired": true,
+      "maxlengthValidator": [Function],
+      "options": Object {
+        "maxlength": 50,
+        "required": true,
+        "trim": true,
+        "type": [Function],
+        "unique": true,
+      },
+      "originalRequiredValue": true,
+      "path": "email",
+      "regExp": null,
+      "requiredValidator": [Function],
+      "setters": Array [
+        [Function],
+      ],
+      "validators": Array [
+        Object {
+          "message": "Path \`{PATH}\` is required.",
+          "type": "required",
+          "validator": [Function],
+        },
+        Object {
+          "maxlength": 50,
+          "message": "Path \`{PATH}\` (\`{VALUE}\`) is longer than the maximum allowed length (50).",
+          "type": "maxlength",
+          "validator": [Function],
+        },
+      ],
+      Symbol(mongoose#schemaType): true,
+    },
+    "firstName": SchemaString {
+      "_index": null,
+      "enumValues": Array [],
+      "getters": Array [],
+      "instance": "String",
+      "options": Object {
+        "type": [Function],
+      },
+      "path": "firstName",
+      "regExp": null,
+      "setters": Array [],
+      "validators": Array [],
+      Symbol(mongoose#schemaType): true,
+    },
+    "lastName": SchemaString {
+      "_index": null,
+      "enumValues": Array [],
+      "getters": Array [],
+      "instance": "String",
+      "options": Object {
+        "type": [Function],
+      },
+      "path": "lastName",
+      "regExp": null,
+      "setters": Array [],
+      "validators": Array [],
+      Symbol(mongoose#schemaType): true,
+    },
+    "password": SchemaString {
+      "_index": null,
+      "enumValues": Array [],
+      "getters": Array [],
+      "instance": "String",
+      "isRequired": true,
+      "options": Object {
+        "required": true,
+        "type": [Function],
+      },
+      "originalRequiredValue": true,
+      "path": "password",
+      "regExp": null,
+      "requiredValidator": [Function],
+      "setters": Array [],
+      "validators": Array [
+        Object {
+          "message": "Path \`{PATH}\` is required.",
+          "type": "required",
+          "validator": [Function],
+        },
+      ],
+      Symbol(mongoose#schemaType): true,
+    },
+    "permissions": Embedded {
+      "$isSingleNested": true,
+      "_index": null,
+      "caster": [Function],
+      "getters": Array [],
+      "instance": "Embedded",
+      "options": Object {
+        "type": Schema {
+          "$globalPluginsApplied": true,
+          "$id": 1,
+          "_indexes": Array [],
+          "_userProvidedOptions": Object {},
+          "aliases": Object {},
+          "callQueue": Array [],
+          "childSchemas": Array [],
+          "inherits": Object {},
+          "methodOptions": Object {},
+          "methods": Object {},
+          "nested": Object {},
+          "obj": Object {
+            "checkout": [Function],
+            "property": [Function],
+            "task": [Function],
+          },
+          "options": Object {
+            "_id": true,
+            "autoIndex": null,
+            "bufferCommands": true,
+            "capped": false,
+            "discriminatorKey": "__t",
+            "id": true,
+            "minimize": true,
+            "noId": false,
+            "noVirtualId": false,
+            "read": null,
+            "shardKey": null,
+            "strict": true,
+            "typeKey": "type",
+            "validateBeforeSave": true,
+            "versionKey": "__v",
+          },
+          "paths": Object {
+            "_id": ObjectId {
+              "_index": null,
+              "defaultValue": [Function],
+              "getters": Array [],
+              "instance": "ObjectID",
+              "options": Object {
+                "auto": true,
+                "type": [Function],
+              },
+              "path": "_id",
+              "setters": Array [
+                [Function],
+              ],
+              "validators": Array [],
+              Symbol(mongoose#schemaType): true,
+            },
+            "checkout": SchemaBoolean {
+              "_index": null,
+              "getters": Array [],
+              "instance": "Boolean",
+              "options": Object {
+                "type": [Function],
+              },
+              "path": "checkout",
+              "setters": Array [],
+              "validators": Array [],
+              Symbol(mongoose#schemaType): true,
+            },
+            "property": SchemaBoolean {
+              "_index": null,
+              "getters": Array [],
+              "instance": "Boolean",
+              "options": Object {
+                "type": [Function],
+              },
+              "path": "property",
+              "setters": Array [],
+              "validators": Array [],
+              Symbol(mongoose#schemaType): true,
+            },
+            "task": SchemaBoolean {
+              "_index": null,
+              "getters": Array [],
+              "instance": "Boolean",
+              "options": Object {
+                "type": [Function],
+              },
+              "path": "task",
+              "setters": Array [],
+              "validators": Array [],
+              Symbol(mongoose#schemaType): true,
+            },
+          },
+          "plugins": Array [
+            Object {
+              "fn": [Function],
+              "opts": Object {
+                "deduplicate": true,
+              },
+            },
+            Object {
+              "fn": [Function],
+              "opts": Object {
+                "deduplicate": true,
+              },
+            },
+            Object {
+              "fn": [Function],
+              "opts": Object {
+                "deduplicate": true,
+              },
+            },
+            Object {
+              "fn": [Function],
+              "opts": Object {
+                "deduplicate": true,
+              },
+            },
+            Object {
+              "fn": [Function],
+              "opts": Object {
+                "deduplicate": true,
+              },
+            },
+          ],
+          "query": Object {},
+          "s": Object {
+            "hooks": Kareem {
+              "_posts": Map {
+                "save" => Array [
+                  Object {
+                    "fn": [Function],
+                  },
+                  Object {
+                    "fn": [Function],
+                  },
+                ],
+                "init" => Array [
+                  Object {
+                    "fn": [Function],
+                  },
+                ],
+              },
+              "_pres": Map {
+                "save" => Array [
+                  Object {
+                    "fn": [Function],
+                    "isAsync": false,
+                  },
+                  Object {
+                    "fn": [Function],
+                    "isAsync": false,
+                  },
+                  Object {
+                    "fn": [Function],
+                    "isAsync": false,
+                  },
+                ],
+                "remove" => Array [
+                  Object {
+                    "fn": [Function],
+                    "isAsync": false,
+                  },
+                  Object {
+                    "fn": [Function],
+                    "isAsync": false,
+                  },
+                ],
+              },
+            },
+          },
+          "singleNestedPaths": Object {},
+          "statics": Object {},
+          "subpaths": Object {},
+          "tree": Object {
+            "_id": Object {
+              "auto": true,
+              "type": [Function],
+            },
+            "checkout": [Function],
+            "id": VirtualType {
+              "getters": Array [
+                [Function],
+              ],
+              "options": Object {},
+              "path": "id",
+              "setters": Array [],
+            },
+            "property": [Function],
+            "task": [Function],
+          },
+          "virtuals": Object {
+            "id": VirtualType {
+              "getters": Array [
+                [Function],
+              ],
+              "options": Object {},
+              "path": "id",
+              "setters": Array [],
+            },
+          },
+          Symbol(Mongoose.helpers.setParentPointers): true,
+        },
+      },
+      "path": "permissions",
+      "schema": Schema {
+        "$globalPluginsApplied": true,
+        "$id": 1,
+        "_indexes": Array [],
+        "_userProvidedOptions": Object {},
+        "aliases": Object {},
+        "callQueue": Array [],
+        "childSchemas": Array [],
+        "inherits": Object {},
+        "methodOptions": Object {},
+        "methods": Object {},
+        "nested": Object {},
+        "obj": Object {
+          "checkout": [Function],
+          "property": [Function],
+          "task": [Function],
+        },
+        "options": Object {
+          "_id": true,
+          "autoIndex": null,
+          "bufferCommands": true,
+          "capped": false,
+          "discriminatorKey": "__t",
+          "id": true,
+          "minimize": true,
+          "noId": false,
+          "noVirtualId": false,
+          "read": null,
+          "shardKey": null,
+          "strict": true,
+          "typeKey": "type",
+          "validateBeforeSave": true,
+          "versionKey": "__v",
+        },
+        "paths": Object {
+          "_id": ObjectId {
+            "_index": null,
+            "defaultValue": [Function],
+            "getters": Array [],
+            "instance": "ObjectID",
+            "options": Object {
+              "auto": true,
+              "type": [Function],
+            },
+            "path": "_id",
+            "setters": Array [
+              [Function],
+            ],
+            "validators": Array [],
+            Symbol(mongoose#schemaType): true,
+          },
+          "checkout": SchemaBoolean {
+            "_index": null,
+            "getters": Array [],
+            "instance": "Boolean",
+            "options": Object {
+              "type": [Function],
+            },
+            "path": "checkout",
+            "setters": Array [],
+            "validators": Array [],
+            Symbol(mongoose#schemaType): true,
+          },
+          "property": SchemaBoolean {
+            "_index": null,
+            "getters": Array [],
+            "instance": "Boolean",
+            "options": Object {
+              "type": [Function],
+            },
+            "path": "property",
+            "setters": Array [],
+            "validators": Array [],
+            Symbol(mongoose#schemaType): true,
+          },
+          "task": SchemaBoolean {
+            "_index": null,
+            "getters": Array [],
+            "instance": "Boolean",
+            "options": Object {
+              "type": [Function],
+            },
+            "path": "task",
+            "setters": Array [],
+            "validators": Array [],
+            Symbol(mongoose#schemaType): true,
+          },
+        },
+        "plugins": Array [
+          Object {
+            "fn": [Function],
+            "opts": Object {
+              "deduplicate": true,
+            },
+          },
+          Object {
+            "fn": [Function],
+            "opts": Object {
+              "deduplicate": true,
+            },
+          },
+          Object {
+            "fn": [Function],
+            "opts": Object {
+              "deduplicate": true,
+            },
+          },
+          Object {
+            "fn": [Function],
+            "opts": Object {
+              "deduplicate": true,
+            },
+          },
+          Object {
+            "fn": [Function],
+            "opts": Object {
+              "deduplicate": true,
+            },
+          },
+        ],
+        "query": Object {},
+        "s": Object {
+          "hooks": Kareem {
+            "_posts": Map {
+              "save" => Array [
+                Object {
+                  "fn": [Function],
+                },
+                Object {
+                  "fn": [Function],
+                },
+              ],
+              "init" => Array [
+                Object {
+                  "fn": [Function],
+                },
+              ],
+            },
+            "_pres": Map {
+              "save" => Array [
+                Object {
+                  "fn": [Function],
+                  "isAsync": false,
+                },
+                Object {
+                  "fn": [Function],
+                  "isAsync": false,
+                },
+                Object {
+                  "fn": [Function],
+                  "isAsync": false,
+                },
+              ],
+              "remove" => Array [
+                Object {
+                  "fn": [Function],
+                  "isAsync": false,
+                },
+                Object {
+                  "fn": [Function],
+                  "isAsync": false,
+                },
+              ],
+            },
+          },
+        },
+        "singleNestedPaths": Object {},
+        "statics": Object {},
+        "subpaths": Object {},
+        "tree": Object {
+          "_id": Object {
+            "auto": true,
+            "type": [Function],
+          },
+          "checkout": [Function],
+          "id": VirtualType {
+            "getters": Array [
+              [Function],
+            ],
+            "options": Object {},
+            "path": "id",
+            "setters": Array [],
+          },
+          "property": [Function],
+          "task": [Function],
+        },
+        "virtuals": Object {
+          "id": VirtualType {
+            "getters": Array [
+              [Function],
+            ],
+            "options": Object {},
+            "path": "id",
+            "setters": Array [],
+          },
+        },
+        Symbol(Mongoose.helpers.setParentPointers): true,
+      },
+      "setters": Array [],
+      "validators": Array [],
+      Symbol(mongoose#schemaType): true,
+    },
+    "role": SchemaString {
+      "_index": null,
+      "enumValidator": [Function],
+      "enumValues": Array [
+        "admin",
+        "owner",
+        "employee",
+        "guest",
+      ],
+      "getters": Array [],
+      "instance": "String",
+      "options": Object {
+        "enum": Array [
+          "admin",
+          "owner",
+          "employee",
+          "guest",
+        ],
+        "type": [Function],
+      },
+      "path": "role",
+      "regExp": null,
+      "setters": Array [],
+      "validators": Array [
+        Object {
+          "enumValues": Array [
+            "admin",
+            "owner",
+            "employee",
+            "guest",
+          ],
+          "message": "\`{VALUE}\` is not a valid enum value for path \`{PATH}\`.",
+          "type": "enum",
+          "validator": [Function],
+        },
+      ],
+      Symbol(mongoose#schemaType): true,
+    },
+    "updatedAt": SchemaDate {
+      "_index": null,
+      "getters": Array [],
+      "instance": "Date",
+      "options": Object {
+        "type": [Function],
+      },
+      "path": "updatedAt",
+      "setters": Array [],
+      "validators": Array [],
+      Symbol(mongoose#schemaType): true,
+    },
+    "username": SchemaString {
+      "_index": Object {
+        "background": true,
+        "unique": true,
+      },
+      "enumValues": Array [],
+      "getters": Array [],
+      "instance": "String",
+      "isRequired": true,
+      "options": Object {
+        "required": true,
+        "trim": true,
+        "type": [Function],
+        "unique": true,
+      },
+      "originalRequiredValue": true,
+      "path": "username",
+      "regExp": null,
+      "requiredValidator": [Function],
+      "setters": Array [
+        [Function],
+      ],
+      "validators": Array [
+        Object {
+          "message": "Path \`{PATH}\` is required.",
+          "type": "required",
+          "validator": [Function],
+        },
+      ],
+      Symbol(mongoose#schemaType): true,
+    },
+  },
+  "plugins": Array [
+    Object {
+      "fn": [Function],
+      "opts": Object {
+        "deduplicate": true,
+      },
+    },
+    Object {
+      "fn": [Function],
+      "opts": Object {
+        "deduplicate": true,
+      },
+    },
+    Object {
+      "fn": [Function],
+      "opts": Object {
+        "deduplicate": true,
+      },
+    },
+    Object {
+      "fn": [Function],
+      "opts": Object {
+        "deduplicate": true,
+      },
+    },
+    Object {
+      "fn": [Function],
+      "opts": Object {
+        "deduplicate": true,
+      },
+    },
+  ],
+  "query": Object {},
+  "s": Object {
+    "hooks": Kareem {
+      "_posts": Map {
+        "save" => Array [
+          Object {
+            "fn": [Function],
+          },
+          Object {
+            "fn": [Function],
+          },
+        ],
+        "init" => Array [
+          Object {
+            "fn": [Function],
+          },
+        ],
+      },
+      "_pres": Map {
+        "save" => Array [
+          Object {
+            "fn": [Function],
+            "isAsync": false,
+          },
+          Object {
+            "fn": [Function],
+            "isAsync": false,
+          },
+          Object {
+            "fn": [Function],
+            "isAsync": false,
+          },
+          Object {
+            "fn": [Function],
+            "isAsync": false,
+          },
+          Object {
+            "fn": [Function],
+            "isAsync": false,
+          },
+        ],
+        "findOneAndUpdate" => Array [
+          Object {
+            "fn": [Function],
+            "isAsync": false,
+          },
+        ],
+        "replaceOne" => Array [
+          Object {
+            "fn": [Function],
+            "isAsync": false,
+          },
+        ],
+        "update" => Array [
+          Object {
+            "fn": [Function],
+            "isAsync": false,
+          },
+        ],
+        "updateOne" => Array [
+          Object {
+            "fn": [Function],
+            "isAsync": false,
+          },
+        ],
+        "updateMany" => Array [
+          Object {
+            "fn": [Function],
+            "isAsync": false,
+          },
+        ],
+        "remove" => Array [
+          Object {
+            "fn": [Function],
+            "isAsync": false,
+          },
+          Object {
+            "fn": [Function],
+            "isAsync": false,
+          },
+        ],
+      },
+    },
+  },
+  "singleNestedPaths": Object {
+    "permissions._id": ObjectId {
+      "_index": null,
+      "defaultValue": [Function],
+      "getters": Array [],
+      "instance": "ObjectID",
+      "options": Object {
+        "auto": true,
+        "type": [Function],
+      },
+      "path": "_id",
+      "setters": Array [
+        [Function],
+      ],
+      "validators": Array [],
+      Symbol(mongoose#schemaType): true,
+    },
+    "permissions.checkout": SchemaBoolean {
+      "_index": null,
+      "getters": Array [],
+      "instance": "Boolean",
+      "options": Object {
+        "type": [Function],
+      },
+      "path": "checkout",
+      "setters": Array [],
+      "validators": Array [],
+      Symbol(mongoose#schemaType): true,
+    },
+    "permissions.property": SchemaBoolean {
+      "_index": null,
+      "getters": Array [],
+      "instance": "Boolean",
+      "options": Object {
+        "type": [Function],
+      },
+      "path": "property",
+      "setters": Array [],
+      "validators": Array [],
+      Symbol(mongoose#schemaType): true,
+    },
+    "permissions.task": SchemaBoolean {
+      "_index": null,
+      "getters": Array [],
+      "instance": "Boolean",
+      "options": Object {
+        "type": [Function],
+      },
+      "path": "task",
+      "setters": Array [],
+      "validators": Array [],
+      Symbol(mongoose#schemaType): true,
+    },
+  },
+  "statics": Object {},
+  "subpaths": Object {},
+  "tree": Object {
+    "__v": [Function],
+    "_id": Object {
+      "auto": true,
+      "type": [Function],
+    },
+    "createdAt": [Function],
+    "createdBy": Object {
+      "ref": "user",
+      "type": [Function],
+    },
+    "email": Object {
+      "maxlength": 50,
+      "required": true,
+      "trim": true,
+      "type": [Function],
+      "unique": true,
+    },
+    "firstName": [Function],
+    "id": VirtualType {
+      "getters": Array [
+        [Function],
+      ],
+      "options": Object {},
+      "path": "id",
+      "setters": Array [],
+    },
+    "lastName": [Function],
+    "password": Object {
+      "required": true,
+      "type": [Function],
+    },
+    "permissions": Schema {
+      "$globalPluginsApplied": true,
+      "$id": 1,
+      "_indexes": Array [],
+      "_userProvidedOptions": Object {},
+      "aliases": Object {},
+      "callQueue": Array [],
+      "childSchemas": Array [],
+      "inherits": Object {},
+      "methodOptions": Object {},
+      "methods": Object {},
+      "nested": Object {},
+      "obj": Object {
+        "checkout": [Function],
+        "property": [Function],
+        "task": [Function],
+      },
+      "options": Object {
+        "_id": true,
+        "autoIndex": null,
+        "bufferCommands": true,
+        "capped": false,
+        "discriminatorKey": "__t",
+        "id": true,
+        "minimize": true,
+        "noId": false,
+        "noVirtualId": false,
+        "read": null,
+        "shardKey": null,
+        "strict": true,
+        "typeKey": "type",
+        "validateBeforeSave": true,
+        "versionKey": "__v",
+      },
+      "paths": Object {
+        "_id": ObjectId {
+          "_index": null,
+          "defaultValue": [Function],
+          "getters": Array [],
+          "instance": "ObjectID",
+          "options": Object {
+            "auto": true,
+            "type": [Function],
+          },
+          "path": "_id",
+          "setters": Array [
+            [Function],
+          ],
+          "validators": Array [],
+          Symbol(mongoose#schemaType): true,
+        },
+        "checkout": SchemaBoolean {
+          "_index": null,
+          "getters": Array [],
+          "instance": "Boolean",
+          "options": Object {
+            "type": [Function],
+          },
+          "path": "checkout",
+          "setters": Array [],
+          "validators": Array [],
+          Symbol(mongoose#schemaType): true,
+        },
+        "property": SchemaBoolean {
+          "_index": null,
+          "getters": Array [],
+          "instance": "Boolean",
+          "options": Object {
+            "type": [Function],
+          },
+          "path": "property",
+          "setters": Array [],
+          "validators": Array [],
+          Symbol(mongoose#schemaType): true,
+        },
+        "task": SchemaBoolean {
+          "_index": null,
+          "getters": Array [],
+          "instance": "Boolean",
+          "options": Object {
+            "type": [Function],
+          },
+          "path": "task",
+          "setters": Array [],
+          "validators": Array [],
+          Symbol(mongoose#schemaType): true,
+        },
+      },
+      "plugins": Array [
+        Object {
+          "fn": [Function],
+          "opts": Object {
+            "deduplicate": true,
+          },
+        },
+        Object {
+          "fn": [Function],
+          "opts": Object {
+            "deduplicate": true,
+          },
+        },
+        Object {
+          "fn": [Function],
+          "opts": Object {
+            "deduplicate": true,
+          },
+        },
+        Object {
+          "fn": [Function],
+          "opts": Object {
+            "deduplicate": true,
+          },
+        },
+        Object {
+          "fn": [Function],
+          "opts": Object {
+            "deduplicate": true,
+          },
+        },
+      ],
+      "query": Object {},
+      "s": Object {
+        "hooks": Kareem {
+          "_posts": Map {
+            "save" => Array [
+              Object {
+                "fn": [Function],
+              },
+              Object {
+                "fn": [Function],
+              },
+            ],
+            "init" => Array [
+              Object {
+                "fn": [Function],
+              },
+            ],
+          },
+          "_pres": Map {
+            "save" => Array [
+              Object {
+                "fn": [Function],
+                "isAsync": false,
+              },
+              Object {
+                "fn": [Function],
+                "isAsync": false,
+              },
+              Object {
+                "fn": [Function],
+                "isAsync": false,
+              },
+            ],
+            "remove" => Array [
+              Object {
+                "fn": [Function],
+                "isAsync": false,
+              },
+              Object {
+                "fn": [Function],
+                "isAsync": false,
+              },
+            ],
+          },
+        },
+      },
+      "singleNestedPaths": Object {},
+      "statics": Object {},
+      "subpaths": Object {},
+      "tree": Object {
+        "_id": Object {
+          "auto": true,
+          "type": [Function],
+        },
+        "checkout": [Function],
+        "id": VirtualType {
+          "getters": Array [
+            [Function],
+          ],
+          "options": Object {},
+          "path": "id",
+          "setters": Array [],
+        },
+        "property": [Function],
+        "task": [Function],
+      },
+      "virtuals": Object {
+        "id": VirtualType {
+          "getters": Array [
+            [Function],
+          ],
+          "options": Object {},
+          "path": "id",
+          "setters": Array [],
+        },
+      },
+      Symbol(Mongoose.helpers.setParentPointers): true,
+    },
+    "role": Object {
+      "enum": Array [
+        "admin",
+        "owner",
+        "employee",
+        "guest",
+      ],
+      "type": [Function],
+    },
+    "updatedAt": [Function],
+    "username": Object {
+      "required": true,
+      "trim": true,
+      "type": [Function],
+      "unique": true,
+    },
+  },
+  "virtuals": Object {
+    "id": VirtualType {
+      "getters": Array [
+        [Function],
+      ],
+      "options": Object {},
+      "path": "id",
+      "setters": Array [],
+    },
+  },
+  Symbol(Mongoose.helpers.setParentPointers): true,
+}
+`;
