@@ -1,1 +1,1 @@
-export { default as Tasks } from './container';
+export { default as Tasks } from './Tasks'
