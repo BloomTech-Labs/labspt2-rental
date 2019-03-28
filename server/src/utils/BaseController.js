@@ -1,12 +1,8 @@
 import _ from 'lodash';
 
 export class BaseController {
-  constructor(mongooseModel, opts = {}) {
-    const { lookup, search, populate } = opts;
+  constructor(mongooseModel) {
     this.mongooseModel = mongooseModel;
-    this.lookup = lookup;
-    this.search = search;
-    this.populate = populate;
   }
 
   createOne = async (req, res, next) => {
@@ -42,16 +38,59 @@ export class BaseController {
     }
   };
 
-  getMany = async (req, res, next) => {
-    let pipeline = [],
-      _filter,
-      _sort,
-      _skip,
-      _limit,
-      _populate;
+  getMany = async (req, res, next, query) => {
+    let filter,
+      sort,
+      skip,
+      limit;
 
-    if (this.lookup && this.lookup.length) {
-      pipeline.push(...this.lookup);
+    if (query) {
+      filter = {...filter, ...query}
+    }
+
+    if (req.query.filter) {
+      filter = JSON.parse(req.query.filter);
+    }
+
+    if (req.query.sort) {
+      let order = -1;
+      if (req.query.sort.substring(0, 1) === '-') {
+        order = 1;
+        req.query.sort = req.query.sort.substr(1);
+      }
+
+      sort = { [req.query.sort]: order };
+    }
+
+    if (req.query.skip) {
+      skip = +req.query.skip;
+    }
+
+    if (req.query.limit) {
+      limit = +req.query.limit;
+    }
+
+    try {
+      const docs = await this.mongooseModel
+        .find({ createdBy: req.user._id, ...filter })
+        .sort(sort)
+        .limit(limit)
+        .skip(skip)
+        .exec();
+
+      res.status(200).json({ data: docs });
+    } catch (e) {
+      next(e);
+    }
+  };
+
+  search = async (req, res, next, opts = {}) => {
+    const { lookup, search } = opts;
+
+    let pipeline = [];
+
+    if (lookup && lookup.length) {
+      pipeline.push(...lookup);
     }
 
     pipeline.push({ $match: { createdBy: req.user._id } });
@@ -59,13 +98,11 @@ export class BaseController {
     if (req.query.filter) {
       const filter = { $match: JSON.parse(req.query.filter) };
       pipeline.push(filter);
-
-      _filter = JSON.parse(req.query.filter); // for normal query
     }
 
-    if (req.query.search && this.search && this.search.length) {
+    if (req.query.search && search && search.length) {
       const match = new RegExp(req.query.search, 'i');
-      const searchFields = this.search.reduce(
+      const searchFields = search.reduce(
         ($match, field) => {
           $match['$match']['$or'].push({ [field]: match });
           return $match;
@@ -76,8 +113,8 @@ export class BaseController {
       pipeline.push(searchFields);
     }
 
-    if (this.lookup && this.lookup.length) {
-      const unwindFields = this.lookup.map(l => ({
+    if (lookup && lookup.length) {
+      const unwindFields = lookup.map(l => ({
         $unwind: '$' + l['$lookup'].as
       }));
       pipeline.push(...unwindFields);
@@ -93,53 +130,27 @@ export class BaseController {
       const sort = { [req.query.sort]: order };
 
       pipeline.push({ $sort: sort });
-
-      _sort = sort; // for normal query
     }
 
     if (req.query.skip) {
       const skip = +req.query.skip;
       pipeline.push({ $skip: skip });
-
-      _skip = skip; // for normal query
     }
 
     if (req.query.limit) {
       const limit = +req.query.limit;
       pipeline.push({ $limit: limit });
-
-      _limit = limit; // for normal query
     }
 
     console.log(pipeline);
 
-    // If no lookup provided do a normal query, otherwise do an aggregation
-    if (!this.lookup) {
-      _populate = this.populate && this.populate.length ? this.populate : '';
-
-      try {
-        const docs = await this.mongooseModel
-          .find({ ..._filter, createdBy: req.user._id })
-          .lean()
-          .populate(_populate)
-          .sort(_sort)
-          .limit(_limit)
-          .skip(_skip)
-          .exec();
-
-        res.status(200).json({ data: docs });
-      } catch (e) {
-        next(e);
+    this.mongooseModel.aggregate(pipeline, (err, docs) => {
+      if (err) {
+        return next(err);
       }
-    } else {
-      this.mongooseModel.aggregate(pipeline, (err, docs) => {
-        if (err) {
-          return next(err);
-        }
 
-        res.status(200).json({ data: docs });
-      });
-    }
+      res.status(200).json({ data: docs });
+    });
   };
 
   updateOne = async (req, res, next) => {

@@ -3,9 +3,11 @@ import { Route, Link, withRouter } from "react-router-dom";
 import { Segment, Menu, Sidebar, Icon, Header, Image } from "semantic-ui-react";
 import { FlexRow, Container } from "custom-components";
 import { Reservations } from "../Reservations";
-import { EmployeeList } from "../Employees";
-import { PropertyList } from "../Properties/PropList";
-import { Checkout } from "../Reservations";
+import { Properties } from "../Properties/PropList";
+import { EmployeeList, EmployeeSingle } from "../Employees";
+import { Checkout } from "../Checkout";
+import { Tasks } from "../Tasks";
+import { Settings } from "../Settings";
 
 class Dashboard extends Component {
   constructor(props) {
@@ -23,7 +25,6 @@ class Dashboard extends Component {
 
     this.links = [
       { url: `/dashboard/reservations`, name: "Reservations", icon: "book" },
-      { url: `/dashboard/checkout`, name: "Checkout", icon: "cart" },
       { url: `/dashboard/properties`, name: "Properties", icon: "home" },
       { url: `/dashboard/employees`, name: "Employees", icon: "address card" },
       { url: `/dashboard/tasks`, name: "Tasks", icon: "tasks" },
@@ -71,17 +72,29 @@ class Dashboard extends Component {
                   render={() => <Reservations />}
                 />
                 <Route
-                  path="/dashboard/employees"
-                  render={() => <EmployeeList />}
+                  exact
+                  path="/dashboard/checkout"
+                  render={() => <Checkout />}
                 />
+                <Route
+                  path="/dashboard/employees"
+                  render={props => <EmployeeList {...props} />}
+                />
+                <Route
+                  path="/dashboard/employees/:id"
+                  render={() => <EmployeeSingle />}
+                />
+
                 {/*TODO work on these pages*/}
-                <Route path="/dashboard/checkout" render={() => <Checkout />} />
+
+                <Route path="/dashboard/tasks" render={() => <Tasks />} />
+
                 <Route
                   path="/dashboard/properties"
-                  render={() => <PropertyList />}
+                  render={() => <Properties />}
                 />
                 {/*<Route path="/dashboard/tasks" render={() => <Tasks/>}/>*/}
-                {/*<Route path="/dashboard/settings" render={() => <Settings/>}/>*/}
+                <Route path="/dashboard/settings" render={() => <Settings />} />
               </Segment>
             </FlexRow>
           </Sidebar.Pusher>

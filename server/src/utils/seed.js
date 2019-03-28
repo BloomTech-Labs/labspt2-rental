@@ -30,31 +30,34 @@ export default async () => {
       });
     });
 
-    const seedEmployee = new Promise((resolve, reject) => {
-      User.findOne({ username: 'test_employee' }, (err, employee) => {
-        if (!employee) {
-          User.create({
-            role: 'employee',
-            username: 'test_employee',
-            password: '12345',
-            email: 'employee@roostr.io',
-            permissions: {
-              task: true,
-              property: true,
-              checkout: true
-            },
-            firstName: faker.name.firstName(),
-            lastName: faker.name.lastName()
-          })
-            .then(created => {
-              resolve(created);
+    const seedEmployee = ownerId => {
+      return new Promise((resolve, reject) => {
+        User.findOne({ username: 'test_employee' }, (err, employee) => {
+          if (!employee) {
+            User.create({
+              role: 'employee',
+              username: 'test_employee',
+              password: '12345',
+              email: 'employee@roostr.io',
+              permissions: {
+                task: true,
+                property: true,
+                checkout: true
+              },
+              createdBy: ownerId,
+              firstName: faker.name.firstName(),
+              lastName: faker.name.lastName()
             })
-            .catch(() => reject(false));
-        } else {
-          resolve(employee);
-        }
+              .then(created => {
+                resolve(created);
+              })
+              .catch(() => reject(false));
+          } else {
+            resolve(employee);
+          }
+        });
       });
-    });
+    };
 
     const seedGuest = new Promise((resolve, reject) => {
       User.findOne({ username: 'test_guest' }, (err, guest) => {
@@ -93,6 +96,7 @@ export default async () => {
                 state: faker.address.state(),
                 zip: faker.address.zipCode(),
                 price: faker.random.number({ min: 50, max: 1000 }),
+                occupants: faker.random.number({ min: 1, max: 10 }),
                 image: faker.random.image()
               });
             }
@@ -224,12 +228,44 @@ export default async () => {
       });
     };
 
-    const [owner, employee, guest] = await Promise.all([
-      seedowner,
-      seedEmployee,
-      seedGuest
-    ]);
+    const seedEmployees = ownerId => {
+      return new Promise((resolve, reject) => {
+        User.find({ createdBy: ownerId, role: 'employee' }, (err, employees) => {
+          if (employees.length <= 1) {
+            let employeesArr = [];
 
+            for (let i = 0; i < 10; i++) {
+              const fakeName = faker.internet.userName();
+              employeesArr.push({
+                role: 'employee',
+                username: fakeName,
+                password: '12345',
+                email: `${fakeName}@roostr.io`,
+                permissions: {
+                  task: faker.random.boolean(),
+                  property: faker.random.boolean(),
+                  checkout: faker.random.boolean()
+                },
+                createdBy: ownerId,
+                firstName: faker.name.firstName(),
+                lastName: faker.name.lastName()
+              });
+              console.log(employeesArr.length)
+            }
+
+            User.insertMany(employeesArr, (err, docs) => {
+              resolve(docs);
+            });
+          } else {
+            resolve(employees);
+          }
+        });
+      });
+    };
+
+    const [owner, guest] = await Promise.all([seedowner, seedGuest]);
+
+    const employee = await seedEmployee(owner._id);
     const properties = await seedProperties(owner._id, employee._id);
     const tasks = await seedTasks(owner._id, properties);
     const reservations = await seedReservations(
@@ -239,13 +275,15 @@ export default async () => {
       properties,
       tasks
     );
+    const employees = await seedEmployees(owner._id);
 
     console.log('Seeded owner          :      ', !!owner._id);
-    console.log('Seeded employee       :      ', !!employee._id);
+    console.log('Seeded main employee  :      ', !!employee._id);
     console.log('Seeded guest          :      ', !!guest._id);
     console.log('Seeded properties     :      ', !!properties[0]);
     console.log('Seeded tasks          :      ', !!tasks[0]);
     console.log('Seeded reservations   :      ', !!reservations[0]);
+    console.log('Seeded extra employees:      ', !!employees[1])
 
     return tasks;
   }

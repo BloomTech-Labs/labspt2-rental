@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import { Button, Header, Tab, Pagination } from "semantic-ui-react";
-import { FlexColumn, FlexRow, Divider } from "custom-components";
+import { FlexColumn, Divider } from "custom-components";
 import ReservationListItem from "./ReservationListItem";
 
 export default class ReservationList extends Component {
@@ -26,7 +26,7 @@ export default class ReservationList extends Component {
     return (
       <FlexColumn width="800px" alignCenter style={{ position: "relative" }}>
         <Pagination
-          style={{ marginBottom: "10px" }}
+          className="space-bottom"
           boundaryRange={1}
           defaultActivePage={1}
           firstItem={null}

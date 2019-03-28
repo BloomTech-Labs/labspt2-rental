@@ -24,7 +24,10 @@
     "jsonwebtoken": "^8.4.0",
     "lodash": "^4.17.11",
     "mongoose": "^5.4.11",
-    "morgan": "^1.9.1"
+    "mongoose-autopopulate": "^0.9.1",
+    "morgan": "^1.9.1",
+    "pug": "^2.0.3",
+    "stripe": "^6.26.0"
   },
   "devDependencies": {
     "@babel/cli": "^7.2.3",

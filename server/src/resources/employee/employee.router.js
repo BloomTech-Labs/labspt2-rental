@@ -1,12 +1,13 @@
-import express from 'express';
-import controllers from './employee.controllers';
+import { Router } from 'express';
+import { controllers } from './employee.controllers';
 
-const { Router } = express;
-const router = Router;
+const router = Router();
+
+
 
 router
   .route('/')
-  .get(controllers.getMany)
+  .get(controllers.getEmployees)
   .post(controllers.createOne);
 
 router
@@ -14,3 +15,5 @@ router
   .get(controllers.getOne)
   .put(controllers.updateOne)
   .delete(controllers.removeOne);
+
+export default router;

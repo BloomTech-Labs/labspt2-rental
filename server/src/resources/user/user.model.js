@@ -32,12 +32,22 @@ const userSchema = new Schema(
       type: String,
       required: true
     },
-    firstName: String,
-    lastName: String,
+    firstName: {
+      type: String,
+      required: true
+    },
+    lastName: {
+      type: String,
+      required: true
+    },
     permissions: Permissions,
     role: {
       type: String,
       enum: ['admin', 'owner', 'employee', 'guest']
+    },
+    createdBy: {
+      type: mongoose.SchemaTypes.ObjectId,
+      ref: 'user'
     }
   },
   { timestamps: true }
@@ -58,7 +68,6 @@ userSchema.pre('save', function(next) {
   });
 });
 
-userSchema.index({ '$**': 'text' });
 
 userSchema.methods.checkPassword = function(password) {
   const passwordHash = this.password;
