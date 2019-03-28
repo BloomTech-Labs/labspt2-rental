@@ -4,7 +4,7 @@ import { FlexColumn, FlexRow } from "custom-components";
 import EmployeeList from "./EmployeeList";
 import Search from "../shared/Search/Search";
 
-class Employees extends Component {
+export default class Employees extends Component {
   constructor(props) {
     super(props);
 
@@ -22,7 +22,7 @@ class Employees extends Component {
 
   componentDidMount() {
     const { filter, page, pageSize, sort } = this.state;
-    this.props.getEmployees({ filter, page, pageSize, sort });
+    this.props.getEmployees({ page, pageSize, sort, filter });
   }
 
   componentWillReceiveProps(nextProps) {
@@ -53,31 +53,33 @@ class Employees extends Component {
     return (
       <FlexColumn>
         <Header as="h1">Employees</Header>
-        <Tab
-          onTabChange={this.handleTabChange}
-          menu={{ attached: false }}
-          panes={[
-            ...tabs.map(tab => ({
-              menuItem: tab,
-              render: () => (
-                <Tab.Pane attached={false}>
-                  <EmployeeList
-                    status={tab}
-                    employees={employees}
-                    page={page}
-                    pageSize={pageSize}
-                  />
-                </Tab.Pane>
-              )
-            })),
-            {
-              menuItem: <Search onChange={this.handleSearchChange} />
-            }
-          ]}
-        />
+        {this.props.loading ? (
+          <div>Loading...Please wait</div>
+        ) : (
+          <Tab
+            onTabChange={this.handleTabChange}
+            menu={{ attached: false }}
+            panes={[
+              ...tabs.map(tab => ({
+                menuItem: tab,
+                render: () => (
+                  <Tab.Pane attached={false}>
+                    <EmployeeList
+                      status={tab}
+                      employees={employees}
+                      page={page}
+                      pageSize={pageSize}
+                    />
+                  </Tab.Pane>
+                )
+              })),
+              {
+                menuItem: <Search onChange={this.handleSearchChange} />
+              }
+            ]}
+          />
+        )}
       </FlexColumn>
     );
   }
 }
-
-export default Employees;

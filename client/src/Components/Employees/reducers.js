@@ -17,7 +17,6 @@ const employeesReducer = (state = initialState, action) => {
       return {
         ...state,
         loading: false,
-        error: false,
         employees: action.employees
       };
     case actions.EMPLOYEE_FAILURE:
