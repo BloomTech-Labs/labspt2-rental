@@ -4,6 +4,7 @@ import { User } from '../resources/user/user.model';
 import { Property } from '../resources/property/property.model';
 import { Task } from '../resources/task/task.model';
 import { Reservation } from '../resources/reservations/reservations.model';
+import { BillingPlan } from '../resources/billingPlan/billingPlan.model';
 
 export default async () => {
   if (config.isProd) {
@@ -231,40 +232,68 @@ export default async () => {
 
     const seedEmployees = ownerId => {
       return new Promise((resolve, reject) => {
-        User.find({ createdBy: ownerId, role: 'employee' }, (err, employees) => {
-          if (employees.length <= 1) {
-            let employeesArr = [];
+        User.find(
+          { createdBy: ownerId, role: 'employee' },
+          (err, employees) => {
+            if (employees.length <= 1) {
+              let employeesArr = [];
 
-            for (let i = 0; i < 10; i++) {
-              const fakeName = faker.internet.userName();
-              employeesArr.push({
-                role: 'employee',
-                username: fakeName,
-                password: '12345',
-                email: `${fakeName}@roostr.io`,
-                permissions: {
-                  task: faker.random.boolean(),
-                  property: faker.random.boolean(),
-                  checkout: faker.random.boolean()
-                },
-                createdBy: ownerId,
-                firstName: faker.name.firstName(),
-                lastName: faker.name.lastName()
+              for (let i = 0; i < 10; i++) {
+                const fakeName = faker.internet.userName();
+                employeesArr.push({
+                  role: 'employee',
+                  username: fakeName,
+                  password: '12345',
+                  email: `${fakeName}@roostr.io`,
+                  permissions: {
+                    task: faker.random.boolean(),
+                    property: faker.random.boolean(),
+                    checkout: faker.random.boolean()
+                  },
+                  createdBy: ownerId,
+                  firstName: faker.name.firstName(),
+                  lastName: faker.name.lastName()
+                });
+                console.log(employeesArr.length);
+              }
+
+              User.insertMany(employeesArr, (err, docs) => {
+                resolve(docs);
               });
-              console.log(employeesArr.length)
+            } else {
+              resolve(employees);
             }
-
-            User.insertMany(employeesArr, (err, docs) => {
-              resolve(docs);
-            });
-          } else {
-            resolve(employees);
           }
-        });
+        );
       });
     };
 
-    const [owner, guest] = await Promise.all([seedowner, seedGuest]);
+    const seedBillingPlans = new Promise((resolve, reject) => {
+      BillingPlan.create(
+        {
+          name: 'Free',
+          perPropertyPrice: 0
+        },
+        {
+          name: 'Midlevel',
+          perPropertyPrice: 8
+        },
+        {
+          name: 'Enterprise',
+          perPropertyPrice: 5
+        }
+      )
+        .then(created => {
+          resolve(created);
+        })
+        .catch(err => reject(err));
+    });
+
+    const [owner, guest, billingPlan] = await Promise.all([
+      seedowner,
+      seedGuest,
+      seedBillingPlans
+    ]);
 
     const employee = await seedEmployee(owner._id);
     const properties = await seedProperties(owner._id, employee._id);
@@ -284,7 +313,17 @@ export default async () => {
     console.log('Seeded properties     :      ', !!properties[0]);
     console.log('Seeded tasks          :      ', !!tasks[0]);
     console.log('Seeded reservations   :      ', !!reservations[0]);
-    console.log('Seeded extra employees:      ', !!employees[1])
+    console.log('Seeded extra employees:      ', !!employees[1]);
+    console.log('Seeded billing plans  :      ', !!billingPlan[2]);
+
+    console.log(
+      'bp1',
+      billingPlan[0],
+      'bp2',
+      billingPlan[1],
+      'bp3',
+      billingPlan[2]
+    );
 
     return tasks;
   }
