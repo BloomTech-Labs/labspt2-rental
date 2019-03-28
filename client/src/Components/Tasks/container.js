@@ -3,9 +3,9 @@ import { getTasks } from "./actionCreator";
 import Tasks from "./Tasks";
 
 const mapStateToProps = data => ({
-  tasks: data.tasks.tasks,
-  loading: data.tasks.loading,
-  error: data.tasks.error
+  tasks: data.tasks,
+  loading: data.loading,
+  error: data.error
 });
 
 export default connect(
