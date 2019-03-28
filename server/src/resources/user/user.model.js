@@ -24,6 +24,10 @@ const userSchema = new Schema(
       unique: true,
       trim: true
     },
+    createdBy: {
+      type: mongoose.SchemaTypes.ObjectId,
+      ref: 'user'
+    },
     password: {
       type: String,
       required: true
