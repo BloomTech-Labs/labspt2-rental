@@ -5,6 +5,7 @@ import { FlexColumn, FlexRow } from '../../custom-components';
 import CheckoutForm from './updatePlan';
 
 
+// Redux store set billingPlan by string on user object
 
 export default class PlanModal extends Component {
     state = { 

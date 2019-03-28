@@ -20,7 +20,7 @@ export default async () => {
             email: 'owner@roostr.io',
             firstName: faker.name.firstName(),
             lastName: faker.name.lastName(),
-            billingPlan: faker.random.number({ min: 1, max: 3 })
+            billingPlan: 'Free'
           })
             .then(created => {
               resolve(created);

@@ -65,7 +65,7 @@ const userSchema = new Schema(
       type: String
     },
     billingPlan: {
-      type: Number
+      type: String
     },
     createdBy: {
       type: mongoose.SchemaTypes.ObjectId,
