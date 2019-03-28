@@ -90,8 +90,6 @@ class Dashboard extends Component {
 
                 <Route path="/dashboard/tasks" render={() => <Tasks />} />
 
-                <Route path="/dashboard/checkout" render={() => <Checkout />} />
-
                 <Route
                   path="/dashboard/properties"
                   render={() => <Properties />}

@@ -5,8 +5,9 @@ import { LoginPage } from "./Components/LoginPage";
 import { UserList } from "./Components/UserList";
 import { Dashboard } from "./Components/Dashboard";
 import { Properties } from "./Components/Properties/PropList";
+import { Home } from './Components/LandingPage';
+
 import axios from "axios";
-import { store } from "./Redux/store";
 
 const Router = () => {
   (() => {
@@ -30,6 +31,7 @@ const Router = () => {
         <Route path="/login" component={LoginPage} />
         <Route path="/dashboard" component={Dashboard} />
         <Route path="/properties" component={Properties} />
+        <Route path="/" component={Home} />
       </Switch>
     </Fragment>
   );
