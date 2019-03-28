@@ -24,10 +24,6 @@ const userSchema = new Schema(
       unique: true,
       trim: true
     },
-    createdBy: {
-      type: mongoose.SchemaTypes.ObjectId,
-      ref: 'user'
-    },
     password: {
       type: String,
       required: true
@@ -44,6 +40,32 @@ const userSchema = new Schema(
     role: {
       type: String,
       enum: ['admin', 'owner', 'employee', 'guest']
+    },
+    billingAddress: {
+      address1: {
+        type: String
+      },
+      address2: {
+        type: String
+      },
+      city: {
+        type: String
+      },
+      state: {
+        type: String
+      },
+      zip: {
+        type: String
+      }
+    },
+    stripeCustomerID: {
+      type: String
+    },
+    subscriptionID: {
+      type: String
+    },
+    billingPlan: {
+      type: Number
     },
     createdBy: {
       type: mongoose.SchemaTypes.ObjectId,
@@ -67,7 +89,6 @@ userSchema.pre('save', function(next) {
     next();
   });
 });
-
 
 userSchema.methods.checkPassword = function(password) {
   const passwordHash = this.password;

@@ -18,7 +18,8 @@ export default async () => {
             password: '12345',
             email: 'owner@roostr.io',
             firstName: faker.name.firstName(),
-            lastName: faker.name.lastName()
+            lastName: faker.name.lastName(),
+            billingPlan: faker.random.number({ min: 1, max: 3 })
           })
             .then(created => {
               resolve(created);
