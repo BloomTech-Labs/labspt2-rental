@@ -52,7 +52,6 @@ class Employees extends Component {
   render() {
     const { tabs, page, pageSize } = this.state;
     const { employees } = this.props
-    console.log("Employees", employees)
 
     return (
       <FlexColumn>
