@@ -25,8 +25,9 @@ class EmployeeList extends Component {
   };
 
   render() {
-    const { employees } = this.state;
+    const employees = this.props.employees;
     const { pageSize } = this.props;
+    console.log("employee", employees)
 
     return (
       <FlexColumn width="800px" alignCenter style={{ position: "relative" }}>

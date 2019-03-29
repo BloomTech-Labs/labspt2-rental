@@ -1,10 +1,12 @@
 import React, { Component } from "react";
+import {connect} from 'react-redux'
 import { Header, Tab, Button } from "semantic-ui-react";
 import { FlexColumn, FlexRow } from "custom-components";
 import EmployeeList from "./EmployeeList";
 import Search from "../shared/Search/Search";
+import { getEmployees, searchEmployees } from "./actionCreator";
 
-export default class Employees extends Component {
+class Employees extends Component {
   constructor(props) {
     super(props);
 
@@ -48,7 +50,9 @@ export default class Employees extends Component {
   };
 
   render() {
-    const { tabs, employees, page, pageSize } = this.state;
+    const { tabs, page, pageSize } = this.state;
+    const { employees } = this.props
+    console.log("Employees", employees)
 
     return (
       <FlexColumn>
@@ -83,3 +87,16 @@ export default class Employees extends Component {
     );
   }
 }
+
+const mapStateToProps = state => {
+  return {
+    employees: state.employees.employees,
+    loading: state.employees.loading,
+    error: state.employees.error
+  };
+};
+
+export default connect(
+  mapStateToProps,
+  { getEmployees, searchEmployees }
+)(Employees);
