@@ -4,12 +4,14 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "build": "babel src --out-dir dist",
+    "build-semantic": "cd src/semantic && gulp build",
+    "watch-semantic": "cd src/semantic && npm run build-semantic && gulp watch",
+    "build": "npm run build-semantic && babel src --out-dir dist",
     "test": "jest",
     "test:watch": "NODE_ENV=testing jest --watch",
     "dev": "nodemon --exec npm run restart",
     "restart": "rimraf dist && npm run build && npm start",
-    "start": "node dist/index.js",
+    "start": "npm run build-semantic && node dist/index.js",
     "db": "mongod"
   },
   "dependencies": {
