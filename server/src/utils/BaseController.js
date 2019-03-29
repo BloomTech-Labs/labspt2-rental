@@ -43,6 +43,10 @@ export class BaseController {
       sort,
       skip,
       limit;
+    
+    if (query) {
+      filter = {...filter, ...query}
+    }
 
     if (req.query.filter) {
       filter = JSON.parse(req.query.filter);

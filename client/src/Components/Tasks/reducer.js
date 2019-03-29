@@ -3,24 +3,22 @@ import * as actions from "./actions";
 const initialState = {
   loading: false,
   error: false,
-  employees: []
+  tasks: []
 };
 
-const employeesReducer = (state = initialState, action) => {
+const taskReducer = (state = initialState, action) => {
   switch (action.type) {
-    case actions.EMPLOYEE_STARTED:
+    case actions.FETCH_TASK_ATTEMPT:
       return {
-        ...state,
-        loading: true
+        ...state
       };
-    case actions.EMPLOYEE_SUCCESS:
+    case actions.FETCH_TASK_SUCCESS:
       return {
         ...state,
         loading: false,
-        error: false,
-        employees: action.employees
+        tasks: action.payload.data
       };
-    case actions.EMPLOYEE_FAILURE:
+    case actions.FETCH_TASK_FAILURE:
       return {
         ...state,
         loading: false,
@@ -31,4 +29,4 @@ const employeesReducer = (state = initialState, action) => {
   }
 };
 
-export default employeesReducer;
+export default taskReducer;
