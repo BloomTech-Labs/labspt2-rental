@@ -127,8 +127,8 @@ export default async () => {
                   completed: false,
                   startDate: faker.date.soon(),
                   endDate: faker.date.future(),
-                  // assignedTo
-                  // property??
+                  // assignedTo - why not assistant (already attached to a property)
+                  // reservation??
                 });
               }
 
