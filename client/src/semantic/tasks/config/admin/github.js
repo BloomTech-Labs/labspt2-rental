@@ -8,7 +8,7 @@
 var
   fs          = require('fs'),
   path        = require('path'),
-  githubAPI   = require('client/src/semantic/tasks/config/admin/github'),
+  githubAPI   = require('github'),
 
   // stores oauth info for GitHub API
   oAuthConfig = path.join(__dirname, 'oauth.js'),

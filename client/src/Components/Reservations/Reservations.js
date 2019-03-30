@@ -14,24 +14,13 @@ export default class Reservations extends Component {
       sort: "_id",
       filter: { status: "upcoming" },
       search: "",
-      loading: true,
-      error: false,
-      tabs: ["Upcoming", "Incomplete", "Complete"],
-      reservations: []
+      tabs: ["Upcoming", "Incomplete", "Complete"]
     };
   }
 
   componentDidMount() {
     const { page, pageSize, sort, filter } = this.state;
     this.props.getReservations({ page, pageSize, sort, filter });
-  }
-
-  componentWillReceiveProps(nextProps) {
-    this.setState({
-      reservations: nextProps.reservations,
-      loading: nextProps.loading,
-      error: nextProps.error
-    });
   }
 
   handleSearchChange = value => {
@@ -49,7 +38,8 @@ export default class Reservations extends Component {
   };
 
   render() {
-    const { tabs, reservations, page, pageSize } = this.state;
+    const { tabs, page, pageSize } = this.state;
+    const { reservations } = this.props;
 
     return (
       <FlexColumn>

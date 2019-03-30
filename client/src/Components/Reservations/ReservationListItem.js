@@ -72,9 +72,6 @@ const ReservationListItem = ({ reservation }) => {
       </FlexRow>
 
       <FlexColumn>
-        <Link className="space-bottom" to="/dashboard/checkout">
-          <Button color="orange">Check out</Button>
-        </Link>
         <Button>More Info</Button>
       </FlexColumn>
     </FlexRow>

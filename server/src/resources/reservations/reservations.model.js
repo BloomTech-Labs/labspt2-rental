@@ -19,7 +19,8 @@ const reservationSchema = new Schema(
     guest: {
       type: mongoose.Types.ObjectId,
       ref: 'user',
-      required: true
+      required: true,
+      autopopulate: true
     },
     property: {
       type: mongoose.Types.ObjectId,
