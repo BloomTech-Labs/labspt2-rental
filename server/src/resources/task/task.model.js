@@ -34,6 +34,11 @@ const taskSchema = new Schema(
       type: mongoose.SchemaTypes.ObjectId,
       ref: 'reservation',
       autopopulate: true
+    },
+    assignedTo: {
+      type: mongoose.SchemaTypes.ObjectId,
+      ref: 'user',
+      autopopulate: true
     }
   },
   { timestamps: true }
