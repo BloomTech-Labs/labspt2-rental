@@ -39,13 +39,6 @@ const reservationSchema = new Schema(
       type: String,
       enum: ['upcoming', 'incomplete', 'complete']
     },
-    tasks: [
-      {
-        type: mongoose.SchemaTypes.ObjectId,
-        ref: 'task',
-        autopopulate: true
-      }
-    ],
     nights: {
       type: Number,
       required: true
