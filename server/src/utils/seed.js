@@ -124,7 +124,11 @@ export default async () => {
                   createdBy: ownerId,
                   description: faker.lorem.sentence(),
                   property: property._id,
-                  completed: false
+                  completed: false,
+                  startDate: faker.date.soon(),
+                  endDate: faker.date.future(),
+                  // assignedTo
+                  // property??
                 });
               }
 
