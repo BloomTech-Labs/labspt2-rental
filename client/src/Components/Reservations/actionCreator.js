@@ -28,11 +28,38 @@ export const searchReservations = (filterSort = {}) => dispatch => {
   return axios
     .get(
       `${config.apiUrl}/api/reservations/search?search=${search ||
-      ""}&filter=${JSON.stringify(filter) ||
-      ""}&sort=${sort}&limit=${pageSize}&skip=${(page - 1) * pageSize}`
+        ""}&filter=${JSON.stringify(filter) ||
+        ""}&sort=${sort}&limit=${pageSize}&skip=${(page - 1) * pageSize}`
     )
     .then(({ data }) => {
       dispatch({ type: actions.RESERVATION_SUCCESS, reservations: data.data });
+    })
+    .catch(err => {
+      dispatch({ type: actions.RESERVATION_FAILURE, error: err });
+    });
+};
+
+export const fetchProperties = () => dispatch => {
+  dispatch({ type: actions.RESERVATION_STARTED });
+
+  return axios
+    .get(`${config.apiUrl}/api/properties`)
+    .then(({ data }) => {
+      dispatch({ type: actions.PROPERTIES_SUCCESS, properties: data.data });
+    })
+    .catch(err => {
+      dispatch({ type: actions.RESERVATION_FAILURE, error: err });
+    });
+};
+
+export const fetchEmployees = () => dispatch => {
+  dispatch({ type: actions.RESERVATION_STARTED });
+
+  return axios
+    .get(`${config.apiUrl}/api/employees`)
+    .then(({ data }) => {
+      console.log(data);
+      dispatch({ type: actions.EMPLOYEES_SUCCESS, employees: data.data });
     })
     .catch(err => {
       dispatch({ type: actions.RESERVATION_FAILURE, error: err });
