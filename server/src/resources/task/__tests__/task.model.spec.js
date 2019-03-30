@@ -67,7 +67,8 @@ describe('Task model', () => {
       expect(assignedTo).toEqual({
         type: mongoose.SchemaTypes.ObjectId,
         ref: 'user',
-        autopopulate: true
+        autopopulate: true,
+        required: true
       });
     });
   });

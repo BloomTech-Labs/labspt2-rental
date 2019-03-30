@@ -38,7 +38,8 @@ const taskSchema = new Schema(
     assignedTo: {
       type: mongoose.SchemaTypes.ObjectId,
       ref: 'user',
-      autopopulate: true
+      autopopulate: true,
+      required: true
     }
   },
   { timestamps: true }
