@@ -111,24 +111,24 @@ export default async () => {
       });
     };
 
-    const seedTasks = (ownerId, properties) => {
+    const seedTasks = (ownerId, employeeId, properties, reservations) => {
       return new Promise((resolve, reject) => {
         Task.find({ createdBy: ownerId }, (err, tasks) => {
           if (!tasks.length) {
             let promiseArr = [];
 
-            for (let property of properties) {
+            for (let i = 0; i < properties.length; i++) {
               let tasksArr = [];
               for (let i = 0; i < 5; i++) {
                 tasksArr.push({
                   createdBy: ownerId,
                   description: faker.lorem.sentence(),
-                  property: property._id,
+                  property: properties[i]._id,
                   completed: false,
                   startDate: faker.date.soon(),
                   endDate: faker.date.future(),
-                  // assignedTo - why not assistant (already attached to a property)
-                  // reservation??
+                  reservation: reservations[i]._id,
+                  assignedTo: employeeId
                 });
               }
 
@@ -173,7 +173,6 @@ export default async () => {
                 checkIn: faker.date.soon(),
                 checkOut: faker.date.future(),
                 status: 'upcoming',
-                tasks: tasks.filter(t => t.property === property._id),
                 nights: faker.random.number({ min: 1, max: 5 }),
                 cleaningFee: faker.random.number({ min: 10, max: 100 }),
                 guests: faker.random.number({ min: 1, max: 4 }),
@@ -189,7 +188,6 @@ export default async () => {
                 checkIn: faker.date.recent(),
                 checkOut: faker.date.soon(),
                 status: 'incomplete',
-                tasks: tasks.filter(t => t.property === property._id),
                 nights: faker.random.number({ min: 1, max: 5 }),
                 cleaningFee: faker.random.number({ min: 10, max: 100 }),
                 guests: faker.random.number({ min: 1, max: 4 }),
@@ -205,7 +203,6 @@ export default async () => {
                 checkIn: faker.date.past(),
                 checkOut: faker.date.recent(),
                 status: 'complete',
-                tasks: tasks.filter(t => t.property === property._id),
                 nights: faker.random.number({ min: 1, max: 5 }),
                 cleaningFee: faker.random.number({ min: 10, max: 100 }),
                 guests: faker.random.number({ min: 1, max: 4 }),
@@ -271,14 +268,13 @@ export default async () => {
 
     const employee = await seedEmployee(owner._id);
     const properties = await seedProperties(owner._id, employee._id);
-    const tasks = await seedTasks(owner._id, properties);
     const reservations = await seedReservations(
       owner._id,
       guest._id,
       employee._id,
       properties,
-      tasks
     );
+    const tasks = await seedTasks(owner._id, employee._id, properties, reservations);
     const employees = await seedEmployees(owner._id);
 
     console.log('Seeded owner          :      ', !!owner._id);
