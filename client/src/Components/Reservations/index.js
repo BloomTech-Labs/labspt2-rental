@@ -1,1 +1,2 @@
-export { default as Reservations } from "./container";
+export { ReservationsWithData } from "./container";
+export { ReservationAddWithData } from "./container";

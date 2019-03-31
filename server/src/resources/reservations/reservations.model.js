@@ -2,6 +2,25 @@ import mongoose from 'mongoose';
 
 const { Schema } = mongoose;
 
+const Guest = new Schema({
+  firstName: {
+    type: String,
+    required: true
+  },
+  lastName: {
+    type: String,
+    required: true
+  },
+  phoneNumber: {
+    type: String,
+    required: true
+  },
+  email: {
+    type: String,
+    required: true
+  }
+});
+
 const reservationSchema = new Schema(
   {
     createdBy: {
@@ -17,10 +36,8 @@ const reservationSchema = new Schema(
       autopopulate: true
     },
     guest: {
-      type: mongoose.Types.ObjectId,
-      ref: 'user',
-      required: true,
-      autopopulate: true
+      type: Guest,
+      required: true
     },
     property: {
       type: mongoose.Types.ObjectId,
@@ -39,10 +56,6 @@ const reservationSchema = new Schema(
     status: {
       type: String,
       enum: ['upcoming', 'incomplete', 'complete']
-    },
-    nights: {
-      type: Number,
-      required: true
     },
     cleaningFee: {
       type: Number

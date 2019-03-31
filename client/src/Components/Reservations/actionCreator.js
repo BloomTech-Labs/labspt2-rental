@@ -58,10 +58,24 @@ export const fetchEmployees = () => dispatch => {
   return axios
     .get(`${config.apiUrl}/api/employees`)
     .then(({ data }) => {
-      console.log(data);
       dispatch({ type: actions.EMPLOYEES_SUCCESS, employees: data.data });
     })
     .catch(err => {
       dispatch({ type: actions.RESERVATION_FAILURE, error: err });
+    });
+};
+
+export const createReservation = (body = {}) => dispatch => {
+  dispatch({ type: actions.RESERVATION_STARTED });
+
+  return axios
+    .post(`${config.apiUrl}/api/reservations`, body)
+    .then(({ data }) => {
+      dispatch({ type: actions.RESERVATION_SUCCESS, reservations: data.data });
+      return data.data;
+    })
+    .catch(err => {
+      dispatch({ type: actions.RESERVATION_FAILURE, error: err });
+      throw err;
     });
 };
