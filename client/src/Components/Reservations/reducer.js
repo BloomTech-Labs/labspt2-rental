@@ -21,18 +21,6 @@ const reservationsReducer = (state = initialState, action) => {
         loading: false,
         reservations: action.reservations
       };
-    case actions.PROPERTIES_SUCCESS:
-      return {
-        ...state,
-        loading: false,
-        properties: action.properties
-      };
-    case actions.EMPLOYEES_SUCCESS:
-      return {
-        ...state,
-        loading: false,
-        employees: action.employees
-      };
     case actions.RESERVATION_FAILURE:
       return {
         ...state,

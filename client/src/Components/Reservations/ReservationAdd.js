@@ -34,11 +34,6 @@ class ReservationAdd extends Component {
     };
   }
 
-  componentDidMount() {
-    this.props.fetchProperties();
-    this.props.fetchEmployees();
-  }
-
   handleDateChange = ({ startDate, endDate }) => {
     this.setState({ checkIn: startDate, checkOut: endDate });
   };
@@ -62,10 +57,23 @@ class ReservationAdd extends Component {
     const { guest, guests } = this.state;
 
     return (
-      <FlexColumn justifyBetween width="full">
-        <Header as="h1">Add New Reservation</Header>
-        <FlexRow>
+      <FlexColumn justifyBetween alignCenter width="full">
+        <FlexRow width="full">
+          <Header as="h1">Add New Reservation</Header>
+        </FlexRow>
+
+        <br />
+
+        <FlexRow width="full">
+          <DateRangePickerWrapper onChange={this.handleDateChange} />
+        </FlexRow>
+
+        <br />
+        <br />
+
+        <FlexRow alignCenter width="full">
           <Dropdown
+            style={{ marginRight: "10px" }}
             selection
             onChange={(e, val) => this.handleChange("property", val.value)}
             placeholder="Property"
@@ -76,11 +84,23 @@ class ReservationAdd extends Component {
             }))}
           />
 
-          <DateRangePickerWrapper onChange={this.handleDateChange} />
+          <Dropdown
+            selection
+            onChange={(e, val) => this.handleChange("assistant", val.value)}
+            placeholder="Employee"
+            options={this.props.employees.map(e => ({
+              key: e._id,
+              text: e.firstName + " " + e.lastName,
+              value: e._id
+            }))}
+          />
         </FlexRow>
 
-        <FlexRow>
+        <br />
+
+        <FlexRow width="full">
           <Input
+            style={{ marginRight: "10px", flexGrow: "1" }}
             placeholder="First Name"
             onChange={e =>
               this.handleChange("guest", {
@@ -90,6 +110,7 @@ class ReservationAdd extends Component {
             }
           />
           <Input
+            style={{ flexGrow: "1" }}
             placeholder="Last Name"
             onChange={e =>
               this.handleChange("guest", {
@@ -100,8 +121,11 @@ class ReservationAdd extends Component {
           />
         </FlexRow>
 
-        <FlexRow>
+        <br />
+
+        <FlexRow width="full">
           <Input
+            style={{ marginRight: "10px", flexGrow: "1" }}
             placeholder="Phone Number"
             onChange={e =>
               this.handleChange("guest", {
@@ -112,6 +136,7 @@ class ReservationAdd extends Component {
           />
 
           <Input
+            style={{ flexGrow: "1" }}
             placeholder="Email"
             onChange={e =>
               this.handleChange("guest", {
@@ -122,7 +147,10 @@ class ReservationAdd extends Component {
           />
         </FlexRow>
 
-        <FlexRow alignCenter>
+        <br />
+        <br />
+
+        <FlexRow alignCenter justifyCenter width="full">
           <Button
             circular
             icon="minus"
@@ -139,22 +167,13 @@ class ReservationAdd extends Component {
           />
         </FlexRow>
 
-        <FlexRow>
-          <Dropdown
-            selection
-            onChange={(e, val) => this.handleChange("assistant", val.value)}
-            placeholder="Employee"
-            options={this.props.employees.map(e => ({
-              key: e._id,
-              text: e.firstName + " " + e.lastName,
-              value: e._id
-            }))}
-          />
-        </FlexRow>
+        <br />
 
-        <Button color="green" onClick={this.handleSubmit}>
-          Create Reservation
-        </Button>
+        <FlexRow width="full" justifyCenter>
+          <Button color="green" onClick={this.handleSubmit}>
+            Create Reservation
+          </Button>
+        </FlexRow>
       </FlexColumn>
     );
   }

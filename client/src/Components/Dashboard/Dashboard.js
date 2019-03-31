@@ -32,6 +32,11 @@ class Dashboard extends Component {
     ];
   }
 
+  componentDidMount() {
+    this.props.getProperties();
+    this.props.getEmployees();
+  }
+
   handleClick = ev => {
     this.setState({ active: ev.target.innerHTML });
   };

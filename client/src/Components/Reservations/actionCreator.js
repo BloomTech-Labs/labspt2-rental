@@ -39,32 +39,6 @@ export const searchReservations = (filterSort = {}) => dispatch => {
     });
 };
 
-export const fetchProperties = () => dispatch => {
-  dispatch({ type: actions.RESERVATION_STARTED });
-
-  return axios
-    .get(`${config.apiUrl}/api/properties`)
-    .then(({ data }) => {
-      dispatch({ type: actions.PROPERTIES_SUCCESS, properties: data.data });
-    })
-    .catch(err => {
-      dispatch({ type: actions.RESERVATION_FAILURE, error: err });
-    });
-};
-
-export const fetchEmployees = () => dispatch => {
-  dispatch({ type: actions.RESERVATION_STARTED });
-
-  return axios
-    .get(`${config.apiUrl}/api/employees`)
-    .then(({ data }) => {
-      dispatch({ type: actions.EMPLOYEES_SUCCESS, employees: data.data });
-    })
-    .catch(err => {
-      dispatch({ type: actions.RESERVATION_FAILURE, error: err });
-    });
-};
-
 export const createReservation = (body = {}) => dispatch => {
   dispatch({ type: actions.RESERVATION_STARTED });
 
