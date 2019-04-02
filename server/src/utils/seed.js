@@ -236,70 +236,6 @@ export default async () => {
 
     const seedEmployees = ownerId => {
       return new Promise((resolve, reject) => {
-<<<<<<< HEAD
-        User.find(
-          { createdBy: ownerId, role: 'employee' },
-          (err, employees) => {
-            if (employees.length <= 1) {
-              let employeesArr = [];
-
-              for (let i = 0; i < 10; i++) {
-                const fakeName = faker.internet.userName();
-                employeesArr.push({
-                  role: 'employee',
-                  username: fakeName,
-                  password: '12345',
-                  email: `${fakeName}@roostr.io`,
-                  permissions: {
-                    task: faker.random.boolean(),
-                    property: faker.random.boolean(),
-                    checkout: faker.random.boolean()
-                  },
-                  createdBy: ownerId,
-                  firstName: faker.name.firstName(),
-                  lastName: faker.name.lastName()
-                });
-                console.log(employeesArr.length);
-              }
-
-              User.insertMany(employeesArr, (err, docs) => {
-                resolve(docs);
-              });
-            } else {
-              resolve(employees);
-            }
-          }
-        );
-      });
-    };
-
-    const seedBillingPlans = new Promise((resolve, reject) => {
-      BillingPlan.create(
-        {
-          name: 'Free',
-          perPropertyPrice: 0
-        },
-        {
-          name: 'Midlevel',
-          perPropertyPrice: 8
-        },
-        {
-          name: 'Enterprise',
-          perPropertyPrice: 5
-        }
-      )
-        .then(created => {
-          resolve(created);
-        })
-        .catch(err => reject(err));
-    });
-
-    const [owner, guest, billingPlan] = await Promise.all([
-      seedowner,
-      seedGuest,
-      seedBillingPlans
-    ]);
-=======
         User.find({ createdBy: ownerId, role: 'employee' }, (err, employees) => {
           if (employees.length <= 1) {
             let employeesArr = []
@@ -333,8 +269,32 @@ export default async () => {
       })
     }
 
-    const [owner, guest] = await Promise.all([seedowner, seedGuest])
->>>>>>> 6277d0bf4646237948bd24f82db497b88c47d6a1
+    const seedBillingPlans = new Promise((resolve, reject) => {
+      BillingPlan.create(
+        {
+          name: 'Free',
+          perPropertyPrice: 0
+        },
+        {
+          name: 'Midlevel',
+          perPropertyPrice: 8
+        },
+        {
+          name: 'Enterprise',
+          perPropertyPrice: 5
+        }
+      )
+        .then(created => {
+          resolve(created);
+        })
+        .catch(err => reject(err));
+    });
+
+    const [owner, guest, billingPlan] = await Promise.all([
+      seedowner,
+      seedGuest,
+      seedBillingPlans
+    ]);
 
     const employee = await seedEmployee(owner._id)
     const properties = await seedProperties(owner._id, employee._id)
@@ -342,10 +302,17 @@ export default async () => {
       owner._id,
       guest._id,
       employee._id,
+      properties
+    );
+
+    const tasks = await seedTasks(
+      owner._id,
+      employee._id,
       properties,
-    )
-    const tasks = await seedTasks(owner._id, employee._id, properties, reservations)
-    const employees = await seedEmployees(owner._id)
+      reservations
+    );
+
+    const employees = await seedEmployees(owner._id);
 
     console.log('Seeded owner          :      ', !!owner._id);
     console.log('Seeded main employee  :      ', !!employee._id);
@@ -365,6 +332,6 @@ export default async () => {
       billingPlan[2]
     );
 
-    return tasks
+    return tasks;
   }
 };
