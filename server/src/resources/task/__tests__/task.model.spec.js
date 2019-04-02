@@ -48,7 +48,8 @@ describe('Task model', () => {
       const { property } = Task.schema.obj;
       expect(property).toEqual({
         type: mongoose.SchemaTypes.ObjectId,
-        ref: 'property'
+        ref: 'property',
+        autopopulate: true
       });
     });
 
@@ -56,7 +57,18 @@ describe('Task model', () => {
       const { reservation } = Task.schema.obj;
       expect(reservation).toEqual({
         type: mongoose.SchemaTypes.ObjectId,
-        ref: 'reservation'
+        ref: 'reservation',
+        autopopulate: true
+      });
+    });
+
+    test('assignedTo', () => {
+      const { assignedTo } = Task.schema.obj;
+      expect(assignedTo).toEqual({
+        type: mongoose.SchemaTypes.ObjectId,
+        ref: 'user',
+        autopopulate: true,
+        required: true
       });
     });
   });

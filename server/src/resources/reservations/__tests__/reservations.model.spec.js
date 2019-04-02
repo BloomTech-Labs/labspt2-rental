@@ -56,15 +56,6 @@ describe('Reservation model', () => {
         enum: ['upcoming', 'incomplete', 'complete']
       });
     });
-    test('tasks', () => {
-      const { tasks } = Reservation.schema.obj;
-      expect(tasks).toEqual([
-        {
-          type: mongoose.SchemaTypes.ObjectId,
-          ref: 'task'
-        }
-      ]);
-    });
     test('nights', () => {
       const { nights } = Reservation.schema.obj;
       expect(nights).toEqual({
