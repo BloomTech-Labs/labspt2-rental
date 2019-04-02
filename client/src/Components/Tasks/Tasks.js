@@ -1,15 +1,13 @@
 import React, { Component } from 'react';
-import { Header, Tab } from "semantic-ui-react";
-import { FlexColumn } from "custom-components";
+import { Header, Tab, Icon, Segment } from "semantic-ui-react";
+import { FlexColumn, FlexRow } from "custom-components";
 import Search from "../shared/Search/Search";
 import TaskList from './TaskList';
-// import TaskPageTop from './TaskPageTop';
 
 class Tasks extends Component {
   constructor(props) {
     super(props);
       this.state = {
-        tasks: [],
         loading: false,
         error: false,
         tabs: ["Overdue", "Due Today", "Upcoming"],
@@ -22,14 +20,6 @@ class Tasks extends Component {
       // const { filter } = this.state;
       // this.props.getTasks({ filter });
       this.props.getTasks();
-    }
-
-    componentWillRecieveProps(nextProps) {
-      this.setState({
-        tasks: nextProps.tasks,
-        loading: nextProps.loading,
-        error: nextProps.error
-      });
     }
 
     handleSearchChange = value => {
@@ -50,11 +40,14 @@ class Tasks extends Component {
 
   render () {
 
-    const { tabs, tasks } = this.state;
+    const { tabs } = this.state;
+    const { tasks : { tasks, loading } } = this.props;
 
     return (
       <FlexColumn>
-        <Header as="h1">Tasks</Header>
+        <FlexRow>
+          <Header as="h1">Tasks</Header>
+        </FlexRow>
           <Tab
             onTabChange={this.handleTabChange}
             menu={{ attached: false }}
@@ -75,10 +68,6 @@ class Tasks extends Component {
               }
             ]}
           />
-        {/* <TaskPageTop />
-        <TaskList 
-          style={{ margin: "20px" }}
-        /> */}
       </FlexColumn>
     )
   }
