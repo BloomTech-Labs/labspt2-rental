@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { FlexColumn } from "custom-components";
+import { FlexColumn, Divider } from "custom-components";
 import TaskListItem from "./TaskListItem";
 import { Tab } from 'semantic-ui-react';
 
@@ -20,6 +20,7 @@ class TaskList extends Component {
         {this.props.tasks.map((task, ind) => (
           <>
             <TaskListItem task={task} />
+            <Divider />
           </>
         ))}
       </FlexColumn>
