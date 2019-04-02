@@ -5,7 +5,7 @@ const EmployeeListItem = props => {
   return (
     <InfoCard
       imageLoc={props.employee.imageLoc}
-      header={props.employee.name}
+      header={`${props.employee.firstName} ${props.employee.lastName}`}
       lineOneTitle="Tasks Due Today"
       lineTwoTitle="OverDue Tasks"
       lineThreeTitle="Assigned Properties"

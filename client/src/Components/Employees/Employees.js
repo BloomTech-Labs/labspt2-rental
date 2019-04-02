@@ -23,30 +23,25 @@ class Employees extends Component {
   }
 
   componentDidMount() {
-    const { filter, page, pageSize, sort } = this.state;
-    this.props.getEmployees({ page, pageSize, sort, filter });
-  }
-
-  componentWillReceiveProps(nextProps) {
-    this.setState({
-      employees: nextProps.employees,
-      loading: nextProps.loading,
-      error: nextProps.error
-    });
+    const { page, pageSize, sort } = this.state;
+    this.props.getEmployees({ page, pageSize, sort });
   }
 
   handleSearchChange = value => {
     const { page, pageSize, sort, filter } = this.state;
     const search = value || "";
     this.setState({ search });
-    this.props.searchEmployees({ page, pageSize, sort, search, filter });
+    this.props.searchEmployees({ page, pageSize, sort, search });
   };
 
-  handleTabChange = (e, data) => {
-    const { page, pageSize, sort, tabs } = this.state;
-    const filter = { status: tabs[data.activeIndex].toLowerCase() };
-    this.setState({ filter });
-    this.props.getEmployees({ page, pageSize, sort, filter });
+  handleTabChange = (e) => {
+    this.setState({
+      page: 1,
+      pageSize: 4,
+      sort: "_id",
+     });
+    const { page, pageSize, sort } = this.state;
+    this.props.getEmployees({ page, pageSize, sort });
   };
 
   render() {
