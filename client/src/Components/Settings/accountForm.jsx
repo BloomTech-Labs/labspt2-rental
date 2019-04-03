@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { Form, Input, Button } from 'semantic-ui-react';
 import PasswordModal from './passwordModal';
+import axios from 'axios';
 
 export default class AccountForm extends Component {
     constructor(props){
@@ -15,6 +16,7 @@ export default class AccountForm extends Component {
     }
 
     componentDidMount = () => {
+        axios.get()
         this.setState({
             firstName: this.props.user.firstName,
             lastName: this.props.user.lastName,

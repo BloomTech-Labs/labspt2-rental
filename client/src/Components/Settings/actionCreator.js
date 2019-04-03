@@ -9,19 +9,36 @@ import config from "../../config/index";
 // keep Store updated with user info. If it changes, update
 // use the billing plan ID to query billing table and send that to Stripe
 
+export const getUser = user => {
+  return async dispatch => {
+    dispatch({ type: actions.USER_STARTED });
+    try{
+      const user = await axios.get(`${config.apiUrl}/api/users/me`)
+      dispatch({
+        type: actions.USER_SUCCESS,
+        payload: user.data
+      })
+    } catch (err) {
+      console.error(err);
+      dispatch({ type: actions.USER_ERROR, payload: err });
+    }
+  }
+}
+
 export const updateUser = user => {
   return async dispatch => {
-    dispatch({ type: actions.UPDATE_USER_STARTED });
+    dispatch({ type: actions.USER_STARTED });
     try {
-      const updatedUser = await axios.put(`http://138.197.202.158/me`, user);
+      const updatedUser = await axios.put(`${config.apiUrl}/api/users/me`, user);
       console.log(updatedUser);
       dispatch({
-        type: actions.UPDATE_USER_SUCCESS,
+        type: actions.USER_SUCCESS,
         payload: updatedUser
       });
     } catch (err) {
       console.error(err);
-      dispatch({ type: actions.UPDATE_USER_ERROR, payload: err });
+      dispatch({ type: actions.USER_ERROR, payload: err });
     }
   };
 };
+
