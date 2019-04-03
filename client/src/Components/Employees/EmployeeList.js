@@ -6,7 +6,6 @@ import EmployeeListItem from "./EmployeeListItem";
 const EmployeeList = props => {
 
     const employees = props.employees;
-    // const { pageSize } = props;
 
     return (
       <FlexColumn width="800px" alignCenter style={{ position: "relative" }}>

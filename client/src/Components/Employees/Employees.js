@@ -29,8 +29,8 @@ export default class Employees extends Component {
     const { page, pageSize, sort } = this.state;
     const search = value || "";
     this.setState({ search });
-    this.props.searchEmployees({ page, pageSize, sort, search });
     this.props.getNumberEmployees({ page, pageSize, sort, search })
+    this.props.searchEmployees({ page, pageSize, sort, search });
   };
 
   handleTabChange = e => {
@@ -45,7 +45,7 @@ export default class Employees extends Component {
 
   render() {
     const { tabs, page, pageSize } = this.state;
-    const { employees } = this.props;
+    const { employees, loading, numPages } = this.props;
 
     return (
       <FlexColumn>
@@ -54,26 +54,27 @@ export default class Employees extends Component {
           onTabChange={this.handleTabChange}
           menu={{ attached: false }}
           panes={[
-            ...tabs.map(tab => ({
+            ...tabs.map((tab, index) => ({
               menuItem: tab,
               render: () => (
                 <Tab.Pane attached={false}>
-                  {this.props.loading ? (
+                  {loading ? (
                     <div>Loading...Please Wait</div>
                   ) : (
                     <EmployeeList
+                      key={tab + index}
                       status={tab}
                       employees={employees}
                       page={page}
                       pageSize={pageSize}
-                      numPages={this.props.numPages}
+                      numPages={numPages}
                     />
                   )}
                 </Tab.Pane>
               )
             })),
             {
-              menuItem: <Search onChange={this.handleSearchChange} />
+              menuItem: <Search key="1" onChange={this.handleSearchChange} />
             }
           ]}
         />

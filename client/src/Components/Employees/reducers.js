@@ -29,7 +29,7 @@ const employeesReducer = (state = initialState, action) => {
       const numPages = Math.ceil(action.number / 4)
       return {
         ...state,
-        numPages: (action.number / 4)
+        numPages: (numPages)
       };
     case actions.NUM_EMPLOYEE_FAIL:
       return {

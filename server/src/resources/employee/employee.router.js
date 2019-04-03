@@ -11,10 +11,6 @@ router
   .post(controllers.createOne)
 
 router
-  .route('/num')
-  .get(controllers.getNumberEmployees)
-
-router
   .route('/search')
   .get(controllers.searchAll)
 

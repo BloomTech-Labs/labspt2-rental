@@ -26,11 +26,6 @@ class EmployeesControllers extends BaseController {
 
     return this.search(req, res, next, { filter, search });
   };
-
-  getNumberEmployees = (req, res, next) => {
-    const employees = this.getMany(req,res,next, {role: 'employee'})
-    console.log(employees)
-  }
 }
 
 const controllers = new EmployeesControllers(User);
