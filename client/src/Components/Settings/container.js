@@ -1,16 +1,16 @@
 import { connect } from "react-redux";
-import { updateUser } from "./actionCreator";
+import { updateUser, getUser } from "./actionCreator";
 import Settings from "./settings";
 
-const mapStateToProps = ({ settings }) => ({
-  settings
+const mapStateToProps = ({ user }) => ({
+  firstName: user
 });
 
-const mapDispatchToProps = () => ({
-  updateUser
-});
+// const mapDispatchToProps = () => ({
+//   updateUser, getUser
+// });
 
 export default connect(
   mapStateToProps,
-  { updateUser }
+  { updateUser, getUser }
 )(Settings);

@@ -8,17 +8,17 @@ const initialState = {
 
 const settingsReducer = (state = initialState, action) => {
     switch(action.type){
-        case actions.UPDATE_USER_STARTED:
+        case actions.USER_STARTED:
         return {
             ...state,
             loading: true
         };
-        case actions.UPDATE_USER_SUCCESS:
+        case actions.USER_SUCCESS:
         return {
             ...state,
             loading: false
         };
-        case actions.UPDATE_USER_ERROR:
+        case actions.USER_ERROR:
         return {
             ...state,
             loading: false,
