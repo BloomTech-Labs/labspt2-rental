@@ -67,6 +67,9 @@ const userSchema = new Schema(
     billingPlan: {
       type: String
     },
+    phone: {
+      type: String
+    },
     createdBy: {
       type: mongoose.SchemaTypes.ObjectId,
       ref: 'user'

@@ -22,6 +22,7 @@ export default async () => {
             firstName: faker.name.firstName(),
             lastName: faker.name.lastName(),
             billingPlan: 'Free',
+            phone: '994-567-4231',
             billingAddress: {
               address1: '1234 Honey Bear Ct',
               city: 'Tempe',

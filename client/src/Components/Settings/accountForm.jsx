@@ -9,7 +9,7 @@ export default class AccountForm extends Component {
             firstName: this.props.user.firstName,
             lastName: this.props.user.lastName,
             email: this.props.user.email,
-            phone: 'null',
+            phone: this.props.user.phone,
             disabled: true
         }
     }
@@ -20,7 +20,8 @@ export default class AccountForm extends Component {
             this.setState({
                 firstName: this.props.user.firstName,
                 lastName: this.props.user.lastName,
-                email: this.props.user.email
+                email: this.props.user.email,
+                phone: this.props.user.phone
             })
         }
     }
