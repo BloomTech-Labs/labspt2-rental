@@ -41,3 +41,25 @@ export const searchEmployees = (filterSort = {}) => dispatch => {
       dispatch({ type: actions.EMPLOYEE_FAILURE, error: err });
     });
 };
+
+export const getNumberEmployees = (filterSort = {}) => {
+  const { filter, sort, page, pageSize, search } = filterSort;
+
+  return dispatch => {
+    axios
+      .get(
+        `${config.apiUrl}/api/employees/search??search=${search ||
+          ""}&filter=${JSON.stringify(filter) ||
+          ""}&sort=${sort}&limit=10000&skip=${(page - 1) * pageSize}`
+      )
+      .then(data => {
+        dispatch({
+          type: actions.NUM_EMPLOYEE_SUCCESS,
+          number: data.data.data.length
+        });
+      })
+      .catch(err => {
+        dispatch({ type: actions.NUM_EMPLOYEE_FAIL, error: err });
+      });
+  };
+};

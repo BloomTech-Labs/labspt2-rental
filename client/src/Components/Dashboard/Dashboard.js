@@ -5,7 +5,7 @@ import { FlexRow, Container } from "custom-components";
 import { Reservations } from "../Reservations";
 import { Properties } from "../Properties/PropList";
 import { EmployeeSingle } from "../Employees";
-import  Employees  from "../Employees/Employees"
+import Employees from "../Employees/container";
 import { Checkout } from "../Checkout";
 import { Tasks } from "../Tasks";
 import { Settings } from "../Settings";
