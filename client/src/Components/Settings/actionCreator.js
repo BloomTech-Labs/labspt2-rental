@@ -14,7 +14,6 @@ export const getUser = user => {
     dispatch({ type: actions.USER_STARTED });
     try{
       const user = await axios.get(`${config.apiUrl}/api/users/me`)
-      console.log('action creator', user.data.data)
       dispatch({
         type: actions.USER_SUCCESS,
         payload: user.data.data
@@ -31,7 +30,6 @@ export const updateUser = user => {
     dispatch({ type: actions.USER_STARTED });
     try {
       const updatedUser = await axios.put(`${config.apiUrl}/api/users/me`, user);
-      console.log(updatedUser);
       dispatch({
         type: actions.USER_SUCCESS,
         payload: updatedUser

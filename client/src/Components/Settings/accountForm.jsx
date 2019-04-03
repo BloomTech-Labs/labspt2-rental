@@ -1,21 +1,22 @@
 import React, { Component } from 'react';
-import { Form, Input, Button } from 'semantic-ui-react';
+import { Form, Input, Button, Dimmer, Header, Icon } from 'semantic-ui-react';
 import PasswordModal from './passwordModal';
 
 export default class AccountForm extends Component {
     constructor(props){
         super(props);
         this.state = {
-            firstName: this.props.user.firstName,
-            lastName: this.props.user.lastName,
-            email: this.props.user.email,
-            phone: this.props.user.phone,
-            disabled: true
+            firstName: '',
+            lastName: '',
+            email: '',
+            phone: '',
+            disabled: true,
+            active: false,
         }
     }
 
     componentDidUpdate = (prevProps) =>{
-        // use state loading to set a spinner if we use one
+        // Bug: reverts briefly to the old state because it differs from the updated state. Delay checking?
         if(this.props !== prevProps){
             this.setState({
                 firstName: this.props.user.firstName,
@@ -26,6 +27,8 @@ export default class AccountForm extends Component {
         }
     }
 
+    handleClose = () => this.setState({ active: false })
+
     handleChange = (e) => {
         this.setState({
             [e.target.name]: e.target.value,
@@ -35,22 +38,47 @@ export default class AccountForm extends Component {
 
     handleSubmit = (e) => {
         e.preventDefault();
-        // send axios call
+        const { firstName, lastName, email, phone } = this.state;
+        const updatedUser = {
+            firstName: firstName,
+            lastName: lastName,
+            email: email,
+            phone: phone
+        };
+        this.props.update(updatedUser)
+        .then(success => {
+            this.setState({
+                active: true
+            })
+            this.props.getUser()
+        })
+        .catch(err => console.log(err))
     }
 
     render () {
-        console.log('passed props', this.props.user)
-        const { firstName, lastName, email, phone, disabled } = this.state;
+        const { firstName, lastName, email, phone, disabled, active } = this.state;
         let button;
         if (disabled) {
             button = <Button disabled>Save</Button>
         } else {
-            button = <Button basic color="blue" active>Save</Button>
+            button = <Button basic color="blue" active onClick={this.handleSubmit}>Save</Button>
+        }
+
+        let success;
+        if (active){
+            success = <Dimmer active onClickOutside={this.handleClose} page>
+            <Header as='h2' icon inverted>
+              <Icon name='check circle outline' />
+              Profile updated!
+            </Header>
+          </Dimmer>
+        } else {
+            success = null
         }
 
         return (
             <Form>
-                {/* Not rendering value in input boxes from state */}
+                {success}
             <Form.Group inline>
               <Form.Field>
                 <label>First Name</label>
