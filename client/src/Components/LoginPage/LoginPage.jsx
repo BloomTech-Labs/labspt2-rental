@@ -31,7 +31,7 @@ class LoginPage extends Component {
         return (
             <Container>
 
-                <Form onSubmit={this.submitHandler}>
+                <Form id="login-form" onSubmit={this.submitHandler}>
                     <Form.Field>
                     <label>Email address</label>
                     <input name="email" type="email" placeholder='hello@gmail.com' value={this.state.email} onChange={this.inputHandler} />
@@ -42,7 +42,7 @@ class LoginPage extends Component {
                     <input name="password" type="password" placeholder='Password' value={this.state.password} onChange={this.inputHandler} />
                     </Form.Field>
 
-                    <Button type='submit'>Login</Button>
+                    <Button id="login-button" type='submit'>Login</Button>
                 </Form>
 
             </Container>

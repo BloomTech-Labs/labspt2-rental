@@ -3,11 +3,9 @@ import React, { Component } from 'react'
 import {
   Button,
   Container,
-  Divider,
   Grid,
   Header,
   Icon,
-  Image,
   List,
   Menu,
   Responsive,
@@ -45,7 +43,7 @@ const HomepageHeading = ({ mobile }) => (
     />
     <Header
       as='h2'
-      content='The easy way to mange your Roost'
+      content='The easy way to manage your Roost'
       inverted
       style={{
         fontSize: mobile ? '1.5em' : '1.7em',
@@ -101,17 +99,17 @@ class DesktopContainer extends Component {
               size='large'
             >
               <Container>
-                <Menu.Item as='a' active>
+                <Menu.Item active>
                   Home
                 </Menu.Item>
                 <Menu.Item position='right'>
                 <Link to="/login">
-                  <Button as='a' inverted={!fixed}>
+                  <Button inverted={!fixed}>
                     Log in
                   </Button>
                 </Link>
                 <Link to="/register">
-                  <Button as='a' inverted={!fixed} primary={fixed} style={{ marginLeft: '0.5em' }}>
+                  <Button inverted={!fixed} primary={fixed} style={{ marginLeft: '0.5em' }}>
                     Sign Up
                   </Button>
                 </Link>
