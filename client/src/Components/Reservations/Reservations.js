@@ -8,33 +8,39 @@ import ReservationAdd from "./ReservationAdd";
 export default class Reservations extends Component {
   constructor(props) {
     super(props);
-    this.state = {
+
+    this.query = {
       page: 1,
       pageSize: 4,
       sort: "_id",
       filter: { status: "upcoming" },
-      search: "",
+      search: ""
+    };
+
+    this.state = {
       tabs: ["Upcoming", "Incomplete", "Complete"]
     };
   }
 
   componentDidMount() {
-    const { page, pageSize, sort, filter } = this.state;
+    const { page, pageSize, sort, filter } = this.query;
     this.props.getReservations({ page, pageSize, sort, filter });
   }
 
   handleSearchChange = value => {
-    const { page, pageSize, sort, filter } = this.state;
-    const search = value || "";
-    this.setState({ search });
-    this.props.searchReservations({ page, pageSize, sort, search, filter });
+    this.query.search = value || "";
+    this.props.searchReservations({ ...this.query });
   };
 
   handleTabChange = (e, data) => {
-    const { page, pageSize, sort, tabs } = this.state;
-    const filter = { status: tabs[data.activeIndex].toLowerCase() };
-    this.setState({ filter });
-    this.props.getReservations({ page, pageSize, sort, filter });
+    const { tabs } = this.state;
+    this.query.filter = { status: tabs[data.activeIndex].toLowerCase() };
+    this.props.getReservations({ ...this.query });
+  };
+
+  handlePageChange = (event, data) => {
+    this.query.page = data.activePage;
+    this.props.getReservations({ ...this.query });
   };
 
   render() {
@@ -56,8 +62,7 @@ export default class Reservations extends Component {
                     status={tab}
                     loading={loading}
                     reservations={reservations}
-                    page={page}
-                    pageSize={pageSize}
+                    handlePageChange={this.handlePageChange}
                   />
                 </Tab.Pane>
               )
