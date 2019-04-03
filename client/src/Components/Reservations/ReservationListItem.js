@@ -72,7 +72,9 @@ const ReservationListItem = ({ reservation }) => {
       </FlexRow>
 
       <FlexColumn>
-        <Button>More Info</Button>
+        <Link to={`/dashboard/reservations/view/${reservation._id}`}>
+          <Button>More Info</Button>
+        </Link>
       </FlexColumn>
     </FlexRow>
   );

@@ -2,16 +2,19 @@ import { connect } from "react-redux";
 import {
   getReservations,
   searchReservations,
-  createReservation
+  createReservation,
+  fetchProperties,
+  fetchEmployees
 } from "./actionCreator";
-import Reservations from "./Reservations";
-import ReservationAdd from "./ReservationAdd";
+import _ReservationView from "./ReservationView";
+import _Reservations from "./Reservations";
+import _ReservationAdd from "./ReservationAdd";
 import { withRouter } from "react-router-dom";
 
-const mapStateToProps = ({ reservations, properties, employees }) => ({
+const mapStateToProps = ({ reservations }) => ({
   reservations: reservations.reservations,
-  properties: properties.properties,
-  employees: employees.employees,
+  properties: reservations.properties,
+  employees: reservations.employees,
   loading: reservations.loading,
   error: reservations.error
 });
@@ -20,10 +23,13 @@ const connector = connect(
   mapStateToProps,
   {
     getReservations,
+    fetchProperties,
+    fetchEmployees,
     searchReservations,
     createReservation
   }
 );
 
-export const ReservationsWithData = connector(withRouter(Reservations));
-export const ReservationAddWithData = connector(withRouter(ReservationAdd));
+export const Reservations = connector(withRouter(_Reservations));
+export const ReservationView = connector(withRouter(_ReservationView));
+export const ReservationAdd = connector(withRouter(_ReservationAdd));

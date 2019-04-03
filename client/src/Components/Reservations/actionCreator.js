@@ -3,7 +3,7 @@ import * as actions from "./actions";
 import config from "config";
 
 export const getReservations = (filterSort = {}) => dispatch => {
-  const { filter, sort, page, pageSize, search } = filterSort;
+  const { filter, sort, page, pageSize } = filterSort;
 
   dispatch({ type: actions.RESERVATION_STARTED });
 
@@ -51,5 +51,31 @@ export const createReservation = (body = {}) => dispatch => {
     .catch(err => {
       dispatch({ type: actions.RESERVATION_FAILURE, error: err });
       throw err;
+    });
+};
+
+export const fetchProperties = () => dispatch => {
+  dispatch({ type: actions.RESERVATION_STARTED });
+
+  return axios
+    .get(`${config.apiUrl}/api/properties`)
+    .then(({ data }) => {
+      dispatch({ type: actions.PROPERTIES_SUCCESS, properties: data.data });
+    })
+    .catch(err => {
+      dispatch({ type: actions.RESERVATION_FAILURE, error: err });
+    });
+};
+
+export const fetchEmployees = () => dispatch => {
+  dispatch({ type: actions.RESERVATION_STARTED });
+
+  return axios
+    .get(`${config.apiUrl}/api/employees`)
+    .then(({ data }) => {
+      dispatch({ type: actions.EMPLOYEES_SUCCESS, employees: data.data });
+    })
+    .catch(err => {
+      dispatch({ type: actions.RESERVATION_FAILURE, error: err });
     });
 };

@@ -38,18 +38,15 @@ export class BaseController {
     }
   };
 
-  getMany = async (req, res, next, query=null) => {
-    let filter,
-      sort,
-      skip,
-      limit;
+  getMany = async (req, res, next, query = null) => {
+    let filter, sort, skip, limit;
 
     if (req.query.filter) {
       filter = JSON.parse(req.query.filter);
     }
 
     if (query) {
-      filter = {...filter, ...query}
+      filter = { ...filter, ...query };
     }
 
     if (req.query.sort) {
@@ -102,6 +99,7 @@ export class BaseController {
 
     if (req.query.search && search && search.length) {
       const match = new RegExp(req.query.search, 'i');
+
       const searchFields = search.reduce(
         ($match, field) => {
           $match['$match']['$or'].push({ [field]: match });
@@ -142,7 +140,7 @@ export class BaseController {
       pipeline.push({ $limit: limit });
     }
 
-    console.log(pipeline);
+    console.log(JSON.stringify(pipeline));
 
     this.mongooseModel.aggregate(pipeline, (err, docs) => {
       if (err) {

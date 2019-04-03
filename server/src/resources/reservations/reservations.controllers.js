@@ -13,17 +13,9 @@ class ReservationControllers extends BaseController {
       {
         $lookup: {
           localField: 'property',
-          from: 'properties',
+          from: 'properties', // Mongo pluralizes the collection name
           foreignField: '_id',
           as: 'property'
-        }
-      },
-      {
-        $lookup: {
-          localField: 'guest',
-          from: 'users',
-          foreignField: '_id',
-          as: 'guest'
         }
       }
     ];

@@ -34,6 +34,11 @@ class ReservationAdd extends Component {
     };
   }
 
+  componentDidMount() {
+    this.props.fetchEmployees();
+    this.props.fetchProperties();
+  }
+
   handleDateChange = ({ startDate, endDate }) => {
     this.setState({ checkIn: startDate, checkOut: endDate });
   };
@@ -55,6 +60,7 @@ class ReservationAdd extends Component {
 
   render() {
     const { guest, guests } = this.state;
+    console.log(this.props);
 
     return (
       <FlexColumn justifyBetween alignCenter width="full">
@@ -77,22 +83,30 @@ class ReservationAdd extends Component {
             selection
             onChange={(e, val) => this.handleChange("property", val.value)}
             placeholder="Property"
-            options={this.props.properties.map(p => ({
-              key: p._id,
-              text: p.name,
-              value: p._id
-            }))}
+            options={
+              this.props.loading
+                ? [{ text: "Loading...", value: "loading" }]
+                : this.props.properties.map(p => ({
+                    key: p._id,
+                    text: p.name,
+                    value: p._id
+                  }))
+            }
           />
 
           <Dropdown
             selection
             onChange={(e, val) => this.handleChange("assistant", val.value)}
             placeholder="Employee"
-            options={this.props.employees.map(e => ({
-              key: e._id,
-              text: e.firstName + " " + e.lastName,
-              value: e._id
-            }))}
+            options={
+              this.props.loading
+                ? [{ text: "Loading...", value: "loading" }]
+                : this.props.employees.map(e => ({
+                    key: e._id,
+                    text: e.firstName + " " + e.lastName,
+                    value: e._id
+                  }))
+            }
           />
         </FlexRow>
 

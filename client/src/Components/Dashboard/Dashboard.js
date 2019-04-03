@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import { Route, Link, withRouter } from "react-router-dom";
 import { Segment, Menu, Sidebar, Icon, Header, Image } from "semantic-ui-react";
 import { FlexRow, Container } from "custom-components";
-import { ReservationsWithData, ReservationAddWithData } from "../Reservations";
+import { Reservations, ReservationAdd, ReservationView } from "../Reservations";
 import { Properties } from "../Properties/PropList";
 import { EmployeeList, EmployeeSingle } from "../Employees";
 import { Checkout } from "../Checkout";
@@ -30,11 +30,6 @@ class Dashboard extends Component {
       { url: `/dashboard/tasks`, name: "Tasks", icon: "tasks" },
       { url: `/dashboard/settings`, name: "Settings", icon: "setting" }
     ];
-  }
-
-  componentDidMount() {
-    this.props.getProperties();
-    this.props.getEmployees();
   }
 
   handleClick = ev => {
@@ -75,11 +70,15 @@ class Dashboard extends Component {
                 <Route
                   exact
                   path="/dashboard/reservations"
-                  render={() => <ReservationsWithData />}
+                  render={() => <Reservations />}
                 />
                 <Route
                   path="/dashboard/reservations/add"
-                  render={() => <ReservationAddWithData />}
+                  render={() => <ReservationAdd />}
+                />
+                <Route
+                  path="/dashboard/reservations/view/:id"
+                  render={() => <ReservationView />}
                 />
                 <Route
                   exact

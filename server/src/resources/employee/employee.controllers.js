@@ -9,8 +9,8 @@ class EmployeesControllers extends BaseController {
   }
 
   getEmployees = (req, res, next) => {
-    return this.getMany(req, res, next, {role: "employee"})
-  }
+    return this.getMany(req, res, next, { role: 'employee' });
+  };
 }
 
 const controllers = new EmployeesControllers(User);

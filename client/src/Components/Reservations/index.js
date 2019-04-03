@@ -1,2 +1,3 @@
-export { ReservationsWithData } from "./container";
-export { ReservationAddWithData } from "./container";
+export { Reservations } from "./container";
+export { ReservationAdd } from "./container";
+export { ReservationView } from "./container";
