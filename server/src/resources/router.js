@@ -1,5 +1,6 @@
 import projectRouter from './project/project.router';
-import userRouter from './user/user.router';
+import authRouter from './user/user.public.router';
+import userRouter from './user/user.private.router';
 import taskRouter from './task/task.router';
 import propertyRouter from './property/property.router';
 import discountRouter from './discount/discount.router';
@@ -13,12 +14,13 @@ import stripeRouter from '../utils/stripe/stripe.router';
 import applePayRouter from '../utils/stripe/applePay.router';
 
 export const publicRouter = app => {
-  app.use('/api/users', userRouter);
+  app.use('/api/users', authRouter);
 };
 
 export const protectedRouter = app => {
   try {
     app.use(protect);
+    app.use('/api/users', userRouter);
     app.use('/api/projects', projectRouter);
     app.use('/api/tasks', taskRouter);
     app.use('/api/properties', propertyRouter);

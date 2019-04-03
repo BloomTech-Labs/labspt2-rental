@@ -14,10 +14,10 @@ export const getUser = user => {
     dispatch({ type: actions.USER_STARTED });
     try{
       const getUser = await axios.get(`${config.apiUrl}/api/users/me`)
-      console.log('The user:', getUser)
+      console.log('The user:', getUser.data)
       dispatch({
         type: actions.USER_SUCCESS,
-        payload: getUser
+        payload: getUser.data
       })
     } catch (err) {
       console.error(err);
