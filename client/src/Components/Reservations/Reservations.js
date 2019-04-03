@@ -39,7 +39,7 @@ export default class Reservations extends Component {
 
   render() {
     const { tabs, page, pageSize } = this.state;
-    const { reservations } = this.props;
+    const { reservations, loading } = this.props;
 
     return (
       <FlexColumn>
@@ -54,6 +54,7 @@ export default class Reservations extends Component {
                 <Tab.Pane attached={false}>
                   <ReservationList
                     status={tab}
+                    loading={loading}
                     reservations={reservations}
                     page={page}
                     pageSize={pageSize}

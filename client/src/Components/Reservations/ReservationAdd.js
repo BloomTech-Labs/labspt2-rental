@@ -60,7 +60,6 @@ class ReservationAdd extends Component {
 
   render() {
     const { guest, guests } = this.state;
-    console.log(this.props);
 
     return (
       <FlexColumn justifyBetween alignCenter width="full">
