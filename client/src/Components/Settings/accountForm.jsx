@@ -1,28 +1,28 @@
 import React, { Component } from 'react';
 import { Form, Input, Button } from 'semantic-ui-react';
 import PasswordModal from './passwordModal';
-import axios from 'axios';
 
 export default class AccountForm extends Component {
     constructor(props){
         super(props);
         this.state = {
-            firstName: '',
-            lastName: '',
-            email: '',
-            phone: '',
+            firstName: this.props.user.firstName,
+            lastName: this.props.user.lastName,
+            email: this.props.user.email,
+            phone: 'null',
             disabled: true
         }
     }
 
-    componentDidMount = () => {
-        axios.get()
-        this.setState({
-            firstName: this.props.user.firstName,
-            lastName: this.props.user.lastName,
-            email: this.props.user.email,
-            phone: this.props.user.phone
-        })
+    componentDidUpdate = (prevProps) =>{
+        // use state loading to set a spinner if we use one
+        if(this.props !== prevProps){
+            this.setState({
+                firstName: this.props.user.firstName,
+                lastName: this.props.user.lastName,
+                email: this.props.user.email
+            })
+        }
     }
 
     handleChange = (e) => {
@@ -38,6 +38,7 @@ export default class AccountForm extends Component {
     }
 
     render () {
+        console.log('passed props', this.props.user)
         const { firstName, lastName, email, phone, disabled } = this.state;
         let button;
         if (disabled) {
@@ -45,7 +46,6 @@ export default class AccountForm extends Component {
         } else {
             button = <Button basic color="blue" active>Save</Button>
         }
-        console.log('first name', firstName)
 
         return (
             <Form>

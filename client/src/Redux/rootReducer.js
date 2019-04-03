@@ -6,6 +6,7 @@ import reservationsReducer from "../Components/Reservations/reducer";
 import employeesReducer from "../Components/Employees/reducers";
 import taskReducer from "../Components/Tasks/reducer";
 import loginReducer from "../Components/LoginPage/reducer";
+import settingsReducer from '../Components/Settings/reducer';
 
 export default combineReducers({
   properties: propertyReducer,
@@ -14,5 +15,6 @@ export default combineReducers({
   userList: userListReducer,
   reservations: reservationsReducer,
   employees: employeesReducer,
-  tasks: taskReducer
+  tasks: taskReducer,
+  settings: settingsReducer
 });

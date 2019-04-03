@@ -2,8 +2,8 @@ import * as actions from './actions';
 
 const initialState = {
     loading: false,
-    error: false
-    // additional state needed
+    error: false,
+    user: {}
 }
 
 const settingsReducer = (state = initialState, action) => {
@@ -16,7 +16,8 @@ const settingsReducer = (state = initialState, action) => {
         case actions.USER_SUCCESS:
         return {
             ...state,
-            loading: false
+            loading: false,
+            user: action.payload
         };
         case actions.USER_ERROR:
         return {
