@@ -20,7 +20,7 @@
 | POST   | `/api/users/register`           | all users           | Creates a new user account (owner or employee)     |
 | POST   | `/api/users/login`              | all users           | Allows a valid user to access the application      |
 | GET    | `/api/users/me`                 | Owner, Employee     | Returns a single user's data                       |
-| PATCH  | `/api/users/me`                 | Owner, Employee     | Updates a single user's data                       |
+| PUT    | `/api/users/me`                 | Owner, Employee     | Updates a single user's data                       |
 
 #### User Route Data Objects
 
