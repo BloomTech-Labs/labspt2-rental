@@ -8,7 +8,11 @@ const router = Router();
 router
   .route('/')
   .get(controllers.getEmployees)
-  .post(controllers.createOne);
+  .post(controllers.createOne)
+
+router
+  .route('/num')
+  .get(controllers.getNumberEmployees)
 
 router
   .route('/search')
