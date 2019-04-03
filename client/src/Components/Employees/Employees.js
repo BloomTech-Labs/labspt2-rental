@@ -9,42 +9,46 @@ export default class Employees extends Component {
     super(props);
 
     this.state = {
+      tabs: ["All"]
+    };
+
+    this.query = {
       page: 1,
       pageSize: 4,
       sort: "_id",
-      search: "",
-      loading: true,
-      error: false,
-      tabs: ["All"]
+      search: ""
     };
   }
 
   componentDidMount() {
-    const { page, pageSize, sort } = this.state;
-    this.props.getEmployees({ page, pageSize, sort });
-    this.props.getNumberEmployees({ page, pageSize, sort })
+    this.props.getEmployees({ ...this.query });
+    this.props.getNumberEmployees({ ...this.query });
   }
 
   handleSearchChange = value => {
-    const { page, pageSize, sort } = this.state;
-    const search = value || "";
-    this.setState({ search });
-    this.props.getNumberEmployees({ page, pageSize, sort, search })
-    this.props.searchEmployees({ page, pageSize, sort, search });
+    this.query.search = value || "";
+    this.props.getNumberEmployees({ ...this.query });
+    this.props.searchEmployees({ ...this.query });
   };
 
   handleTabChange = e => {
-    this.setState({
+    this.query = {
       page: 1,
       pageSize: 4,
       sort: "_id"
-    });
-    const { page, pageSize, sort } = this.state;
-    this.props.getEmployees({ page, pageSize, sort });
+    };
+    this.props.getEmployees({ ...this.query });
+  };
+
+  handlePageChange = (e, data) => {
+    e.preventDefault();
+    this.query.page = data.activePage;
+    this.props.getEmployees({ ...this.query });
   };
 
   render() {
-    const { tabs, page, pageSize } = this.state;
+    const { tabs } = this.state;
+    const { page, pageSize } = this.query;
     const { employees, loading, numPages } = this.props;
 
     return (
@@ -68,6 +72,7 @@ export default class Employees extends Component {
                       page={page}
                       pageSize={pageSize}
                       numPages={numPages}
+                      handlePageChange={this.handlePageChange}
                     />
                   )}
                 </Tab.Pane>

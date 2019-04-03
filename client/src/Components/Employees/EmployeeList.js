@@ -5,14 +5,15 @@ import EmployeeListItem from "./EmployeeListItem";
 
 const EmployeeList = props => {
 
-    const employees = props.employees;
+    const { employees, handlePageChange} = props;
 
     return (
       <FlexColumn width="800px" alignCenter style={{ position: "relative" }}>
         <Pagination
+          onPageChange={handlePageChange}
           className="space-bottom"
           boundaryRange={1}
-          defaultActivePage={1}
+          // defaultActivePage={1}
           firstItem={null}
           lastItem={null}
           ellipsisItem={null}
