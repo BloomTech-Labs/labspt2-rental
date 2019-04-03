@@ -3,12 +3,8 @@ import { updateUser, getUser } from "./actionCreator";
 import Settings from "./settings";
 
 const mapStateToProps = ({ user }) => ({
-  firstName: user
+  user
 });
-
-// const mapDispatchToProps = () => ({
-//   updateUser, getUser
-// });
 
 export default connect(
   mapStateToProps,

@@ -1,7 +1,6 @@
 import { User } from './user.model';
 
 export const me = (req, res) => {
-  console.log('req', req.user);
   res.status(200).json({ data: req.user });
 };
 
