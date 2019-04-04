@@ -6,6 +6,7 @@ import { Task } from '../resources/task/task.model';
 import { Reservation } from '../resources/reservations/reservations.model';
 import { BillingPlan } from '../resources/billingPlan/billingPlan.model';
 
+
 export default async () => {
   if (config.isProd) {
     return;
@@ -38,8 +39,8 @@ export default async () => {
             });
         } else {
           console.log('hello', owner);
-          resolve(owner);
-        }
+            .catch(() => reject(false));
+        } 
       });
     });
 
@@ -180,7 +181,12 @@ export default async () => {
               reservationsArr.push({
                 createdBy: ownerId,
                 assistant: assistantId,
-                guest: guestId,
+                guest: {
+                  firstName: faker.name.firstName(),
+                  lastName: faker.name.lastName(),
+                  email: faker.internet.email(),
+                  phoneNumber: faker.phone.phoneNumber()
+                },
                 property: property._id,
                 checkIn: faker.date.soon(),
                 checkOut: faker.date.future(),
@@ -195,7 +201,12 @@ export default async () => {
               reservationsArr.push({
                 createdBy: ownerId,
                 assistant: assistantId,
-                guest: guestId,
+                guest: {
+                  firstName: faker.name.firstName(),
+                  lastName: faker.name.lastName(),
+                  email: faker.internet.email(),
+                  phoneNumber: faker.phone.phoneNumber()
+                },
                 property: property._id,
                 checkIn: faker.date.recent(),
                 checkOut: faker.date.soon(),
@@ -210,7 +221,12 @@ export default async () => {
               reservationsArr.push({
                 createdBy: ownerId,
                 assistant: assistantId,
-                guest: guestId,
+                guest: {
+                  firstName: faker.name.firstName(),
+                  lastName: faker.name.lastName(),
+                  email: faker.internet.email(),
+                  phoneNumber: faker.phone.phoneNumber()
+                },
                 property: property._id,
                 checkIn: faker.date.past(),
                 checkOut: faker.date.recent(),
@@ -306,6 +322,7 @@ export default async () => {
       seedBillingPlans
     ]);
 
+
     const employee = await seedEmployee(owner._id);
     const properties = await seedProperties(owner._id, employee._id);
     const reservations = await seedReservations(
@@ -321,6 +338,7 @@ export default async () => {
       properties,
       reservations
     );
+
 
     const employees = await seedEmployees(owner._id);
 
@@ -342,6 +360,7 @@ export default async () => {
       'bp3',
       billingPlan[2]
     );
+
 
     return tasks;
   }

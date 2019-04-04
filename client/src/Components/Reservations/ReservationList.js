@@ -1,50 +1,38 @@
-import React, { Component } from "react";
+import React from "react";
 import { Button, Header, Tab, Pagination } from "semantic-ui-react";
 import { FlexColumn, Divider } from "custom-components";
 import ReservationListItem from "./ReservationListItem";
+import { Link } from "react-router-dom";
 
-export default class ReservationList extends Component {
-  constructor(props) {
-    super(props);
+export default props => {
+  const { reservations, loading, handlePageChange, count } = props;
 
-    this.state = {
-      reservations: []
-    };
-  }
-
-  componentWillReceiveProps(nextProps) {
-    this.setState({
-      reservations: nextProps.reservations,
-      status: nextProps.status
-    });
-  }
-
-  render() {
-    const { reservations } = this.state;
-    const { pageSize } = this.props;
-
-    return (
-      <FlexColumn width="800px" alignCenter style={{ position: "relative" }}>
-        <Pagination
-          className="space-bottom"
-          boundaryRange={1}
-          defaultActivePage={1}
-          firstItem={null}
-          lastItem={null}
-          siblingRange={1}
-          totalPages={10}
-        />
-        {reservations.map((reservation, ind) => (
+  return (
+    <FlexColumn width="800px" alignCenter style={{ position: "relative" }}>
+      <Pagination
+        className="space-bottom"
+        onPageChange={handlePageChange}
+        boundaryRange={1}
+        defaultActivePage={1}
+        firstItem={null}
+        lastItem={null}
+        siblingRange={1}
+        totalPages={count}
+      />
+      {!loading &&
+        reservations.length &&
+        reservations.map((reservation, ind) => (
           <>
             <ReservationListItem reservation={reservation} />
             <Divider />
           </>
         ))}
 
+      <Link to="/dashboard/reservations/add" style={{ width: "100%" }}>
         <Button color="green" attached="bottom" fluid>
           CREATE RESERVATION
         </Button>
-      </FlexColumn>
-    );
-  }
-}
+      </Link>
+    </FlexColumn>
+  );
+};

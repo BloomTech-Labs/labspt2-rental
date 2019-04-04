@@ -4,13 +4,10 @@ import config from "../../config/index";
 
 export const getEmployees = () => {
   return dispatch => {
-    dispatch({ type: actions.EMPLOYEE_STARTED })
+    dispatch({ type: actions.EMPLOYEE_STARTED });
     axios
-      .get(
-        `${config.apiUrl}/api/employees`
-      )
+      .get(`${config.apiUrl}/api/employees`)
       .then(({ data }) => {
-          console.log(data)
         dispatch({
           type: actions.EMPLOYEE_SUCCESS,
           employees: data.data

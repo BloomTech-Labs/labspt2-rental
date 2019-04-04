@@ -11,14 +11,14 @@ describe('Reservation model', () => {
         required: true
       });
     });
-    test('guest', () => {
+    /*test('guest', () => {
       const { guest } = Reservation.schema.obj;
       expect(guest).toEqual({
         type: mongoose.Types.ObjectId,
         ref: 'user',
         required: true
       });
-    });
+    });*/
     test('assistant', () => {
       const { assistant } = Reservation.schema.obj;
       expect(assistant).toEqual({
@@ -54,13 +54,6 @@ describe('Reservation model', () => {
       expect(status).toEqual({
         type: String,
         enum: ['upcoming', 'incomplete', 'complete']
-      });
-    });
-    test('nights', () => {
-      const { nights } = Reservation.schema.obj;
-      expect(nights).toEqual({
-        type: Number,
-        required: true
       });
     });
     test('cleaningFee', () => {
