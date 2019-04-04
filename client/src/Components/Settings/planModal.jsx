@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { Header, Segment, Button, Modal } from 'semantic-ui-react';
+import { Header, Segment, Button, Modal, Grid } from 'semantic-ui-react';
 import {Elements, StripeProvider} from 'react-stripe-elements';
 import { FlexColumn, FlexRow } from '../../custom-components';
 import CheckoutForm from './updatePlan';
@@ -7,12 +7,14 @@ import CheckoutForm from './updatePlan';
 
 // Redux store set billingPlan by string on user object
 
+// Stretch: set the auto chosen button based on billing plan on state
+
 export default class PlanModal extends Component {
     state = { 
         open: false,
-        free: true,
-        midlevel: false,
-        enterprise: false
+        free: false,
+        midlevel: true,
+        enterprise: true
      }
 
     close = () => this.setState({ open: false })
@@ -28,20 +30,20 @@ export default class PlanModal extends Component {
         console.log('value', value, 'state', this.state)
         if(value === 'free'){
             this.setState({
-                free: true,
-                midlevel: false,
-                enterprise: false
+                free: false,
+                midlevel: true,
+                enterprise: true
             })
         } else if (value === 'midlevel'){
             this.setState({
-                free: false,
+                free: true,
                 midlevel: false,
                 enterprise: true
             })
         } else {
             this.setState({
-                free: false,
-                midlevel: false,
+                free: true,
+                midlevel: true,
                 enterprise: false
             });
         }
@@ -55,43 +57,37 @@ export default class PlanModal extends Component {
                 <Button basic color="blue" onClick={this.show}>Update Plan</Button>
 
                 <Modal open={open} onClose={this.close}>
-                <Modal.Header>Choose Your Billing Plan</Modal.Header>
+                <Modal.Header>Choose Your Monthly Billing Plan</Modal.Header>
 
                     <Modal.Content>
 
-                <Segment>
-                <FlexRow>
+            <Segment>
+                <Grid centered divided columns={3}>
 
-                <FlexColumn>
-                    <Button value='free' onClick={this.handleChange} checked={this.state.free}>
-                        <Segment>
-                            <Header as='h4'>Free Plan</Header>
-                            <p>Manage a single property for free.</p>
-                        </Segment>
-                    </Button>
-                </FlexColumn>
+                    <Grid.Column textAlign='center'>
+                        <Header as='h4'>Basic Plan</Header>
+                        <p>
+                        <b>1</b> free property
+                        </p>
+                        <Button value='free' onClick={this.handleChange} basic={this.state.free} color="blue">Choose</Button>
+                    </Grid.Column>
+                    
+                    <Grid.Column textAlign='center'>
+                        <Header as='h4'>Business Plan</Header>
+                        <p>
+                        <b>2-9</b> properties, $8 per property
+                        </p>
+                        <Button value='midlevel' onClick={this.handleChange} basic={this.state.midlevel} color="blue">Choose</Button>
+                    </Grid.Column>
 
-                <FlexColumn>
-                    <Button value='midlevel' onClick={this.handleChange} checked={this.state.midlevel}>
-                        <Segment>
-                            <Header as='h4'>Unicorn Plan</Header>
-                            <p>$8 per property, per month.</p>
-                            <p>Up to 10 properties.</p>
-                        </Segment>
-                    </Button>
-                </FlexColumn>
-
-                <FlexColumn>
-                    <Button value='enterprise' onClick={this.handleChange} checked={this.state.enterprise}>
-                        <Segment>
-                            <Header as='h4'>Enterprise Plan</Header>
-                            <p>$5 per month, per property.</p>
-                            <p>Unlimited properties.</p>
-                        </Segment>
-                    </Button>
-                </FlexColumn>
-
-            </FlexRow>
+                    <Grid.Column textAlign='center'>
+                        <Header as='h4'>Premium Plan</Header>
+                        <p>
+                        <b>Unlimited</b> properties, $5 per property
+                        </p>
+                        <Button value='enterprise' onClick={this.handleChange} basic={this.state.enterprise} color="blue">Choose</Button>
+                    </Grid.Column>
+                </Grid>
             </Segment>
  
             <StripeProvider apiKey="pk_test_Il1MCOR4thnvsuNgiwCaJzOw">
@@ -105,7 +101,7 @@ export default class PlanModal extends Component {
 
                     <Modal.Actions>
 
-                        <Button negative onClick={this.close} >Cancel</Button>
+                        <Button negative basic onClick={this.close} >Cancel</Button>
                         <Button onClick={this.handleSubmit} positive content='Update' />
                     </Modal.Actions>
             </Modal>

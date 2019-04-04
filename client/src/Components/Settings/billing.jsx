@@ -1,29 +1,51 @@
 import React, { Component } from 'react';
-import { Header, Segment } from 'semantic-ui-react';
+import { Header, Segment, Dimmer, Loader, Tab } from 'semantic-ui-react';
 import CreditCard from './creditCard';
 import PlanModal from './planModal';
 import { FlexRow } from '../../custom-components';
 
 export default class Billing extends Component {
-    constructor(){
-        super();
+    constructor(props){
+        super(props);
         this.state = {
             nextBilling: '',
-            billingPlan: 3,
+            billingPlan: '',
         }
     }
 
     componentDidMount = () => {
         // Should pull this info from database
+        console.log(this.props.user)
         this.setState({
-            nextBilling: 'April 21, 2019'
+            nextBilling: 'April 21, 2019',
+            billingPlan: this.props.user.billingPlan
         })
+    }
+
+    componentDidUpdate = (prevProps) => {
+        if(this.props !== prevProps){
+            console.log('updated', this.props.user)
+            this.setState({
+                billingPlan: this.props.user.billingPlan
+            })
+        }
     }
 
     render(){
         const { nextBilling, billingPlan } = this.state;
-        let description = billingPlans[billingPlan].description;
-        let plan = <strong>{billingPlans[billingPlan].plan}</strong>;
+        
+        let loading;
+        if(this.state.billingPlan === ''){
+            loading = <Segment><Header as='h2'>Current Plan:</Header><Dimmer active inverted><Loader inverted>Loading</Loader></Dimmer></Segment>
+        } else {
+            loading = <Segment>
+                        <Header as='h2'>Current Plan:</Header>
+                        <Segment.Inline> <strong>{billingPlans[billingPlan].name}</strong>: {billingPlans[billingPlan].description}</Segment.Inline>
+                        <FlexRow style={{ marginTop: "25px"}}>
+                            <PlanModal />
+                        </FlexRow>
+                    </Segment>
+        }
 
         const cc = {
             cardType: 'Visa',
@@ -44,35 +66,26 @@ export default class Billing extends Component {
                 <p>Your next bill will be sent on {nextBilling}.</p>
             </FlexRow>
 
-            <Segment>
-                <Header as='h2'>Current Plan:</Header>
-                <Segment.Inline> {plan}: {description}</Segment.Inline>
-                <FlexRow style={{ marginTop: "25px"}}>
-                    <PlanModal />
-                </FlexRow>
-            </Segment>
+            {loading}
             </div>
         )
     }
 }
 
 const billingPlans = {
-    1: {
-        plan: 'Free',
-        perRental: 0,
-        perTransaction: 0,
-        description: 'One property free'
-    },
-    2: {
-        plan: 'Middle Tier',
-        perRental: 0,
-        perTransaction: 3,
-        description: '3% transaction fee per booking'
-    },
-    3: {
-        plan: 'Enterprise',
-        perRental: 5,
-        perTransaction: 0,
+    Free : { _id: '5ca5930aae431b84bad59a4f',
+        name: 'Free',
+        perPropertyPrice: 0,
+        description: 'One Free property'
+        },
+    Midlevel : { _id: '5ca5930aae431b84bad59a50',
+        name: 'Midlevel',
+        perPropertyPrice: 8,
+        description: '$8 per rental property'
+        },
+    Enterprise : { _id: '5ca5930aae431b84bad59a51',
+        name: 'Enterprise',
+        perPropertyPrice: 5,
         description: '$5 per rental property'
-    }
+        }
 }
