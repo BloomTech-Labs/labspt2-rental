@@ -338,14 +338,14 @@ export default async () => {
 
     const employees = await seedEmployees(owner._id);
 
-    console.log('Seeded owner          :      ', !!owner._id);
-    console.log('Seeded main employee  :      ', !!employee._id);
-    console.log('Seeded guest          :      ', !!guest._id);
-    console.log('Seeded properties     :      ', !!properties[0]);
-    console.log('Seeded tasks          :      ', !!tasks[0]);
-    console.log('Seeded reservations   :      ', !!reservations[0]);
-    console.log('Seeded extra employees:      ', !!employees[1]);
-    console.log('Seeded billing plans  :      ', !!billingPlan[2]);
+    console.log('Seeded owner     :   ', !!owner._id);
+    console.log('Seeded main employee :   ', !!employee._id);
+    console.log('Seeded guest     :   ', !!guest._id);
+    console.log('Seeded properties   :   ', !!properties[0]);
+    console.log('Seeded tasks     :   ', !!tasks[0]);
+    console.log('Seeded reservations  :   ', !!reservations[0]);
+    console.log('Seeded extra employees:   ', !!employees[1]);
+    console.log('Seeded billing plans :   ', !!billingPlan[2]);
 
     // console.log(
     //   'bp1',

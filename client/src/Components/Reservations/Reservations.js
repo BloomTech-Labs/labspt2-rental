@@ -3,53 +3,53 @@ import { Header, Tab, Button } from "semantic-ui-react";
 import { FlexColumn, FlexRow } from "custom-components";
 import ReservationList from "./ReservationList";
 import Search from "../shared/Search/Search";
+import ReservationAdd from "./ReservationAdd";
 
 export default class Reservations extends Component {
   constructor(props) {
     super(props);
 
-    this.state = {
+    this.query = {
       page: 1,
       pageSize: 4,
       sort: "_id",
       filter: { status: "upcoming" },
-      search: "",
-      loading: true,
-      error: false,
-      tabs: ["Upcoming", "Incomplete", "Complete"],
-      reservations: []
+      search: ""
+    };
+
+    this.state = {
+      tabs: ["Upcoming", "Incomplete", "Complete"]
     };
   }
 
   componentDidMount() {
-    const { page, pageSize, sort, filter } = this.state;
+    const { page, pageSize, sort, filter } = this.query;
     this.props.getReservations({ page, pageSize, sort, filter });
-  }
-
-  componentWillReceiveProps(nextProps) {
-    this.setState({
-      reservations: nextProps.reservations,
-      loading: nextProps.loading,
-      error: nextProps.error
-    });
+    this.props.fetchReservationCount("upcoming");
   }
 
   handleSearchChange = value => {
-    const { page, pageSize, sort, filter } = this.state;
-    const search = value || "";
-    this.setState({ search });
-    this.props.searchReservations({ page, pageSize, sort, search, filter });
+    this.query.search = value || "";
+    this.props.searchReservations({ ...this.query });
   };
 
   handleTabChange = (e, data) => {
-    const { page, pageSize, sort, tabs } = this.state;
-    const filter = { status: tabs[data.activeIndex].toLowerCase() };
-    this.setState({ filter });
-    this.props.getReservations({ page, pageSize, sort, filter });
+    const { tabs } = this.state;
+    const activeTab = tabs[data.activeIndex].toLowerCase();
+    this.query.filter = { status: activeTab };
+    this.props.getReservations({ ...this.query });
+    this.props.fetchReservationCount(activeTab);
+  };
+
+  handlePageChange = (event, data) => {
+    this.query.page = data.activePage;
+    this.props.getReservations({ ...this.query });
   };
 
   render() {
-    const { tabs, reservations, page, pageSize } = this.state;
+    const { pageSize } = this.query;
+    const { tabs } = this.state;
+    const { reservations, loading, reservationCount } = this.props;
 
     return (
       <FlexColumn>
@@ -64,9 +64,10 @@ export default class Reservations extends Component {
                 <Tab.Pane attached={false}>
                   <ReservationList
                     status={tab}
+                    loading={loading}
                     reservations={reservations}
-                    page={page}
-                    pageSize={pageSize}
+                    count={Math.round(reservationCount / pageSize)}
+                    handlePageChange={this.handlePageChange}
                   />
                 </Tab.Pane>
               )

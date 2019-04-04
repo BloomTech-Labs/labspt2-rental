@@ -82,7 +82,6 @@ const userSchema = new Schema(
 // If updating a user password, must manually hash the password before storing
 
 userSchema.pre('save', function(next) {
-  console.log('hit pre save on user schema');
   if (!this.isModified('password')) {
     return next();
   }

@@ -3,8 +3,6 @@ import { controllers } from './employee.controllers';
 
 const router = Router();
 
-
-
 router
   .route('/')
   .get(controllers.getEmployees)
