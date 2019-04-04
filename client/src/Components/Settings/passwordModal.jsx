@@ -44,13 +44,18 @@ export default class PasswordModal extends Component {
 
     handleSubmit = (e) => {
         e.preventDefault();
-        const { newPassword, checkPassword } = this.state;
+        const { newPassword, checkPassword, oldPassword } = this.state;
         if (newPassword !== checkPassword){
             this.setState({
                 message: 'mismatch'
             })
-        } else { alert('You got it right!') }
-        // send axios call, check password match
+        } else { 
+            this.props.updatePassword({ oldPassword: oldPassword, newPassword: {password: newPassword} })
+            .then(success => {
+                console.log('successful update', success)
+            })
+            .catch(err => console.log(err))
+         }
     }
 
     render () {

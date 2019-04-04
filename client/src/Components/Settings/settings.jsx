@@ -10,7 +10,7 @@ export default class Settings extends Component {
         this.loading = this.props.loading;
 
         this.panes = [
-            { menuItem: 'Account', render: () => <Tab.Pane attached={false}><Account user={this.props.user} getUser={this.props.getUser} update={this.props.updateUser}/></Tab.Pane>},
+            { menuItem: 'Account', render: () => <Tab.Pane attached={false}><Account user={this.props.user} getUser={this.props.getUser} update={this.props.updateUser} updatePassword={this.props.updatePassword} /></Tab.Pane>},
             { menuItem: 'Billing', render: () => <Tab.Pane attached={false}><Billing/></Tab.Pane>}
         ]
     }

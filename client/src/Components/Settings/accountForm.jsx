@@ -50,7 +50,6 @@ export default class AccountForm extends Component {
             this.setState({
                 active: true
             })
-            this.props.getUser()
         })
         .catch(err => console.log(err))
     }
@@ -123,7 +122,7 @@ export default class AccountForm extends Component {
 
             <Form.Group inline>
                 {button}
-                <PasswordModal/>
+                <PasswordModal updatePassword={this.props.updatePassword} />
             </Form.Group>
 
           </Form>

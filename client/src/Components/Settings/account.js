@@ -7,7 +7,7 @@ const Account = (props) => {
     return(
         <FlexColumn width="800px">
             <Header as='h1'>Account Settings</Header>
-            <AccountForm user={props.user} update={props.update} getUser={props.getUser} />
+            <AccountForm user={props.user} update={props.update} getUser={props.getUser} updatePassword={props.updatePassword} />
         </FlexColumn>
     )
 };

@@ -32,7 +32,7 @@ export const updateUser = user => {
       const updatedUser = await axios.put(`${config.apiUrl}/api/users/me`, user);
       dispatch({
         type: actions.USER_SUCCESS,
-        payload: updatedUser
+        payload: updatedUser.data.data
       });
     } catch (err) {
       console.error(err);
@@ -41,3 +41,19 @@ export const updateUser = user => {
   };
 };
 
+export const updatePassword = password => {
+  return async dispatch => {
+    dispatch({ type: actions.USER_STARTED });
+    try {
+      const updatedPassword = await axios.put(`${config.apiUrl}/api/users/me/pass`, password);
+      console.log('updatedPassword result', updatedPassword)
+      dispatch({
+        type: actions.USER_SUCCESS,
+        payload: updatedPassword
+      });
+    } catch (err) {
+      console.error(err);
+      dispatch({ type: actions.USER_ERROR, payload: err });
+    }
+  };
+};

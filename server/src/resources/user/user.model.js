@@ -79,6 +79,7 @@ const userSchema = new Schema(
 );
 
 userSchema.pre('save', function(next) {
+  console.log('hit pre save on user schema');
   if (!this.isModified('password')) {
     return next();
   }
