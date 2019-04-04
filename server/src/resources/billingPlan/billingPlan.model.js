@@ -12,10 +12,6 @@ const billingPlanSchema = new Schema(
     perPropertyPrice: {
       type: Number,
       required: true
-    },
-    perTransactionFee: {
-      type: Number,
-      required: true
     }
   },
   { timestamps: true }

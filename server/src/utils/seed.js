@@ -4,12 +4,15 @@ import { User } from '../resources/user/user.model';
 import { Property } from '../resources/property/property.model';
 import { Task } from '../resources/task/task.model';
 import { Reservation } from '../resources/reservations/reservations.model';
+import { BillingPlan } from '../resources/billingPlan/billingPlan.model';
+
 
 export default async () => {
   if (config.isProd) {
     return;
   } else {
     const seedowner = new Promise((resolve, reject) => {
+      // eslint-disable-next-line handle-callback-err
       User.findOne({ username: 'test_owner' }, (err, owner) => {
         if (!owner) {
           User.create({
@@ -18,20 +21,32 @@ export default async () => {
             password: '12345',
             email: 'owner@roostr.io',
             firstName: faker.name.firstName(),
-            lastName: faker.name.lastName()
+            lastName: faker.name.lastName(),
+            billingPlan: 'Free',
+            billingAddress: {
+              address1: '1234 Honey Bear Ct',
+              city: 'Tempe',
+              state: 'AZ',
+              zip: '57683'
+            }
           })
             .then(created => {
               resolve(created);
             })
-            .catch(() => reject(false));
+            .catch(err => {
+              console.log(err);
+              reject(false);
+            });
         } else {
-          resolve(owner);
-        }
+          console.log('hello', owner);
+            .catch(() => reject(false));
+        } 
       });
     });
 
     const seedEmployee = ownerId => {
       return new Promise((resolve, reject) => {
+        // eslint-disable-next-line handle-callback-err
         User.findOne({ username: 'test_employee' }, (err, employee) => {
           if (!employee) {
             User.create({
@@ -280,7 +295,33 @@ export default async () => {
       });
     };
 
-    const [owner, guest] = await Promise.all([seedowner, seedGuest]);
+    const seedBillingPlans = new Promise((resolve, reject) => {
+      BillingPlan.create(
+        {
+          name: 'Free',
+          perPropertyPrice: 0
+        },
+        {
+          name: 'Midlevel',
+          perPropertyPrice: 8
+        },
+        {
+          name: 'Enterprise',
+          perPropertyPrice: 5
+        }
+      )
+        .then(created => {
+          resolve(created);
+        })
+        .catch(err => reject(err));
+    });
+
+    const [owner, guest, billingPlan] = await Promise.all([
+      seedowner,
+      seedGuest,
+      seedBillingPlans
+    ]);
+
 
     const employee = await seedEmployee(owner._id);
     const properties = await seedProperties(owner._id, employee._id);
@@ -290,12 +331,15 @@ export default async () => {
       employee._id,
       properties
     );
+
     const tasks = await seedTasks(
       owner._id,
       employee._id,
       properties,
       reservations
     );
+
+
     const employees = await seedEmployees(owner._id);
 
     console.log('Seeded owner          :      ', !!owner._id);
@@ -305,6 +349,18 @@ export default async () => {
     console.log('Seeded tasks          :      ', !!tasks[0]);
     console.log('Seeded reservations   :      ', !!reservations[0]);
     console.log('Seeded extra employees:      ', !!employees[1]);
+    console.log('Seeded billing plans  :      ', !!billingPlan[2]);
+
+    console.log('owner', owner);
+    console.log(
+      'bp1',
+      billingPlan[0],
+      'bp2',
+      billingPlan[1],
+      'bp3',
+      billingPlan[2]
+    );
+
 
     return tasks;
   }

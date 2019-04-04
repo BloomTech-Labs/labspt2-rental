@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { Button, Modal, Form } from 'semantic-ui-react'
+import { Button, Modal, Form, Message, Divider } from 'semantic-ui-react'
 
 export default class PasswordModal extends Component {
     state = { 
@@ -7,6 +7,8 @@ export default class PasswordModal extends Component {
         oldPassword: '',
         newPassword: '',
         checkPassword: '',
+        disabled: true,
+        message: ''
      }
 
     close = () => this.setState({ open: false })
@@ -14,6 +16,27 @@ export default class PasswordModal extends Component {
     show = () => this.setState({ open: true })
 
     handleChange = (e) => {
+        const { newPassword, oldPassword } = this.state;
+
+        if(e.target.name === "newPassword"){
+            if(e.target.value === ''){
+                this.setState({
+                    message: 'newPassword'
+                })
+            }
+        } else if (e.target.name === "checkPassword"){
+            if(e.target.value === newPassword && oldPassword !== ''){
+                this.setState({
+                    disabled: false,
+                    message: ''
+                })
+             } else{
+                    this.setState({
+                        disabled: true,
+                        message: 'mismatch'
+                    })
+            }
+        }
         this.setState({
             [e.target.name]: e.target.value,
         })
@@ -21,13 +44,33 @@ export default class PasswordModal extends Component {
 
     handleSubmit = (e) => {
         e.preventDefault();
-        // send axios call
+        const { newPassword, checkPassword } = this.state;
+        if (newPassword !== checkPassword){
+            this.setState({
+                message: 'mismatch'
+            })
+        } else { alert('You got it right!') }
+        // send axios call, check password match
     }
 
-    // Add logic to check that both New password fields match
-
     render () {
-        const { open, oldPassword, newPassword, checkPassword } = this.state;
+        const { open, oldPassword, newPassword, checkPassword, disabled, message } = this.state;
+
+        let button;
+        if (disabled) {
+            button = <Button disabled>Update</Button>
+        } else {
+            button = <Button basic color="blue" onClick={this.handleSubmit} active>Update</Button>
+        }
+
+        let messageAlert;
+        if(message === 'mismatch'){
+            messageAlert = <Message size='tiny'>New passwords must match!</Message>
+        } else if (message === 'newPassword'){
+            messageAlert = <Message size='tiny'>Need a new password!</Message>
+        } else {
+            messageAlert = <Divider section />
+        }
 
         return (
             <div>
@@ -72,12 +115,13 @@ export default class PasswordModal extends Component {
                                 </Form.Field>
                             </Form.Group>
                         </Form>
-                        
+
+                        {messageAlert}
                     </Modal.Content>
 
                     <Modal.Actions>
                         <Button negative onClick={this.close} >Cancel</Button>
-                        <Button onClick={this.handleSubmit} positive content='Update' />
+                        {button}
                     </Modal.Actions>
             </Modal>
             </div>
