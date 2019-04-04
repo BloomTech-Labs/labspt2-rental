@@ -23,6 +23,7 @@ export default class Employees extends Component {
   componentDidMount() {
     this.props.getEmployees({ ...this.query });
     this.props.getNumberEmployees({ ...this.query });
+    this.props.getTaskList();
   }
 
   handleSearchChange = value => {

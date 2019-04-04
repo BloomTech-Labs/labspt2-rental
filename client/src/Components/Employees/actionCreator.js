@@ -15,7 +15,7 @@ export const getEmployees = (filterSort = {}) => dispatch => {
     .then(({ data }) => {
       dispatch({
         type: actions.EMPLOYEE_SUCCESS,
-        employees: data.data
+        payload: data.data
       });
     })
     .catch(err => {
@@ -35,7 +35,7 @@ export const searchEmployees = (filterSort = {}) => dispatch => {
         ""}&sort=${sort}&limit=${pageSize}&skip=${(page - 1) * pageSize}`
     )
     .then(({ data }) => {
-      dispatch({ type: actions.EMPLOYEE_SUCCESS, employees: data.data });
+      dispatch({ type: actions.EMPLOYEE_SUCCESS, payload: data.data });
     })
     .catch(err => {
       dispatch({ type: actions.EMPLOYEE_FAILURE, error: err });
@@ -54,14 +54,32 @@ export const getNumberEmployees = (filterSort = {}) => {
         ""}&sort=${sort}&limit=${pageSize}&skip=${(page - 1) * pageSize}`
     )
       .then(data => {
-        console.log(data.data.data, filterSort)
         dispatch({
           type: actions.NUM_EMPLOYEE_SUCCESS,
-          number: data.data.data.length
+          payload: data.data.data.length
         });
       })
       .catch(err => {
         dispatch({ type: actions.NUM_EMPLOYEE_FAIL, error: err });
       });
+  };
+};
+
+export const getTaskList = () => {
+  return dispatch => {
+    axios
+      .get(`${config.apiUrl}/api/tasks`)
+      .then(data => {
+        dispatch({
+          type: actions.TASKLIST_SUCCESS,
+          payload: data.data
+        });
+      })
+    .catch(err => {
+      dispatch({
+        type: actions.TASKLIST_FAILURE,
+        error: err
+      });
+    });
   };
 };

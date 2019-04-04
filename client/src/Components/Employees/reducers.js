@@ -17,7 +17,7 @@ const employeesReducer = (state = initialState, action) => {
       return {
         ...state,
         loading: false,
-        employees: action.employees
+        employees: action.payload
       };
     case actions.EMPLOYEE_FAILURE:
       return {
@@ -26,7 +26,7 @@ const employeesReducer = (state = initialState, action) => {
         error: action.error
       };
     case actions.NUM_EMPLOYEE_SUCCESS:
-      const numPages = Math.ceil(action.number / 4)
+      const numPages = Math.ceil(action.payload / 4)
       return {
         ...state,
         numPages: (numPages)
@@ -36,6 +36,8 @@ const employeesReducer = (state = initialState, action) => {
         ...state,
         error: action.error
       };
+    case actions.TASKLIST_SUCCESS:
+      console.log(action.payload)
     default:
       return { ...state };
   }
