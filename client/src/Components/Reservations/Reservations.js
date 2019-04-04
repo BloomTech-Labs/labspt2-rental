@@ -25,6 +25,7 @@ export default class Reservations extends Component {
   componentDidMount() {
     const { page, pageSize, sort, filter } = this.query;
     this.props.getReservations({ page, pageSize, sort, filter });
+    this.props.fetchReservationCount("upcoming");
   }
 
   handleSearchChange = value => {
@@ -34,8 +35,10 @@ export default class Reservations extends Component {
 
   handleTabChange = (e, data) => {
     const { tabs } = this.state;
-    this.query.filter = { status: tabs[data.activeIndex].toLowerCase() };
+    const activeTab = tabs[data.activeIndex].toLowerCase();
+    this.query.filter = { status: activeTab };
     this.props.getReservations({ ...this.query });
+    this.props.fetchReservationCount(activeTab);
   };
 
   handlePageChange = (event, data) => {
@@ -44,8 +47,9 @@ export default class Reservations extends Component {
   };
 
   render() {
-    const { tabs, page, pageSize } = this.state;
-    const { reservations, loading } = this.props;
+    const { pageSize } = this.query;
+    const { tabs } = this.state;
+    const { reservations, loading, reservationCount } = this.props;
 
     return (
       <FlexColumn>
@@ -62,6 +66,7 @@ export default class Reservations extends Component {
                     status={tab}
                     loading={loading}
                     reservations={reservations}
+                    count={Math.round(reservationCount / pageSize)}
                     handlePageChange={this.handlePageChange}
                   />
                 </Tab.Pane>

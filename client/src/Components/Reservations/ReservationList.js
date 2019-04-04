@@ -5,7 +5,7 @@ import ReservationListItem from "./ReservationListItem";
 import { Link } from "react-router-dom";
 
 export default props => {
-  const { reservations, loading, handlePageChange } = props;
+  const { reservations, loading, handlePageChange, count } = props;
 
   return (
     <FlexColumn width="800px" alignCenter style={{ position: "relative" }}>
@@ -17,9 +17,10 @@ export default props => {
         firstItem={null}
         lastItem={null}
         siblingRange={1}
-        totalPages={10}
+        totalPages={count}
       />
       {!loading &&
+        reservations.length &&
         reservations.map((reservation, ind) => (
           <>
             <ReservationListItem reservation={reservation} />

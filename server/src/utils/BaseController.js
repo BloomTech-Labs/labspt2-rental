@@ -194,6 +194,32 @@ export class BaseController {
     }
   };
 
+  countMine = async (req, res, next) => {
+    let filter = {};
+
+    if (req.query.filter) {
+      filter = JSON.parse(req.query.filter);
+    }
+
+    try {
+      this.mongooseModel.countDocuments(
+        { createdBy: req.user._id, ...filter },
+        (err, count) => {
+          if (!count) {
+            const error = new Error('Error counting documents');
+            error.statusCode = 404;
+            throw error;
+          } else {
+            res.status(200).json({ count });
+          }
+        }
+      );
+    } catch (e) {
+      console.error(e);
+      next(e);
+    }
+  };
+
   getModel = async () => {
     console.log('model: ', this.mongooseModel);
   };

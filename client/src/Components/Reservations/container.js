@@ -4,7 +4,8 @@ import {
   searchReservations,
   createReservation,
   fetchProperties,
-  fetchEmployees
+  fetchEmployees,
+  fetchReservationCount
 } from "./actionCreator";
 import _ReservationView from "./ReservationView";
 import _Reservations from "./Reservations";
@@ -16,7 +17,8 @@ const mapStateToProps = ({ reservations }) => ({
   properties: reservations.properties,
   employees: reservations.employees,
   loading: reservations.loading,
-  error: reservations.error
+  error: reservations.error,
+  reservationCount: reservations.reservationCount
 });
 
 const connector = connect(
@@ -26,7 +28,8 @@ const connector = connect(
     fetchProperties,
     fetchEmployees,
     searchReservations,
-    createReservation
+    createReservation,
+    fetchReservationCount
   }
 );
 

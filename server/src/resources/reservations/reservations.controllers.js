@@ -34,6 +34,10 @@ class ReservationControllers extends BaseController {
 
     return this.search(req, res, next, { lookup, search });
   };
+
+  count = (req, res, next) => {
+    return this.countMine(req, res, next);
+  };
 }
 
 const controllers = new ReservationControllers(Reservation);
