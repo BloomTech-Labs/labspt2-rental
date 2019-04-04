@@ -85,7 +85,7 @@ export class BaseController {
   };
 
   search = async (req, res, next, opts = {}) => {
-    const { lookup, search } = opts;
+    const { lookup, search, filter } = opts;
 
     let pipeline = [];
 
@@ -95,6 +95,10 @@ export class BaseController {
 
     pipeline.push({ $match: { createdBy: req.user._id } });
 
+    if (filter) {
+      pipeline.push({ $match: filter });
+    }
+    
     if (req.query.filter) {
       const filter = { $match: JSON.parse(req.query.filter) };
       pipeline.push(filter);
