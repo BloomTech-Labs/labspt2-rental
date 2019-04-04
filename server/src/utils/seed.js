@@ -6,10 +6,8 @@ import { Task } from '../resources/task/task.model';
 import { Reservation } from '../resources/reservations/reservations.model';
 import { BillingPlan } from '../resources/billingPlan/billingPlan.model';
 
-
 export default async () => {
   if (config.isProd) {
-    return;
   } else {
     const seedowner = new Promise((resolve, reject) => {
       // eslint-disable-next-line handle-callback-err
@@ -23,6 +21,7 @@ export default async () => {
             firstName: faker.name.firstName(),
             lastName: faker.name.lastName(),
             billingPlan: 'Free',
+            phone: '994-567-4231',
             billingAddress: {
               address1: '1234 Honey Bear Ct',
               city: 'Tempe',
@@ -35,12 +34,12 @@ export default async () => {
             })
             .catch(err => {
               console.log(err);
+              // eslint-disable-next-line prefer-promise-reject-errors
               reject(false);
             });
         } else {
-          console.log('hello', owner);
-            .catch(() => reject(false));
-        } 
+          resolve(owner);
+        }
       });
     });
 
@@ -66,6 +65,7 @@ export default async () => {
               .then(created => {
                 resolve(created);
               })
+              // eslint-disable-next-line prefer-promise-reject-errors
               .catch(() => reject(false));
           } else {
             resolve(employee);
@@ -75,6 +75,7 @@ export default async () => {
     };
 
     const seedGuest = new Promise((resolve, reject) => {
+      // eslint-disable-next-line handle-callback-err
       User.findOne({ username: 'test_guest' }, (err, guest) => {
         if (!guest) {
           User.create({
@@ -97,6 +98,7 @@ export default async () => {
 
     const seedProperties = (ownerId, employeeId) => {
       return new Promise((resolve, reject) => {
+        // eslint-disable-next-line handle-callback-err
         Property.find({ createdBy: ownerId }, (err, properties) => {
           if (!properties.length) {
             let propertiesArr = [];
@@ -116,6 +118,7 @@ export default async () => {
               });
             }
 
+            // eslint-disable-next-line handle-callback-err
             Property.insertMany(propertiesArr, (err, docs) => {
               resolve(docs);
             });
@@ -128,6 +131,7 @@ export default async () => {
 
     const seedTasks = (ownerId, employeeId, properties, reservations) => {
       return new Promise((resolve, reject) => {
+        // eslint-disable-next-line handle-callback-err
         Task.find({ createdBy: ownerId }, (err, tasks) => {
           if (!tasks.length) {
             let promiseArr = [];
@@ -153,13 +157,14 @@ export default async () => {
 
               promiseArr.push(
                 new Promise((rs, rj) => {
+                  // eslint-disable-next-line handle-callback-err
                   Task.insertMany(tasksArr, (err, docs) => {
                     rs(docs);
                   });
                 })
               );
             }
-
+            // eslint-disable-next-line promise/catch-or-return
             Promise.all(promiseArr).then(([insertedTasks]) =>
               resolve(insertedTasks)
             );
@@ -172,6 +177,7 @@ export default async () => {
 
     const seedReservations = (ownerId, guestId, assistantId, properties) => {
       return new Promise((resolve, reject) => {
+        // eslint-disable-next-line handle-callback-err
         Reservation.find({ createdBy: ownerId }, (err, reservations) => {
           if (!reservations.length) {
             let promiseArr = [];
@@ -181,12 +187,7 @@ export default async () => {
               reservationsArr.push({
                 createdBy: ownerId,
                 assistant: assistantId,
-                guest: {
-                  firstName: faker.name.firstName(),
-                  lastName: faker.name.lastName(),
-                  email: faker.internet.email(),
-                  phoneNumber: faker.phone.phoneNumber()
-                },
+                guest: guestId,
                 property: property._id,
                 checkIn: faker.date.soon(),
                 checkOut: faker.date.future(),
@@ -201,12 +202,7 @@ export default async () => {
               reservationsArr.push({
                 createdBy: ownerId,
                 assistant: assistantId,
-                guest: {
-                  firstName: faker.name.firstName(),
-                  lastName: faker.name.lastName(),
-                  email: faker.internet.email(),
-                  phoneNumber: faker.phone.phoneNumber()
-                },
+                guest: guestId,
                 property: property._id,
                 checkIn: faker.date.recent(),
                 checkOut: faker.date.soon(),
@@ -221,12 +217,7 @@ export default async () => {
               reservationsArr.push({
                 createdBy: ownerId,
                 assistant: assistantId,
-                guest: {
-                  firstName: faker.name.firstName(),
-                  lastName: faker.name.lastName(),
-                  email: faker.internet.email(),
-                  phoneNumber: faker.phone.phoneNumber()
-                },
+                guest: guestId,
                 property: property._id,
                 checkIn: faker.date.past(),
                 checkOut: faker.date.recent(),
@@ -240,6 +231,7 @@ export default async () => {
 
               promiseArr.push(
                 new Promise((rs, rj) => {
+                  // eslint-disable-next-line handle-callback-err
                   Reservation.insertMany(reservationsArr, (err, docs) => {
                     rs(docs);
                   });
@@ -247,6 +239,7 @@ export default async () => {
               );
             }
 
+            // eslint-disable-next-line promise/catch-or-return
             Promise.all(promiseArr).then(insertedReservations => {
               resolve(insertedReservations.flat(1));
             });
@@ -261,6 +254,7 @@ export default async () => {
       return new Promise((resolve, reject) => {
         User.find(
           { createdBy: ownerId, role: 'employee' },
+          // eslint-disable-next-line handle-callback-err
           (err, employees) => {
             if (employees.length <= 1) {
               let employeesArr = [];
@@ -284,6 +278,7 @@ export default async () => {
                 console.log(employeesArr.length);
               }
 
+              // eslint-disable-next-line handle-callback-err
               User.insertMany(employeesArr, (err, docs) => {
                 resolve(docs);
               });
@@ -322,7 +317,6 @@ export default async () => {
       seedBillingPlans
     ]);
 
-
     const employee = await seedEmployee(owner._id);
     const properties = await seedProperties(owner._id, employee._id);
     const reservations = await seedReservations(
@@ -339,28 +333,25 @@ export default async () => {
       reservations
     );
 
-
     const employees = await seedEmployees(owner._id);
 
-    console.log('Seeded owner          :      ', !!owner._id);
-    console.log('Seeded main employee  :      ', !!employee._id);
-    console.log('Seeded guest          :      ', !!guest._id);
-    console.log('Seeded properties     :      ', !!properties[0]);
-    console.log('Seeded tasks          :      ', !!tasks[0]);
-    console.log('Seeded reservations   :      ', !!reservations[0]);
-    console.log('Seeded extra employees:      ', !!employees[1]);
-    console.log('Seeded billing plans  :      ', !!billingPlan[2]);
+    console.log('Seeded owner     :   ', !!owner._id);
+    console.log('Seeded main employee :   ', !!employee._id);
+    console.log('Seeded guest     :   ', !!guest._id);
+    console.log('Seeded properties   :   ', !!properties[0]);
+    console.log('Seeded tasks     :   ', !!tasks[0]);
+    console.log('Seeded reservations  :   ', !!reservations[0]);
+    console.log('Seeded extra employees:   ', !!employees[1]);
+    console.log('Seeded billing plans :   ', !!billingPlan[2]);
 
-    console.log('owner', owner);
-    console.log(
-      'bp1',
-      billingPlan[0],
-      'bp2',
-      billingPlan[1],
-      'bp3',
-      billingPlan[2]
-    );
-
+    // console.log(
+    //  'bp1',
+    //  billingPlan[0],
+    //  'bp2',
+    //  billingPlan[1],
+    //  'bp3',
+    //  billingPlan[2]
+    // );
 
     return tasks;
   }
