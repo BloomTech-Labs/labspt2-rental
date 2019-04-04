@@ -1,5 +1,6 @@
 import React, {Component} from 'react';
 import {CardElement, injectStripe } from 'react-stripe-elements';
+import { Button, Segment, Grid, Container } from 'semantic-ui-react';
 import axios from 'axios';
 import config from '../../config/index';
 
@@ -26,9 +27,19 @@ class CheckoutForm extends Component {
 
     return (
       <div className="checkout">
-        <p>Would you like to complete the purchase?</p>
+      <Segment clearing padded>
+
+        <p>Would you like to complete your upgrade?</p>
+        <Segment padded style={{ marginTop: "25px", marginBottom: '25px'}} >
         <CardElement />
-        <button onClick={this.submit}>Send</button>
+        </Segment>
+       
+
+          <Button floated="right" negative basic onClick={this.props.close} >Cancel</Button>
+          <Button floated="right" positive content='Update'onClick={this.submit} />
+      </Segment>
+
+
       </div>
     );
   }

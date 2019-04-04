@@ -10,15 +10,16 @@ export default class Billing extends Component {
         this.state = {
             nextBilling: '',
             billingPlan: '',
+            stripeCustomerID: ''
         }
     }
 
     componentDidMount = () => {
-        // Should pull this info from database
-        console.log(this.props.user)
+        console.log(this.props.user.stripeCustomerID)
         this.setState({
             nextBilling: 'April 21, 2019',
-            billingPlan: this.props.user.billingPlan
+            billingPlan: this.props.user.billingPlan,
+            stripeCustomerID: this.props.user.stripeCustomerID
         })
     }
 
@@ -33,7 +34,7 @@ export default class Billing extends Component {
 
     render(){
         const { nextBilling, billingPlan } = this.state;
-        
+
         let loading;
         if(this.state.billingPlan === ''){
             loading = <Segment><Header as='h2'>Current Plan:</Header><Dimmer active inverted><Loader inverted>Loading</Loader></Dimmer></Segment>
@@ -42,7 +43,7 @@ export default class Billing extends Component {
                         <Header as='h2'>Current Plan:</Header>
                         <Segment.Inline> <strong>{billingPlans[billingPlan].name}</strong>: {billingPlans[billingPlan].description}</Segment.Inline>
                         <FlexRow style={{ marginTop: "25px"}}>
-                            <PlanModal />
+                            <PlanModal customerID={this.state.stripeCustomerID} />
                         </FlexRow>
                     </Segment>
         }
@@ -76,7 +77,7 @@ const billingPlans = {
     Free : { _id: '5ca5930aae431b84bad59a4f',
         name: 'Free',
         perPropertyPrice: 0,
-        description: 'One Free property'
+        description: 'One property'
         },
     Midlevel : { _id: '5ca5930aae431b84bad59a50',
         name: 'Midlevel',

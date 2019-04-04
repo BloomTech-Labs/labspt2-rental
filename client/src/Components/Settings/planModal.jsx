@@ -23,11 +23,14 @@ export default class PlanModal extends Component {
 
     handleSubmit = (e) => {
         e.preventDefault();
-        // send axios call
+        if(this.props.customerID){
+            // update subscription
+        } else {
+            // create subscription if paid upgrade
+        }
     }
 
     handleChange = (e, {value}) => {
-        console.log('value', value, 'state', this.state)
         if(value === 'free'){
             this.setState({
                 free: false,
@@ -92,7 +95,7 @@ export default class PlanModal extends Component {
  
             <StripeProvider apiKey="pk_test_Il1MCOR4thnvsuNgiwCaJzOw">
                 <Elements>
-                <CheckoutForm />
+                <CheckoutForm close={this.close} />
                 </Elements>
             </StripeProvider>
 
@@ -101,8 +104,8 @@ export default class PlanModal extends Component {
 
                     <Modal.Actions>
 
-                        <Button negative basic onClick={this.close} >Cancel</Button>
-                        <Button onClick={this.handleSubmit} positive content='Update' />
+                        {/* <Button negative basic onClick={this.close} >Cancel</Button>
+                        <Button onClick={this.handleSubmit} positive content='Update' /> */}
                     </Modal.Actions>
             </Modal>
             </div>
