@@ -46,10 +46,9 @@ export const updatePassword = password => {
     dispatch({ type: actions.USER_STARTED });
     try {
       const updatedPassword = await axios.put(`${config.apiUrl}/api/users/me/pass`, password);
-      console.log('updatedPassword result', updatedPassword)
       dispatch({
         type: actions.USER_SUCCESS,
-        payload: updatedPassword
+        payload: updatedPassword.data.data
       });
     } catch (err) {
       console.error(err);
