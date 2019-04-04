@@ -5,6 +5,9 @@ const keyPublishable = config.keys.stripePublishable;
 const keySecret = config.keys.stripeSecret;
 
 const stripe = stripeModule(keySecret);
+const planid = 'plan_Elbu5XKLUDV9iD';
+const propertyQuantity = 2; // get from redux store
+const subscriptionID = '';
 
 export const render = async (req, res, next) => {
   try {
@@ -15,31 +18,56 @@ export const render = async (req, res, next) => {
 };
 
 // amount variable passed in x100
-// need: amount, stripeEmail, stripeToken, description
+// need: amount, stripeEmail, stripeToken id, description
 
-export const charge = async (req, res, next) => {
-  // console.log("req.body", req.body)
+export const subscribe = async (req, res) => {
   try {
-    const { id, email, amount, description } = req.body;
-
+    const { id, stripeEmail } = req.body;
     stripe.customers
-      .create({
-        email: req.body.stripeEmail,
-        source: id
+      .create(
+        {
+          email: stripeEmail,
+          source: id
+        },
+        (err, customer) => {
+          if (err) {
+            return res
+              .status(500)
+              .json({ message: 'Failed to create new customer', err });
+          } else {
+            // save customer id to user
+            console.log('customer id', customer.id);
+            stripe.subscriptions.create(
+              {
+                customer: customer.id,
+                items: [
+                  {
+                    plan: planid,
+                    quantity: propertyQuantity
+                  }
+                ]
+              },
+              (err, subscription) => {
+                if (err) {
+                  return res.status(500).json({
+                    message: 'Failed to create new subscription',
+                    err
+                  });
+                } else {
+                  // save subscription.id to the user for updating quantities later
+                  console.log('subscription id', subscription.id);
+                  res.status(200).send();
+                }
+              }
+            );
+          }
+        }
+      )
+      .then(() => {
+        return res.status(201).json({ message: 'Success!' });
       })
-      .then(customer => {
-        // save customer id for billing
-        stripe.charges
-          .create({
-            amount: 2000,
-            description: 'test charge!',
-            currency: 'usd',
-            customer: customer.id
-          })
-          .then(charge => {
-            // console.log('charge', charge)
-            res.status(200).send();
-          });
+      .catch(err => {
+        return res.status(500).json(err);
       });
   } catch (err) {
     console.error(err);
@@ -47,8 +75,41 @@ export const charge = async (req, res, next) => {
   }
 };
 
+export const updateSubscription = async (req, res) => {
+  try {
+    stripe.subscriptions
+      .update(
+        `${subscriptionID}`,
+        {
+          items: {
+            plan: planid,
+            quantity: propertyQuantity
+          }
+        },
+        (err, subscription) => {
+          if (err) {
+            return res.status(500).json(err);
+          } else {
+            // helper function to update
+          }
+        }
+      )
+      .then(() => {
+        return res
+          .status(201)
+          .json({ message: 'Successful subscription update!' });
+      })
+      .catch(err => {
+        return res.status(500).json(err);
+      });
+  } catch (err) {
+    console.log(err);
+    res.status(500).end();
+  }
+};
+
 // allows customer to update their CC information on file
-export const update = async (req, res, next) => {
+export const updateCC = async (req, res, next) => {
   try {
     const { customer, id } = req.body;
     stripe.customers.update(`${customer.id}`, {

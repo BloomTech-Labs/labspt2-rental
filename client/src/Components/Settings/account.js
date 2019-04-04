@@ -1,8 +1,8 @@
+
 import React from 'react';
 import { Header } from 'semantic-ui-react';
 import AccountForm from './accountForm.jsx';
 import { FlexColumn } from '../../custom-components/index.js';
-
 
 const user = {
   firstName: "Hayley",
@@ -18,6 +18,6 @@ const Account = () => {
             <AccountForm user={user}/>
         </FlexColumn>
     )
-}
+};
 
 export default Account;
