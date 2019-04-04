@@ -116,7 +116,13 @@ class DateRangePickerWrapper extends Component {
   }
 
   onDatesChange({ startDate, endDate }) {
-    const { stateDateWrapper } = this.props;
+    const { stateDateWrapper, onChange } = this.props;
+
+    onChange({
+      startDate: startDate ? startDate.toDate() : null,
+      endDate: endDate ? endDate.toDate() : null
+    });
+
     this.setState({
       startDate: startDate && stateDateWrapper(startDate),
       endDate: endDate && stateDateWrapper(endDate)

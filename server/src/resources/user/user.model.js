@@ -44,10 +44,6 @@ const userSchema = new Schema(
     role: {
       type: String,
       enum: ['admin', 'owner', 'employee', 'guest']
-    },
-    createdBy: {
-      type: mongoose.SchemaTypes.ObjectId,
-      ref: 'user'
     }
   },
   { timestamps: true }
@@ -67,7 +63,6 @@ userSchema.pre('save', function(next) {
     next();
   });
 });
-
 
 userSchema.methods.checkPassword = function(password) {
   const passwordHash = this.password;
