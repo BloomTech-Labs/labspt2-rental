@@ -55,7 +55,7 @@ class LoginPage extends Component {
                     <Button id="login-button" type='submit'>Login</Button>
                 </Form>
                 {error && (
-                    <Message warning>
+                    <Message negative>
                         <Message.Header>{error}</Message.Header>
                     </Message>
                 )}
