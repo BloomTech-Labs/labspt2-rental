@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 import {CardElement, injectStripe } from 'react-stripe-elements';
-import { Button, Segment, Grid, Container } from 'semantic-ui-react';
+import { Button, Segment, Dimmer, Header, Icon, Loader } from 'semantic-ui-react';
 import axios from 'axios';
 import config from '../../config/index';
 
@@ -9,21 +9,47 @@ import config from '../../config/index';
 class CheckoutForm extends Component {
   constructor(props) {
     super(props);
-    this.state = {complete: false};
+    this.state = {complete: false, loading: false};
     this.submit = this.submit.bind(this);
   }
 
+  dimmerClose = () => this.setState({ active: false, open: false })
+
   async submit(ev) {
+    this.setState({
+      loading: true
+    });
     let { token } = await this.props.stripe.createToken({name: "True Name"})
-    console.log('token', token);
     let response = await axios.post(`${config.apiUrl}/api/stripe/subscribe`, token)
-    console.log('response', response)
+
+    if(response){
+      this.setState({
+        loading: false
+      })
+    }
 
   if (response.status === 200) this.setState({complete: true})
   }
 
   render() {
-    if (this.state.complete) return <h1>Billing Plan Updated!</h1>;
+    let success;
+    if (this.state.complete){
+        success = <Dimmer active onClickOutside={this.props.close} page>
+        <Header as='h2' icon inverted>
+          <Icon name='check circle outline' />
+          Billing Plan Updated!
+        </Header>
+      </Dimmer>
+    } else {
+        success = null
+    }
+
+    let loader;
+        if(this.state.loading){
+            loader = <Dimmer active inverted><Loader inverted>Updating</Loader></Dimmer>
+        } else {
+          loader = null;
+        }
 
     return (
       <div className="checkout">
@@ -31,7 +57,9 @@ class CheckoutForm extends Component {
 
         <p>Would you like to complete your upgrade?</p>
         <Segment padded style={{ marginTop: "25px", marginBottom: '25px'}} >
+        {success}
         <CardElement />
+        {loader}
         </Segment>
        
 
