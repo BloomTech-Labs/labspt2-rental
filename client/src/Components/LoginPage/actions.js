@@ -10,21 +10,21 @@ export const loginUser = credentials => {
     dispatch({ type: LOGIN_USER_LOADING });
 
     try {
-      const token = await axios.post(
+      const response = await axios.post(
         `${config.apiUrl}/api/users/login`,
         credentials
       );
 
-      localStorage.setItem("authToken", "Bearer " + token.data.token);
+      localStorage.setItem("authToken", "Bearer " + response.data.token);
 
       dispatch({
         type: LOGIN_USER_SUCCESS,
-        payload: "Bearer " + token.data.token
+        payload: "Bearer " + response.data.token
       });
     } catch (err) {
       dispatch({
         type: LOGIN_USER_ERROR,
-        payload: err
+        payload: err.response.data.error
       });
     }
   };
