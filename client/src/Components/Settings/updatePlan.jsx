@@ -15,9 +15,9 @@ class CheckoutForm extends Component {
 
   async submit(ev) {
     let { token } = await this.props.stripe.createToken({name: "True Name"})
-    // console.log('token', token);
+    console.log('token', token);
     let response = await axios.post(`${config.apiUrl}/api/stripe/subscribe`, token)
-    // console.log('response', response)
+    console.log('response', response)
 
   if (response.status === 200) this.setState({complete: true})
   }
