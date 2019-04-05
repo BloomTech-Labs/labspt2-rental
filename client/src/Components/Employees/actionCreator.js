@@ -12,6 +12,8 @@ export const getEmployees = (filterSort = {}) => dispatch => {
       `${config.apiUrl}/api/employees?filter=${JSON.stringify(filter) ||
         ""}&sort=${sort}&limit=${pageSize}&skip=${(page - 1) * pageSize}`
     )
+    .then(dispatch(getTaskList()))
+    .then(dispatch(getNumberEmployees(filterSort)))
     .then(({ data }) => {
       dispatch({
         type: actions.EMPLOYEE_SUCCESS,
@@ -34,6 +36,7 @@ export const searchEmployees = (filterSort = {}) => dispatch => {
         ""}&filter=${JSON.stringify(filter) ||
         ""}&sort=${sort}&limit=${pageSize}&skip=${(page - 1) * pageSize}`
     )
+    .then(dispatch(getNumberEmployees(filterSort)))
     .then(({ data }) => {
       dispatch({ type: actions.EMPLOYEE_SUCCESS, payload: data.data });
     })
