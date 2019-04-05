@@ -19,6 +19,7 @@ export const render = async (req, res, next) => {
 
 // amount variable passed in x100
 // need: amount, stripeEmail, stripeToken id, description
+// need: quantity for subscribe and update
 
 export const subscribe = async (req, res) => {
   try {
@@ -34,7 +35,6 @@ export const subscribe = async (req, res) => {
             .status(500)
             .json({ message: 'Failed to create new customer', err });
         } else {
-          // save customer id to user
           console.log('customer id', customer.id);
           stripe.subscriptions.create(
             {
@@ -53,11 +53,29 @@ export const subscribe = async (req, res) => {
                   err
                 });
               } else {
-                // save subscription.id to the user for updating quantities later
-                // send usageRecord to Stripe
                 // Then send update to user object to store subscription id and customer id
-                console.log('subscription id', subscription.id);
+                console.log('subscription id', subscription.id, 'subscription object', subscription);
                 res.status(200).send();
+                // stripe.usageRecords.create(
+                //   subscription.id,
+                //   {
+                //     quantity: 2,
+                //     timestamp: Date.now()
+                //   },
+                //   (err, usageRecord) => {
+                //     if (err) {
+                //       console.log('usage record err', err);
+                //       return res.status(500).json({
+                //         message:
+                //           'Failed to send usage record updating subscription',
+                //         err
+                //       });
+                //     } else {
+                //       console.log('usage record', usageRecord);
+                //       // Send updated to user object to store subscription.id and customer.id
+                //     }
+                //   }
+                // );
               }
             }
           );
