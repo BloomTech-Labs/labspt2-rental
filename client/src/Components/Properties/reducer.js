@@ -3,7 +3,8 @@ import * as actions from "./actions";
 const initialState = {
   loading: false,
   error: false,
-  properties: []
+  properties: [],
+  property: {}
 };
 
 const propertyReducer = (state = initialState, action) => {
@@ -13,11 +14,17 @@ const propertyReducer = (state = initialState, action) => {
         ...state
         // loading: true
       };
-    case actions.FETCH_PROPERTY_SUCCESS:
+    case actions.FETCH_PROPERTIES_SUCCESS:
       return {
         ...state,
         loading: false,
         properties: action.payload.data
+      };
+    case actions.FETCH_PROPERTY_SUCCESS:
+      return {
+        ...state,
+        loading: false,
+        property: action.payload.data
       };
     case actions.FETCH_PROPERTY_FAILURE:
       return {

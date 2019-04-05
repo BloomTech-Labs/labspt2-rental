@@ -11,7 +11,7 @@ export const getProperties = () => {
       .get(`${config.apiUrl}/api/properties`)
       .then(response => {
         dispatch({
-          type: actions.FETCH_PROPERTY_SUCCESS,
+          type: actions.FETCH_PROPERTIES_SUCCESS,
           payload: response.data
         });
       })

@@ -6,16 +6,16 @@ class Property extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      name: "",
-      address: "",
-      city: "",
-      state: "",
-      zip: "",
-      price: 0,
+      name: "TEST HOUSE",
+      address: "TEST ADDRESS",
+      city: "TEST CITY",
+      state: "NH",
+      zip: "00333",
+      price: 150,
       cleaningFee: "pull in info from reservation",
-      maxGuests: 0,
-      employee: "",
-      imageLoc: "",
+      maxGuests: 2,
+      employee: "TEST EMPLOYEE",
+      imageLoc: "https://unsplash.com/photos/yFV39g6AZ5o",
       loading: false,
       error: null
     };
@@ -24,27 +24,27 @@ class Property extends Component {
     this.props.getProperty("5c91ae4520957e5332396d0d");
   }
 
-  componentWillReceiveProps(nextProps) {
-    this.setState({
-      name: nextProps.name,
-      address: nextProps.address,
-      city: nextProps.city,
-      state: nextProps.state,
-      zip: nextProps.zip,
-      price: nextProps.price,
-      maxGuests: nextProps.occupants,
-      employee: nextProps.assistants[0],
-      imageLoc: nextProps.image,
-      loading: nextProps.loading,
-      error: nextProps.error
-    });
-  }
+  // componentWillReceiveProps(nextProps) {
+  //   this.setState({
+  //     name: nextProps.name,
+  //     address: nextProps.address,
+  //     city: nextProps.city,
+  //     state: nextProps.state,
+  //     zip: nextProps.zip,
+  //     price: nextProps.price,
+  //     maxGuests: nextProps.occupants,
+  //     employee: nextProps.assistants[0],
+  //     imageLoc: nextProps.image,
+  //     loading: nextProps.loading,
+  //     error: nextProps.error
+  //   });
+  // }
   render() {
     return (
       <div>
         <FlexRow>
           <FlexColumn>
-            <h1>{this.props.name}</h1>
+            <h1>{this.state.name}</h1>
             <div className="address">
               <p>{this.state.address}</p>
               <p>

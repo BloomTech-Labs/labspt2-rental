@@ -1,8 +1,8 @@
 import React, { Component } from "react";
 import PropertyCard from "./PropertyCard";
 import { FlexColumn, FlexRow } from "custom-components";
-import Search from "../../shared/Search/Search";
-import DatePicker from "../../shared/DatePicker/DatePicker";
+import Search from "../shared/Search/Search";
+import DatePicker from "../shared/DatePicker/DatePicker";
 
 class Properties extends Component {
   constructor(props) {
