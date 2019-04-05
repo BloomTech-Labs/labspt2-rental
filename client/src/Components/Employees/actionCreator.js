@@ -55,6 +55,7 @@ export const getNumberEmployees = (filterSort = {}) => {
     )
       .then(data => {
         console.log(data.data.data, filterSort)
+
         dispatch({
           type: actions.NUM_EMPLOYEE_SUCCESS,
           number: data.data.data.length
