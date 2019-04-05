@@ -39,6 +39,10 @@
   "eslintConfig": {
     "extends": "react-app"
   },
+  "jest": {
+    "modulePaths": ["<rootDir>/src/"]
+
+  },
   "browserslist": [
     ">0.2%",
     "not dead",

@@ -10,21 +10,26 @@ class LoginPage extends Component {
         }
     }
 
-    inputHandler = (e) => {
+    inputHandler = ({ target: { name, value } }) => {
         this.setState({
-            [e.target.name]: e.target.value
+            [name]: value
         })
     }
 
     submitHandler = (e) => {
         e.preventDefault();
+        const { email, password } = this.state;
+        const { loginUser, history: { push }} = this.props;
         const credentials = {
-            email: this.state.email,
-            password: this.state.password
+            email,
+            password
         };
+        if (email && password) {
+            loginUser(credentials);
+            push('/dashboard');
+        }
 
-        this.props.loginUser(credentials);
-        this.props.history.push('/dashboard');
+        return;
     }
 
     render() {
@@ -34,12 +39,12 @@ class LoginPage extends Component {
                 <Form id="login-form" onSubmit={this.submitHandler}>
                     <Form.Field>
                     <label>Email address</label>
-                    <input name="email" type="email" placeholder='hello@gmail.com' value={this.state.email} onChange={this.inputHandler} />
+                    <input id="email-input" name="email" type="email" placeholder='hello@gmail.com' value={this.state.email} onChange={this.inputHandler} />
                     </Form.Field>
 
                     <Form.Field>
                     <label>Password</label>
-                    <input name="password" type="password" placeholder='Password' value={this.state.password} onChange={this.inputHandler} />
+                    <input id="password-input" name="password" type="password" placeholder='Password' value={this.state.password} onChange={this.inputHandler} />
                     </Form.Field>
 
                     <Button id="login-button" type='submit'>Login</Button>
