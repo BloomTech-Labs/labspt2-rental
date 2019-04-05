@@ -12,6 +12,7 @@ const PropertyCard = props => {
       lineOneInfo={props.address}
       lineTwoInfo={props.assistants}
       lineThreeInfo={props.occupants}
+      linkto={props.linkto}
     />
   );
 };

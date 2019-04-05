@@ -3,7 +3,7 @@ import { Route, Link, withRouter } from "react-router-dom";
 import { Segment, Menu, Sidebar, Icon, Header, Image } from "semantic-ui-react";
 import { FlexRow, Container } from "custom-components";
 import { Reservations, ReservationAdd, ReservationView } from "../Reservations";
-import { Properties } from "../Properties/PropList";
+import { Properties, Property } from "../Properties/PropList";
 import { EmployeeList, EmployeeSingle } from "../Employees";
 import { Checkout } from "../Checkout";
 import { Tasks } from "../Tasks";
@@ -101,6 +101,10 @@ class Dashboard extends Component {
                 <Route
                   path="/dashboard/properties"
                   render={() => <Properties />}
+                />
+                <Route
+                  path="/dashboard/properties/:id"
+                  render={() => <Property />}
                 />
                 {/*<Route path="/dashboard/tasks" render={() => <Tasks/>}/>*/}
                 <Route path="/dashboard/settings" render={() => <Settings />} />

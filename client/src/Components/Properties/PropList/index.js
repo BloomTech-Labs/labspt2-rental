@@ -1,1 +1,2 @@
-export { default as Properties } from "./container";
+export { Properties } from "./container";
+export { Property } from "./container";

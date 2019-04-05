@@ -1,14 +1,20 @@
 import { connect } from "react-redux";
-import { getProperties } from "./actionCreator";
-import Properties from "./Properties";
+import { getProperties, getProperty } from "./actionCreator";
+import _Properties from "./Properties";
+import _Property from "./Property";
+import { withRouter } from "react-router-dom";
 
 const mapStateToProps = data => ({
   properties: data.properties.properties,
   loading: data.properties.loading,
-  error: data.properties.error
+  error: data.properties.error,
+  property: data.property
 });
 
-export default connect(
+const connector = connect(
   mapStateToProps,
-  { getProperties }
-)(Properties);
+  { getProperties, getProperty }
+);
+
+export const Properties = connector(withRouter(_Properties));
+export const Property = connector(withRouter(_Property));

@@ -1,6 +1,7 @@
 import React from "react";
 import { Header, Image, Card, Button } from "semantic-ui-react";
 import { FlexRow, FlexColumn } from "custom-components";
+import { Link } from "react-router-dom";
 
 const InfoCard = props => {
   return (
@@ -35,7 +36,9 @@ const InfoCard = props => {
             ) : null}
           </FlexRow>
         </FlexColumn>
-        <Button onClick={props.buttonFunction}>More Info</Button>
+        <Link to={props.linkto}>
+          <Button onClick={props.buttonFunction}>More Info</Button>
+        </Link>
       </FlexRow>
     </Card>
   );

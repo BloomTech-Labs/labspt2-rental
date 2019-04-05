@@ -53,6 +53,7 @@ class Properties extends Component {
               assistants={property.assistants[0].firstName}
               occupants={property.occupants}
               buttonFunction={() => this.cardHandleClick(property._id)}
+              linkto={`/dashboard/reservations/${property._id}`}
             />
           );
         })}

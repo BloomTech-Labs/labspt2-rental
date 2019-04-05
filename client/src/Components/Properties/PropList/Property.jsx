@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import { FlexColumn, FlexRow } from "custom-components";
-import { Checkbox, Button } from "semantic-ui-react";
+import { Checkbox, Button, Image } from "semantic-ui-react";
 
 class Property extends Component {
   constructor(props) {
@@ -12,7 +12,7 @@ class Property extends Component {
       state: "",
       zip: "",
       price: 0,
-      cleaningFee: 0,
+      cleaningFee: "pull in info from reservation",
       maxGuests: 0,
       employee: "",
       imageLoc: "",
@@ -21,7 +21,7 @@ class Property extends Component {
     };
   }
   componentDidMount() {
-    this.props.getProperty();
+    this.props.getProperty("5c91ae4520957e5332396d0d");
   }
 
   componentWillReceiveProps(nextProps) {
@@ -32,10 +32,9 @@ class Property extends Component {
       state: nextProps.state,
       zip: nextProps.zip,
       price: nextProps.price,
-      cleaningFee: nextProps.cleaningFee,
-      maxGuests: nextProps.maxGuests,
-      employee: nextProps.employee,
-      imageLoc: nextProps.imageLoc,
+      maxGuests: nextProps.occupants,
+      employee: nextProps.assistants[0],
+      imageLoc: nextProps.image,
       loading: nextProps.loading,
       error: nextProps.error
     });
@@ -47,24 +46,24 @@ class Property extends Component {
           <FlexColumn>
             <h1>{this.props.name}</h1>
             <div className="address">
-              <p>{this.props.address}</p>
+              <p>{this.state.address}</p>
               <p>
-                {this.props.city}, {this.props.state} {this.props.zip}
+                {this.state.city}, {this.state.state} {this.state.zip}
               </p>
             </div>
             <div className="details">
-              <p>Price per night: ${this.props.price}</p>
-              <p>Cleaning Fee: ${this.props.cleanFee}</p>
-              <p>Max Guests: {this.props.guests}</p>
+              <p>Price per night: ${this.state.price}</p>
+              <p>Cleaning Fee: ${this.state.cleanFee}</p>
+              <p>Max Guests: {this.state.guests}</p>
             </div>
             <div>
-              <p>Default Employee: {this.props.employeeName}</p>
+              <p>Default Employee: {this.state.employeeName}</p>
             </div>
             <Checkbox label="Pause reservations" />
             <Button content="Edit" />
           </FlexColumn>
           <FlexColumn>
-            <Image src={this.props.imageLoc} size="medium" />
+            <Image src={this.state.imageLoc} size="medium" />
           </FlexColumn>
         </FlexRow>
       </div>
