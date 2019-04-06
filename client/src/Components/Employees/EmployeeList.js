@@ -1,70 +1,33 @@
-import React, { Component } from "react";
-import { Button, Icon, Input } from "semantic-ui-react";
-import { FlexRow, FlexColumn } from "custom-components";
+import React from "react";
+import { Pagination } from "semantic-ui-react";
+import { FlexColumn, Divider } from "custom-components";
 import EmployeeListItem from "./EmployeeListItem";
-import EmployeeSingle from "./EmployeeSingle";
 
-class EmployeeList extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      owner: true,
-      searchText: ""
-    };
-  }
+const EmployeeList = props => {
 
-  componentDidMount() {
-    // here we'll grab the role and securities of the user
-    this.props.getEmployees();
-  }
+    const { employees, handlePageChange} = props;
 
-  searchChangeHandler = e => {
-    this.setState({ searchText: e.target.value });
-  };
-
-  cardHandleClick = id => {
-    this.props.history.push(`/dashboard/employees/${id}`);
-  };
-
-  render() {
     return (
-      <FlexColumn style={{ width: "full", maxWidth: "880px" }}>
-        <FlexRow justifyBetween style={{ width: "90%" }}>
-          <Input
-            style={{ width: "80%" }}
-            icon="address card"
-            iconPosition="left"
-            placeholder="Name, City, Property Name"
-            onChange={this.searchChangeHandler}
-          />
-          {this.state.searchText ? (
-            <Button basic attached="right">
-              Clear
-            </Button>
-          ) : null}
-          {this.state.owner ? (
-            <Button icon>
-              <Icon name="plus circle" />
-            </Button>
-          ) : null}
-        </FlexRow>
-        {console.log(this.props)}
-        {this.props.employees.loading ? (
-          <div>Loading...</div>
-        ) : (
-          this.props.employees.employees.map(employee => {
-            return (
-              <EmployeeListItem
-                key={employee.userID}
-                employee={employee}
-                clickHandler={this.cardHandleClick}
-              />
-            );
-          })
-        )}
+      <FlexColumn width="800px" alignCenter style={{ position: "relative" }}>
+        <Pagination
+          onPageChange={handlePageChange}
+          className="space-bottom"
+          boundaryRange={1}
+          // defaultActivePage={1}
+          firstItem={null}
+          lastItem={null}
+          ellipsisItem={null}
+          siblingRange={1}
+          totalPages={props.numPages}
+        />
+        {employees.map(item => (
+          <>
+            <EmployeeListItem key={item._id} employee={item} />
+            <Divider />
+          </>
+        ))}
       </FlexColumn>
     );
   }
-}
 
 export default EmployeeList;
