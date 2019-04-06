@@ -1,16 +1,12 @@
 import { connect } from "react-redux";
-import { getEmployees } from "./actionCreator";
-import EmployeeList from "./EmployeeList";
+import { getEmployees, searchEmployees, getNumberEmployees } from "./actionCreator";
+import Employees from "./Employees";
 
-const mapStateToProps = state => {
-  return {
-    employees: state.employees,
-    loading: state.loading,
-    error: state.error
-  };
+const mapStateToProps = ({ employees }) => {
+  return employees
 };
 
 export default connect(
   mapStateToProps,
-  { getEmployees }
-)(EmployeeList);
+  { getEmployees, searchEmployees, getNumberEmployees }
+)(Employees);
