@@ -47,7 +47,7 @@ export default class Employees extends Component {
   render() {
     const { tabs } = this.state;
     const { page, pageSize } = this.query;
-    const { employees, loading, numPages } = this.props;
+    const { employees, loading, numPages, tasks, properties } = this.props;
 
     return (
       <FlexColumn>
@@ -67,6 +67,8 @@ export default class Employees extends Component {
                       key={tab + index}
                       status={tab}
                       employees={employees}
+                      tasks={tasks}
+                      properties={properties}
                       page={page}
                       pageSize={pageSize}
                       numPages={numPages}

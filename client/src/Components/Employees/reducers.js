@@ -26,10 +26,10 @@ const employeesReducer = (state = initialState, action) => {
         error: action.error
       };
     case actions.NUM_EMPLOYEE_SUCCESS:
-      const numPages = Math.ceil(action.payload / 4)
+      const numPages = Math.ceil(action.payload / 4);
       return {
         ...state,
-        numPages: (numPages)
+        numPages: numPages
       };
     case actions.NUM_EMPLOYEE_FAIL:
       return {
@@ -37,32 +37,25 @@ const employeesReducer = (state = initialState, action) => {
         error: action.error
       };
     case actions.TASKLIST_SUCCESS:
-      const newState = state
-      const currentTime = Date.now();
-      const newTasks = []
-      action.payload.data.forEach(item => {
-        const newTaskData = {};
-        if (Date.parse(item.endDate) < currentTime) {
-          newTaskData.overdue = true
-        } else if (Date.parse(item.startDate) < currentTime) {
-          newTaskData.todayTask = true
-        }
-        newTaskData.employee = item.assignedTo._id
-        newTasks.push(newTaskData)
-      })
-      newState.employees.forEach(employee => {
-        employee.overdue = 0; employee.todayTask = 0
-        newTasks.forEach(task => {
-          if (task.employee === employee._id) {
-            if (task.overdue) {
-              employee.overdue++
-            } else if (task.todayTask) {
-              employee.todayTask++
-            }
-          }
-        })
-      })
-      return {...newState}
+      return {
+        ...state,
+        tasks: action.payload.data
+      };
+    case actions.TASKLIST_FAILURE:
+      return {
+        ...state,
+        error: action.error
+      };
+    case actions.PROPERTIES_SUCCESS:
+      return {
+        ...state,
+        properties: action.payload.data
+      };
+    case actions.PROPERTIES_FAILURE:
+      return {
+        ...state,
+        error: action.error
+      };
     default:
       return { ...state };
   }

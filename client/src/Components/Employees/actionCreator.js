@@ -13,6 +13,7 @@ export const getEmployees = (filterSort = {}) => dispatch => {
         ""}&sort=${sort}&limit=${pageSize}&skip=${(page - 1) * pageSize}`
     )
     .then(dispatch(getTaskList()))
+    .then(dispatch(getProperties()))
     .then(dispatch(getNumberEmployees(filterSort)))
     .then(({ data }) => {
       dispatch({
@@ -86,3 +87,19 @@ export const getTaskList = () => {
     });
   };
 };
+
+export const getProperties = () => {
+  return dispatch => {
+    axios.get(`${config.apiUrl}/api/properties`).then(data => {
+      dispatch({
+        type: actions.PROPERTIES_SUCCESS,
+        payload: data.data
+      })
+    }).catch(err => {
+      dispatch({
+        type: actions.PROPERTIES_FAILURE,
+        error: err
+      })
+    })
+  }
+}

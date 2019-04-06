@@ -2,7 +2,6 @@ import React from "react";
 import InfoCard from "../shared/Card/InfoCard";
 
 const EmployeeListItem = props => {
-  console.log(props.employee)
   return (
     <InfoCard
       imageLoc={props.employee.imageLoc}
