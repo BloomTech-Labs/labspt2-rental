@@ -64,6 +64,9 @@ const userSchema = new Schema(
     subscriptionID: {
       type: String
     },
+    subscriptionItemID: {
+      type: String
+    },
     billingPlan: {
       type: String
     },

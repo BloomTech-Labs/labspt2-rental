@@ -15,6 +15,15 @@ export default class AccountForm extends Component {
         }
     }
 
+    componentDidMount = () => {
+        this.setState({
+            firstName: this.props.user.firstName,
+            lastName: this.props.user.lastName,
+            email: this.props.user.email,
+            phone: this.props.user.phone
+        })
+    }
+
     componentDidUpdate = (prevProps) =>{
         // Bug: reverts briefly to the old state because it differs from the updated state. Delay checking?
         if(this.props !== prevProps){

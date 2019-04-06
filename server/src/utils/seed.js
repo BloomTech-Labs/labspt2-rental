@@ -347,14 +347,14 @@ export default async () => {
     console.log('Seeded extra employees:   ', !!employees[1]);
     console.log('Seeded billing plans :   ', !!billingPlan[2]);
 
-    // console.log(
-    //   'bp1',
-    //   billingPlan[0],
-    //   'bp2',
-    //   billingPlan[1],
-    //   'bp3',
-    //   billingPlan[2]
-    // );
+    console.log(
+      'bp1',
+      billingPlan[0],
+      'bp2',
+      billingPlan[1],
+      'bp3',
+      billingPlan[2]
+    );
 
     return tasks;
   }
