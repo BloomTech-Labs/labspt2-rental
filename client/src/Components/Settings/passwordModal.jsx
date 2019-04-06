@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { Button, Modal, Form, Message, Divider } from 'semantic-ui-react'
+import { Button, Modal, Form, Message, Divider, Dimmer, Header, Icon } from 'semantic-ui-react'
 
 export default class PasswordModal extends Component {
     state = { 
@@ -8,12 +8,15 @@ export default class PasswordModal extends Component {
         newPassword: '',
         checkPassword: '',
         disabled: true,
-        message: ''
+        message: '',
+        active: false
      }
 
     close = () => this.setState({ open: false })
 
     show = () => this.setState({ open: true })
+
+    dimmerClose = () => this.setState({ active: false, open: false })
 
     handleChange = (e) => {
         const { newPassword, oldPassword } = this.state;
@@ -44,17 +47,24 @@ export default class PasswordModal extends Component {
 
     handleSubmit = (e) => {
         e.preventDefault();
-        const { newPassword, checkPassword } = this.state;
+        const { newPassword, checkPassword, oldPassword } = this.state;
         if (newPassword !== checkPassword){
             this.setState({
                 message: 'mismatch'
             })
-        } else { alert('You got it right!') }
-        // send axios call, check password match
+        } else { 
+            this.props.updatePassword({ oldPassword: oldPassword, newPassword: {password: newPassword} })
+            .then(success => {
+                this.setState({
+                    active: true
+                })
+            })
+            .catch(err => console.log(err))
+         }
     }
 
     render () {
-        const { open, oldPassword, newPassword, checkPassword, disabled, message } = this.state;
+        const { open, oldPassword, newPassword, checkPassword, disabled, message, active } = this.state;
 
         let button;
         if (disabled) {
@@ -72,6 +82,18 @@ export default class PasswordModal extends Component {
             messageAlert = <Divider section />
         }
 
+        let success;
+        if (active){
+            success = <Dimmer active onClickOutside={this.dimmerClose} page>
+            <Header as='h2' icon inverted>
+              <Icon name='check circle outline' />
+              Password updated!
+            </Header>
+          </Dimmer>
+        } else {
+            success = null
+        }
+
         return (
             <div>
                 <Button basic color="blue" onClick={this.show}>Change Password</Button>
@@ -81,6 +103,7 @@ export default class PasswordModal extends Component {
 
                     {/* Inline isn't working? */}
                     <Modal.Content>
+                        {success}
                         <Form>
                             <Form.Group inline>
                                 <Form.Field required>
@@ -120,7 +143,7 @@ export default class PasswordModal extends Component {
                     </Modal.Content>
 
                     <Modal.Actions>
-                        <Button negative onClick={this.close} >Cancel</Button>
+                        <Button basic color="red" onClick={this.close} >Cancel</Button>
                         {button}
                     </Modal.Actions>
             </Modal>

@@ -67,6 +67,9 @@ const userSchema = new Schema(
     billingPlan: {
       type: String
     },
+    phone: {
+      type: String
+    },
     createdBy: {
       type: mongoose.SchemaTypes.ObjectId,
       ref: 'user'
@@ -74,6 +77,9 @@ const userSchema = new Schema(
   },
   { timestamps: true }
 );
+
+// This function works when creating a user but not when updating a user
+// If updating a user password, must manually hash the password before storing
 
 userSchema.pre('save', function(next) {
   if (!this.isModified('password')) {
