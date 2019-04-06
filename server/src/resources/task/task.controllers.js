@@ -8,6 +8,32 @@ class TaskControllers extends BaseController {
   }
 
   // add custon methods if needed
+  // overwrite getMany to getManyTasks tasks by assignTo not createdBy
+
+  searchAll = (req, res, next) => {
+
+    // const lookup = [
+    //   {
+    //     $lookup: {
+    //       localField: 'property',
+    //       from: 'properties',
+    //       foreignField: '_id',
+    //       as: 'property'
+    //     }
+    //   }
+    // ];
+  
+    const search = [
+      'description'
+      // 'property.name'
+    ];
+    console.log(req.query.search);
+    return this.search(req, res, next, { search });
+  };
+
+  count = (req, res, next) => {
+    return this.countMine(req, res, next);
+  };
 }
 
 const controllers = new TaskControllers(Task);

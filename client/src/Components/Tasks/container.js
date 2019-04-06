@@ -1,5 +1,5 @@
 import { connect } from "react-redux";
-import { getTasks } from "./actionCreator";
+import { getTasks, searchTasks } from "./actionCreator";
 import Tasks from "./Tasks";
 
 const mapStateToProps = state => ({
@@ -10,6 +10,6 @@ const mapStateToProps = state => ({
 
 export default connect(
   mapStateToProps,
-  { getTasks }
+  { getTasks, searchTasks }
 )(Tasks);
 

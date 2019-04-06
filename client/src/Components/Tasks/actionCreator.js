@@ -21,6 +21,37 @@ export const getTasks = () => {
         type: actions.FETCH_TASK_FAILURE,
         error: err
       });
+      console.log(err);
+    });
+  };
+};
+
+export const searchTasks = (filterSort = {}) => {
+  const { filter, sort, search } = filterSort;
+
+  return dispatch => {
+    dispatch({
+      type: actions.FETCH_TASK_ATTEMPT
+    });
+    axios
+      .get(
+        `${config.apiUrl}/api/tasks/search?search=${search ||
+        ""}&filter=${JSON.stringify(filter) || 
+        ""}&sort=${sort}`
+        )
+      .then(response => {
+        console.log(response);
+        dispatch({
+          type: actions.FETCH_TASK_SUCCESS,
+          payload: response.data
+        });
+      })
+    .catch(err => {
+      dispatch({
+        type: actions.FETCH_TASK_FAILURE,
+        error: err
+      });
+      console.log(err);
     });
   };
 };
