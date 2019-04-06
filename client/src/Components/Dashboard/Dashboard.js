@@ -9,7 +9,8 @@ import {
   ReservationEdit
 } from "../Reservations";
 import { Properties } from "../Properties/PropList";
-import { EmployeeList, EmployeeSingle } from "../Employees";
+import { EmployeeSingle } from "../Employees";
+import Employees from "../Employees/container";
 import { Checkout } from "../Checkout";
 import { Tasks } from "../Tasks";
 import { Settings } from "../Settings";
@@ -99,7 +100,7 @@ class Dashboard extends Component {
                 />
                 <Route
                   path="/dashboard/employees"
-                  render={props => <EmployeeList {...props} />}
+                  render={() => <Employees />}
                 />
                 <Route
                   path="/dashboard/employees/:id"

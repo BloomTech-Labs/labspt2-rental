@@ -10,6 +10,7 @@ export const getTasks = () => {
     axios
       .get(`${config.apiUrl}/api/tasks`)
       .then(response => {
+          console.log(response)
         dispatch({
           type: actions.FETCH_TASK_SUCCESS,
           payload: response.data
