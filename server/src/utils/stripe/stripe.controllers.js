@@ -1,6 +1,7 @@
 /* eslint-disable camelcase */
 import config from '../../config';
 import stripeModule from 'stripe';
+import { User } from '../../resources/user/user.model';
 
 const keyPublishable = config.keys.stripePublishable;
 const keySecret = config.keys.stripeSecret;
@@ -9,6 +10,11 @@ const stripe = stripeModule(keySecret);
 const planid = 'plan_EpLtM3j2EMurWg';
 const propertyQuantity = 2; // get from redux store
 const subscriptionID = '';
+const userObject = {
+  stripeCustomerID: '',
+  subscriptionID: '',
+  subscriptionItemID: ''
+};
 
 export const render = async (req, res, next) => {
   try {
@@ -26,6 +32,7 @@ const createSubscription = async (err, customer, res) => {
       .status(500)
       .json({ message: 'Failed to create new customer', err });
   } else {
+    userObject.stripeCustomerID = customer.id;
     stripe.subscriptions.create(
       {
         customer: customer.id,
@@ -56,8 +63,12 @@ const createUsageRecord = async (err, subscription, res) => {
       err
     });
   } else {
+    userObject.subscriptionID = subscription.id;
     const subscriptionItemID = subscription.items.data[0].id;
+    userObject.subscriptionItemID = subscriptionItemID;
     const currentDate = Math.floor(Date.now() / 1000);
+
+    // Instead make DB call to update user object here, and pull prop quantity from response to use for usage record?
 
     stripe.usageRecords.create(
       subscriptionItemID,
@@ -72,8 +83,9 @@ const createUsageRecord = async (err, subscription, res) => {
             err
           });
         } else {
-          return res.status(200).send(usageRecord);
-          // Send updated to user object to store subscription.id and customer.id
+          return res.status(200).send(userObject);
+          // Currently sends the user data to add to user on DB back to the FE
+          // Would be better to send to the DB from here.
         }
       }
     );
@@ -88,14 +100,6 @@ const createUsageRecord = async (err, subscription, res) => {
 
 export const subscribe = async (req, res) => {
   try {
-    console.log(
-      'email',
-      req.body.token.email,
-      'quantity',
-      req.body.quantity,
-      'created',
-      req.body.created
-    );
     const {
       id,
       email,
@@ -119,7 +123,7 @@ export const subscribe = async (req, res) => {
       async (err, customer) => {
         const subscription = await createSubscription(err, customer, res);
         if (subscription) {
-          return res.status(200).send(subscription);
+          return res.status(200);
         } else if (err != null) {
           return res
             .status(500)
