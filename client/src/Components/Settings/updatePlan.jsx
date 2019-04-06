@@ -1,24 +1,27 @@
-import React, {Component} from 'react';
-import {CardElement, injectStripe } from 'react-stripe-elements';
-import axios from 'axios';
-import config from '../../config/index';
+import React, { Component } from "react";
+import { CardElement, injectStripe } from "react-stripe-elements";
+import axios from "axios";
+import config from "../../config/index";
 
 // update package.json proxy line with non local host
 
 class CheckoutForm extends Component {
   constructor(props) {
     super(props);
-    this.state = {complete: false};
+    this.state = { complete: false };
     this.submit = this.submit.bind(this);
   }
 
   async submit(ev) {
-    let { token } = await this.props.stripe.createToken({name: "True Name"})
+    let { token } = await this.props.stripe.createToken({ name: "True Name" });
     // console.log('token', token);
-    let response = await axios.post(`${config.apiUrl}/api/stripe/charge`, token)
+    let response = await axios.post(
+      `${config.apiUrl}/api/stripe/charge`,
+      token
+    );
     // console.log('response', response)
 
-  if (response.status === 200) this.setState({complete: true})
+    if (response.status === 200) this.setState({ complete: true });
   }
 
   render() {

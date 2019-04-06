@@ -4,7 +4,7 @@ import { Segment, Menu, Sidebar, Icon, Header, Image } from "semantic-ui-react";
 import { FlexRow, Container } from "custom-components";
 import {
   Reservations,
-  // ReservationAdd,
+  ReservationAdd,
   ReservationView,
   ReservationEdit
 } from "../Reservations";
@@ -77,11 +77,11 @@ class Dashboard extends Component {
                   path="/dashboard/reservations"
                   render={() => <Reservations />}
                 />
-                {/* <Route
+                <Route
                   exact
                   path="/dashboard/reservations/add"
                   render={() => <ReservationAdd />}
-                />*/}
+                />
                 <Route
                   exact
                   path="/dashboard/reservations/view/:id"

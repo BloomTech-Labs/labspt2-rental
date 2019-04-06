@@ -11,29 +11,21 @@ import {
 } from "semantic-ui-react";
 import { FlexRow, FlexColumn, Text } from "custom-components";
 import { Link } from "react-router-dom";
-import DateRangePickerWrapper from "./ReservationAdd";
+import DateRangePickerWrapper from "../shared/DatePicker/DatePicker.jsx";
 
 class ReservationEdit extends Component {
-  state = {
-    assistant: null,
-    guest: {
-      firstName: null,
-      lastName: null,
-      phoneNumber: null,
-      email: null
-    },
-    property: null,
-    checkIn: null,
-    checkOut: null,
-    status: "upcoming",
-    cleaningFee: 0,
-    guests: 1,
-    guestLoginCode: Math.floor(100000 + Math.random() * 900000)
-  };
+  state = {};
 
   componentDidMount() {
     this.props.fetchEmployees();
     this.props.fetchProperties();
+  }
+
+  static getDerivedStateFromProps(props, state) {
+    if (!state._id) {
+      return props.reservations.find(r => r._id === props.match.params.id);
+    }
+    return null;
   }
 
   handleDateChange = ({ startDate, endDate }) => {
@@ -46,7 +38,7 @@ class ReservationEdit extends Component {
 
   handleSubmit = () => {
     this.props
-      .createReservation(this.state)
+      .updateReservation(this.state)
       .then(data => {
         if (data._id) {
           this.props.history.push("/dashboard/reservations");
@@ -55,11 +47,7 @@ class ReservationEdit extends Component {
       .catch(err => {});
   };
   render() {
-    const reservation = this.props.reservations.find(
-      r => r._id === this.props.match.params.id
-    );
-
-    const { guest, guests } = this.state;
+    const { guest, guests, ...reservation } = this.state;
 
     return (
       <>
@@ -72,7 +60,11 @@ class ReservationEdit extends Component {
             <br />
 
             <FlexRow width="full">
-              <DateRangePickerWrapper onChange={this.handleDateChange} />
+              <DateRangePickerWrapper
+                onChange={this.handleDateChange}
+                initialStartDate={new Date(reservation.checkIn)}
+                initialEndDate={new Date(reservation.checkOut)}
+              />
             </FlexRow>
 
             <br />
@@ -80,6 +72,7 @@ class ReservationEdit extends Component {
 
             <FlexRow alignCenter width="full">
               <Dropdown
+                value={reservation.property._id}
                 style={{ marginRight: "10px" }}
                 selection
                 onChange={(e, val) => this.handleChange("property", val.value)}
@@ -96,6 +89,7 @@ class ReservationEdit extends Component {
               />
 
               <Dropdown
+                value={reservation.assistant._id}
                 selection
                 onChange={(e, val) => this.handleChange("assistant", val.value)}
                 placeholder="Employee"
@@ -115,6 +109,7 @@ class ReservationEdit extends Component {
 
             <FlexRow width="full">
               <Input
+                value={guest.firstName}
                 style={{ marginRight: "10px", flexGrow: "1" }}
                 placeholder="First Name"
                 onChange={e =>
@@ -125,6 +120,7 @@ class ReservationEdit extends Component {
                 }
               />
               <Input
+                value={guest.lastName}
                 style={{ flexGrow: "1" }}
                 placeholder="Last Name"
                 onChange={e =>
@@ -140,6 +136,7 @@ class ReservationEdit extends Component {
 
             <FlexRow width="full">
               <Input
+                value={guest.phoneNumber}
                 style={{ marginRight: "10px", flexGrow: "1" }}
                 placeholder="Phone Number"
                 onChange={e =>
@@ -151,6 +148,7 @@ class ReservationEdit extends Component {
               />
 
               <Input
+                value={guest.email}
                 style={{ flexGrow: "1" }}
                 placeholder="Email"
                 onChange={e =>
@@ -186,7 +184,7 @@ class ReservationEdit extends Component {
 
             <FlexRow width="full" justifyCenter>
               <Button color="green" onClick={this.handleSubmit}>
-                Create Reservation
+                Update Reservation
               </Button>
             </FlexRow>
           </FlexColumn>

@@ -3,6 +3,7 @@ import {
   getReservations,
   searchReservations,
   createReservation,
+  updateReservation,
   fetchProperties,
   fetchEmployees,
   fetchReservationCount
@@ -10,7 +11,7 @@ import {
 import _ReservationEdit from "./ReservationEdit";
 import _ReservationView from "./ReservationView";
 import _Reservations from "./Reservations";
-// import _ReservationAdd from "./ReservationAdd";
+import _ReservationAdd from "./ReservationAdd";
 import { withRouter } from "react-router-dom";
 
 const mapStateToProps = ({ reservations }) => ({
@@ -25,6 +26,7 @@ const mapStateToProps = ({ reservations }) => ({
 const connector = connect(
   mapStateToProps,
   {
+    updateReservation,
     getReservations,
     fetchProperties,
     fetchEmployees,
@@ -37,4 +39,4 @@ const connector = connect(
 export const Reservations = connector(withRouter(_Reservations));
 export const ReservationView = connector(withRouter(_ReservationView));
 export const ReservationEdit = connector(withRouter(_ReservationEdit));
-// export const ReservationAdd = connector(withRouter(_ReservationAdd));
+export const ReservationAdd = connector(withRouter(_ReservationAdd));

@@ -5,7 +5,7 @@ import { LoginPage } from "./Components/LoginPage";
 import { UserList } from "./Components/UserList";
 import { Dashboard } from "./Components/Dashboard";
 import { Properties } from "./Components/Properties/PropList";
-import { Home } from './Components/LandingPage';
+import { Home } from "./Components/LandingPage";
 
 import axios from "axios";
 
