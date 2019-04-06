@@ -28,6 +28,7 @@ class CheckoutForm extends Component {
       address_city: 'Jonesville',
       address_state: 'TX',
       address_zip: '77345',
+      name: 'Gwenog Jones'
     })
     let response = await axios.post(`${config.apiUrl}/api/stripe/subscribe`, {token: token, quantity: 2})
 
