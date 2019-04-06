@@ -17,68 +17,115 @@ export const render = async (req, res, next) => {
   }
 };
 
+// This is a callback
+
+const createSubscription = async (err, customer, res) => {
+  console.log('subscription:');
+  if (err) {
+    return res
+      .status(500)
+      .json({ message: 'Failed to create new customer', err });
+  } else {
+    // console.log('customer id', customer.id);
+
+    stripe.subscriptions.create(
+      {
+        customer: customer.id,
+        items: [
+          {
+            plan: planid
+          }
+        ]
+      },
+      async (err, subscription) => {
+        const usage = await createUsageRecord(err, subscription, res);
+        if (usage) {
+          console.log('usage async response:', usage);
+          return res.status(200).send(usage);
+        }
+      }
+    );
+  }
+};
+
+const createUsageRecord = async (err, subscription, res) => {
+  console.log('usage record:');
+  if (err) {
+    // console.log('subscription err', err);
+    return res.status(500).json({
+      message: 'Failed to create new subscription',
+      err
+    });
+  } else {
+    // Then send update to user object to store subscription id and customer id
+    const subscriptionItemID = subscription.items.data[0].id;
+    const currentDate = Math.floor(Date.now() / 1000);
+    // console.log(
+    //   'subscription id',
+    //   subscriptionItemID,
+    //   'timestamp',
+    //   currentDate
+    // );
+    stripe.usageRecords.create(
+      subscriptionItemID,
+      {
+        quantity: 2,
+        timestamp: currentDate
+      },
+      (err, usageRecord) => {
+        if (err) {
+          // console.log('usage record err', err);
+          return res.status(500).json({
+            message: 'Failed to send usage record updating subscription',
+            err
+          });
+        } else {
+          // console.log('usage record', usageRecord);
+          return res.status(200).send(usageRecord);
+          // Send updated to user object to store subscription.id and customer.id
+        }
+      }
+    );
+  }
+};
+
 // amount variable passed in x100
 // need: amount, stripeEmail, stripeToken id, description
 // need: quantity for subscribe and update
 
 export const subscribe = async (req, res) => {
   try {
-    const { id, stripeEmail } = req.body;
+    console.log(
+      'email',
+      req.body.token.email,
+      'quantity',
+      req.body.quantity,
+      'created',
+      req.body.created
+    );
+    const {
+      id,
+      email,
+      address_line1,
+      address_city,
+      address_state,
+      address_zip
+    } = req.body.token;
+
     stripe.customers.create(
       {
-        email: stripeEmail,
+        email: email,
+        address_line1: address_line1,
+        address_city: address_city,
+        address_state: address_state,
+        address_zip: address_zip,
         source: id
       },
-      (err, customer) => {
-        if (err) {
-          return res
-            .status(500)
-            .json({ message: 'Failed to create new customer', err });
-        } else {
-          console.log('customer id', customer.id);
-          stripe.subscriptions.create(
-            {
-              customer: customer.id,
-              items: [
-                {
-                  plan: planid
-                }
-              ]
-            },
-            (err, subscription) => {
-              if (err) {
-                console.log('subscription err', err);
-                return res.status(500).json({
-                  message: 'Failed to create new subscription',
-                  err
-                });
-              } else {
-                // Then send update to user object to store subscription id and customer id
-                console.log('subscription id', subscription.id, 'subscription object', subscription);
-                res.status(200).send();
-                // stripe.usageRecords.create(
-                //   subscription.id,
-                //   {
-                //     quantity: 2,
-                //     timestamp: Date.now()
-                //   },
-                //   (err, usageRecord) => {
-                //     if (err) {
-                //       console.log('usage record err', err);
-                //       return res.status(500).json({
-                //         message:
-                //           'Failed to send usage record updating subscription',
-                //         err
-                //       });
-                //     } else {
-                //       console.log('usage record', usageRecord);
-                //       // Send updated to user object to store subscription.id and customer.id
-                //     }
-                //   }
-                // );
-              }
-            }
-          );
+      async (err, customer) => {
+        const subscription = await createSubscription(err, customer, res);
+        if (subscription) {
+          console.log('subscription res', subscription);
+          return res.status(200).send(subscription);
         }
       }
     );

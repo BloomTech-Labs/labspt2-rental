@@ -19,14 +19,32 @@ class CheckoutForm extends Component {
     this.setState({
       loading: true
     });
-    let { token } = await this.props.stripe.createToken({name: "True Name"})
-    let response = await axios.post(`${config.apiUrl}/api/stripe/subscribe`, token)
+
+    // Fetch data from state to fill into the token. For now, it's dummy data.
+
+    let { token } = await this.props.stripe.createToken({
+      email: "owner@roostr.io",
+      address_line1: '1234 Mountain Flower Ct',
+      address_city: 'Jonesville',
+      address_state: 'TX',
+      address_zip: '77345',
+    })
+    let response = await axios.post(`${config.apiUrl}/api/stripe/subscribe`, {token: token, quantity: 2})
 
     if(response){
+      console.log('subscribe response', response.data);
       this.setState({
         loading: false
       })
     }
+
+    // Response usage record object like this:
+    // { id: "mbur_1EMFOgG7WzchCp9PwESiRJkb"
+    // livemode: false
+    // object: "usage_record"
+    // quantity: 2
+    // subscription_item: "si_EpvFohTqsPQOmK"
+    // timestamp: 1554560490 }
 
   if (response.status === 200) this.setState({complete: true})
   }
