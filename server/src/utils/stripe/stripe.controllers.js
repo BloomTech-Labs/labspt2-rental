@@ -10,6 +10,7 @@ const stripe = stripeModule(keySecret);
 const planid = 'plan_EpLtM3j2EMurWg';
 const propertyQuantity = 2; // get from redux store
 const subscriptionID = '';
+let userID = '';
 const userObject = {
   stripeCustomerID: '',
   subscriptionID: '',
@@ -43,35 +44,67 @@ const createSubscription = async (err, customer, res) => {
         ]
       },
       async (err, subscription) => {
-        const usage = await createUsageRecord(err, subscription, res);
-        if (usage) {
-          return res.status(200).send(usage);
+        userObject.subscriptionID = subscription.id;
+        const subscriptionItemID = subscription.items.data[0].id;
+        userObject.subscriptionItemID = subscriptionItemID;
+
+        const updateUser = await updateUserWithStripeInfo(err, res);
+        if (updateUser) {
+          return res.status(200).send(updateUser);
         } else if (err != null) {
           return res
             .status(500)
-            .json({ message: 'Failed to create usage record', err });
+            .json({ message: 'Failed to update user record', err });
         }
       }
     );
   }
 };
 
-const createUsageRecord = async (err, subscription, res) => {
+const updateUserWithStripeInfo = async (err, res) => {
   if (err && err != null) {
     return res.status(500).json({
       message: 'Failed to create new subscription',
       err
     });
   } else {
-    userObject.subscriptionID = subscription.id;
-    const subscriptionItemID = subscription.items.data[0].id;
-    userObject.subscriptionItemID = subscriptionItemID;
+    try {
+      const user = await User.findByIdAndUpdate(userID, userObject, {
+        new: true
+      })
+        .select('-password')
+        .lean()
+        .exec();
+
+      console.log('updated user', user);
+      // Need to update quantity here or fetch quantity off of it for usage.
+
+      const usage = await createUsageRecord(err, user, res);
+      if (usage) {
+        return res.status(200).send(usage);
+      } else if (err != null) {
+        return res
+          .status(500)
+          .json({ message: 'Failed to create usage record', err });
+      }
+    } catch (err) {
+      return res
+        .status(500)
+        .json({ message: 'Failed to updated user record', err });
+    }
+  }
+};
+
+const createUsageRecord = async (err, user, res) => {
+  if (err && err != null) {
+    return res.status(500).json({
+      message: 'Failed to update user with stripe info',
+      err
+    });
+  } else {
     const currentDate = Math.floor(Date.now() / 1000);
-
-    // Instead make DB call to update user object here, and pull prop quantity from response to use for usage record?
-
     stripe.usageRecords.create(
-      subscriptionItemID,
+      user.subscriptionItemID,
       {
         quantity: 2,
         timestamp: currentDate
@@ -83,9 +116,7 @@ const createUsageRecord = async (err, subscription, res) => {
             err
           });
         } else {
-          return res.status(200).send(userObject);
-          // Currently sends the user data to add to user on DB back to the FE
-          // Would be better to send to the DB from here.
+          return res.status(200).send(usageRecord);
         }
       }
     );
@@ -100,6 +131,8 @@ const createUsageRecord = async (err, subscription, res) => {
 
 export const subscribe = async (req, res) => {
   try {
+    userID = req.user._id;
+
     const {
       id,
       email,
