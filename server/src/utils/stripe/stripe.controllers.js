@@ -10,6 +10,7 @@ const stripe = stripeModule(keySecret);
 const planid = 'plan_EpLtM3j2EMurWg';
 const propertyQuantity = 2; // get from redux store
 const subscriptionID = '';
+
 let userID = '';
 const userObject = {
   stripeCustomerID: '',
@@ -77,7 +78,7 @@ const updateUserWithStripeInfo = async (err, res) => {
         .exec();
 
       console.log('updated user', user);
-      // Need to update quantity here or fetch quantity off of it for usage.
+      // Will not update quantity; just billing plan. Only update usage on subscription when the user actually creates/deletes properties.
 
       const usage = await createUsageRecord(err, user, res);
       if (usage) {
@@ -126,12 +127,15 @@ const createUsageRecord = async (err, user, res) => {
 // Subscribe is for first time customers. It runs through a series of callback functions:
 // 1. Creates a new customer with stripe
 // 2. Creates their subscription to the Roostr monthly metered plan
-// 3. Creates a usage record to set the number of properties they have
-// 4. TO DO: Updates their User profile on the database with Stripe customer info
+// 3. Updates their User profile on the database with Stripe customer info and new billing plan
+// Billing plan will be used like role permissions to determine if a user is allowed to add additional properties. Rather than having the user choose which plan, we'll upgrade them and let them know when they're being bumped to the next tier (10) or downgraded on billing. Do it automatically.
+
+// Remove billing plan model and update seed data to free/upgraded for billing plan on user object.
 
 export const subscribe = async (req, res) => {
   try {
     userID = req.user._id;
+    console.log('billing plan?', req.body.updatedPlan);
 
     const {
       id,

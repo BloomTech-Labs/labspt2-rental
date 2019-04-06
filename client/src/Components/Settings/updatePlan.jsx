@@ -30,7 +30,7 @@ class CheckoutForm extends Component {
       address_zip: '77345',
       name: 'Gwenog Jones'
     })
-    let response = await axios.post(`${config.apiUrl}/api/stripe/subscribe`, {token: token, quantity: 2})
+    let response = await axios.post(`${config.apiUrl}/api/stripe/subscribe`, {token: token, updatedPlan: 'Midlevel'})
 
     if(response){
       console.log('subscribe response', response.data);
@@ -38,14 +38,6 @@ class CheckoutForm extends Component {
         loading: false
       })
     }
-
-    // Response usage record object like this:
-    // { id: "mbur_1EMFOgG7WzchCp9PwESiRJkb"
-    // livemode: false
-    // object: "usage_record"
-    // quantity: 2
-    // subscription_item: "si_EpvFohTqsPQOmK"
-    // timestamp: 1554560490 }
 
   if (response.status === 200) this.setState({complete: true})
   }
