@@ -2,7 +2,12 @@ import React, { Component } from "react";
 import { Route, Link, withRouter } from "react-router-dom";
 import { Segment, Menu, Sidebar, Icon, Header, Image } from "semantic-ui-react";
 import { FlexRow, Container } from "custom-components";
-import { Reservations, ReservationAdd, ReservationView } from "../Reservations";
+import {
+  Reservations,
+  // ReservationAdd,
+  ReservationView,
+  ReservationEdit
+} from "../Reservations";
 import { Properties } from "../Properties/PropList";
 import { EmployeeList, EmployeeSingle } from "../Employees";
 import { Checkout } from "../Checkout";
@@ -72,13 +77,20 @@ class Dashboard extends Component {
                   path="/dashboard/reservations"
                   render={() => <Reservations />}
                 />
-                <Route
+                {/* <Route
+                  exact
                   path="/dashboard/reservations/add"
                   render={() => <ReservationAdd />}
-                />
+                />*/}
                 <Route
+                  exact
                   path="/dashboard/reservations/view/:id"
                   render={() => <ReservationView />}
+                />
+                <Route
+                  exact
+                  path="/dashboard/reservations/edit/:id"
+                  render={() => <ReservationEdit />}
                 />
                 <Route
                   exact
