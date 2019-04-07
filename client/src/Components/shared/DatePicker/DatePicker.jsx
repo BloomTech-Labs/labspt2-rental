@@ -105,10 +105,23 @@ class DateRangePickerWrapper extends Component {
       focusedInput = END_DATE;
     }
 
+    const inStartDate = props.initialStartDate,
+      inEndDate = props.initialEndDate;
+
     this.state = {
       focusedInput,
-      startDate: props.initialStartDate,
-      endDate: props.initialEndDate
+      startDate:
+        inStartDate && inStartDate instanceof Date
+          ? moment(inStartDate)
+          : inStartDate
+          ? inStartDate
+          : null,
+      endDate:
+        inEndDate && inEndDate instanceof Date
+          ? moment(inEndDate)
+          : inEndDate
+          ? inEndDate
+          : null
     };
 
     this.onDatesChange = this.onDatesChange.bind(this);
@@ -118,10 +131,12 @@ class DateRangePickerWrapper extends Component {
   onDatesChange({ startDate, endDate }) {
     const { stateDateWrapper, onChange } = this.props;
 
-    onChange({
-      startDate: startDate ? startDate.toDate() : null,
-      endDate: endDate ? endDate.toDate() : null
-    });
+    if (onChange) {
+      onChange({
+        startDate: startDate ? startDate.toDate() : null,
+        endDate: endDate ? endDate.toDate() : null
+      });
+    }
 
     this.setState({
       startDate: startDate && stateDateWrapper(startDate),
