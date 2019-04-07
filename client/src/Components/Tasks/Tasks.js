@@ -51,7 +51,7 @@ class Tasks extends Component {
       <FlexColumn>
         <FlexRow width='100%' justifyBetween style={{alignItems: "baseline"}}>
         <Header as="h1">Tasks</Header>
-        <Segment>
+        <Segment style={{marginBottom: "14px"}}>
           <Icon name='add'></Icon>
         </Segment>
         </FlexRow>
