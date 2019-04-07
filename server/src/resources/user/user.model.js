@@ -64,7 +64,13 @@ const userSchema = new Schema(
     subscriptionID: {
       type: String
     },
+    subscriptionItemID: {
+      type: String
+    },
     billingPlan: {
+      type: String
+    },
+    phone: {
       type: String
     },
     createdBy: {
@@ -74,6 +80,9 @@ const userSchema = new Schema(
   },
   { timestamps: true }
 );
+
+// This function works when creating a user but not when updating a user
+// If updating a user password, must manually hash the password before storing
 
 userSchema.pre('save', function(next) {
   if (!this.isModified('password')) {

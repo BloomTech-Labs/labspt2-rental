@@ -4,7 +4,8 @@ import { Segment, Menu, Sidebar, Icon, Header, Image } from "semantic-ui-react";
 import { FlexRow, Container } from "custom-components";
 import { Reservations, ReservationAdd, ReservationView } from "../Reservations";
 import { Properties, Property } from "../Properties";
-import { EmployeeList, EmployeeSingle } from "../Employees";
+import { EmployeeSingle } from "../Employees";
+import Employees from "../Employees/container";
 import { Checkout } from "../Checkout";
 import { Tasks } from "../Tasks";
 import { Settings } from "../Settings";
@@ -87,7 +88,7 @@ class Dashboard extends Component {
                 />
                 <Route
                   path="/dashboard/employees"
-                  render={props => <EmployeeList {...props} />}
+                  render={() => <Employees />}
                 />
                 <Route
                   path="/dashboard/employees/:id"
