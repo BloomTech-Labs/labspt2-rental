@@ -63,6 +63,24 @@ export const createReservation = (body = {}) => dispatch => {
     });
 };
 
+export const updateReservation = (body = {}) => dispatch => {
+  dispatch({ type: actions.RESERVATION_STARTED });
+
+  return axios
+    .put(`${config.apiUrl}/api/reservations/${body._id}`, body)
+    .then(({ data }) => {
+      dispatch({
+        type: actions.RESERVATION_SUCCESS,
+        payload: { reservations: data.data }
+      });
+      return data.data;
+    })
+    .catch(err => {
+      dispatch({ type: actions.RESERVATION_FAILURE, payload: err });
+      throw err;
+    });
+};
+
 export const fetchProperties = () => dispatch => {
   dispatch({ type: actions.RESERVATION_STARTED });
 
