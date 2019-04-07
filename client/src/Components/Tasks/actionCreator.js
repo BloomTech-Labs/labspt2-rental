@@ -36,7 +36,7 @@ export const searchTasks = (filterSort = {}) => {
     axios
       .get(
         `${config.apiUrl}/api/tasks/search?search=${search ||
-        ""}`
+        ""}&sort=${sort}`
         )
       .then(response => {
         console.log(response);

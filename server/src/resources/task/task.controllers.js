@@ -12,23 +12,24 @@ class TaskControllers extends BaseController {
 
   searchAll = (req, res, next) => {
 
-    // const lookup = [
-    //   {
-    //     $lookup: {
-    //       localField: 'property',
-    //       from: 'properties',
-    //       foreignField: '_id',
-    //       as: 'property'
-    //     }
-    //   }
-    // ];
+    const lookup = [
+      {
+        $lookup: {
+          localField: 'property',
+          from: 'properties',
+          foreignField: '_id',
+          as: 'property'
+        }
+      }
+    ];
   
     const search = [
-      'description'
-      // 'property.name'
+      'description',
+      'property.name',
+      '_id'
     ];
     console.log(req.query.search);
-    return this.search(req, res, next, { search });
+    return this.search(req, res, next, { lookup, search });
   };
 
   count = (req, res, next) => {
