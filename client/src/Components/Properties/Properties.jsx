@@ -25,9 +25,9 @@ class Properties extends Component {
     });
   }
 
-  cardHandleClick = id => {
-    this.props.history.push(`/dashboard/properties/${id}`);
-  };
+  // cardHandleClick = id => {
+  //   this.props.history.push(`/dashboard/properties/${id}`);
+  // };
   render() {
     return (
       <FlexColumn width="800px" alignCenter style={{ position: "relative" }}>
@@ -53,7 +53,7 @@ class Properties extends Component {
               assistants={property.assistants[0].firstName}
               occupants={property.occupants}
               buttonFunction={() => this.cardHandleClick(property._id)}
-              linkto={`/dashboard/reservations/${property._id}`}
+              linkto={`/dashboard/properties/${property._id}`}
             />
           );
         })}

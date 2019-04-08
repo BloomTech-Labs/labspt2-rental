@@ -4,11 +4,7 @@ import { Registration } from "./Components/Registration";
 import { LoginPage } from "./Components/LoginPage";
 import { UserList } from "./Components/UserList";
 import { Dashboard } from "./Components/Dashboard";
-<<<<<<< HEAD
 import { Properties } from "./Components/Properties";
-=======
-import { Properties } from "./Components/Properties/PropList";
->>>>>>> d5e594a47a9ffde9de948992e7c7e42c8ab0d9e2
 import { Home } from "./Components/LandingPage";
 
 import axios from "axios";

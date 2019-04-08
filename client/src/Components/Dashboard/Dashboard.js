@@ -112,6 +112,7 @@ class Dashboard extends Component {
                 <Route path="/dashboard/tasks" render={() => <Tasks />} />
 
                 <Route
+                  exact
                   path="/dashboard/properties"
                   render={() => <Properties />}
                 />

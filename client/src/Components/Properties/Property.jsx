@@ -6,67 +6,53 @@ class Property extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      name: "TEST HOUSE",
-      address: "TEST ADDRESS",
-      city: "TEST CITY",
-      state: "NH",
-      zip: "00333",
-      price: 150,
-      cleaningFee: "pull in info from reservation",
-      maxGuests: 2,
-      employee: "TEST EMPLOYEE",
-      imageLoc: "https://unsplash.com/photos/yFV39g6AZ5o",
-      loading: false,
-      error: null
+      properties: {}
     };
   }
-  componentDidMount() {
-    this.props.getProperty("5c91ae4520957e5332396d0d");
-  }
 
+  componentDidMount() {
+    this.props.getProperties();
+  }
   // componentWillReceiveProps(nextProps) {
   //   this.setState({
-  //     name: nextProps.name,
-  //     address: nextProps.address,
-  //     city: nextProps.city,
-  //     state: nextProps.state,
-  //     zip: nextProps.zip,
-  //     price: nextProps.price,
-  //     maxGuests: nextProps.occupants,
-  //     employee: nextProps.assistants[0],
-  //     imageLoc: nextProps.image,
-  //     loading: nextProps.loading,
-  //     error: nextProps.error
+  //     properties: nextProps.properties
   //   });
+  //   console.log(this.state.properties);
   // }
   render() {
+    const property = this.props.properties.find(
+      property => property._id === this.props.match.params.id
+    );
     return (
-      <div>
-        <FlexRow>
-          <FlexColumn>
-            <h1>{this.state.name}</h1>
-            <div className="address">
-              <p>{this.state.address}</p>
-              <p>
-                {this.state.city}, {this.state.state} {this.state.zip}
-              </p>
-            </div>
-            <div className="details">
-              <p>Price per night: ${this.state.price}</p>
-              <p>Cleaning Fee: ${this.state.cleanFee}</p>
-              <p>Max Guests: {this.state.guests}</p>
-            </div>
-            <div>
-              <p>Default Employee: {this.state.employeeName}</p>
-            </div>
-            <Checkbox label="Pause reservations" />
-            <Button content="Edit" />
-          </FlexColumn>
-          <FlexColumn>
-            <Image src={this.state.imageLoc} size="medium" />
-          </FlexColumn>
-        </FlexRow>
-      </div>
+      <>
+        {property && (
+          <div>
+            <FlexRow>
+              <FlexColumn>
+                <h1>{property.name}</h1>
+                <div className="address">
+                  <p>{property.address}</p>
+                  <p>
+                    {property.city}, {property.state} {property.zip}
+                  </p>
+                </div>
+                <div className="details">
+                  <p>Price per night: ${property.price}</p>
+                  <p>Max Guests: {property.occupants}</p>
+                </div>
+                <div>
+                  <p>Default Employee: {property.assistants[0].firstName}</p>
+                </div>
+                <Checkbox label="Pause reservations" />
+                <Button content="Edit" />
+              </FlexColumn>
+              <FlexColumn>
+                <Image src={property.image} size="medium" />
+              </FlexColumn>
+            </FlexRow>
+          </div>
+        )}
+      </>
     );
   }
 }
