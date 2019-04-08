@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import { FlexColumn, FlexRow } from "custom-components";
 import { Checkbox, Button, Image } from "semantic-ui-react";
+import { Link } from "react-router-dom";
 
 class Property extends Component {
   constructor(props) {
@@ -13,12 +14,7 @@ class Property extends Component {
   componentDidMount() {
     this.props.getProperties();
   }
-  // componentWillReceiveProps(nextProps) {
-  //   this.setState({
-  //     properties: nextProps.properties
-  //   });
-  //   console.log(this.state.properties);
-  // }
+
   render() {
     const property = this.props.properties.find(
       property => property._id === this.props.match.params.id
@@ -44,7 +40,9 @@ class Property extends Component {
                   <p>Default Employee: {property.assistants[0].firstName}</p>
                 </div>
                 <Checkbox label="Pause reservations" />
-                <Button content="Edit" />
+                <Link to={`/dashboard/properties/edit/${property._id}`}>
+                  <Button content="Edit" />
+                </Link>
               </FlexColumn>
               <FlexColumn>
                 <Image src={property.image} size="medium" />
