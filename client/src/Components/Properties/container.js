@@ -1,7 +1,8 @@
 import { connect } from "react-redux";
-import { getProperties, getProperty } from "./actionCreator";
+import { getProperties, getProperty, updateProperty } from "./actionCreator";
 import _Properties from "./Properties";
 import _Property from "./Property";
+import _PropertyEdit from "./PropertyEdit";
 import { withRouter } from "react-router-dom";
 
 const mapStateToProps = data => ({
@@ -13,8 +14,9 @@ const mapStateToProps = data => ({
 
 const connector = connect(
   mapStateToProps,
-  { getProperties, getProperty }
+  { getProperties, getProperty, updateProperty }
 );
 
 export const Properties = connector(withRouter(_Properties));
 export const Property = connector(withRouter(_Property));
+export const PropertyEdit = connector(withRouter(_PropertyEdit));

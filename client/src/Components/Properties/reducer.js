@@ -11,8 +11,8 @@ const propertyReducer = (state = initialState, action) => {
   switch (action.type) {
     case actions.FETCH_PROPERTY_ATTEMPT:
       return {
-        ...state
-        // loading: true
+        ...state,
+        loading: true
       };
     case actions.FETCH_PROPERTIES_SUCCESS:
       return {
@@ -27,6 +27,23 @@ const propertyReducer = (state = initialState, action) => {
         property: action.payload.data
       };
     case actions.FETCH_PROPERTY_FAILURE:
+      return {
+        ...state,
+        loading: false,
+        error: action.error
+      };
+    case actions.UPDATE_PROPERTY_STARTED:
+      return {
+        ...state,
+        loading: true
+      };
+    case actions.UPDATE_PROPERTY_SUCCESS:
+      return {
+        ...state,
+        loading: false,
+        property: action.payload.data
+      };
+    case actions.UPDATE_PROPERTY_FAILURE:
       return {
         ...state,
         loading: false,
