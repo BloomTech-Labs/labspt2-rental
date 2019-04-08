@@ -4,13 +4,6 @@ import { Checkbox, Button, Image } from "semantic-ui-react";
 import { Link } from "react-router-dom";
 
 class Property extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      properties: {}
-    };
-  }
-
   componentDidMount() {
     this.props.getProperties();
   }
@@ -27,11 +20,12 @@ class Property extends Component {
               <FlexColumn>
                 <h1>{property.name}</h1>
                 <div className="address">
-                  <p>{property.address}</p>
+                  <p>{property.address1}</p>
                   <p>
                     {property.city}, {property.state} {property.zip}
                   </p>
                 </div>
+                <br />
                 <div className="details">
                   <p>Price per night: ${property.price}</p>
                   <p>Max Guests: {property.occupants}</p>
