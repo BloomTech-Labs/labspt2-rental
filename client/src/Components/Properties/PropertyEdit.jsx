@@ -16,10 +16,19 @@ class PropertyEdit extends Component {
     this.setState({ [prop]: val });
   }
 
+  handleSubmit = () => {
+    this.props.updateProperty(this.state).then(response => {
+      if (response._id) {
+        this.props.history.push("/dashboard/properties");
+      }
+    });
+  };
+
   render() {
     const property = this.props.properties.find(
       property => property._id === this.props.match.params.id
     );
+    const propId = property._id;
     return (
       <>
         {property && (
@@ -28,21 +37,21 @@ class PropertyEdit extends Component {
             <Input
               label="Name"
               style={{ margin: "5px" }}
-              value={property.name}
+              // value={property.name}
               placeholder={property.name}
               onChange={e => this.handleChange("name", e.target.value)}
             />
             <Input
               label="Address"
               style={{ margin: "5px" }}
-              value={property.address1}
+              // value={property.address1}
               placeholder={property.address1}
               onChange={e => this.handleChange("address1", e.target.value)}
             />
             <Input
               label="Address 2"
               style={{ margin: "5px" }}
-              value={property.address2}
+              // value={property.address2}
               placeholder={property.address2}
               onChange={e => this.handleChange("address2", e.target.value)}
             />
@@ -51,21 +60,21 @@ class PropertyEdit extends Component {
               <Input
                 label="City"
                 style={{ margin: "5px" }}
-                value={property.city}
+                // value={property.city}
                 placeholder={property.city}
                 onChange={e => this.handleChange("city", e.target.value)}
               />
               <Input
                 label="State"
                 style={{ margin: "5px" }}
-                value={property.state}
+                // value={property.state}
                 placeholder={property.state}
                 onChange={e => this.handleChange("state", e.target.value)}
               />
               <Input
                 label="Zip"
                 style={{ margin: "5px" }}
-                value={property.zip}
+                // value={property.zip}
                 placeholder={property.zip}
                 onChange={e => this.handleChange("zip", e.target.value)}
               />
@@ -73,31 +82,34 @@ class PropertyEdit extends Component {
             <Input
               label="Price per Night"
               style={{ margin: "5px" }}
-              value={property.price}
+              // value={property.price}
               placeholder={property.price}
               onChange={e => this.handleChange("price", e.target.value)}
             />
             <Input
               label="Max Guests"
               style={{ margin: "5px" }}
-              value={property.occupants}
+              // value={property.occupants}
               placeholder={property.occupants}
               onChange={e => this.handleChange("occupants", e.target.value)}
             />
             <Input
               label="Image URL"
               style={{ margin: "5px" }}
-              value={property.image}
+              // value={property.image}
               placeholder={property.image}
               onChange={e => this.handleChange("image", e.target.value)}
             />
-            <Link to={`/dashboard/properties/${property._id}`}>
+            <Link to={`/dashboard/properties/`}>
               <Button
                 style={{ margin: "5px" }}
                 color="green"
                 onClick={this.handleSubmit}
               >
                 Update
+              </Button>
+              <Button style={{ margin: "5px" }} color="red">
+                Cancel
               </Button>
             </Link>
           </FlexColumn>

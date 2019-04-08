@@ -5,6 +5,7 @@ import { Link } from "react-router-dom";
 
 class Property extends Component {
   componentDidMount() {
+    console.log("properties cdm");
     this.props.getProperties();
   }
 
