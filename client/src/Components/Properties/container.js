@@ -1,5 +1,10 @@
 import { connect } from "react-redux";
-import { getProperties, getProperty, updateProperty } from "./actionCreator";
+import {
+  getProperties,
+  getProperty,
+  updateProperty,
+  addProperty
+} from "./actionCreator";
 import _Properties from "./Properties";
 import _Property from "./Property";
 import _PropertyEdit from "./PropertyEdit";
@@ -15,7 +20,7 @@ const mapStateToProps = data => ({
 
 const connector = connect(
   mapStateToProps,
-  { getProperties, getProperty, updateProperty }
+  { getProperties, getProperty, updateProperty, addProperty }
 );
 
 export const Properties = connector(withRouter(_Properties));

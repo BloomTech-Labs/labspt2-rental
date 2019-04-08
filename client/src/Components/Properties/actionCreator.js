@@ -5,7 +5,7 @@ import config from "config";
 export const getProperties = () => {
   return dispatch => {
     dispatch({
-      type: actions.FETCH_PROPERTY_ATTEMPT
+      type: actions.PROPERTY_STARTED
     });
     axios
       .get(`${config.apiUrl}/api/properties`)
@@ -17,7 +17,7 @@ export const getProperties = () => {
       })
       .catch(err => {
         dispatch({
-          type: actions.FETCH_PROPERTY_FAILURE,
+          type: actions.PROPERTY_FAILURE,
           error: err
         });
       });
@@ -27,7 +27,7 @@ export const getProperties = () => {
 export const getProperty = id => {
   return dispatch => {
     dispatch({
-      type: actions.FETCH_PROPERTY_ATTEMPT
+      type: actions.PROPERTY_STARTED
     });
     axios
       .get(`${config.apiUrl}/api/properties/${id}`)
@@ -39,7 +39,7 @@ export const getProperty = id => {
       })
       .catch(err => {
         dispatch({
-          type: actions.FETCH_PROPERTY_FAILURE,
+          type: actions.PROPERTY_FAILURE,
           error: err
         });
       });
@@ -47,20 +47,37 @@ export const getProperty = id => {
 };
 
 export const updateProperty = (body = {}) => dispatch => {
-  dispatch({ type: actions.UPDATE_PROPERTY_STARTED });
+  dispatch({ type: actions.PROPERTY_STARTED });
 
   return axios
     .put(`${config.apiUrl}/api/properties/${body._id}`, body)
-    .then(({ data }) => {
+    .then(({ response }) => {
       dispatch({
         type: actions.UPDATE_PROPERTY_SUCCESS,
-        payload: data.data
+        payload: response.data
       });
     })
     .catch(err => {
       dispatch({
-        type: actions.UPDATE_PROPERTY_FAILURE,
+        type: actions.PROPERTY_FAILURE,
         payload: err
+      });
+    });
+};
+
+export const addProperty = (body = {}) => dispatch => {
+  dispatch({ type: actions.PROPERTY_STARTED });
+  return axios
+    .post(`${config.apiUrl}/api/properties`, body)
+    .then(({ response }) => {
+      dispatch({
+        type: actions.ADD_PROPERTY_SUCCESS,
+        payload: response.data
+      }).catch(err => {
+        dispatch({
+          type: actions.PROPERTY_FAILURE,
+          payload: err
+        });
       });
     });
 };
