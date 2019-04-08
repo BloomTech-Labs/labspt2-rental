@@ -64,9 +64,6 @@ export default class Employees extends Component {
               menuItem: tab,
               render: () => (
                 <Tab.Pane attached={false}>
-                  {loading ? (
-                    <div>Loading...Please Wait</div>
-                  ) : (
                     <EmployeeList
                       key={tab + index}
                       status={tab}
@@ -78,7 +75,6 @@ export default class Employees extends Component {
                       numPages={numPages}
                       handlePageChange={this.handlePageChange}
                     />
-                  )}
                 </Tab.Pane>
               )
             })),
