@@ -2,13 +2,13 @@ import React, { Component } from "react";
 import { Route, Link, withRouter } from "react-router-dom";
 import { Segment, Menu, Sidebar, Icon, Header, Image } from "semantic-ui-react";
 import { FlexRow, Container } from "custom-components";
+import { Properties, Property } from "../Properties";
 import {
   Reservations,
   ReservationAdd,
   ReservationView,
   ReservationEdit
 } from "../Reservations";
-import { Properties } from "../Properties/PropList";
 import { EmployeeSingle } from "../Employees";
 import Employees from "../Employees/container";
 import { Checkout } from "../Checkout";
@@ -112,8 +112,13 @@ class Dashboard extends Component {
                 <Route path="/dashboard/tasks" render={() => <Tasks />} />
 
                 <Route
+                  exact
                   path="/dashboard/properties"
                   render={() => <Properties />}
+                />
+                <Route
+                  path="/dashboard/properties/:id"
+                  render={() => <Property />}
                 />
                 {/*<Route path="/dashboard/tasks" render={() => <Tasks/>}/>*/}
                 <Route path="/dashboard/settings" render={() => <Settings />} />

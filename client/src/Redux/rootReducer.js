@@ -1,5 +1,5 @@
 import { combineReducers } from "redux";
-import propertyReducer from "../Components/Properties/PropList/reducer";
+import propertyReducer from "../Components/Properties/reducer";
 import registrationReducer from "../Components/Registration/reducer";
 import userListReducer from "../Components/UserList/reducer";
 import reservationsReducer from "../Components/Reservations/reducer";
