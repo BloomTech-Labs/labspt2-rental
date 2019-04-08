@@ -62,7 +62,7 @@ const EmployeeList = props => {
           siblingRange={1}
           totalPages={numPages}
         />
-        <Link to="employees/add">
+        <Link to="/dashboard/employees/add">
           <Button
             className="space-left-20"
             circular

@@ -4,6 +4,7 @@ import {
   Header,
   Input,
   Button,
+  Divider,
   Label,
   Statistic,
   Popup,
@@ -17,107 +18,67 @@ class EmployeeAdd extends Component {
     super();
 
     this.state = {
-      assistant: null,
-      guest: {
+      employee: {
         firstName: null,
         lastName: null,
-        phoneNumber: null,
-        email: null
+        email: null,
+        phone: null
       },
-      property: null,
-      checkIn: null,
-      checkOut: null,
-      status: "upcoming",
-      cleaningFee: 0,
-      guests: 1,
-      guestLoginCode: Math.floor(100000 + Math.random() * 900000)
+      address: {
+        address1: null,
+        address2: null,
+        city: null,
+        state: null,
+        zip: null
+      },
+      username: null,
+      password: null
     };
   }
-
-  componentDidMount() {
-  }
-
-  handleDateChange = ({ startDate, endDate }) => {
-    this.setState({ checkIn: startDate, checkOut: endDate });
-  };
 
   handleChange = (prop, val) => {
     this.setState({ [prop]: val });
   };
 
   handleSubmit = () => {
+    const request = this.state.employee;
+    request.address = this.state.address;
+    request.username = `${request.lastName.slice(0, 4).toLowerCase()}_${request.firstName.toLowerCase()}`;
+    request.password="changeme";
+    console.log(request)
     this.props
-      .createReservation(this.state)
+      .createEmployee(request)
       .then(data => {
         if (data._id) {
-          this.props.history.push("/dashboard/reservations");
+          // this.props.history.push("/dashboard/employees");
         }
       })
       .catch(err => {});
   };
 
   render() {
-    const { guest, guests } = this.state;
+    const { employee, address } = this.state;
 
     return (
-      <FlexColumn justifyBetween alignCenter width="full">
+      <FlexColumn
+        justifyBetween
+        alignCenter
+        width="80%"
+        style={{ marginLeft: "10%" }}
+      >
         <FlexRow width="full">
-          <Header as="h1">Add New Reservation</Header>
-        </FlexRow>
-
-        <br />
-
-        <FlexRow width="full">
-          <DateRangePickerWrapper onChange={this.handleDateChange} />
+          <Header as="h1">Add New Employee</Header>
         </FlexRow>
 
         <br />
         <br />
-
-        <FlexRow alignCenter width="full">
-          <Dropdown
-            style={{ marginRight: "10px" }}
-            selection
-            onChange={(e, val) => this.handleChange("property", val.value)}
-            placeholder="Property"
-            options={
-              this.props.loading
-                ? [{ text: "Loading...", value: "loading" }]
-                : this.props.properties &&
-                  this.props.properties.map(p => ({
-                    key: p._id,
-                    text: p.name,
-                    value: p._id
-                  }))
-            }
-          />
-
-          <Dropdown
-            selection
-            onChange={(e, val) => this.handleChange("assistant", val.value)}
-            placeholder="Employee"
-            options={
-              this.props.loading
-                ? [{ text: "Loading...", value: "loading" }]
-                : this.props.employees &&
-                  this.props.employees.map(e => ({
-                    key: e._id,
-                    text: e.firstName + " " + e.lastName,
-                    value: e._id
-                  }))
-            }
-          />
-        </FlexRow>
-
-        <br />
-
         <FlexRow width="full">
           <Input
             style={{ marginRight: "10px", flexGrow: "1" }}
             placeholder="First Name"
             onChange={e =>
-              this.handleChange("guest", {
-                ...guest,
+              this.handleChange("employee", {
+                ...employee,
                 firstName: e.target.value
               })
             }
@@ -126,8 +87,8 @@ class EmployeeAdd extends Component {
             style={{ flexGrow: "1" }}
             placeholder="Last Name"
             onChange={e =>
-              this.handleChange("guest", {
-                ...guest,
+              this.handleChange("employee", {
+                ...employee,
                 lastName: e.target.value
               })
             }
@@ -141,9 +102,9 @@ class EmployeeAdd extends Component {
             style={{ marginRight: "10px", flexGrow: "1" }}
             placeholder="Phone Number"
             onChange={e =>
-              this.handleChange("guest", {
-                ...guest,
-                phoneNumber: e.target.value
+              this.handleChange("employee", {
+                ...employee,
+                phone: e.target.value
               })
             }
           />
@@ -152,39 +113,82 @@ class EmployeeAdd extends Component {
             style={{ flexGrow: "1" }}
             placeholder="Email"
             onChange={e =>
-              this.handleChange("guest", {
-                ...guest,
+              this.handleChange("employee", {
+                ...employee,
                 email: e.target.value
               })
             }
           />
         </FlexRow>
 
-        <br />
-        <br />
+        <Divider style={{ width: "100%" }} />
 
-        <FlexRow alignCenter justifyCenter width="full">
-          <Button
-            circular
-            icon="minus"
-            onClick={() => this.handleChange("guests", guests - 1)}
+        <FlexColumn width="full">
+          <Input
+            style={{ width: "100%" }}
+            className="space-bottom"
+            placeholder="Address 1"
+            onChange={e =>
+              this.handleChange("address", {
+                ...address,
+                address1: e.target.value
+              })
+            }
           />
-          <Statistic size="tiny" style={{ margin: "0 15px" }}>
-            <Statistic.Label>Guests</Statistic.Label>
-            <Statistic.Value>{guests}</Statistic.Value>
-          </Statistic>
-          <Button
-            circular
-            icon="plus"
-            onClick={() => this.handleChange("guests", guests + 1)}
+          <Input
+            style={{ width: "100%" }}
+            className="space-bottom"
+            placeholder="Address 2"
+            onChange={e =>
+              this.handleChange("address", {
+                ...address,
+                address2: e.target.value
+              })
+            }
           />
-        </FlexRow>
+          <FlexRow width="full">
+            <Input
+              style={{ flexGrow: 6 }}
+              className="space-bottom space-right"
+              placeholder="City"
+              onChange={e =>
+                this.handleChange("address", {
+                  ...address,
+                  city: e.target.value
+                })
+              }
+            />
+            <Input
+              style={{ flexGrow: 1 }}
+              className="space-bottom space-right"
+              placeholder="State"
+              onChange={e =>
+                this.handleChange("address", {
+                  ...address,
+                  state: e.target.value
+                })
+              }
+            />
+            <Input
+              style={{ flexGrow: 3 }}
+              className="space-bottom"
+              placeholder="Zip Code"
+              onChange={e =>
+                this.handleChange("address", {
+                  ...address,
+                  zip: e.target.value
+                })
+              }
+            />
+          </FlexRow>
+        </FlexColumn>
 
+        <br />
         <br />
 
         <FlexRow width="full" justifyCenter>
           <Button color="green" onClick={this.handleSubmit}>
-            Create Reservation
+            Add Employee
           </Button>
         </FlexRow>
       </FlexColumn>

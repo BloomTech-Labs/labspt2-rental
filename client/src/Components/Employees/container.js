@@ -5,7 +5,8 @@ import {
   getEmployees,
   searchEmployees,
   getNumberEmployees,
-  getTaskList
+  getTaskList,
+  createEmployee
 } from "./actionCreator";
 import _Employees from "./Employees";
 import _EmployeeAdd from "./EmployeeAdd";
@@ -16,7 +17,13 @@ const mapStateToProps = ({ employees }) => {
 
 const connector = connect(
   mapStateToProps,
-  { getEmployees, searchEmployees, getNumberEmployees, getTaskList }
+  {
+    getEmployees,
+    searchEmployees,
+    getNumberEmployees,
+    getTaskList,
+    createEmployee
+  }
 );
 
 export const Employees = connector(withRouter(_Employees));

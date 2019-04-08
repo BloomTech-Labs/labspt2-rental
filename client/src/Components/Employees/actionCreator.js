@@ -47,15 +47,15 @@ export const searchEmployees = (filterSort = {}) => dispatch => {
 
 export const getNumberEmployees = (filterSort = {}) => {
   const { filter, sort, page, search } = filterSort;
-  const pageSize=10000
+  const pageSize = 10000;
 
   return dispatch => {
     axios
-    .get(
-      `${config.apiUrl}/api/employees/search?search=${search ||
-        ""}&filter=${JSON.stringify(filter) ||
-        ""}&sort=${sort}&limit=${pageSize}&skip=${(page - 1) * pageSize}`
-    )
+      .get(
+        `${config.apiUrl}/api/employees/search?search=${search ||
+          ""}&filter=${JSON.stringify(filter) ||
+          ""}&sort=${sort}&limit=${pageSize}&skip=${(page - 1) * pageSize}`
+      )
       .then(data => {
         dispatch({
           type: actions.NUM_EMPLOYEE_SUCCESS,
@@ -72,33 +72,51 @@ export const getTaskList = () => {
   return dispatch => {
     axios
       .get(`${config.apiUrl}/api/tasks`)
-      .then(data => {
+      .then(({ data }) => {
         dispatch({
           type: actions.TASKLIST_SUCCESS,
           payload: data.data
         });
       })
-    .catch(err => {
-      dispatch({
-        type: actions.TASKLIST_FAILURE,
-        error: err
+      .catch(err => {
+        dispatch({
+          type: actions.TASKLIST_FAILURE,
+          error: err
+        });
       });
-    });
   };
 };
 
 export const getProperties = () => {
   return dispatch => {
-    axios.get(`${config.apiUrl}/api/properties`).then(data => {
-      dispatch({
-        type: actions.PROPERTIES_SUCCESS,
-        payload: data.data
+    axios
+      .get(`${config.apiUrl}/api/properties`)
+      .then(data => {
+        dispatch({
+          type: actions.PROPERTIES_SUCCESS,
+          payload: data.data
+        });
       })
-    }).catch(err => {
-      dispatch({
-        type: actions.PROPERTIES_FAILURE,
-        error: err
-      })
+      .catch(err => {
+        dispatch({
+          type: actions.PROPERTIES_FAILURE,
+          error: err
+        });
+      });
+  };
+};
+
+export const createEmployee = body => dispatch => {
+  dispatch({ type: actions.EMPLOYEE_STARTED });
+
+  return axios
+    .post(`${config.apiUrl}/api/employees`, body)
+    .then(data => {
+      console.log("in getEmployees success")
+      dispatch(getEmployees())
     })
-  }
-}
+    .catch(err => {
+      console.log("in getEmployees fail")
+      dispatch({ type: actions.EMPLOYEE_FAILURE, error: err });
+    });
+};
