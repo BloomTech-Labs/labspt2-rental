@@ -6,7 +6,6 @@ import { User } from '../resources/user/user.model';
 import { Property } from '../resources/property/property.model';
 import { Task } from '../resources/task/task.model';
 import { Reservation } from '../resources/reservations/reservations.model';
-import { BillingPlan } from '../resources/billingPlan/billingPlan.model';
 
 export default async () => {
   if (config.isProd) {
@@ -22,7 +21,7 @@ export default async () => {
             email: 'owner@roostr.io',
             firstName: faker.name.firstName(),
             lastName: faker.name.lastName(),
-            billingPlan: 'Free',
+            billingPlan: 'free',
             phone: '994-567-4231',
             billingAddress: {
               address1: '1234 Honey Bear Ct',
@@ -293,32 +292,7 @@ export default async () => {
       });
     };
 
-    const seedBillingPlans = new Promise((resolve, reject) => {
-      BillingPlan.create(
-        {
-          name: 'Free',
-          perPropertyPrice: 0
-        },
-        {
-          name: 'Midlevel',
-          perPropertyPrice: 8
-        },
-        {
-          name: 'Enterprise',
-          perPropertyPrice: 5
-        }
-      )
-        .then(created => {
-          resolve(created);
-        })
-        .catch(err => reject(err));
-    });
-
-    const [owner, guest, billingPlan] = await Promise.all([
-      seedowner,
-      seedGuest,
-      seedBillingPlans
-    ]);
+    const [owner, guest] = await Promise.all([seedowner, seedGuest]);
 
     const employee = await seedEmployee(owner._id);
     const properties = await seedProperties(owner._id, employee._id);
@@ -345,16 +319,6 @@ export default async () => {
     console.log('Seeded tasks     :   ', !!tasks[0]);
     console.log('Seeded reservations  :   ', !!reservations[0]);
     console.log('Seeded extra employees:   ', !!employees[1]);
-    console.log('Seeded billing plans :   ', !!billingPlan[2]);
-
-    console.log(
-      'bp1',
-      billingPlan[0],
-      'bp2',
-      billingPlan[1],
-      'bp3',
-      billingPlan[2]
-    );
 
     return tasks;
   }

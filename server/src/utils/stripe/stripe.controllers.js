@@ -5,11 +5,10 @@ import { User } from '../../resources/user/user.model';
 
 const keyPublishable = config.keys.stripePublishable;
 const keySecret = config.keys.stripeSecret;
+const planid = config.keys.stripePlan;
 
 const stripe = stripeModule(keySecret);
-const planid = 'plan_EpLtM3j2EMurWg';
 const propertyQuantity = 2; // get from redux store
-const subscriptionID = '';
 
 let userID = '';
 const userObject = {

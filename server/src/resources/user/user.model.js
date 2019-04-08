@@ -68,7 +68,8 @@ const userSchema = new Schema(
       type: String
     },
     billingPlan: {
-      type: String
+      type: String,
+      enum: ['free', 'upgraded']
     },
     phone: {
       type: String
