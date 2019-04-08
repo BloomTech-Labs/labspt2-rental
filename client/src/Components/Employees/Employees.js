@@ -22,11 +22,13 @@ export default class Employees extends Component {
 
   componentDidMount() {
     this.props.getEmployees({ ...this.query });
+    this.props.getNumberEmployees({ ...this.query });
   }
 
   handleSearchChange = value => {
     this.query.search = value || "";
     this.props.searchEmployees({ ...this.query });
+    this.props.getNumberEmployees({ ...this.query });
   };
 
   handleTabChange = e => {
@@ -36,10 +38,10 @@ export default class Employees extends Component {
       sort: "_id"
     };
     this.props.getEmployees({ ...this.query });
+    this.props.getNumberEmployees({ ...this.query });
   };
 
   handlePageChange = (e, data) => {
-    e.preventDefault();
     this.query.page = data.activePage;
     this.props.getEmployees({ ...this.query });
   };
@@ -48,6 +50,8 @@ export default class Employees extends Component {
     const { tabs } = this.state;
     const { page, pageSize } = this.query;
     const { employees, loading, numPages, tasks, properties } = this.props;
+
+    console.log("page", page, "numPages", numPages)
 
     return (
       <FlexColumn>

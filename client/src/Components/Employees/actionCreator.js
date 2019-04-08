@@ -14,7 +14,6 @@ export const getEmployees = (filterSort = {}) => dispatch => {
     )
     .then(dispatch(getTaskList()))
     .then(dispatch(getProperties()))
-    .then(dispatch(getNumberEmployees(filterSort)))
     .then(({ data }) => {
       dispatch({
         type: actions.EMPLOYEE_SUCCESS,

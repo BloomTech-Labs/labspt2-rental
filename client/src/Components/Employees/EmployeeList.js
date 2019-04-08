@@ -1,12 +1,10 @@
 import React from "react";
-import { Pagination } from "semantic-ui-react";
+import { Pagination, Header } from "semantic-ui-react";
 import { FlexColumn, Divider } from "custom-components";
 import EmployeeListItem from "./EmployeeListItem";
 
 const EmployeeList = props => {
-  const { employees, tasks, properties, handlePageChange } = props;
-
-  console.log(properties);
+  const { employees, tasks, properties, numPages, page, handlePageChange } = props;
 
   if (tasks && properties) {
     const currentTime = Date.now();
@@ -47,13 +45,13 @@ const EmployeeList = props => {
       <Pagination
         onPageChange={handlePageChange}
         className="space-bottom"
-        boundaryRange={1}
-        // defaultActivePage={1}
+        boundaryRange={0}
+        defaultActivePage={page}
         firstItem={null}
         lastItem={null}
         ellipsisItem={null}
         siblingRange={1}
-        totalPages={props.numPages}
+        totalPages={numPages}
       />
       {employees.map(item => (
         <>
