@@ -2,6 +2,7 @@ import { connect } from "react-redux";
 import { getProperties, getProperty } from "./actionCreator";
 import _Properties from "./Properties";
 import _Property from "./Property";
+import _PropertyEdit from "./PropertyEdit";
 import { withRouter } from "react-router-dom";
 
 const mapStateToProps = data => ({
@@ -18,3 +19,4 @@ const connector = connect(
 
 export const Properties = connector(withRouter(_Properties));
 export const Property = connector(withRouter(_Property));
+export const PropertyEdit = connector(withRouter(_PropertyEdit));

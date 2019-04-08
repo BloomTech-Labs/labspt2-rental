@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import { Route, Link, withRouter } from "react-router-dom";
 import { Segment, Menu, Sidebar, Icon, Header, Image } from "semantic-ui-react";
 import { FlexRow, Container } from "custom-components";
-import { Properties, Property } from "../Properties";
+import { Properties, Property, PropertyEdit } from "../Properties";
 import {
   Reservations,
   ReservationAdd,
@@ -119,6 +119,11 @@ class Dashboard extends Component {
                 <Route
                   path="/dashboard/properties/:id"
                   render={() => <Property />}
+                />
+                <Route
+                  exact
+                  path="/dashboard/properties/edit/:id"
+                  render={() => <PropertyEdit />}
                 />
                 {/*<Route path="/dashboard/tasks" render={() => <Tasks/>}/>*/}
                 <Route path="/dashboard/settings" render={() => <Settings />} />
