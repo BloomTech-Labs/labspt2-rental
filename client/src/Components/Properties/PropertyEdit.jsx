@@ -5,9 +5,10 @@ import { Link } from "react-router-dom";
 class PropertyEdit extends Component {
   constructor(props) {
     super(props);
-    this.state = {};
+    this.state = {
+      _id: this.props.match.params.id
+    };
   }
-
   componentDidMount() {
     this.props.getProperties();
   }
@@ -18,9 +19,7 @@ class PropertyEdit extends Component {
 
   handleSubmit = () => {
     this.props.updateProperty(this.state).then(response => {
-      if (response._id) {
-        this.props.history.push("/dashboard/properties");
-      }
+      this.props.history.push(`/dashboard/properties/${this.state._id}`);
     });
   };
 
@@ -28,7 +27,6 @@ class PropertyEdit extends Component {
     const property = this.props.properties.find(
       property => property._id === this.props.match.params.id
     );
-    const propId = property._id;
     return (
       <>
         {property && (
@@ -37,21 +35,21 @@ class PropertyEdit extends Component {
             <Input
               label="Name"
               style={{ margin: "5px" }}
-              // value={property.name}
+              defaultValue={property.name}
               placeholder={property.name}
               onChange={e => this.handleChange("name", e.target.value)}
             />
             <Input
               label="Address"
               style={{ margin: "5px" }}
-              // value={property.address1}
+              defaultValue={property.address1}
               placeholder={property.address1}
               onChange={e => this.handleChange("address1", e.target.value)}
             />
             <Input
               label="Address 2"
               style={{ margin: "5px" }}
-              // value={property.address2}
+              defaultValue={property.address2}
               placeholder={property.address2}
               onChange={e => this.handleChange("address2", e.target.value)}
             />
@@ -60,21 +58,21 @@ class PropertyEdit extends Component {
               <Input
                 label="City"
                 style={{ margin: "5px" }}
-                // value={property.city}
+                defaultValue={property.city}
                 placeholder={property.city}
                 onChange={e => this.handleChange("city", e.target.value)}
               />
               <Input
                 label="State"
                 style={{ margin: "5px" }}
-                // value={property.state}
+                defaultValue={property.state}
                 placeholder={property.state}
                 onChange={e => this.handleChange("state", e.target.value)}
               />
               <Input
                 label="Zip"
                 style={{ margin: "5px" }}
-                // value={property.zip}
+                defaultValue={property.zip}
                 placeholder={property.zip}
                 onChange={e => this.handleChange("zip", e.target.value)}
               />
@@ -82,21 +80,21 @@ class PropertyEdit extends Component {
             <Input
               label="Price per Night"
               style={{ margin: "5px" }}
-              // value={property.price}
+              defaultValue={property.price}
               placeholder={property.price}
               onChange={e => this.handleChange("price", e.target.value)}
             />
             <Input
               label="Max Guests"
               style={{ margin: "5px" }}
-              // value={property.occupants}
+              defaultValue={property.occupants}
               placeholder={property.occupants}
               onChange={e => this.handleChange("occupants", e.target.value)}
             />
             <Input
               label="Image URL"
               style={{ margin: "5px" }}
-              // value={property.image}
+              defaultValue={property.image}
               placeholder={property.image}
               onChange={e => this.handleChange("image", e.target.value)}
             />
