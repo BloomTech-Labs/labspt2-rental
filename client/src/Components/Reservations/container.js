@@ -1,14 +1,42 @@
 import { connect } from "react-redux";
-import { getReservations, searchReservations } from "./actionCreator";
-import Reservations from "./Reservations";
+import {
+  getReservations,
+  searchReservations,
+  createReservation,
+  updateReservation,
+  fetchProperties,
+  fetchEmployees,
+  fetchReservationCount
+} from "./actionCreator";
+import _ReservationEdit from "./ReservationEdit";
+import _ReservationView from "./ReservationView";
+import _Reservations from "./Reservations";
+import _ReservationAdd from "./ReservationAdd";
+import { withRouter } from "react-router-dom";
 
 const mapStateToProps = ({ reservations }) => ({
   reservations: reservations.reservations,
+  properties: reservations.properties,
+  employees: reservations.employees,
   loading: reservations.loading,
-  error: reservations.error
+  error: reservations.error,
+  reservationCount: reservations.reservationCount
 });
 
-export default connect(
+const connector = connect(
   mapStateToProps,
-  { getReservations, searchReservations }
-)(Reservations);
+  {
+    updateReservation,
+    getReservations,
+    fetchProperties,
+    fetchEmployees,
+    searchReservations,
+    createReservation,
+    fetchReservationCount
+  }
+);
+
+export const Reservations = connector(withRouter(_Reservations));
+export const ReservationView = connector(withRouter(_ReservationView));
+export const ReservationEdit = connector(withRouter(_ReservationEdit));
+export const ReservationAdd = connector(withRouter(_ReservationAdd));
