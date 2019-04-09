@@ -42,8 +42,8 @@ class Properties extends Component {
   render() {
     return (
       <FlexColumn width="800px" alignCenter style={{ position: "relative" }}>
-        <FlexRow>
-          <Search />
+        <FlexRow width="100%">
+          <Search width="40%" />
           <DatePicker />
           <Link to="/dashboard/properties/add">
             <Icon
