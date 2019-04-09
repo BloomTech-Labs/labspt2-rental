@@ -10,9 +10,7 @@ class EmployeeSingle extends Component {
     this.state = {};
   }
 
-  componentDidMount() {
-    console.log(this.props);
-  }
+  componentDidMount() {}
 
   render() {
     return <Container>{/* <div>this.state.name</div> */}</Container>;

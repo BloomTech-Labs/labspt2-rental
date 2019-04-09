@@ -189,7 +189,12 @@ export default async () => {
               reservationsArr.push({
                 createdBy: ownerId,
                 assistant: assistantId,
-                guest: guestId,
+                guest: {
+                  firstName: faker.name.firstName(),
+                  lastName: faker.name.lastName(),
+                  phoneNumber: faker.phone.phoneNumber(),
+                  email: faker.internet.email()
+                },
                 property: property._id,
                 checkIn: faker.date.soon(),
                 checkOut: faker.date.future(),
@@ -204,7 +209,12 @@ export default async () => {
               reservationsArr.push({
                 createdBy: ownerId,
                 assistant: assistantId,
-                guest: guestId,
+                guest: {
+                  firstName: faker.name.firstName(),
+                  lastName: faker.name.lastName(),
+                  phoneNumber: faker.phone.phoneNumber(),
+                  email: faker.internet.email()
+                },
                 property: property._id,
                 checkIn: faker.date.recent(),
                 checkOut: faker.date.soon(),
@@ -219,7 +229,12 @@ export default async () => {
               reservationsArr.push({
                 createdBy: ownerId,
                 assistant: assistantId,
-                guest: guestId,
+                guest: {
+                  firstName: faker.name.firstName(),
+                  lastName: faker.name.lastName(),
+                  phoneNumber: faker.phone.phoneNumber(),
+                  email: faker.internet.email()
+                },
                 property: property._id,
                 checkIn: faker.date.past(),
                 checkOut: faker.date.recent(),
@@ -277,7 +292,6 @@ export default async () => {
                   firstName: faker.name.firstName(),
                   lastName: faker.name.lastName()
                 });
-                console.log(employeesArr.length);
               }
 
               // eslint-disable-next-line handle-callback-err

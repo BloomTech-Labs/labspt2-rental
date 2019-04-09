@@ -4,57 +4,51 @@ import {Elements, StripeProvider} from 'react-stripe-elements';
 import CheckoutForm from './updatePlan';
 import {config} from '../../config/dev';
 
-
-// Redux store set billingPlan by string on user object
-
 // Stretch: set the auto chosen button based on billing plan on state
 
 export default class PlanModal extends Component {
-    state = { 
-        open: false,
+  state = {
+    open: false,
+    free: false,
+    midlevel: true,
+    enterprise: true
+  };
+
+  close = () => this.setState({ open: false });
+
+  show = () => this.setState({ open: true });
+
+  handleSubmit = e => {
+    e.preventDefault();
+    if (this.props.customerID) {
+      // update subscription
+    } else {
+      // create subscription if paid upgrade
+    }
+  };
+
+  handleChange = (e, { value }) => {
+    if (value === "free") {
+      this.setState({
         free: false,
         upgraded: true,
      }
-
-    close = () => this.setState({ open: false })
-
-    show = () => this.setState({ open: true })
-
-    handleSubmit = (e) => {
-        e.preventDefault();
-        if(this.props.customerID){
-            // update subscription
-        } else {
-            // create subscription if paid upgrade
-        }
     }
+}
 
-    handleChange = (e, {value}) => {
-        if(value === 'free'){
-            this.setState({
-                free: false,
-                upgraded: true,
-            })
-        } else {
-            this.setState({
-                free: true,
-                upgraded: false,
-            })
-        }
-    }
+  render() {
+    const { open } = this.state;
 
-    render () {
-        const { open } = this.state;
+    return (
+      <div>
+        <Button basic color="blue" onClick={this.show}>
+          Update Plan
+        </Button>
 
-        return (
-            <div>
-                <Button basic color="blue" onClick={this.show}>Update Plan</Button>
+        <Modal open={open} onClose={this.close}>
+          <Modal.Header>Choose Your Monthly Billing Plan</Modal.Header>
 
-                <Modal open={open} onClose={this.close}>
-                <Modal.Header>Choose Your Monthly Billing Plan</Modal.Header>
-
-                    <Modal.Content>
-
+          <Modal.Content>
             <Segment>
                 <Grid centered divided columns={2}>
 
@@ -83,12 +77,10 @@ export default class PlanModal extends Component {
             <StripeProvider apiKey={config.stripeApiKey}>
                 <Elements>
                 <CheckoutForm close={this.close} />
-                </Elements>
+              </Elements>
             </StripeProvider>
-
+          </Modal.Content>
                         
-                    </Modal.Content>
-
                     <Modal.Actions>
 
                     </Modal.Actions>

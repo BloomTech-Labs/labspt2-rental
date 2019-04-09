@@ -1,75 +1,85 @@
-import React, { Component } from 'react';
+import React, { Component } from "react";
 import { Header, Tab, Icon, Segment } from "semantic-ui-react";
 import { FlexColumn, FlexRow } from "custom-components";
 import Search from "../shared/Search/Search";
-import TaskList from './TaskList';
+import TaskList from "./TaskList";
 
 class Tasks extends Component {
   constructor(props) {
     super(props);
-      this.state = {
-        loading: false,
-        error: false,
-        tabs: ["Overdue", "Due Today", "Upcoming"],
-        search: "",
-        filter: { status: "due today" }
-      };
-    }
-    
-    componentDidMount() {
-      // const { filter } = this.state;
-      // this.props.getTasks({ filter });
-      this.props.getTasks();
-    }
 
-    handleSearchChange = value => {
-      const search = value || "";
-      this.setState({ search });
-      // this.props.searchTasks({ filter });
-    }
+    this.query = {
+      search: "",
+      filter: { status: "due today" },
+      sort: "_id"
+    };
 
-    handleTabChange = (e, data) => {
-      const { tabs } = this.state;
-      const filter = { status: tabs[data.activeIndex] };
-      this.setState({ filter });
-      this.props.getTasks({ filter });
-      // const filter = { status: tabs[data.activeIndex].toLowerCase() };
-      // this.setState({ filter });
-      // this.props.getTasks({ filter });
-    }
+    this.state = {
+      tabs: ["Overdue", "Due Today", "Upcoming"]
+    };
+  }
 
-  render () {
+  componentDidMount() {
+    const { sort, filter } = this.query;
+    this.props.getTasks({ sort, filter });
+    // this.props.fetchTaskCount("upcoming");
+  }
 
+  handleSearchChange = value => {
+    this.query.search = value || "";
+    this.props.searchTasks({ ...this.query });
+  };
+
+  handleTabChange = (e, data) => {
     const { tabs } = this.state;
-    const { tasks : { tasks, loading } } = this.props;
+    const activeTab = tabs[data.activeIndex].toLowerCase();
+    this.query.filter = { status: activeTab };
+    this.props.getTasks({ ...this.query });
+    // this.props.fetchTaskCount(activeTab);
+  };
+
+  handlePageChange = (event, data) => {
+    this.props.getTasks({ ...this.query });
+  };
+
+  render() {
+    const { tabs } = this.state;
+    const {
+      tasks: { tasks, loading }
+    } = this.props;
 
     return (
       <FlexColumn>
-        <FlexRow>
+        <FlexRow width="100%" justifyBetween style={{ alignItems: "baseline" }}>
           <Header as="h1">Tasks</Header>
+          <Segment style={{ marginBottom: "14px" }}>
+            <Icon name="add" />
+          </Segment>
         </FlexRow>
-          <Tab
-            onTabChange={this.handleTabChange}
-            menu={{ attached: false }}
-            panes={[
-              ...tabs.map(tab => ({
-                menuItem: tab,
-                render: () => (
-                  <Tab.Pane attached={false}>
-                    <TaskList 
-                      status={tab}
-                      tasks={tasks}
-                    />
-                  </Tab.Pane>
-                )
-              })),
-              {
-                menuItem: <Search onChange={this.handleSearchChange} />
-              }
-            ]}
-          />
+
+        <Tab
+          onTabChange={this.handleTabChange}
+          menu={{ attached: false }}
+          panes={[
+            ...tabs.map(tab => ({
+              menuItem: tab,
+              render: () => (
+                <Tab.Pane attached={false}>
+                  <TaskList
+                    status={tab}
+                    tasks={tasks}
+                    handlePageChange={this.handlePageChange}
+                  />
+                </Tab.Pane>
+              )
+            })),
+            {
+              menuItem: <Search onChange={this.handleSearchChange} />
+            }
+          ]}
+        />
       </FlexColumn>
-    )
+    );
   }
 }
 

@@ -1,2 +1,3 @@
-export { default as Employee } from "./container";
+export { Employees } from "./container";
+export { EmployeeAdd } from "./container";
 export { default as EmployeeSingle } from "./EmployeeSingle";
