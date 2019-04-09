@@ -1,5 +1,5 @@
 import React from "react";
-import InfoCard from "../../shared/Card/InfoCard";
+import InfoCard from "../shared/Card/InfoCard";
 
 const PropertyCard = props => {
   return (
@@ -12,6 +12,7 @@ const PropertyCard = props => {
       lineOneInfo={props.address}
       lineTwoInfo={props.assistants}
       lineThreeInfo={props.occupants}
+      linkto={props.linkto}
     />
   );
 };

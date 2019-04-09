@@ -9,10 +9,10 @@ const EmployeeListItem = props => {
       lineOneTitle="Tasks Due Today"
       lineTwoTitle="OverDue Tasks"
       lineThreeTitle="Assigned Properties"
-      lineOneInfo={props.employee.todayTasks}
-      lineTwoInfo={props.employee.overdueTasks}
+      lineOneInfo={props.employee.todayTask}
+      lineTwoInfo={props.employee.overdue}
       lineThreeInfo={props.employee.properties}
-      buttonFunction={() => props.clickHandler(props.employee.userID)}
+      linkto={`/dashboard/employees/${props.employee._id}`}
     />
   );
 };

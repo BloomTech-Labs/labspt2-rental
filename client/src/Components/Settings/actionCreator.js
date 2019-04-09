@@ -12,24 +12,27 @@ import config from "../../config/index";
 export const getUser = user => {
   return async dispatch => {
     dispatch({ type: actions.USER_STARTED });
-    try{
-      const user = await axios.get(`${config.apiUrl}/api/users/me`)
+    try {
+      const user = await axios.get(`${config.apiUrl}/api/users/me`);
       dispatch({
         type: actions.USER_SUCCESS,
         payload: user.data.data
-      })
+      });
     } catch (err) {
       console.error(err);
       dispatch({ type: actions.USER_ERROR, payload: err });
     }
-  }
-}
+  };
+};
 
 export const updateUser = user => {
   return async dispatch => {
     dispatch({ type: actions.USER_STARTED });
     try {
-      const updatedUser = await axios.put(`${config.apiUrl}/api/users/me`, user);
+      const updatedUser = await axios.put(
+        `${config.apiUrl}/api/users/me`,
+        user
+      );
       dispatch({
         type: actions.USER_SUCCESS,
         payload: updatedUser.data.data
@@ -45,7 +48,10 @@ export const updatePassword = password => {
   return async dispatch => {
     dispatch({ type: actions.USER_STARTED });
     try {
-      const updatedPassword = await axios.put(`${config.apiUrl}/api/users/me/pass`, password);
+      const updatedPassword = await axios.put(
+        `${config.apiUrl}/api/users/me/pass`,
+        password
+      );
       dispatch({
         type: actions.USER_SUCCESS,
         payload: updatedPassword.data.data

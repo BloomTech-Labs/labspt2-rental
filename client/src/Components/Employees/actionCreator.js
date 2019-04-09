@@ -12,10 +12,12 @@ export const getEmployees = (filterSort = {}) => dispatch => {
       `${config.apiUrl}/api/employees?filter=${JSON.stringify(filter) ||
         ""}&sort=${sort}&limit=${pageSize}&skip=${(page - 1) * pageSize}`
     )
+    .then(dispatch(getTaskList()))
+    .then(dispatch(getProperties()))
     .then(({ data }) => {
       dispatch({
         type: actions.EMPLOYEE_SUCCESS,
-        employees: data.data
+        payload: data.data
       });
     })
     .catch(err => {
@@ -34,8 +36,9 @@ export const searchEmployees = (filterSort = {}) => dispatch => {
         ""}&filter=${JSON.stringify(filter) ||
         ""}&sort=${sort}&limit=${pageSize}&skip=${(page - 1) * pageSize}`
     )
+    .then(dispatch(getNumberEmployees(filterSort)))
     .then(({ data }) => {
-      dispatch({ type: actions.EMPLOYEE_SUCCESS, employees: data.data });
+      dispatch({ type: actions.EMPLOYEE_SUCCESS, payload: data.data });
     })
     .catch(err => {
       dispatch({ type: actions.EMPLOYEE_FAILURE, error: err });
@@ -44,25 +47,76 @@ export const searchEmployees = (filterSort = {}) => dispatch => {
 
 export const getNumberEmployees = (filterSort = {}) => {
   const { filter, sort, page, search } = filterSort;
-  const pageSize=10000
+  const pageSize = 10000;
 
   return dispatch => {
     axios
-    .get(
-      `${config.apiUrl}/api/employees/search?search=${search ||
-        ""}&filter=${JSON.stringify(filter) ||
-        ""}&sort=${sort}&limit=${pageSize}&skip=${(page - 1) * pageSize}`
-    )
+      .get(
+        `${config.apiUrl}/api/employees/search?search=${search ||
+          ""}&filter=${JSON.stringify(filter) ||
+          ""}&sort=${sort}&limit=${pageSize}&skip=${(page - 1) * pageSize}`
+      )
       .then(data => {
-        console.log(data.data.data, filterSort)
-
         dispatch({
           type: actions.NUM_EMPLOYEE_SUCCESS,
-          number: data.data.data.length
+          payload: data.data.data.length
         });
       })
       .catch(err => {
         dispatch({ type: actions.NUM_EMPLOYEE_FAIL, error: err });
       });
   };
+};
+
+export const getTaskList = () => {
+  return dispatch => {
+    axios
+      .get(`${config.apiUrl}/api/tasks`)
+      .then(({ data }) => {
+        dispatch({
+          type: actions.TASKLIST_SUCCESS,
+          payload: data.data
+        });
+      })
+      .catch(err => {
+        dispatch({
+          type: actions.TASKLIST_FAILURE,
+          error: err
+        });
+      });
+  };
+};
+
+export const getProperties = () => {
+  return dispatch => {
+    axios
+      .get(`${config.apiUrl}/api/properties`)
+      .then(data => {
+        dispatch({
+          type: actions.PROPERTIES_SUCCESS,
+          payload: data.data
+        });
+      })
+      .catch(err => {
+        dispatch({
+          type: actions.PROPERTIES_FAILURE,
+          error: err
+        });
+      });
+  };
+};
+
+export const createEmployee = body => dispatch => {
+  dispatch({ type: actions.EMPLOYEE_STARTED });
+
+  return axios
+    .post(`${config.apiUrl}/api/employees`, body)
+    .then(data => {
+      console.log("in getEmployees success");
+      dispatch(getEmployees());
+    })
+    .catch(err => {
+      console.log("in getEmployees fail");
+      dispatch({ type: actions.EMPLOYEE_FAILURE, error: err });
+    });
 };

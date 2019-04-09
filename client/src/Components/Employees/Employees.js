@@ -27,8 +27,8 @@ export default class Employees extends Component {
 
   handleSearchChange = value => {
     this.query.search = value || "";
-    this.props.getNumberEmployees({ ...this.query });
     this.props.searchEmployees({ ...this.query });
+    this.props.getNumberEmployees({ ...this.query });
   };
 
   handleTabChange = e => {
@@ -38,10 +38,10 @@ export default class Employees extends Component {
       sort: "_id"
     };
     this.props.getEmployees({ ...this.query });
+    this.props.getNumberEmployees({ ...this.query });
   };
 
   handlePageChange = (e, data) => {
-    e.preventDefault();
     this.query.page = data.activePage;
     this.props.getEmployees({ ...this.query });
   };
@@ -49,7 +49,9 @@ export default class Employees extends Component {
   render() {
     const { tabs } = this.state;
     const { page, pageSize } = this.query;
-    const { employees, loading, numPages } = this.props;
+    const { employees, loading, numPages, tasks, properties } = this.props;
+
+    console.log("page", page, "numPages", numPages);
 
     return (
       <FlexColumn>
@@ -62,19 +64,17 @@ export default class Employees extends Component {
               menuItem: tab,
               render: () => (
                 <Tab.Pane attached={false}>
-                  {loading ? (
-                    <div>Loading...Please Wait</div>
-                  ) : (
-                    <EmployeeList
-                      key={tab + index}
-                      status={tab}
-                      employees={employees}
-                      page={page}
-                      pageSize={pageSize}
-                      numPages={numPages}
-                      handlePageChange={this.handlePageChange}
-                    />
-                  )}
+                  <EmployeeList
+                    key={tab + index}
+                    status={tab}
+                    employees={employees}
+                    tasks={tasks}
+                    properties={properties}
+                    page={page}
+                    pageSize={pageSize}
+                    numPages={numPages}
+                    handlePageChange={this.handlePageChange}
+                  />
                 </Tab.Pane>
               )
             })),

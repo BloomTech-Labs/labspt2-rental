@@ -95,7 +95,7 @@ export class BaseController {
     if (filter) {
       pipeline.push({ $match: filter });
     }
-    
+
     if (req.query.filter) {
       const filter = { $match: JSON.parse(req.query.filter) };
       pipeline.push(filter);
