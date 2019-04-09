@@ -7,35 +7,39 @@ import TaskList from './TaskList';
 class Tasks extends Component {
   constructor(props) {
     super(props);
-      this.state = {
-        loading: false,
-        error: false,
-        tabs: ["Overdue", "Due Today", "Upcoming"],
+      
+    this.query = {
         search: "",
-        filter: { status: "due today" }
+        filter: { status: "due today" }, 
+        sort: "_id"
       };
+
+    this.state = {
+      tabs: ["Overdue", "Due Today", "Upcoming"],
     }
+  }
     
     componentDidMount() {
-      // const { filter } = this.state;
-      // this.props.getTasks({ filter });
-      this.props.getTasks();
+      const { sort, filter } = this.query;
+      this.props.getTasks({ sort, filter });
+      // this.props.fetchTaskCount("upcoming");
     }
 
     handleSearchChange = value => {
-      const search = value || "";
-      this.setState({ search });
-      // this.props.searchTasks({ filter });
+      this.query.search = value || "";
+      this.props.searchTasks({ ...this.query });
     }
 
     handleTabChange = (e, data) => {
       const { tabs } = this.state;
-      const filter = { status: tabs[data.activeIndex] };
-      this.setState({ filter });
-      this.props.getTasks({ filter });
-      // const filter = { status: tabs[data.activeIndex].toLowerCase() };
-      // this.setState({ filter });
-      // this.props.getTasks({ filter });
+      const activeTab = tabs[data.activeIndex].toLowerCase();
+      this.query.filter = { status: activeTab };
+      this.props.getTasks({ ...this.query });
+      // this.props.fetchTaskCount(activeTab);
+    }
+
+    handlePageChange = (event, data) => {
+      this.props.getTasks({ ...this.query });
     }
 
   render () {
@@ -45,29 +49,34 @@ class Tasks extends Component {
 
     return (
       <FlexColumn>
-        <FlexRow>
-          <Header as="h1">Tasks</Header>
+        <FlexRow width='100%' justifyBetween style={{alignItems: "baseline"}}>
+        <Header as="h1">Tasks</Header>
+        <Segment style={{marginBottom: "14px"}}>
+          <Icon name='add'></Icon>
+        </Segment>
         </FlexRow>
-          <Tab
-            onTabChange={this.handleTabChange}
-            menu={{ attached: false }}
-            panes={[
-              ...tabs.map(tab => ({
-                menuItem: tab,
-                render: () => (
-                  <Tab.Pane attached={false}>
-                    <TaskList 
-                      status={tab}
-                      tasks={tasks}
-                    />
-                  </Tab.Pane>
-                )
-              })),
-              {
-                menuItem: <Search onChange={this.handleSearchChange} />
-              }
-            ]}
-          />
+      
+        <Tab
+          onTabChange={this.handleTabChange}
+          menu={{ attached: false }}
+          panes={[
+            ...tabs.map(tab => ({
+              menuItem: tab,
+              render: () => (
+                <Tab.Pane attached={false}>
+                  <TaskList 
+                    status={tab}
+                    tasks={tasks}
+                    handlePageChange={this.handlePageChange}
+                  />
+                </Tab.Pane>
+              )
+            })),
+            {
+              menuItem: <Search onChange={this.handleSearchChange} />
+            }
+          ]}
+        />
       </FlexColumn>
     )
   }

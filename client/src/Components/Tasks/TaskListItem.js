@@ -1,5 +1,5 @@
 import React from "react";
-import { FlexRow, FlexColumn, Divider } from "custom-components";
+import { FlexRow, FlexColumn } from "custom-components";
 import moment from "moment";
 import { Checkbox, Label } from 'semantic-ui-react';
 import Tasks from "./Tasks";
@@ -17,7 +17,6 @@ const TaskListItem = ({ task }) => {
         <Label color='purple'>{task.property.name}</Label>
       </FlexColumn>
     </FlexRow>
-
   )
 }
 
