@@ -69,15 +69,17 @@ export const addProperty = (body = {}) => dispatch => {
   dispatch({ type: actions.PROPERTY_STARTED });
   return axios
     .post(`${config.apiUrl}/api/properties`, body)
-    .then(({ response }) => {
+    .then(response => {
+      console.log(response);
       dispatch({
         type: actions.ADD_PROPERTY_SUCCESS,
         payload: response.data
-      }).catch(err => {
-        dispatch({
-          type: actions.PROPERTY_FAILURE,
-          payload: err
-        });
+      });
+    })
+    .catch(err => {
+      dispatch({
+        type: actions.PROPERTY_FAILURE,
+        payload: err
       });
     });
 };
@@ -86,7 +88,7 @@ export const getEmployees = () => dispatch => {
   dispatch({ type: actions.PROPERTY_STARTED });
   return axios
     .get(`${config.apiUrl}/api/employees`)
-    .then(({ response }) => {
+    .then(response => {
       dispatch({
         type: actions.EMPLOYEES_SUCCESS,
         payload: response.data

@@ -21,7 +21,8 @@ class PropertyAdd extends Component {
 
   handleSubmit = () => {
     this.props.addProperty(this.state).then(response => {
-      this.props.history.push(`/dashboard/properties/${response._id}`);
+      console.log(response);
+      this.props.history.push(`/dashboard/properties/`);
     });
   };
   render() {
