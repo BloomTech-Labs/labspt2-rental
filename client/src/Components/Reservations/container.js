@@ -3,10 +3,12 @@ import {
   getReservations,
   searchReservations,
   createReservation,
+  updateReservation,
   fetchProperties,
   fetchEmployees,
   fetchReservationCount
 } from "./actionCreator";
+import _ReservationEdit from "./ReservationEdit";
 import _ReservationView from "./ReservationView";
 import _Reservations from "./Reservations";
 import _ReservationAdd from "./ReservationAdd";
@@ -24,6 +26,7 @@ const mapStateToProps = ({ reservations }) => ({
 const connector = connect(
   mapStateToProps,
   {
+    updateReservation,
     getReservations,
     fetchProperties,
     fetchEmployees,
@@ -35,4 +38,5 @@ const connector = connect(
 
 export const Reservations = connector(withRouter(_Reservations));
 export const ReservationView = connector(withRouter(_ReservationView));
+export const ReservationEdit = connector(withRouter(_ReservationEdit));
 export const ReservationAdd = connector(withRouter(_ReservationAdd));

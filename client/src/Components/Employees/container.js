@@ -1,16 +1,30 @@
 import { connect } from "react-redux";
-import { getEmployees } from "./actionCreator";
-import EmployeeList from "./EmployeeList";
+import { withRouter } from "react-router-dom";
 
-const mapStateToProps = state => {
-  return {
-    employees: state.employees,
-    loading: state.loading,
-    error: state.error
-  };
+import {
+  getEmployees,
+  searchEmployees,
+  getNumberEmployees,
+  getTaskList,
+  createEmployee
+} from "./actionCreator";
+import _Employees from "./Employees";
+import _EmployeeAdd from "./EmployeeAdd";
+
+const mapStateToProps = ({ employees }) => {
+  return employees;
 };
 
-export default connect(
+const connector = connect(
   mapStateToProps,
-  { getEmployees }
-)(EmployeeList);
+  {
+    getEmployees,
+    searchEmployees,
+    getNumberEmployees,
+    getTaskList,
+    createEmployee
+  }
+);
+
+export const Employees = connector(withRouter(_Employees));
+export const EmployeeAdd = connector(withRouter(_EmployeeAdd));

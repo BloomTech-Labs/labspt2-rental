@@ -1,12 +1,17 @@
 import React from "react";
-import { Header, Image, Card, Button } from "semantic-ui-react";
+import { Header, Image, Card, Button, Icon } from "semantic-ui-react";
 import { FlexRow, FlexColumn } from "custom-components";
+import { Link } from "react-router-dom";
 
 const InfoCard = props => {
   return (
     <Card className="info-card-main" style={{ width: "60%" }} raised>
       <FlexRow alignCenter justifyBetween>
-        <Image src={props.imageLoc} size="small" />
+        {props.imageLoc ? (
+          <Image src={props.imageLoc} size="small" />
+        ) : (
+          <Icon className="space-left-20" name="user circle" size="massive" />
+        )}
         <FlexColumn
           className="space-left-20"
           style={{ width: "60%", padding: "5px" }}
@@ -35,7 +40,9 @@ const InfoCard = props => {
             ) : null}
           </FlexRow>
         </FlexColumn>
-        <Button onClick={props.buttonFunction}>More Info</Button>
+        <Link to={props.linkto}>
+          <Button onClick={props.buttonFunction}>More Info</Button>
+        </Link>
       </FlexRow>
     </Card>
   );

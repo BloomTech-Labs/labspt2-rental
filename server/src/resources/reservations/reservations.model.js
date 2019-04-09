@@ -73,7 +73,7 @@ const reservationSchema = new Schema(
       required: true
     }
   },
-  { timestamps: true }
+  { timestamps: true, versionKey: false }
 );
 
 reservationSchema.plugin(require('mongoose-autopopulate'));

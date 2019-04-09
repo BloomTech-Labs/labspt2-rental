@@ -1,70 +1,84 @@
-import React, { Component } from "react";
-import { Button, Icon, Input } from "semantic-ui-react";
-import { FlexRow, FlexColumn } from "custom-components";
+import React from "react";
+import { Pagination, Button } from "semantic-ui-react";
+import { FlexColumn, Divider, FlexRow } from "custom-components";
 import EmployeeListItem from "./EmployeeListItem";
-import EmployeeSingle from "./EmployeeSingle";
+import { Link } from "react-router-dom";
 
-class EmployeeList extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      owner: true,
-      searchText: ""
-    };
+const EmployeeList = props => {
+  const {
+    employees,
+    tasks,
+    properties,
+    numPages,
+    page,
+    handlePageChange
+  } = props;
+
+  if (tasks && properties) {
+    const currentTime = Date.now();
+    const newTasks = [];
+    tasks.forEach(item => {
+      const newTaskData = {};
+      if (Date.parse(item.endDate) < currentTime) {
+        newTaskData.overdue = true;
+      } else if (Date.parse(item.startDate) < currentTime) {
+        newTaskData.todayTask = true;
+      }
+      newTaskData.employee = item.assignedTo._id;
+      newTasks.push(newTaskData);
+    });
+    employees.forEach(employee => {
+      employee.overdue = 0;
+      employee.todayTask = 0;
+      employee.properties = 0;
+      newTasks.forEach(task => {
+        if (task.employee === employee._id) {
+          if (task.overdue) {
+            employee.overdue++;
+          } else if (task.todayTask) {
+            employee.todayTask++;
+          }
+        }
+      });
+      properties.forEach(property => {
+        if (property.assistants.includes(employee._id)) {
+          employee.properties++;
+        }
+      });
+    });
   }
 
-  componentDidMount() {
-    // here we'll grab the role and securities of the user
-    this.props.getEmployees();
-  }
-
-  searchChangeHandler = e => {
-    this.setState({ searchText: e.target.value });
-  };
-
-  cardHandleClick = id => {
-    this.props.history.push(`/dashboard/employees/${id}`);
-  };
-
-  render() {
-    return (
-      <FlexColumn style={{ width: "full", maxWidth: "880px" }}>
-        <FlexRow justifyBetween style={{ width: "90%" }}>
-          <Input
-            style={{ width: "80%" }}
-            icon="address card"
-            iconPosition="left"
-            placeholder="Name, City, Property Name"
-            onChange={this.searchChangeHandler}
+  return (
+    <FlexColumn width="800px" alignCenter style={{ position: "relative" }}>
+      <FlexRow>
+        <Pagination
+          onPageChange={handlePageChange}
+          className="space-bottom"
+          boundaryRange={0}
+          defaultActivePage={page}
+          firstItem={null}
+          lastItem={null}
+          ellipsisItem={null}
+          siblingRange={1}
+          totalPages={numPages}
+        />
+        <Link to="/dashboard/employees/add">
+          <Button
+            className="space-left-20"
+            circular
+            icon="plus"
+            color="orange"
           />
-          {this.state.searchText ? (
-            <Button basic attached="right">
-              Clear
-            </Button>
-          ) : null}
-          {this.state.owner ? (
-            <Button icon>
-              <Icon name="plus circle" />
-            </Button>
-          ) : null}
-        </FlexRow>
-        {console.log(this.props)}
-        {this.props.employees.loading ? (
-          <div>Loading...</div>
-        ) : (
-          this.props.employees.employees.map(employee => {
-            return (
-              <EmployeeListItem
-                key={employee.userID}
-                employee={employee}
-                clickHandler={this.cardHandleClick}
-              />
-            );
-          })
-        )}
-      </FlexColumn>
-    );
-  }
-}
+        </Link>
+      </FlexRow>
+      {employees.map(item => (
+        <>
+          <EmployeeListItem key={item._id} employee={item} />
+          <Divider />
+        </>
+      ))}
+    </FlexColumn>
+  );
+};
 
 export default EmployeeList;

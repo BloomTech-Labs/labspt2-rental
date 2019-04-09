@@ -2,9 +2,14 @@ import React, { Component } from "react";
 import { Route, Link, withRouter } from "react-router-dom";
 import { Segment, Menu, Sidebar, Icon, Header, Image } from "semantic-ui-react";
 import { FlexRow, Container } from "custom-components";
-import { Reservations, ReservationAdd, ReservationView } from "../Reservations";
-import { Properties } from "../Properties/PropList";
-import { EmployeeList, EmployeeSingle } from "../Employees";
+import { Properties, Property, PropertyEdit, PropertyAdd } from "../Properties";
+import {
+  Reservations,
+  ReservationAdd,
+  ReservationView,
+  ReservationEdit
+} from "../Reservations";
+import { EmployeeSingle, EmployeeAdd, Employees } from "../Employees";
 import { Checkout } from "../Checkout";
 import { Tasks } from "../Tasks";
 import { Settings } from "../Settings";
@@ -73,12 +78,19 @@ class Dashboard extends Component {
                   render={() => <Reservations />}
                 />
                 <Route
+                  exact
                   path="/dashboard/reservations/add"
                   render={() => <ReservationAdd />}
                 />
                 <Route
+                  exact
                   path="/dashboard/reservations/view/:id"
                   render={() => <ReservationView />}
+                />
+                <Route
+                  exact
+                  path="/dashboard/reservations/edit/:id"
+                  render={() => <ReservationEdit />}
                 />
                 <Route
                   exact
@@ -86,8 +98,13 @@ class Dashboard extends Component {
                   render={() => <Checkout />}
                 />
                 <Route
+                  exact
                   path="/dashboard/employees"
-                  render={props => <EmployeeList {...props} />}
+                  render={() => <Employees />}
+                />
+                <Route
+                  path="/dashboard/employees/add"
+                  render={() => <EmployeeAdd />}
                 />
                 <Route
                   path="/dashboard/employees/:id"
@@ -99,8 +116,23 @@ class Dashboard extends Component {
                 <Route path="/dashboard/tasks" render={() => <Tasks />} />
 
                 <Route
+                  exact
                   path="/dashboard/properties"
                   render={() => <Properties />}
+                />
+                <Route
+                  path="/dashboard/properties/:id"
+                  render={() => <Property />}
+                />
+
+                <Route
+                  exact
+                  path="/dashboard/properties/edit/:id"
+                  render={() => <PropertyEdit />}
+                />
+                <Route
+                  path="/dashboard/properties/add"
+                  render={() => <PropertyAdd />}
                 />
                 {/*<Route path="/dashboard/tasks" render={() => <Tasks/>}/>*/}
                 <Route path="/dashboard/settings" render={() => <Settings />} />

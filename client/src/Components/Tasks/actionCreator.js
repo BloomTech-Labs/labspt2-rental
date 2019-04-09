@@ -1,4 +1,4 @@
-import axios from 'axios';
+import axios from "axios";
 import * as actions from "./actions";
 import config from "config";
 
@@ -16,10 +16,11 @@ export const getTasks = () => {
           payload: response.data
         });
       })
-    .catch(err => {
-      dispatch({
-        type: actions.FETCH_TASK_FAILURE,
-        error: err
+      .catch(err => {
+        dispatch({
+          type: actions.FETCH_TASK_FAILURE,
+          error: err
+        });
       });
       console.log(err);
     });

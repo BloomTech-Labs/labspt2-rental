@@ -1,3 +1,5 @@
+/* eslint-disable promise/param-names */
+/* eslint-disable prefer-promise-reject-errors */
 import faker from 'faker';
 import config from '../config';
 import { User } from '../resources/user/user.model';
@@ -164,6 +166,7 @@ export default async () => {
                 })
               );
             }
+
             // eslint-disable-next-line promise/catch-or-return
             Promise.all(promiseArr).then(([insertedTasks]) =>
               resolve(insertedTasks)
@@ -344,14 +347,14 @@ export default async () => {
     console.log('Seeded extra employees:   ', !!employees[1]);
     console.log('Seeded billing plans :   ', !!billingPlan[2]);
 
-    // console.log(
-    //  'bp1',
-    //  billingPlan[0],
-    //  'bp2',
-    //  billingPlan[1],
-    //  'bp3',
-    //  billingPlan[2]
-    // );
+    console.log(
+      'bp1',
+      billingPlan[0],
+      'bp2',
+      billingPlan[1],
+      'bp3',
+      billingPlan[2]
+    );
 
     return tasks;
   }
