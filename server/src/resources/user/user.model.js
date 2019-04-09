@@ -71,6 +71,9 @@ const userSchema = new Schema(
       type: String,
       enum: ['free', 'upgraded']
     },
+    cardID: {
+      type: String
+    },
     phone: {
       type: String
     },

@@ -8,13 +8,14 @@ const keySecret = config.keys.stripeSecret;
 const planid = config.keys.stripePlan;
 
 const stripe = stripeModule(keySecret);
-const propertyQuantity = 2; // get from redux store
 
 let userID = '';
 const userObject = {
   stripeCustomerID: '',
   subscriptionID: '',
-  subscriptionItemID: ''
+  subscriptionItemID: '',
+  cardID: '',
+  billingPlan: 'upgraded'
 };
 
 export const render = async (req, res, next) => {
@@ -34,6 +35,8 @@ const createSubscription = async (err, customer, res) => {
       .json({ message: 'Failed to create new customer', err });
   } else {
     userObject.stripeCustomerID = customer.id;
+    console.log('card id?', customer.sources.data[0].id);
+    userObject.cardID = customer.sources.data[0].id;
     stripe.subscriptions.create(
       {
         customer: customer.id,
@@ -77,49 +80,15 @@ const updateUserWithStripeInfo = async (err, res) => {
         .exec();
 
       console.log('updated user', user);
-      // Will not update quantity; just billing plan. Only update usage on subscription when the user actually creates/deletes properties.
 
-      const usage = await createUsageRecord(err, user, res);
-      if (usage) {
-        return res.status(200).send(usage);
-      } else if (err != null) {
-        return res
-          .status(500)
-          .json({ message: 'Failed to create usage record', err });
+      if (user) {
+        return res.status(201).send(user);
       }
     } catch (err) {
       return res
         .status(500)
         .json({ message: 'Failed to updated user record', err });
     }
-  }
-};
-
-const createUsageRecord = async (err, user, res) => {
-  if (err && err != null) {
-    return res.status(500).json({
-      message: 'Failed to update user with stripe info',
-      err
-    });
-  } else {
-    const currentDate = Math.floor(Date.now() / 1000);
-    stripe.usageRecords.create(
-      user.subscriptionItemID,
-      {
-        quantity: 2,
-        timestamp: currentDate
-      },
-      (err, usageRecord) => {
-        if (err && err != null) {
-          return res.status(500).json({
-            message: 'Failed to send usage record updating subscription',
-            err
-          });
-        } else {
-          return res.status(200).send(usageRecord);
-        }
-      }
-    );
   }
 };
 
@@ -134,7 +103,6 @@ const createUsageRecord = async (err, user, res) => {
 export const subscribe = async (req, res) => {
   try {
     userID = req.user._id;
-    console.log('billing plan?', req.body.updatedPlan);
 
     const {
       id,
@@ -173,39 +141,43 @@ export const subscribe = async (req, res) => {
   }
 };
 
-export const updateSubscription = async (req, res) => {
-  try {
-    stripe.subscriptions
-      .update(
-        `${subscriptionID}`,
-        {
-          items: {
-            plan: planid,
-            quantity: propertyQuantity
-          }
-        },
-        (err, subscription) => {
-          if (err) {
-            console.log(err);
-            return res.status(500).json(err);
-          } else {
-            // helper function to update
-            return res.status(201).json(subscription);
-          }
-        }
-      )
-      .then(() => {
-        return res
-          .status(201)
-          .json({ message: 'Successful subscription update!' });
-      })
-      .catch(err => {
-        return res.status(500).json(err);
-      });
-  } catch (err) {
-    console.log(err);
-    res.status(500).end();
+// Used for updating the quantity of properties on the user object and sending the updated usage amount to Stripe for adjusting their monthly subscription charge
+
+export const updateUsage = async (req, res) => {
+  userID = req.body._id;
+  const userInfo = {
+    quantity: req.body.quantity,
+    subscriptionItemID: req.body.subscriptionItemID
+  };
+
+  const updatedUsage = await createUsageRecord(userInfo, res);
+  if (updatedUsage) {
+    // Add property information to the database
+    return res.status(201).json(updatedUsage);
+  } else {
+    return res.status(500).json({ message: 'Unable to update usage record' });
   }
+};
+
+const createUsageRecord = async (user, res) => {
+  const currentDate = Math.floor(Date.now() / 1000);
+  stripe.usageRecords.create(
+    user.subscriptionItemID,
+    {
+      quantity: user.quantity,
+      timestamp: currentDate
+    },
+    (err, usageRecord) => {
+      if (err && err != null) {
+        return res.status(500).json({
+          message: 'Failed to send usage record updating subscription',
+          err
+        });
+      } else {
+        return res.status(201).send(usageRecord);
+      }
+    }
+  );
 };
 
 // allows customer to update their CC information on file

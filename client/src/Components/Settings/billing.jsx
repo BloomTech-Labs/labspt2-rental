@@ -74,19 +74,14 @@ export default class Billing extends Component {
 }
 
 const billingPlans = {
-    Free : { _id: '5ca5930aae431b84bad59a4f',
+    free : { _id: '5ca5930aae431b84bad59a4f',
         name: 'Free',
         perPropertyPrice: 0,
         description: 'One property'
         },
-    Midlevel : { _id: '5ca5930aae431b84bad59a50',
+    upgraded : { _id: '5ca5930aae431b84bad59a50',
         name: 'Midlevel',
         perPropertyPrice: 8,
         description: '$8 per rental property'
-        },
-    Enterprise : { _id: '5ca5930aae431b84bad59a51',
-        name: 'Enterprise',
-        perPropertyPrice: 5,
-        description: '$5 per rental property'
         }
 }

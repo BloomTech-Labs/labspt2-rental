@@ -30,7 +30,8 @@ class CheckoutForm extends Component {
       address_zip: '77345',
       name: 'Gwenog Jones'
     })
-    let response = await axios.post(`${config.apiUrl}/api/stripe/subscribe`, {token: token, updatedPlan: 'Midlevel'})
+    let response = await axios.post(`${config.apiUrl}/api/stripe/subscribe`, {token: token, updatedPlan: 'upgraded'})
+    console.log('response', response);
 
     if(response){
       console.log('subscribe response', response.data);
@@ -39,7 +40,7 @@ class CheckoutForm extends Component {
       })
     }
 
-  if (response.status === 200) this.setState({complete: true})
+  if (response.status === 200 || response.status === 201) this.setState({complete: true})
   }
 
   render() {
