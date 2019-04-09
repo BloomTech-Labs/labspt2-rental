@@ -2,6 +2,9 @@ import { User } from '../user.model';
 import mongoose from 'mongoose';
 
 describe('User model', () => {
+  test('snapshot', () => {
+    expect(User.schema).toMatchSnapshot();
+  });
   describe('schema', () => {
     test('email', () => {
       const { email } = User.schema.obj;

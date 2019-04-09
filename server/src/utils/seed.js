@@ -1,3 +1,5 @@
+/* eslint-disable promise/param-names */
+/* eslint-disable prefer-promise-reject-errors */
 import faker from 'faker';
 import config from '../config';
 import { User } from '../resources/user/user.model';
@@ -7,9 +9,9 @@ import { Reservation } from '../resources/reservations/reservations.model';
 
 export default async () => {
   if (config.isProd) {
-    return;
   } else {
     const seedowner = new Promise((resolve, reject) => {
+      // eslint-disable-next-line handle-callback-err
       User.findOne({ username: 'test_owner' }, (err, owner) => {
         if (!owner) {
           User.create({
@@ -18,45 +20,63 @@ export default async () => {
             password: '12345',
             email: 'owner@roostr.io',
             firstName: faker.name.firstName(),
-            lastName: faker.name.lastName()
+            lastName: faker.name.lastName(),
+            billingPlan: 'free',
+            phone: '994-567-4231',
+            billingAddress: {
+              address1: '1234 Honey Bear Ct',
+              city: 'Tempe',
+              state: 'AZ',
+              zip: '57683'
+            }
           })
             .then(created => {
               resolve(created);
             })
-            .catch(() => reject(false));
+            .catch(err => {
+              console.log(err);
+              // eslint-disable-next-line prefer-promise-reject-errors
+              reject(false);
+            });
         } else {
           resolve(owner);
         }
       });
     });
 
-    const seedEmployee = new Promise((resolve, reject) => {
-      User.findOne({ username: 'test_employee' }, (err, employee) => {
-        if (!employee) {
-          User.create({
-            role: 'employee',
-            username: 'test_employee',
-            password: '12345',
-            email: 'employee@roostr.io',
-            permissions: {
-              task: true,
-              property: true,
-              checkout: true
-            },
-            firstName: faker.name.firstName(),
-            lastName: faker.name.lastName()
-          })
-            .then(created => {
-              resolve(created);
+    const seedEmployee = ownerId => {
+      return new Promise((resolve, reject) => {
+        // eslint-disable-next-line handle-callback-err
+        User.findOne({ username: 'test_employee' }, (err, employee) => {
+          if (!employee) {
+            User.create({
+              role: 'employee',
+              username: 'test_employee',
+              password: '12345',
+              email: 'employee@roostr.io',
+              permissions: {
+                task: true,
+                property: true,
+                checkout: true
+              },
+              createdBy: ownerId,
+              firstName: faker.name.firstName(),
+              lastName: faker.name.lastName()
             })
-            .catch(() => reject(false));
-        } else {
-          resolve(employee);
-        }
+              .then(created => {
+                resolve(created);
+              })
+              // eslint-disable-next-line prefer-promise-reject-errors
+              .catch(() => reject(false));
+          } else {
+            resolve(employee);
+          }
+        });
       });
-    });
+    };
 
     const seedGuest = new Promise((resolve, reject) => {
+      // eslint-disable-next-line handle-callback-err
       User.findOne({ username: 'test_guest' }, (err, guest) => {
         if (!guest) {
           User.create({
@@ -79,6 +99,7 @@ export default async () => {
 
     const seedProperties = (ownerId, employeeId) => {
       return new Promise((resolve, reject) => {
+        // eslint-disable-next-line handle-callback-err
         Property.find({ createdBy: ownerId }, (err, properties) => {
           if (!properties.length) {
             let propertiesArr = [];
@@ -98,6 +119,7 @@ export default async () => {
               });
             }
 
+            // eslint-disable-next-line handle-callback-err
             Property.insertMany(propertiesArr, (err, docs) => {
               resolve(docs);
             });
@@ -108,25 +130,35 @@ export default async () => {
       });
     };
 
-    const seedTasks = (ownerId, properties) => {
+    const seedTasks = (ownerId, employeeId, properties, reservations) => {
       return new Promise((resolve, reject) => {
+        // eslint-disable-next-line handle-callback-err
         Task.find({ createdBy: ownerId }, (err, tasks) => {
           if (!tasks.length) {
             let promiseArr = [];
 
-            for (let property of properties) {
+            for (let i = 0; i < properties.length; i++) {
               let tasksArr = [];
-              for (let i = 0; i < 5; i++) {
+              const reservation = reservations.find(
+                r => r.property.toString() === properties[i]._id.toString()
+              );
+
+              for (let n = 0; n < 5; n++) {
                 tasksArr.push({
                   createdBy: ownerId,
                   description: faker.lorem.sentence(),
-                  property: property._id,
-                  completed: false
+                  property: properties[i]._id,
+                  completed: false,
+                  startDate: faker.date.soon(),
+                  endDate: faker.date.future(),
+                  reservation: reservation ? reservation._id : null,
+                  assignedTo: employeeId
                 });
               }
 
               promiseArr.push(
                 new Promise((rs, rj) => {
+                  // eslint-disable-next-line handle-callback-err
                   Task.insertMany(tasksArr, (err, docs) => {
                     rs(docs);
                   });
@@ -134,6 +166,7 @@ export default async () => {
               );
             }
 
+            // eslint-disable-next-line promise/catch-or-return
             Promise.all(promiseArr).then(([insertedTasks]) =>
               resolve(insertedTasks)
             );
@@ -144,14 +177,9 @@ export default async () => {
       });
     };
 
-    const seedReservations = (
-      ownerId,
-      guestId,
-      assistantId,
-      properties,
-      tasks
-    ) => {
+    const seedReservations = (ownerId, guestId, assistantId, properties) => {
       return new Promise((resolve, reject) => {
+        // eslint-disable-next-line handle-callback-err
         Reservation.find({ createdBy: ownerId }, (err, reservations) => {
           if (!reservations.length) {
             let promiseArr = [];
@@ -161,12 +189,16 @@ export default async () => {
               reservationsArr.push({
                 createdBy: ownerId,
                 assistant: assistantId,
-                guest: guestId,
+                guest: {
+                  firstName: faker.name.firstName(),
+                  lastName: faker.name.lastName(),
+                  phoneNumber: faker.phone.phoneNumber(),
+                  email: faker.internet.email()
+                },
                 property: property._id,
                 checkIn: faker.date.soon(),
                 checkOut: faker.date.future(),
                 status: 'upcoming',
-                tasks: tasks.filter(t => t.property === property._id),
                 nights: faker.random.number({ min: 1, max: 5 }),
                 cleaningFee: faker.random.number({ min: 10, max: 100 }),
                 guests: faker.random.number({ min: 1, max: 4 }),
@@ -177,12 +209,16 @@ export default async () => {
               reservationsArr.push({
                 createdBy: ownerId,
                 assistant: assistantId,
-                guest: guestId,
+                guest: {
+                  firstName: faker.name.firstName(),
+                  lastName: faker.name.lastName(),
+                  phoneNumber: faker.phone.phoneNumber(),
+                  email: faker.internet.email()
+                },
                 property: property._id,
                 checkIn: faker.date.recent(),
                 checkOut: faker.date.soon(),
                 status: 'incomplete',
-                tasks: tasks.filter(t => t.property === property._id),
                 nights: faker.random.number({ min: 1, max: 5 }),
                 cleaningFee: faker.random.number({ min: 10, max: 100 }),
                 guests: faker.random.number({ min: 1, max: 4 }),
@@ -193,12 +229,16 @@ export default async () => {
               reservationsArr.push({
                 createdBy: ownerId,
                 assistant: assistantId,
-                guest: guestId,
+                guest: {
+                  firstName: faker.name.firstName(),
+                  lastName: faker.name.lastName(),
+                  phoneNumber: faker.phone.phoneNumber(),
+                  email: faker.internet.email()
+                },
                 property: property._id,
                 checkIn: faker.date.past(),
                 checkOut: faker.date.recent(),
                 status: 'complete',
-                tasks: tasks.filter(t => t.property === property._id),
                 nights: faker.random.number({ min: 1, max: 5 }),
                 cleaningFee: faker.random.number({ min: 10, max: 100 }),
                 guests: faker.random.number({ min: 1, max: 4 }),
@@ -208,6 +248,7 @@ export default async () => {
 
               promiseArr.push(
                 new Promise((rs, rj) => {
+                  // eslint-disable-next-line handle-callback-err
                   Reservation.insertMany(reservationsArr, (err, docs) => {
                     rs(docs);
                   });
@@ -215,9 +256,10 @@ export default async () => {
               );
             }
 
-            Promise.all(promiseArr).then(([insertedReservations]) =>
-              resolve(insertedReservations)
-            );
+            // eslint-disable-next-line promise/catch-or-return
+            Promise.all(promiseArr).then(insertedReservations => {
+              resolve(insertedReservations.flat(1));
+            });
           } else {
             resolve(reservations);
           }
@@ -225,28 +267,72 @@ export default async () => {
       });
     };
 
-    const [owner, employee, guest] = await Promise.all([
-      seedowner,
-      seedEmployee,
-      seedGuest
-    ]);
+    const seedEmployees = ownerId => {
+      return new Promise((resolve, reject) => {
+        User.find(
+          { createdBy: ownerId, role: 'employee' },
+          // eslint-disable-next-line handle-callback-err
+          (err, employees) => {
+            if (employees.length <= 1) {
+              let employeesArr = [];
 
+              for (let i = 0; i < 10; i++) {
+                const fakeName = faker.internet.userName();
+                employeesArr.push({
+                  role: 'employee',
+                  username: fakeName,
+                  password: '12345',
+                  email: `${fakeName}@roostr.io`,
+                  permissions: {
+                    task: faker.random.boolean(),
+                    property: faker.random.boolean(),
+                    checkout: faker.random.boolean()
+                  },
+                  createdBy: ownerId,
+                  firstName: faker.name.firstName(),
+                  lastName: faker.name.lastName()
+                });
+              }
+
+              // eslint-disable-next-line handle-callback-err
+              User.insertMany(employeesArr, (err, docs) => {
+                resolve(docs);
+              });
+            } else {
+              resolve(employees);
+            }
+          }
+        );
+      });
+    };
+
+    const [owner, guest] = await Promise.all([seedowner, seedGuest]);
+
+    const employee = await seedEmployee(owner._id);
     const properties = await seedProperties(owner._id, employee._id);
-    const tasks = await seedTasks(owner._id, properties);
     const reservations = await seedReservations(
       owner._id,
       guest._id,
       employee._id,
-      properties,
-      tasks
+      properties
     );
 
-    console.log('Seeded owner          :      ', !!owner._id);
-    console.log('Seeded employee       :      ', !!employee._id);
-    console.log('Seeded guest          :      ', !!guest._id);
-    console.log('Seeded properties     :      ', !!properties[0]);
-    console.log('Seeded tasks          :      ', !!tasks[0]);
-    console.log('Seeded reservations   :      ', !!reservations[0]);
+    const tasks = await seedTasks(
+      owner._id,
+      employee._id,
+      properties,
+      reservations
+    );
+
+    const employees = await seedEmployees(owner._id);
+
+    console.log('Seeded owner     :   ', !!owner._id);
+    console.log('Seeded main employee :   ', !!employee._id);
+    console.log('Seeded guest     :   ', !!guest._id);
+    console.log('Seeded properties   :   ', !!properties[0]);
+    console.log('Seeded tasks     :   ', !!tasks[0]);
+    console.log('Seeded reservations  :   ', !!reservations[0]);
+    console.log('Seeded extra employees:   ', !!employees[1]);
 
     return tasks;
   }

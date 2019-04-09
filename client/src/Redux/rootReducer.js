@@ -1,10 +1,12 @@
 import { combineReducers } from "redux";
-import propertyReducer from "../Components/Properties/PropList/reducer";
+import propertyReducer from "../Components/Properties/reducer";
 import registrationReducer from "../Components/Registration/reducer";
 import userListReducer from "../Components/UserList/reducer";
 import reservationsReducer from "../Components/Reservations/reducer";
 import employeesReducer from "../Components/Employees/reducers";
+import taskReducer from "../Components/Tasks/reducer";
 import loginReducer from "../Components/LoginPage/reducer";
+import settingsReducer from "../Components/Settings/reducer";
 
 export default combineReducers({
   properties: propertyReducer,
@@ -12,5 +14,7 @@ export default combineReducers({
   auth: loginReducer,
   userList: userListReducer,
   reservations: reservationsReducer,
-  employees: employeesReducer
+  employees: employeesReducer,
+  tasks: taskReducer,
+  settings: settingsReducer
 });

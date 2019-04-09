@@ -5,8 +5,10 @@ const router = Router();
 
 router
   .route('/')
-  .get(controllers.getMany)
+  .get(controllers.getEmployees)
   .post(controllers.createOne);
+
+router.route('/search').get(controllers.searchAll);
 
 router
   .route('/:id')
