@@ -19,10 +19,25 @@ class TaskControllers extends BaseController {
           foreignField: '_id',
           as: 'property'
         }
+      },
+      {
+        $lookup: {
+          localField: 'assignedTo',
+          from: 'users',
+          foreignField: '_id',
+          as: 'assignedTo'
+        }
       }
     ];
+  
+    const search = [
+      'description',
+      'property.name',
+      'assignedTo.firstName',
+      'assignedTo.lastName',
+      '_id'
+    ];
 
-    const search = ['description', 'property.name', '_id'];
     console.log(req.query.search);
     return this.search(req, res, next, { lookup, search });
   };
