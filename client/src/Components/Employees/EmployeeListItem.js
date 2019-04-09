@@ -12,7 +12,7 @@ const EmployeeListItem = props => {
       lineOneInfo={props.employee.todayTask}
       lineTwoInfo={props.employee.overdue}
       lineThreeInfo={props.employee.properties}
-      buttonFunction={() => props.clickHandler(props.employee.userID)}
+      linkto={`/dashboard/employees/${props.employee._id}`}
     />
   );
 };
