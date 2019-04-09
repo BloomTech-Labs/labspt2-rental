@@ -51,7 +51,7 @@ export default class Employees extends Component {
     const { page, pageSize } = this.query;
     const { employees, loading, numPages, tasks, properties } = this.props;
 
-    console.log("page", page, "numPages", numPages)
+    console.log("page", page, "numPages", numPages);
 
     return (
       <FlexColumn>
@@ -64,17 +64,17 @@ export default class Employees extends Component {
               menuItem: tab,
               render: () => (
                 <Tab.Pane attached={false}>
-                    <EmployeeList
-                      key={tab + index}
-                      status={tab}
-                      employees={employees}
-                      tasks={tasks}
-                      properties={properties}
-                      page={page}
-                      pageSize={pageSize}
-                      numPages={numPages}
-                      handlePageChange={this.handlePageChange}
-                    />
+                  <EmployeeList
+                    key={tab + index}
+                    status={tab}
+                    employees={employees}
+                    tasks={tasks}
+                    properties={properties}
+                    page={page}
+                    pageSize={pageSize}
+                    numPages={numPages}
+                    handlePageChange={this.handlePageChange}
+                  />
                 </Tab.Pane>
               )
             })),
