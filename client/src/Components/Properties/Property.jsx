@@ -11,14 +11,18 @@ class Property extends Component {
   }
 
   handleDelete = () => {
-    console.log(this.props);
-    const reservation = this.props.reservations.find(
-      reservation => reservation.property === this.props.match.params.id
-    );
-    if (reservation) {
+    const reservationMatch = this.props.reservations.map(reservation => {
+      if (reservation.property == null) {
+        return false;
+      } else if (reservation.property._id === this.props.match.params.id) {
+        return true;
+      } else return false;
+    });
+    console.log(reservationMatch);
+    if (reservationMatch) {
       window.alert("Active reservation, property cannot be deleted");
     } else {
-      this.props.deleteProperty(reservation._id);
+      this.props.deleteProperty(this.props.match.params.id);
       window.alert("Property has been deleted");
       this.props.history.push("/dashboard/properties");
     }
