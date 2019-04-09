@@ -43,9 +43,11 @@ class EmployeeAdd extends Component {
   handleSubmit = () => {
     const request = this.state.employee;
     request.address = this.state.address;
-    request.username = `${request.lastName.slice(0, 4).toLowerCase()}_${request.firstName.toLowerCase()}`;
-    request.password="changeme";
-    console.log(request)
+    request.username = `${request.lastName
+      .slice(0, 4)
+      .toLowerCase()}_${request.firstName.toLowerCase()}`;
+    request.password = "changeme";
+    console.log(request);
     this.props
       .createEmployee(request)
       .then(data => {

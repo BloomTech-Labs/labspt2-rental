@@ -11,7 +11,6 @@ class TaskControllers extends BaseController {
   // overwrite getMany to getManyTasks tasks by assignTo not createdBy
 
   searchAll = (req, res, next) => {
-
     const lookup = [
       {
         $lookup: {
@@ -22,12 +21,8 @@ class TaskControllers extends BaseController {
         }
       }
     ];
-  
-    const search = [
-      'description',
-      'property.name',
-      '_id'
-    ];
+
+    const search = ['description', 'property.name', '_id'];
     console.log(req.query.search);
     return this.search(req, res, next, { lookup, search });
   };

@@ -6,11 +6,9 @@ const router = Router();
 router
   .route('/')
   .get(controllers.getEmployees)
-  .post(controllers.createOne)
+  .post(controllers.createOne);
 
-router
-  .route('/search')
-  .get(controllers.searchAll)
+router.route('/search').get(controllers.searchAll);
 
 router
   .route('/:id')

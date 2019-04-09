@@ -10,7 +10,7 @@ export const getTasks = () => {
     axios
       .get(`${config.apiUrl}/api/tasks`)
       .then(response => {
-          console.log(response)
+        console.log(response);
         dispatch({
           type: actions.FETCH_TASK_SUCCESS,
           payload: response.data
@@ -22,8 +22,8 @@ export const getTasks = () => {
           error: err
         });
       });
-    };
   };
+};
 
 export const searchTasks = (filterSort = {}) => {
   const { filter, sort, search } = filterSort;
@@ -34,9 +34,8 @@ export const searchTasks = (filterSort = {}) => {
     });
     axios
       .get(
-        `${config.apiUrl}/api/tasks/search?search=${search ||
-        ""}&sort=${sort}`
-        )
+        `${config.apiUrl}/api/tasks/search?search=${search || ""}&sort=${sort}`
+      )
       .then(response => {
         console.log(response);
         dispatch({
@@ -44,11 +43,11 @@ export const searchTasks = (filterSort = {}) => {
           payload: response.data
         });
       })
-    .catch(err => {
-      dispatch({
-        type: actions.FETCH_TASK_FAILURE,
-        error: err
-      })
-    })
-  }
-}
+      .catch(err => {
+        dispatch({
+          type: actions.FETCH_TASK_FAILURE,
+          error: err
+        });
+      });
+  };
+};
