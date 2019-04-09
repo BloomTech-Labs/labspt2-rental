@@ -74,7 +74,7 @@ export default class UpdateBillingModal extends Component {
                         <Form.Field >
                             <label>Address</label>
                             <Input
-                                name='address'
+                                name='address1'
                                 value={address1 || ''}
                                 type='text'
                                 onChange={this.handleChange} />
@@ -95,7 +95,7 @@ export default class UpdateBillingModal extends Component {
                     </Grid.Column>
 
                     <Grid.Column>
-                        <Grid row={2}>
+                        <Grid row={1}>
                     <Grid.Row textAlign='left'>
                     <Form.Field >
                             <label>State</label>
@@ -107,16 +107,6 @@ export default class UpdateBillingModal extends Component {
                         </Form.Field>
                     </Grid.Row>
 
-                    <Grid.Row textAlign='left'>
-                    <Form.Field >
-                            <label>Zip Code</label>
-                            <Input
-                                name='zip'
-                                value={zip || ''}
-                                type='text'
-                                onChange={this.handleChange} />
-                        </Form.Field>
-                    </Grid.Row>
                     </Grid>
                     </Grid.Column>
                 </Form>

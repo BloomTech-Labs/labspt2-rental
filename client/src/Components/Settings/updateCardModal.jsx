@@ -6,6 +6,8 @@ import config from '../../config/index';
 
 // update package.json proxy line with non local host
 
+// BUG: Does not update billing when component closes
+
 class UpdateCard extends Component {
   constructor(props) {
     super(props);
@@ -28,7 +30,6 @@ class UpdateCard extends Component {
         })
 
         let response = await axios.post(`${config.apiUrl}/api/stripe/updateCC`, { token: token, customerID: this.props.user.stripeCustomerID })
-        console.log('update billing response', response);
 
         if(response){
             this.setState({
@@ -40,7 +41,6 @@ class UpdateCard extends Component {
     }
 
   render() {
-      console.log('props?', this.props);
     let success;
     if (this.state.complete){
         success = <Dimmer active onClickOutside={this.props.close} page>

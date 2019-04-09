@@ -159,7 +159,6 @@ export const updateUsage = async (req, res) => {
 
   const updatedUsage = await createUsageRecord(userInfo, res);
   if (updatedUsage) {
-    // Add property information to the database
     return res.status(201).json(updatedUsage);
   } else {
     return res.status(500).json({ message: 'Unable to update usage record' });
@@ -192,24 +191,43 @@ const createUsageRecord = async (user, res) => {
 export const updateCC = async (req, res) => {
   try {
     userID = req.user._id;
-
     const { customerID } = req.body;
 
     stripe.customers.update(
       customerID,
-      {
-        source: req.body.token.id
-      },
-      (err, customer) => {
+      { source: req.body.token.id },
+      async (err, customer) => {
         if (err && err != null) {
           console.log(err);
           return res
             .status(500)
             .json({ message: 'Could not update user card', err });
         } else {
-          console.log('updated card', customer.sources.data[0]);
-          // Update user schema with new billing details
-          return res.status(200).json(customer);
+          const cardUpdates = {
+            cardID: customer.sources.data[0].id,
+            last4: customer.sources.data[0].last4,
+            cardType: customer.sources.data[0].brand,
+            cardExpiration: `${customer.sources.data[0].exp_month} / ${
+              customer.sources.data[0].exp_year
+            }`,
+            billingAddress: {
+              address1: customer.sources.data[0].address_line1,
+              city: customer.sources.data[0].address_city,
+              state: customer.sources.data[0].address_state,
+              zip: customer.sources.data[0].address_zip
+            }
+          };
+
+          const updateUser = await User.findByIdAndUpdate(userID, cardUpdates, {
+            new: true
+          })
+            .select('-password')
+            .lean()
+            .exec();
+
+          if (updateUser) {
+            return res.status(201).send(updateUser);
+          }
         }
       }
     );
@@ -218,7 +236,6 @@ export const updateCC = async (req, res) => {
     res.status(500).end();
   }
 };
-
 // Updating card details but not card number:
 
 // export const updateCC = async (req, res) => {
