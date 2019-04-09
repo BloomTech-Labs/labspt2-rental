@@ -10,40 +10,37 @@ class UpdateCard extends Component {
   constructor(props) {
     super(props);
     this.state = {complete: false, loading: false};
-    this.submit = this.submit.bind(this);
   }
 
   dimmerClose = () => this.setState({ active: false, open: false })
 
-  async submit(ev) {
-    this.setState({
-      loading: true
-    });
+  handleSubmit = async (e) => {
+        e.preventDefault();
+        this.setState({
+            loading: true
+        })
+        
+        let { token } = await this.props.stripe.createToken({
+            address_line1: this.props.address1,
+            address_city: this.props.city,
+            address_state: this.props.state,
+            address_zip: this.props.zip
+        })
 
-    // Fetch data from state to fill into the token. For now, it's dummy data.
+        let response = await axios.post(`${config.apiUrl}/api/stripe/updateCC`, { token: token, customerID: this.props.user.stripeCustomerID })
+        console.log('update billing response', response);
 
-    let { token } = await this.props.stripe.createToken({
-      email: "owner@roostr.io",
-      address_line1: '1234 Mountain Flower Ct',
-      address_city: 'Jonesville',
-      address_state: 'TX',
-      address_zip: '77345',
-      name: 'Gwenog Jones'
-    })
-    let response = await axios.post(`${config.apiUrl}/api/stripe/subscribe`, {token: token, updatedPlan: 'upgraded'})
-    console.log('response', response);
+        if(response){
+            this.setState({
+                loading: false
+            })
+        }
 
-    if(response){
-      console.log('subscribe response', response.data);
-      this.setState({
-        loading: false
-      })
+        if (response.status === 200 || response.status === 201) this.setState({complete: true})
     }
 
-  if (response.status === 200 || response.status === 201) this.setState({complete: true})
-  }
-
   render() {
+      console.log('props?', this.props);
     let success;
     if (this.state.complete){
         success = <Dimmer active onClickOutside={this.props.close} page>
@@ -75,7 +72,7 @@ class UpdateCard extends Component {
        
 
           <Button floated="right" negative basic onClick={this.props.close} >Cancel</Button>
-          <Button floated="right" positive content='Update'onClick={this.submit} />
+          <Button floated="right" positive content='Update'onClick={this.handleSubmit} />
       </Segment>
 
 

@@ -3,41 +3,57 @@ import { Header, Segment, Button, Modal, Grid, Form, Input } from 'semantic-ui-r
 import {Elements, StripeProvider} from 'react-stripe-elements';
 import UpdateCardModal from './updateCardModal';
 import {config} from '../../config/dev';
+import axios from 'axios';
 
 
 export default class UpdateBillingModal extends Component {
     state = { 
         open: false,
+        address1: '',
+        city: '',
+        state: '',
+        zip: ''
      }
 
-    close = () => this.setState({ open: false })
+    close = () => this.setState({ 
+        open: false,
+        address1: this.props.user.billingAddress.address1,
+        city: this.props.user.billingAddress.city,
+        state: this.props.user.billingAddress.state,
+        zip: this.props.user.billingAddress.zip  
+    })
 
     show = () => this.setState({ open: true })
+
+    componentDidMount = () => {
+        this.setState({
+            address1: this.props.user.billingAddress.address1,
+            city: this.props.user.billingAddress.city,
+            state: this.props.user.billingAddress.state,
+            zip: this.props.user.billingAddress.zip
+        })
+    }
+
+    componentDidUpdate = (prevProps) =>{
+        if(this.props !== prevProps){
+            this.setState({
+                address1: this.props.user.billingAddress.address1,
+                city: this.props.user.billingAddress.city,
+                state: this.props.user.billingAddress.state,
+                zip: this.props.user.billingAddress.zip
+            })
+        }
+    }
 
     handleChange = (e) => {
         this.setState({
             [e.target.name]: e.target.value,
-            disabled: false
         })
     }
 
-    handleSubmit = (e) => {
-        e.preventDefault();
-        
-    }
-
-
-//     billingAddress:
-// address1: "1234 Honey Bear Ct"
-// city: "Tempe"
-// state: "AZ"
-// zip: "57683"
-
-
     render () {
         const { open } = this.state;
-        const {address1, city, state, zip} = this.props.user.billingAddress;
-        console.log('user props', this.props.user)
+        const {address1, city, state, zip} = this.state;
 
         return (
             <div>
@@ -55,9 +71,9 @@ export default class UpdateBillingModal extends Component {
                     <Grid.Column left >
                     <Grid row={2}>
                     <Grid.Row textAlign='left'>
-                        <Form.Field inline>
+                        <Form.Field >
                             <label>Address</label>
-                            <Input inline
+                            <Input
                                 name='address'
                                 value={address1 || ''}
                                 type='text'
@@ -66,9 +82,9 @@ export default class UpdateBillingModal extends Component {
                     </Grid.Row>
                     
                     <Grid.Row textAlign='left'>
-                    <Form.Field inline>
+                    <Form.Field >
                             <label>City</label>
-                            <Input inline
+                            <Input
                                 name='city'
                                 value={city || ''}
                                 type='text'
@@ -81,9 +97,9 @@ export default class UpdateBillingModal extends Component {
                     <Grid.Column>
                         <Grid row={2}>
                     <Grid.Row textAlign='left'>
-                    <Form.Field inline>
+                    <Form.Field >
                             <label>State</label>
-                            <Input inline
+                            <Input
                                 name='state'
                                 value={state || ''}
                                 type='text'
@@ -92,9 +108,9 @@ export default class UpdateBillingModal extends Component {
                     </Grid.Row>
 
                     <Grid.Row textAlign='left'>
-                    <Form.Field inline>
+                    <Form.Field >
                             <label>Zip Code</label>
-                            <Input inline
+                            <Input
                                 name='zip'
                                 value={zip || ''}
                                 type='text'
@@ -109,7 +125,7 @@ export default class UpdateBillingModal extends Component {
  
             <StripeProvider apiKey={config.stripeApiKey}>
                 <Elements>
-                <UpdateCardModal close={this.close} />
+                <UpdateCardModal user={this.props.user} close={this.close} address1={this.state.address1} city={this.state.city} state={this.state.state} zip={this.state.zip} />
                 </Elements>
             </StripeProvider>
 

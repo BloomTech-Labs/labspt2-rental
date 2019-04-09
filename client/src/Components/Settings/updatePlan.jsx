@@ -30,6 +30,7 @@ class CheckoutForm extends Component {
       address_zip: '77345',
       name: 'Gwenog Jones'
     })
+    
     let response = await axios.post(`${config.apiUrl}/api/stripe/subscribe`, {token: token, updatedPlan: 'upgraded'})
     console.log('response', response);
 

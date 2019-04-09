@@ -74,6 +74,15 @@ const userSchema = new Schema(
     cardID: {
       type: String
     },
+    last4: {
+      type: String
+    },
+    cardType: {
+      type: String
+    },
+    cardExpiration: {
+      type: String
+    },
     phone: {
       type: String
     },

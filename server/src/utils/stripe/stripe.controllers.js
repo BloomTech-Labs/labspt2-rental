@@ -15,6 +15,9 @@ const userObject = {
   subscriptionID: '',
   subscriptionItemID: '',
   cardID: '',
+  last4: '',
+  cardType: '',
+  cardExpiration: '',
   billingPlan: 'upgraded'
 };
 
@@ -35,8 +38,12 @@ const createSubscription = async (err, customer, res) => {
       .json({ message: 'Failed to create new customer', err });
   } else {
     userObject.stripeCustomerID = customer.id;
-    console.log('card id?', customer.sources.data[0].id);
     userObject.cardID = customer.sources.data[0].id;
+    userObject.last4 = customer.sources.data[0].last4;
+    userObject.cardType = customer.sources.data[0].brand;
+    userObject.cardExpiration = `${customer.sources.data[0].exp_month}/${
+      customer.sources.data[0].exp_year
+    }`;
     stripe.subscriptions.create(
       {
         customer: customer.id,
@@ -180,15 +187,75 @@ const createUsageRecord = async (user, res) => {
   );
 };
 
-// allows customer to update their CC information on file
+// Updating card details including card number:
+
 export const updateCC = async (req, res) => {
   try {
-    const { customer, id } = req.body;
-    stripe.customers.update(`${customer.id}`, {
-      source: id
-    });
+    userID = req.user._id;
+
+    const { customerID } = req.body;
+
+    stripe.customers.update(
+      customerID,
+      {
+        source: req.body.token.id
+      },
+      (err, customer) => {
+        if (err && err != null) {
+          console.log(err);
+          return res
+            .status(500)
+            .json({ message: 'Could not update user card', err });
+        } else {
+          console.log('updated card', customer.sources.data[0]);
+          // Update user schema with new billing details
+          return res.status(200).json(customer);
+        }
+      }
+    );
   } catch (err) {
     console.log(err);
     res.status(500).end();
   }
 };
+
+// Updating card details but not card number:
+
+// export const updateCC = async (req, res) => {
+//   try {
+//     userID = req.user._id;
+//     const { customerID, cardID } = req.body;
+
+//     const {
+//       id,
+//       email,
+//       address_line1,
+//       address_city,
+//       address_state,
+//       address_zip,
+//       name
+//     } = req.body.token;
+
+//     stripe.customers.updateCard(
+//       customerID,
+//       cardID,
+//       {
+//         // fields to change
+//       },
+//       (err, card) => {
+//         if (err && err != null) {
+//           return res
+//             .status(500)
+//             .json({ message: 'Could not update user card', err });
+//         } else {
+//           console.log('updated card', card);
+//           // Update user schema with new billing details
+//           return res.status(200).json(card);
+//         }
+//       }
+//     );
+//   } catch (err) {
+//     console.log(err);
+//     res.status(500).end();
+//   }
+// };

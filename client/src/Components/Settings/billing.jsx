@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Header, Segment, Dimmer, Loader, Tab } from 'semantic-ui-react';
+import { Header, Segment, Dimmer, Loader } from 'semantic-ui-react';
 import CreditCard from './creditCard';
 import PlanModal from './planModal';
 import { FlexRow } from '../../custom-components';
