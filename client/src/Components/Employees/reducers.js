@@ -39,7 +39,7 @@ const employeesReducer = (state = initialState, action) => {
     case actions.TASKLIST_SUCCESS:
       return {
         ...state,
-        tasks: action.payload.data
+        tasks: action.payload
       };
     case actions.TASKLIST_FAILURE:
       return {
