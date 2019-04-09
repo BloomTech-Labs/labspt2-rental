@@ -13,8 +13,7 @@ export default class PlanModal extends Component {
     state = { 
         open: false,
         free: false,
-        midlevel: true,
-        enterprise: true
+        upgraded: true,
      }
 
     close = () => this.setState({ open: false })
@@ -34,21 +33,13 @@ export default class PlanModal extends Component {
         if(value === 'free'){
             this.setState({
                 free: false,
-                midlevel: true,
-                enterprise: true
-            })
-        } else if (value === 'midlevel'){
-            this.setState({
-                free: true,
-                midlevel: false,
-                enterprise: true
+                upgraded: true,
             })
         } else {
             this.setState({
                 free: true,
-                midlevel: true,
-                enterprise: false
-            });
+                upgraded: false,
+            })
         }
     }
 
@@ -65,7 +56,7 @@ export default class PlanModal extends Component {
                     <Modal.Content>
 
             <Segment>
-                <Grid centered divided columns={3}>
+                <Grid centered divided columns={2}>
 
                     <Grid.Column textAlign='center'>
                         <Header as='h4'>Basic Plan</Header>
@@ -76,20 +67,16 @@ export default class PlanModal extends Component {
                     </Grid.Column>
                     
                     <Grid.Column textAlign='center'>
-                        <Header as='h4'>Business Plan</Header>
+                        <Header as='h4'>Upgraded Plan</Header>
                         <p>
                         <b>2-9</b> properties, $8 per property
                         </p>
-                        <Button value='midlevel' onClick={this.handleChange} basic={this.state.midlevel} color="blue">Choose</Button>
+                        <p>
+                        <b>10+</b> properties, $5 per property
+                        </p>
+                        <Button value='upgraded' onClick={this.handleChange} basic={this.state.upgraded} color="blue">Choose</Button>
                     </Grid.Column>
 
-                    <Grid.Column textAlign='center'>
-                        <Header as='h4'>Premium Plan</Header>
-                        <p>
-                        <b>Unlimited</b> properties, $5 per property
-                        </p>
-                        <Button value='enterprise' onClick={this.handleChange} basic={this.state.enterprise} color="blue">Choose</Button>
-                    </Grid.Column>
                 </Grid>
             </Segment>
  

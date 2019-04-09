@@ -80,7 +80,7 @@ const billingPlans = {
         description: 'One property'
         },
     upgraded : { _id: '5ca5930aae431b84bad59a50',
-        name: 'Midlevel',
+        name: 'Upgraded',
         perPropertyPrice: 8,
         description: '$8 per rental property'
         }

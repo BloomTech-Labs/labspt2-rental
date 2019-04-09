@@ -49,6 +49,7 @@ export default class UpdateBillingModal extends Component {
                     <Modal.Content>
 
             <Segment>
+                <Header as='h3'style={{ marginBottom: '40px'}} >Billing Address</Header>
                 <Grid divided columns={2}>
                 <Form>
                     <Grid.Column left >
