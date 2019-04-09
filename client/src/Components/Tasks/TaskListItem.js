@@ -9,12 +9,15 @@ const TaskListItem = ({ task }) => {
     <FlexRow alignCenter justifyBetween width="full" style={{marginTop: "5px"}}>
       <FlexColumn>
         <Checkbox label={task.description} />
-        {/* <p style={{ paddingTop: "10px", paddingLeft: "25px" }}>
-        {task.assignedTo.firstName} {task.assignedTo.lastName} - 
-        {moment(task.endDate).format("MM/DD")}</p> */}
+        <p style={{ paddingTop: "10px", paddingLeft: "25px" }}>
+          <strong>Assignee: </strong>{task.assignedTo.firstName} {task.assignedTo.lastName}
+        </p>
       </FlexColumn>
-      <FlexColumn>
+      <FlexColumn style={{alignItems: "flex-end"}}>
         <Label color='purple'>{task.property.name}</Label>
+        <p style={{ paddingTop: "5px" }}>
+          Due: {moment(task.endDate).format("MM/DD")}
+        </p>
       </FlexColumn>
     </FlexRow>
   )
