@@ -81,3 +81,21 @@ export const addProperty = (body = {}) => dispatch => {
       });
     });
 };
+
+export const getEmployees = () => dispatch => {
+  dispatch({ type: actions.PROPERTY_STARTED });
+  return axios
+    .get(`${config.apiUrl}/api/employees`)
+    .then(({ response }) => {
+      dispatch({
+        type: actions.EMPLOYEES_SUCCESS,
+        payload: response.data
+      });
+    })
+    .catch(err => {
+      dispatch({
+        type: actions.PROPERTY_FAILURE,
+        payload: err
+      });
+    });
+};

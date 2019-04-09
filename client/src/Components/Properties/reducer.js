@@ -4,7 +4,8 @@ const initialState = {
   loading: false,
   error: false,
   properties: [],
-  property: {}
+  property: {},
+  employees: []
 };
 
 const propertyReducer = (state = initialState, action) => {
@@ -43,6 +44,12 @@ const propertyReducer = (state = initialState, action) => {
         ...state,
         loading: false,
         property: action.payload.data
+      };
+    case actions.EMPLOYEES_SUCCESS:
+      return {
+        ...state,
+        loading: false,
+        employees: action.payload.employees
       };
     default:
       return { ...state };

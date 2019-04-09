@@ -69,7 +69,11 @@ class Properties extends Component {
                 " " +
                 property.zip
               }
-              assistants={property.assistants[0].firstName}
+              assistants={
+                property.assistants.length
+                  ? `${property.assistants[0].firstName}`
+                  : "Not Assigned"
+              }
               occupants={property.occupants}
               buttonFunction={() => this.cardHandleClick(property._id)}
               linkto={`/dashboard/properties/${property._id}`}
