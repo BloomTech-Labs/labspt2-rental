@@ -23,7 +23,27 @@ export const getProperties = () => {
       });
   };
 };
-
+export const getReservations = () => {
+  return dispatch => {
+    dispatch({
+      type: actions.PROPERTY_STARTED
+    });
+    axios
+      .get(`${config.apiUrl}/api/reservations`)
+      .then(response => {
+        dispatch({
+          type: actions.FETCH_RESERVATIONS_SUCCESS,
+          payload: response.data
+        });
+      })
+      .catch(err => {
+        dispatch({
+          type: actions.PROPERTY_FAILURE,
+          error: err
+        });
+      });
+  };
+};
 export const getProperty = id => {
   return dispatch => {
     dispatch({
@@ -91,6 +111,24 @@ export const getEmployees = () => dispatch => {
     .then(response => {
       dispatch({
         type: actions.EMPLOYEES_SUCCESS,
+        payload: response.data
+      });
+    })
+    .catch(err => {
+      dispatch({
+        type: actions.PROPERTY_FAILURE,
+        payload: err
+      });
+    });
+};
+
+export const deleteProperty = id => dispatch => {
+  dispatch({ type: actions.PROPERTY_STARTED });
+  return axios
+    .delete(`${config.apiUrl}/api/properties/${id}`)
+    .then(response => {
+      dispatch({
+        type: actions.DELETE_PROPERTY_SUCCESS,
         payload: response.data
       });
     })
