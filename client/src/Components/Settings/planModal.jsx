@@ -1,8 +1,8 @@
 import React, { Component } from 'react'
 import { Header, Segment, Button, Modal, Grid } from 'semantic-ui-react';
 import {Elements, StripeProvider} from 'react-stripe-elements';
-import { FlexColumn, FlexRow } from '../../custom-components';
 import CheckoutForm from './updatePlan';
+import {config} from '../../config/dev';
 
 
 // Redux store set billingPlan by string on user object
@@ -93,7 +93,7 @@ export default class PlanModal extends Component {
                 </Grid>
             </Segment>
  
-            <StripeProvider apiKey="pk_test_Il1MCOR4thnvsuNgiwCaJzOw">
+            <StripeProvider apiKey={config.stripeApiKey}>
                 <Elements>
                 <CheckoutForm close={this.close} />
                 </Elements>
@@ -104,8 +104,6 @@ export default class PlanModal extends Component {
 
                     <Modal.Actions>
 
-                        {/* <Button negative basic onClick={this.close} >Cancel</Button>
-                        <Button onClick={this.handleSubmit} positive content='Update' /> */}
                     </Modal.Actions>
             </Modal>
             </div>

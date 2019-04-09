@@ -61,7 +61,7 @@ export default class Billing extends Component {
         return(
             <div>
             <Header as='h1'>Billing Details</Header>
-            <CreditCard cc={cc}/>
+            <CreditCard user={this.props.user} cc={cc}/>
 
             <FlexRow style={{ marginTop: "25px", marginBottom: "35px"}}>
                 <p>Your next bill will be sent on {nextBilling}.</p>

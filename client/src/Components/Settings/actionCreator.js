@@ -56,3 +56,19 @@ export const updatePassword = password => {
     }
   };
 };
+
+export const updateCC = updatedCC => {
+  return async dispatch => {
+    dispatch({ type: actions.USER_STARTED });
+    try{
+      const user = await axios.post(`${config.apiUrl}/api/stripe/updateCC`, updatedCC)
+      dispatch({
+        type: actions.USER_SUCCESS,
+        payload: user.data.data
+      })
+    } catch (err) {
+      console.error(err);
+      dispatch({ type: actions.USER_ERROR, payload: err });
+    }
+  }
+}

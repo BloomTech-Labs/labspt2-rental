@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import { Segment, Header, Container, Button } from 'semantic-ui-react';
 import { FlexColumn, FlexRow } from '../../custom-components';
+import updateCardModal from './updateCardModal';
+import UpdateBillingModal from './updateBillingModal';
 
 export default class CreditCard extends Component {
     constructor(props){
@@ -60,7 +62,7 @@ export default class CreditCard extends Component {
                 </FlexRow>
 
                 <FlexRow style={{marginTop: "25px"}}>
-                <Button basic color="blue">Update Credit Card</Button>
+                <UpdateBillingModal user={this.props.user} />
                 </FlexRow>
             </Segment>
         )

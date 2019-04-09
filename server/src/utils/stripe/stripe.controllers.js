@@ -181,7 +181,7 @@ const createUsageRecord = async (user, res) => {
 };
 
 // allows customer to update their CC information on file
-export const updateCC = async (req, res, next) => {
+export const updateCC = async (req, res) => {
   try {
     const { customer, id } = req.body;
     stripe.customers.update(`${customer.id}`, {
