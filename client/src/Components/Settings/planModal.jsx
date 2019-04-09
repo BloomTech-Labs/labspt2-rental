@@ -32,7 +32,7 @@ export default class PlanModal extends Component {
       this.setState({
         free: false,
         upgraded: true,
-     }
+     })
     }
 }
 
