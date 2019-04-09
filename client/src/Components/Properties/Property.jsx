@@ -13,6 +13,7 @@ class Property extends Component {
     const property = this.props.properties.find(
       property => property._id === this.props.match.params.id
     );
+    console.log(property);
     return (
       <>
         {property && (
@@ -32,7 +33,12 @@ class Property extends Component {
                   <p>Max Guests: {property.occupants}</p>
                 </div>
                 <div>
-                  <p>Default Employee: {property.assistants[0].firstName}</p>
+                  <p>
+                    Default Employee:
+                    {property.assistants.length
+                      ? `${property.assistants[0].firstName}`
+                      : "Not Assigned"}
+                  </p>
                 </div>
                 <Checkbox label="Pause reservations" />
                 <Link to={`/dashboard/properties/edit/${property._id}`}>

@@ -4,12 +4,13 @@ const initialState = {
   loading: false,
   error: false,
   properties: [],
-  property: {}
+  property: {},
+  employees: []
 };
 
 const propertyReducer = (state = initialState, action) => {
   switch (action.type) {
-    case actions.FETCH_PROPERTY_ATTEMPT:
+    case actions.PROPERTY_STARTED:
       return {
         ...state,
         loading: true
@@ -26,16 +27,11 @@ const propertyReducer = (state = initialState, action) => {
         loading: false,
         property: action.payload.data
       };
-    case actions.FETCH_PROPERTY_FAILURE:
+    case actions.PROPERTY_FAILURE:
       return {
         ...state,
         loading: false,
         error: action.error
-      };
-    case actions.UPDATE_PROPERTY_STARTED:
-      return {
-        ...state,
-        loading: true
       };
     case actions.UPDATE_PROPERTY_SUCCESS:
       return {
@@ -43,11 +39,17 @@ const propertyReducer = (state = initialState, action) => {
         loading: false,
         property: action.payload.data
       };
-    case actions.UPDATE_PROPERTY_FAILURE:
+    case actions.ADD_PROPERTY_SUCCESS:
       return {
         ...state,
         loading: false,
-        error: action.error
+        property: action.payload.data
+      };
+    case actions.EMPLOYEES_SUCCESS:
+      return {
+        ...state,
+        loading: false,
+        employees: action.payload.employees
       };
     default:
       return { ...state };
