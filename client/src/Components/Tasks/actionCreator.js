@@ -22,10 +22,8 @@ export const getTasks = () => {
           error: err
         });
       });
-      console.log(err);
-    });
+    };
   };
-};
 
 export const searchTasks = (filterSort = {}) => {
   const { filter, sort, search } = filterSort;
@@ -50,8 +48,7 @@ export const searchTasks = (filterSort = {}) => {
       dispatch({
         type: actions.FETCH_TASK_FAILURE,
         error: err
-      });
-      console.log(err);
-    });
-  };
-};
+      })
+    })
+  }
+}
