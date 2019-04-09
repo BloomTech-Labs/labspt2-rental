@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import { FlexColumn, FlexRow } from "custom-components";
 import { Checkbox, Button, Image } from "semantic-ui-react";
 import { Link } from "react-router-dom";
+import { END_DATE } from "react-dates/lib/constants";
 
 class Property extends Component {
   componentDidMount() {
@@ -19,7 +20,7 @@ class Property extends Component {
       } else return false;
     });
     console.log(reservationMatch);
-    if (reservationMatch) {
+    if (reservationMatch.includes(true)) {
       window.alert("Active reservation, property cannot be deleted");
     } else {
       this.props.deleteProperty(this.props.match.params.id);
