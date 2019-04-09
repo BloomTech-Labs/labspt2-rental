@@ -19,15 +19,6 @@ class Properties extends Component {
     this.props.getProperties();
   }
 
-  componentWillReceiveProps(nextProps) {
-    this.setState({
-      properties: nextProps.properties,
-      loading: nextProps.loading,
-      error: nextProps.error
-    });
-    console.log(this.state);
-  }
-
   // addClickHandle() {
   //   console.log(this.state);
   //   const numOfProps = this.props.properties.length;
@@ -55,7 +46,7 @@ class Properties extends Component {
           </Link>
         </FlexRow>
         {console.log(this.props)}
-        {this.state.properties.map(property => {
+        {this.props.properties.map(property => {
           return (
             <PropertyCard
               image={property.image}
