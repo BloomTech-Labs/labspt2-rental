@@ -1,8 +1,8 @@
-import React, { Component } from "react";
-import { Header, Segment, Dimmer, Loader, Tab } from "semantic-ui-react";
-import CreditCard from "./creditCard";
-import PlanModal from "./planModal";
-import { FlexRow } from "../../custom-components";
+import React, { Component } from 'react';
+import { Header, Segment, Dimmer, Loader } from 'semantic-ui-react';
+import CreditCard from './creditCard';
+import PlanModal from './planModal';
+import { FlexRow } from '../../custom-components';
 
 export default class Billing extends Component {
   constructor(props) {
@@ -71,10 +71,10 @@ export default class Billing extends Component {
       zip: "54309"
     };
 
-    return (
-      <div>
-        <Header as="h1">Billing Details</Header>
-        <CreditCard cc={cc} />
+        return(
+            <div>
+            <Header as='h1'>Billing Details</Header>
+            <CreditCard user={this.props.user} cc={cc}/>
 
         <FlexRow style={{ marginTop: "25px", marginBottom: "35px" }}>
           <p>Your next bill will be sent on {nextBilling}.</p>
@@ -87,22 +87,14 @@ export default class Billing extends Component {
 }
 
 const billingPlans = {
-  Free: {
-    _id: "5ca5930aae431b84bad59a4f",
-    name: "Free",
-    perPropertyPrice: 0,
-    description: "One property"
-  },
-  Midlevel: {
-    _id: "5ca5930aae431b84bad59a50",
-    name: "Midlevel",
-    perPropertyPrice: 8,
-    description: "$8 per rental property"
-  },
-  Enterprise: {
-    _id: "5ca5930aae431b84bad59a51",
-    name: "Enterprise",
-    perPropertyPrice: 5,
-    description: "$5 per rental property"
-  }
-};
+    free : { _id: '5ca5930aae431b84bad59a4f',
+        name: 'Free',
+        perPropertyPrice: 0,
+        description: 'One property'
+        },
+    upgraded : { _id: '5ca5930aae431b84bad59a50',
+        name: 'Upgraded',
+        perPropertyPrice: 8,
+        description: '$8 per rental property'
+        }
+}

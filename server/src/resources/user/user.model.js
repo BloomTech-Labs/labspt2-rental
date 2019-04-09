@@ -68,6 +68,19 @@ const userSchema = new Schema(
       type: String
     },
     billingPlan: {
+      type: String,
+      enum: ['free', 'upgraded']
+    },
+    cardID: {
+      type: String
+    },
+    last4: {
+      type: String
+    },
+    cardType: {
+      type: String
+    },
+    cardExpiration: {
       type: String
     },
     phone: {
