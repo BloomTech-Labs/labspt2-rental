@@ -19,7 +19,7 @@ class TaskList extends Component {
       <FlexColumn width="800px" alignCenter style={{ position: "relative" }}>
         {this.props.tasks.map((task, ind) => (
           <>
-            <TaskListItem task={task} />
+            <TaskListItem task={task} key={ind}/>
             <Divider />
           </>
         ))}
