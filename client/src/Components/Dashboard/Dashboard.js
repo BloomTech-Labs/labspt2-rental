@@ -11,7 +11,7 @@ import {
 } from "../Reservations";
 import { EmployeeSingle, EmployeeAdd, Employees } from "../Employees";
 import { Checkout } from "../Checkout";
-import { Tasks } from "../Tasks";
+import { Tasks, TaskAdd } from "../Tasks";
 import { Settings } from "../Settings";
 
 class Dashboard extends Component {
@@ -113,7 +113,17 @@ class Dashboard extends Component {
 
                 {/*TODO work on these pages*/}
 
-                <Route path="/dashboard/tasks" render={() => <Tasks />} />
+                <Route 
+                  exact
+                  path="/dashboard/tasks" 
+                  render={() => <Tasks />} 
+                />
+
+                <Route 
+                  exact
+                  path="/dashboard/tasks/add" 
+                  render={() => <TaskAdd />} 
+                />
 
                 <Route
                   exact
