@@ -3,12 +3,12 @@ import { controllers } from './employee.controllers';
 
 const router = Router();
 
-
-
 router
   .route('/')
   .get(controllers.getEmployees)
   .post(controllers.createOne);
+
+router.route('/search').get(controllers.searchAll);
 
 router
   .route('/:id')

@@ -17,13 +17,43 @@ const employeesReducer = (state = initialState, action) => {
       return {
         ...state,
         loading: false,
-        error: false,
-        employees: action.employees
+        employees: action.payload
       };
     case actions.EMPLOYEE_FAILURE:
       return {
         ...state,
         loading: false,
+        error: action.error
+      };
+    case actions.NUM_EMPLOYEE_SUCCESS:
+      const numPages = Math.ceil(action.payload / 4);
+      return {
+        ...state,
+        numPages: numPages
+      };
+    case actions.NUM_EMPLOYEE_FAIL:
+      return {
+        ...state,
+        error: action.error
+      };
+    case actions.TASKLIST_SUCCESS:
+      return {
+        ...state,
+        tasks: action.payload
+      };
+    case actions.TASKLIST_FAILURE:
+      return {
+        ...state,
+        error: action.error
+      };
+    case actions.PROPERTIES_SUCCESS:
+      return {
+        ...state,
+        properties: action.payload.data
+      };
+    case actions.PROPERTIES_FAILURE:
+      return {
+        ...state,
         error: action.error
       };
     default:

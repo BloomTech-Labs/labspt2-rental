@@ -315,7 +315,7 @@ All endpoints expect a matching object to the Invoice Item Model
 All endpoints expect a matching object to the Discounts Item Model
 
 
-#### Proprty Actions
+#### Discount Actions
 
 `createOne(invoiceItem)` -> Creates new discount
 
@@ -326,3 +326,15 @@ All endpoints expect a matching object to the Discounts Item Model
 `updateOne(id)` -> Updates discount by ID
 
 `removeOne(id)` -> Deletes discount by ID
+
+
+## Stripe
+
+#### Stripe Routes
+
+| Method | Endpoint                        | Description                                        |
+|--------|---------------------------------|----------------------------------------------------|
+| GET    | `/api/stripe/`                  | Sets up stripe integration                         |
+| POST   | `/api/stripe/subscribe`         | Creates subscription                               |
+| GET    | `/.well-known/apple-developer-merchantid-domain-association` 
+                                           | Sets up Apple Pay integration                      |

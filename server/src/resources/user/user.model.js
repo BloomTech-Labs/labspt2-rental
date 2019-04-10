@@ -24,10 +24,6 @@ const userSchema = new Schema(
       unique: true,
       trim: true
     },
-    createdBy: {
-      type: mongoose.SchemaTypes.ObjectId,
-      ref: 'user'
-    },
     password: {
       type: String,
       required: true
@@ -45,6 +41,51 @@ const userSchema = new Schema(
       type: String,
       enum: ['admin', 'owner', 'employee', 'guest']
     },
+    billingAddress: {
+      address1: {
+        type: String
+      },
+      address2: {
+        type: String
+      },
+      city: {
+        type: String
+      },
+      state: {
+        type: String
+      },
+      zip: {
+        type: String
+      }
+    },
+    stripeCustomerID: {
+      type: String
+    },
+    subscriptionID: {
+      type: String
+    },
+    subscriptionItemID: {
+      type: String
+    },
+    billingPlan: {
+      type: String,
+      enum: ['free', 'upgraded']
+    },
+    cardID: {
+      type: String
+    },
+    last4: {
+      type: String
+    },
+    cardType: {
+      type: String
+    },
+    cardExpiration: {
+      type: String
+    },
+    phone: {
+      type: String
+    },
     createdBy: {
       type: mongoose.SchemaTypes.ObjectId,
       ref: 'user'
@@ -52,6 +93,9 @@ const userSchema = new Schema(
   },
   { timestamps: true }
 );
+
+// This function works when creating a user but not when updating a user
+// If updating a user password, must manually hash the password before storing
 
 userSchema.pre('save', function(next) {
   if (!this.isModified('password')) {
@@ -67,7 +111,6 @@ userSchema.pre('save', function(next) {
     next();
   });
 });
-
 
 userSchema.methods.checkPassword = function(password) {
   const passwordHash = this.password;

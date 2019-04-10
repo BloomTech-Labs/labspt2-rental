@@ -1,9 +1,11 @@
 import { Router } from 'express';
-import { render, charge } from './stripe.controllers';
+import { render, subscribe, updateUsage, updateCC } from './stripe.controllers';
 
 const router = Router();
 
 router.get('/', render);
-router.post('/charge', charge);
+router.post('/subscribe', subscribe);
+router.post('/updateUsage', updateUsage);
+router.post('/updateCC', updateCC);
 
 export default router;
