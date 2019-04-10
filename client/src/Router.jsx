@@ -4,8 +4,14 @@ import { Registration } from "./Components/Registration";
 import { LoginPage } from "./Components/LoginPage";
 import { UserList } from "./Components/UserList";
 import { Dashboard } from "./Components/Dashboard";
+<<<<<<< Updated upstream
 import { Properties } from "./Components/Properties";
 import { Home } from "./Components/LandingPage";
+=======
+import { Properties } from "./Components/Properties/PropList";
+import { Home } from './Components/LandingPage';
+import { TrackingPage } from './Components/Tracker';
+>>>>>>> Stashed changes
 
 import axios from "axios";
 
@@ -31,6 +37,7 @@ const Router = () => {
         <Route path="/login" component={LoginPage} />
         <Route path="/dashboard" component={Dashboard} />
         <Route path="/properties" component={Properties} />
+        <Route path="/guest/:id" component={TrackingPage} />
         <Route path="/" component={Home} />
       </Switch>
     </Fragment>
