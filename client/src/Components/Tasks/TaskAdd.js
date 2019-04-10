@@ -3,8 +3,9 @@ import { FlexColumn, FlexRow, Text } from 'custom-components';
 import { Header, Input, Dropdown, Button, Segment } from 'semantic-ui-react';
 
 class TaskAdd extends Component {
-  constructor(props) {
-    super(props);
+  constructor() {
+    super();
+
     this.state = { 
       property: null,
       reservation: null,
@@ -23,6 +24,7 @@ class TaskAdd extends Component {
 
 
   render() { 
+
 
     return ( 
       <FlexColumn>
@@ -70,16 +72,16 @@ class TaskAdd extends Component {
             placeholder="Property"
             style={{ marginRight: "10px" }}
             selection
-            // options={
-            //   this.props.loading
-            //     ? [{ text: "Loading...", value: "loading" }]
-            //     : this.props.properties &&
-            //       this.props.properties.map(p => ({
-            //         key: p._id,
-            //         text: p.name,
-            //         value: p._id
-            //       }))
-            // }
+            options={
+              this.props.loading
+                ? [{ text: "Loading...", value: "loading" }]
+                : this.props.tasks.properties &&
+                  this.props.tasks.properties.map(p => ({
+                    key: p._id,
+                    text: p.name,
+                    value: p._id
+                  }))
+            }
           />
         </FlexRow>
 
@@ -90,6 +92,16 @@ class TaskAdd extends Component {
             placeholder="Reservation"
             style={{ marginRight: "10px" }}
             selection
+            options={
+              this.props.loading
+                ? [{ text: "Loading...", value: "loading" }]
+                : this.props.tasks.reservations &&
+                  this.props.tasks.reservations.map(r => ({
+                    key: r._id,
+                    text: r._id,
+                    value: r._id
+                  }))
+            }
           />
         </FlexRow>
 
@@ -100,23 +112,23 @@ class TaskAdd extends Component {
             placeholder="Employee"
             style={{ marginRight: "10px" }}
             selection
-            // options={
-            //   this.props.loading
-            //     ? [{ text: "Loading...", value: "loading" }]
-            //     : this.props.employees &&
-            //       this.props.employees.map(e => ({
-            //         key: e._id,
-            //         text: e.firstName,
-            //         value: e._id
-            //       }))
-            // }
+            options={
+              this.props.loading
+                ? [{ text: "Loading...", value: "loading" }]
+                : this.props.tasks.employees &&
+                  this.props.tasks.employees.map(e => ({
+                    key: e._id,
+                    text: e.firstName + " " + e.lastName,
+                    value: e._id
+                  }))
+            }
           />
         </FlexRow>
 
         <br />
 
         <FlexRow width="full" justifyCenter>
-          <Button color='green'>Create Tasks</Button>
+          <Button color='green'>Submit Task List</Button>
         </FlexRow>
 
       </FlexColumn>
