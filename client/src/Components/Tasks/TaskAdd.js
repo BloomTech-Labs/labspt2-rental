@@ -95,8 +95,8 @@ class TaskAdd extends Component {
             options={
               this.props.loading
                 ? [{ text: "Loading...", value: "loading" }]
-                : this.props.tasks.reservations &&
-                  this.props.tasks.reservations.map(r => ({
+                : this.props.tasks.employees &&
+                  this.props.tasks.employees.map(r => ({
                     key: r._id,
                     text: r._id,
                     value: r._id
