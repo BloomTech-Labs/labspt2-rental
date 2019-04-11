@@ -51,8 +51,6 @@ export default class Employees extends Component {
     const { page, pageSize } = this.query;
     const { employees, loading, numPages, tasks, properties } = this.props;
 
-    console.log("page", page, "numPages", numPages);
-
     return (
       <FlexColumn>
         <Header as="h1">Employees</Header>
