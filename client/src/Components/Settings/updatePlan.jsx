@@ -31,15 +31,18 @@ class CheckoutForm extends Component {
 
     let { token } = await this.props.stripe.createToken({
       email: "owner@roostr.io",
-      address_line1: '1234 Mountain Flower Ct',
-      address_city: 'Jonesville',
-      address_state: 'TX',
-      address_zip: '77345',
-      name: 'Gwenog Jones'
-    })
-    
-    let response = await axios.post(`${config.apiUrl}/api/stripe/subscribe`, {token: token, updatedPlan: 'upgraded'})
-    console.log('response', response);
+      address_line1: "1234 Mountain Flower Ct",
+      address_city: "Jonesville",
+      address_state: "TX",
+      address_zip: "77345",
+      name: "Gwenog Jones"
+    });
+
+    let response = await axios.post(`${config.apiUrl}/api/stripe/subscribe`, {
+      token: token,
+      updatedPlan: "upgraded"
+    });
+    console.log("response", response);
 
     if (response) {
       console.log("subscribe response", response.data);
@@ -48,7 +51,8 @@ class CheckoutForm extends Component {
       });
     }
 
-  if (response.status === 200 || response.status === 201) this.setState({complete: true})
+    if (response.status === 200 || response.status === 201)
+      this.setState({ complete: true });
   }
 
   render() {
