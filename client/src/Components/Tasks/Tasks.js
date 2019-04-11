@@ -68,11 +68,16 @@ class Tasks extends Component {
               menuItem: tab,
               render: () => (
                 <Tab.Pane attached={false}>
-                  <TaskList
+                {!tasks ? 
+                <h2>Loading...</h2>
+                : 
+                
+                <TaskList
                     status={tab}
                     tasks={tasks}
                     handlePageChange={this.handlePageChange}
                   />
+                }
                 </Tab.Pane>
               )
             })),

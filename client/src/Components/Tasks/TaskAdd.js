@@ -40,9 +40,9 @@ class TaskAdd extends Component {
     this.props
       .createTask(this.state)
       .then(data => {
-        // if (data._id) {
-        //   // this.props.history.push("/dashboard/tasks");
-        // }        
+        if (data._id) {
+          this.props.history.push("/dashboard/tasks");
+        }        
       })
       .catch(err => {});
   };
