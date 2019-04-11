@@ -49,7 +49,6 @@ class EmployeeAdd extends Component {
       .toLowerCase()}_${request.firstName.toLowerCase()}`;
     request.password = "changeme";
     request.role = "employee";
-    console.log(request);
     this.props
       .createEmployee(request)
       .then(data => {
