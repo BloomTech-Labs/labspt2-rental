@@ -7,9 +7,15 @@ class TaskAdd extends Component {
     super();
 
     this.state = { 
+      
       property: null,
       reservation: null,
-      assistant: null,
+      // assistant: null,
+
+      description: "",
+      startDate: null,
+      endDate: null,
+      assignedTo: null,
 
     }
   }
@@ -21,10 +27,13 @@ class TaskAdd extends Component {
     this.props.fetchReservations();
   };
 
-
+  handleChange = (prop, val) => {
+    this.setState({ [prop]: val });
+  };
 
   render() { 
 
+    // const { description } = this.state;
 
     return ( 
       <FlexColumn>
@@ -39,6 +48,12 @@ class TaskAdd extends Component {
           <FlexRow>
             <Input
               placeholder="Add Task"
+              onChange={e =>
+                this.handleChange("description", {
+                  // ...description,
+                  description: e.target.value
+                })
+              }
             />
           </FlexRow>
 
@@ -72,6 +87,7 @@ class TaskAdd extends Component {
             placeholder="Property"
             style={{ marginRight: "10px" }}
             selection
+            onChange={(e, val) => this.handleChange("property", val.value)}
             options={
               this.props.loading
                 ? [{ text: "Loading...", value: "loading" }]
@@ -92,6 +108,7 @@ class TaskAdd extends Component {
             placeholder="Reservation"
             style={{ marginRight: "10px" }}
             selection
+            onChange={(e, val) => this.handleChange("reservation", val.value)}
             options={
               this.props.loading
                 ? [{ text: "Loading...", value: "loading" }]
@@ -112,6 +129,7 @@ class TaskAdd extends Component {
             placeholder="Employee"
             style={{ marginRight: "10px" }}
             selection
+            onChange={(e, val) => this.handleChange("assignedTo", val.value)}
             options={
               this.props.loading
                 ? [{ text: "Loading...", value: "loading" }]
