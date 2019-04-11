@@ -1,18 +1,7 @@
 import React, { Component } from "react";
-import {
-  Dropdown,
-  Header,
-  Input,
-  Button,
-  Divider,
-  Label,
-  Statistic,
-  Popup,
-  Icon
-} from "semantic-ui-react";
+import { Header, Input, Button, Divider } from "semantic-ui-react";
 import { Link } from "react-router-dom";
-import { FlexRow, FlexColumn, Text } from "custom-components";
-import DateRangePickerWrapper from "../shared/DatePicker/DatePicker";
+import { FlexRow, FlexColumn } from "custom-components";
 
 class EmployeeAdd extends Component {
   constructor() {
