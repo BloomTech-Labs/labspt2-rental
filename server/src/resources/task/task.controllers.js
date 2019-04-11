@@ -29,7 +29,7 @@ class TaskControllers extends BaseController {
         }
       }
     ];
-  
+
     const search = [
       'description',
       'property.name',

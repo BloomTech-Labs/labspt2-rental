@@ -8,7 +8,7 @@ export default props => {
   const { reservations, loading, handlePageChange, count } = props;
 
   return (
-    <FlexColumn width="800px" alignCenter style={{ position: "relative" }}>
+    <FlexColumn alignCenter style={{ position: "relative" }}>
       <Pagination
         className="space-bottom"
         onPageChange={handlePageChange}
