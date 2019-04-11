@@ -70,8 +70,7 @@ class Tasks extends Component {
                 <Tab.Pane attached={false}>
                 {!tasks ? 
                 <h2>Loading...</h2>
-                : 
-                
+                :
                 <TaskList
                     status={tab}
                     tasks={tasks}

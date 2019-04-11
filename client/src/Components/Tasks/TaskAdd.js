@@ -9,13 +9,11 @@ class TaskAdd extends Component {
 
     this.state = { 
       
-      property: null,
-      reservation: null,
-      // assistant: null,
-
       description: null,
+      property: null,
       startDate: null,
       endDate: null,
+      reservation: null,
       assignedTo: null,
 
     }
