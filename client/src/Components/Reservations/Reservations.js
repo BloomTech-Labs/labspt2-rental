@@ -73,7 +73,12 @@ export default class Reservations extends Component {
               )
             })),
             {
-              menuItem: <Search onChange={this.handleSearchChange} />
+              menuItem: (
+                <Search
+                  onChange={this.handleSearchChange}
+                  style={{ minWidth: "300px", flexGrow: "1" }}
+                />
+              )
             }
           ]}
         />
