@@ -1,6 +1,11 @@
 import { connect } from "react-redux";
 import { 
-  getTasks, searchTasks, fetchProperties, fetchEmployees, fetchReservations
+  getTasks,
+  searchTasks,
+  fetchProperties,
+  fetchEmployees,
+  fetchReservations,
+  createTask
 } from "./actionCreator";
 import _Tasks from "./Tasks";
 import _TaskAdd from "./TaskAdd";
@@ -22,7 +27,8 @@ const connector = connect(
     searchTasks,
     fetchProperties,
     fetchEmployees,
-    fetchReservations
+    fetchReservations,
+    createTask
   }
 );
 

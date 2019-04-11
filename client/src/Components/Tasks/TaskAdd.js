@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { FlexColumn, FlexRow, Text } from 'custom-components';
 import { Header, Input, Dropdown, Button, Segment } from 'semantic-ui-react';
+import DateRangePickerWrapper from '../shared/DatePicker/DatePicker';
 
 class TaskAdd extends Component {
   constructor() {
@@ -12,7 +13,7 @@ class TaskAdd extends Component {
       reservation: null,
       // assistant: null,
 
-      description: "",
+      description: null,
       startDate: null,
       endDate: null,
       assignedTo: null,
@@ -29,6 +30,21 @@ class TaskAdd extends Component {
 
   handleChange = (prop, val) => {
     this.setState({ [prop]: val });
+  };
+
+  handleDateChange = ({ startDate, endDate }) => {
+    this.setState({ startDate: startDate, endDate: endDate });
+  };
+
+  handleSubmit = () => {
+    this.props
+      .createTask(this.state)
+      .then(data => {
+        if (data._id) {
+          // this.props.history.push("/dashboard/tasks");
+        }
+      })
+      .catch(err => {});
   };
 
   render() { 
@@ -49,10 +65,7 @@ class TaskAdd extends Component {
             <Input
               placeholder="Add Task"
               onChange={e =>
-                this.handleChange("description", {
-                  // ...description,
-                  description: e.target.value
-                })
+                this.handleChange("description", e.target.value)
               }
             />
           </FlexRow>
@@ -77,6 +90,10 @@ class TaskAdd extends Component {
             </FlexColumn>
           </Segment>
         </FlexRow> */}
+
+        <FlexRow width='full'>
+          <DateRangePickerWrapper onChange={this.handleDateChange} />
+        </FlexRow>
 
         <br />
         <br />
@@ -146,7 +163,9 @@ class TaskAdd extends Component {
         <br />
 
         <FlexRow width="full" justifyCenter>
-          <Button color='green'>Submit Task List</Button>
+          <Button color='green' onClick={this.handleSubmit}>
+            Submit Task List
+          </Button>
         </FlexRow>
 
       </FlexColumn>

@@ -101,3 +101,21 @@ export const fetchReservations = () => dispatch => {
       dispatch({ type: actions.FETCH_TASK_FAILURE, payload: err });
     });
 };
+
+export const createTask = (body = {}) => dispatch => {
+  dispatch({ type: actions.FETCH_TASK_ATTEMPT });
+
+  return axios
+    .post(`${config.apiUrl}/api/tasks`, body)
+    .then(({ data }) => {
+      dispatch({
+        type: actions.FETCH_TASK_SUCCESS,
+        payload: { tasks: data.data }
+      });
+      return data.data;
+    })
+    .catch(err => {
+      dispatch({ type: actions.FETCH_TASK_FAILURE, payload: err });
+      throw err;
+    });
+};
