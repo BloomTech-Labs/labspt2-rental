@@ -9,41 +9,42 @@ const initialState = {
   employees: []
 };
 
-const taskReducer = (state = initialState, action) => {
-  switch (action.type) {
+const taskReducer = (state = initialState, { type, payload }) => {
+  switch (type) {
     case actions.FETCH_TASK_ATTEMPT:
       return {
-        ...state
+        ...state,
+        loading: true
       };
     case actions.FETCH_TASK_SUCCESS:
       return {
         ...state,
         loading: false,
-        tasks: action.payload.data
+        tasks: payload.data
       };
     case actions.PROPERTIES_SUCCESS:
       return {
         ...state,
         loading: false,
-        properties: action.payload.properties
+        properties: payload.properties
       };
     case actions.EMPLOYEES_SUCCESS:
       return {
         ...state,
         loading: false,
-        employees: action.payload.employees
+        employees: payload.employees
       };
     case actions.RESERVATIONS_SUCCESS:
       return {
         ...state,
         loading: false,
-        employees: action.payload.reservations
+        employees: payload.reservations
       };
     case actions.FETCH_TASK_FAILURE:
       return {
         ...state,
         loading: false,
-        error: action.error
+        error: payload.error
       };
     default:
       return { ...state };

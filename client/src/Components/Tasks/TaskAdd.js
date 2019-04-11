@@ -42,11 +42,11 @@ class TaskAdd extends Component {
             />
           </FlexRow>
 
-          <br />
+          {/* <br />
 
           <FlexRow width="100%" justifyCenter>
             <Button color='teal'>Add Task</Button>
-          </FlexRow>
+          </FlexRow> */}
 
         </FlexColumn>
 
@@ -115,8 +115,8 @@ class TaskAdd extends Component {
             options={
               this.props.loading
                 ? [{ text: "Loading...", value: "loading" }]
-                : this.props.tasks.employees &&
-                  this.props.tasks.employees.map(e => ({
+                : this.props.properties.employees &&
+                  this.props.properties.employees.map(e => ({
                     key: e._id,
                     text: e.firstName + " " + e.lastName,
                     value: e._id

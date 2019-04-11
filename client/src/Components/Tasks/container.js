@@ -8,9 +8,9 @@ import { withRouter } from "react-router-dom";
 
 const mapStateToProps = state => ({
   tasks: state.tasks,
-  reservations: state.reservations,
   properties: state.properties,
   employees: state.employees,
+  reservations: state.reservations,
   loading: state.loading,
   error: state.error
 });
