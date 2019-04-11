@@ -1,8 +1,7 @@
-import React, { Component } from "react";
+import React from "react";
 import { Container } from "custom-components";
-import { Button, Icon, Responsive, Segment } from "semantic-ui-react";
+import { Responsive, Segment } from "semantic-ui-react";
 import { Menu } from "semantic-ui-react/dist/commonjs/collections/Menu";
-import { Link, Route } from "react-router-dom";
 import { Mobile } from "./Mobile";
 import { Desktop } from "./Desktop";
 

@@ -1,14 +1,6 @@
 import React, { Component } from "react";
-import { Route, Link, withRouter } from "react-router-dom";
-import {
-  Segment,
-  Menu,
-  Icon,
-  Header,
-  Image,
-  Responsive,
-  Button
-} from "semantic-ui-react";
+import { Route, withRouter } from "react-router-dom";
+import { Segment } from "semantic-ui-react";
 import { FlexRow, Container } from "custom-components";
 import { Properties, Property, PropertyEdit, PropertyAdd } from "../Properties";
 import {
