@@ -10,6 +10,7 @@ import {
   Popup,
   Icon
 } from "semantic-ui-react";
+import { Link } from "react-router-dom";
 import { FlexRow, FlexColumn, Text } from "custom-components";
 import DateRangePickerWrapper from "../shared/DatePicker/DatePicker";
 
@@ -47,12 +48,13 @@ class EmployeeAdd extends Component {
       .slice(0, 4)
       .toLowerCase()}_${request.firstName.toLowerCase()}`;
     request.password = "changeme";
+    request.role = "employee";
     console.log(request);
     this.props
       .createEmployee(request)
       .then(data => {
         if (data._id) {
-          // this.props.history.push("/dashboard/employees");
+          this.props.history.push("/dashboard/employees");
         }
       })
       .catch(err => {});
@@ -189,9 +191,11 @@ class EmployeeAdd extends Component {
         <br />
 
         <FlexRow width="full" justifyCenter>
-          <Button color="green" onClick={this.handleSubmit}>
-            Add Employee
-          </Button>
+          <Link to="/dashboard/employees">
+            <Button color="green" onClick={this.handleSubmit}>
+              Add Employee
+            </Button>
+          </Link>
         </FlexRow>
       </FlexColumn>
     );

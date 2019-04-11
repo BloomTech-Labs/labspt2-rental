@@ -112,7 +112,7 @@ export const createEmployee = body => dispatch => {
   return axios
     .post(`${config.apiUrl}/api/employees`, body)
     .then(data => {
-      console.log("in getEmployees success");
+      console.log(data)
       dispatch(getEmployees());
     })
     .catch(err => {
