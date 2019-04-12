@@ -1,17 +1,7 @@
 import React, { Component } from "react";
-import {
-  Dropdown,
-  Header,
-  Input,
-  Button,
-  Divider,
-  Label,
-  Statistic,
-  Popup,
-  Icon
-} from "semantic-ui-react";
-import { FlexRow, FlexColumn, Text } from "custom-components";
-import DateRangePickerWrapper from "../shared/DatePicker/DatePicker";
+import { Header, Input, Button, Divider } from "semantic-ui-react";
+import { Link } from "react-router-dom";
+import { FlexRow, FlexColumn } from "custom-components";
 
 class EmployeeAdd extends Component {
   constructor() {
@@ -47,12 +37,12 @@ class EmployeeAdd extends Component {
       .slice(0, 4)
       .toLowerCase()}_${request.firstName.toLowerCase()}`;
     request.password = "changeme";
-    console.log(request);
+    request.role = "employee";
     this.props
       .createEmployee(request)
       .then(data => {
         if (data._id) {
-          // this.props.history.push("/dashboard/employees");
+          this.props.history.push("/dashboard/employees");
         }
       })
       .catch(err => {});
@@ -189,9 +179,11 @@ class EmployeeAdd extends Component {
         <br />
 
         <FlexRow width="full" justifyCenter>
-          <Button color="green" onClick={this.handleSubmit}>
-            Add Employee
-          </Button>
+          <Link to="/dashboard/employees">
+            <Button color="green" onClick={this.handleSubmit}>
+              Add Employee
+            </Button>
+          </Link>
         </FlexRow>
       </FlexColumn>
     );
