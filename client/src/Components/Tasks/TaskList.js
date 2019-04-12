@@ -12,11 +12,10 @@ class TaskList extends Component {
 
   render() {
 
-    const { handlePageChange, count } = this.props;
+    const { loading, tasks, handlePageChange, count } = this.props;
 
     return (
       <FlexColumn width="800px" alignCenter style={{ position: "relative" }}>
-        
         
         <Pagination 
           className="space-bottom"
@@ -25,10 +24,10 @@ class TaskList extends Component {
           defaultActivePage={1}
           firstItem={null}
           lastItem={null}
+          ellipsisItem={null}
           siblingRange={1}
           totalPages={count}
         />
-
 
         {this.props.tasks.map((task, ind) => (
           <>

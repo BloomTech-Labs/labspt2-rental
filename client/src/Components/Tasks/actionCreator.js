@@ -55,6 +55,27 @@ export const searchTasks = (filterSort = {}) => {
   };
 };
 
+// Needed for Pagination
+export const fetchTaskCount = (status = null) => dispatch => {
+  dispatch({ type: actions.FETCH_TASK_ATTEMPT });
+
+  return axios
+    .get(
+      `${config.apiUrl}/api/tasks/count?filter=${JSON.stringify({
+        status
+      })}`
+    )
+    .then(({ data }) => {
+      dispatch({
+        type: actions.TASK_COUNT_SUCCESS,
+        payload: { taskCount: data.count }
+      });
+    })
+    .catch(err => {
+      dispatch({ type: actions.FETCH_TASK_FAILURE, payload: err });
+    });
+};
+
 
 // Needed For TaskAdd Page
 export const fetchProperties = () => dispatch => {

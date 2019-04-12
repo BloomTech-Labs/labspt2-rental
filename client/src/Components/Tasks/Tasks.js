@@ -25,7 +25,7 @@ class Tasks extends Component {
   componentDidMount() {
     const { page, pageSize, sort, filter } = this.query;
     this.props.getTasks({ page, pageSize, sort, filter });
-    // this.props.fetchTaskCount("upcoming");
+    this.props.fetchTaskCount();
   }
 
   handleSearchChange = value => {
@@ -38,7 +38,7 @@ class Tasks extends Component {
     const activeTab = tabs[data.activeIndex].toLowerCase();
     this.query.filter = { status: activeTab };
     this.props.getTasks({ ...this.query });
-    // this.props.fetchTaskCount(activeTab);
+    this.props.fetchTaskCount(activeTab);
   };
 
   handlePageChange = (event, data) => {
@@ -49,9 +49,9 @@ class Tasks extends Component {
   render() {
     const { tabs } = this.state;
     const {
-      tasks: { tasks, loading }
+      tasks: { tasks, loading, taskCount }
     } = this.props;
-    const { page, PageSize } = this.query;
+    const { pageSize } = this.query;
 
     return (
       <FlexColumn>
@@ -79,6 +79,8 @@ class Tasks extends Component {
                     status={tab}
                     tasks={tasks}
                     handlePageChange={this.handlePageChange}
+                    loading={loading}
+                    count={Math.ceil(taskCount / pageSize)}
                   />
                 }
                 </Tab.Pane>
