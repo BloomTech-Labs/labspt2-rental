@@ -14,14 +14,10 @@ import { Link } from "react-router-dom";
 
 const ReservationListItem = ({ reservation }) => {
   return (
-    <FlexRow alignCenter justifyBetween width="full">
+    <FlexRow alignCenter justifyBetween width="full" wrap>
       <Image rounded src={reservation.property.image} size="small" />
 
-      <FlexColumn
-        grow="1"
-        className="space-left-20"
-        style={{ height: "100px" }}
-      >
+      <FlexColumn grow="1" spaceLeft="20px" style={{ height: "100px" }}>
         <FlexRow alignCenter spaceBottom="20px">
           <Header size="medium" style={{ margin: "0" }}>
             {reservation.guest.firstName}&nbsp;{reservation.guest.lastName}
@@ -55,7 +51,7 @@ const ReservationListItem = ({ reservation }) => {
 
       <br />
 
-      <FlexRow grow="1">
+      <FlexRow grow="1" spaceRight="20px">
         <Statistic size="tiny" style={{ margin: "0 15px" }}>
           <Statistic.Label>Check In</Statistic.Label>
           <Statistic.Value>
@@ -73,7 +69,7 @@ const ReservationListItem = ({ reservation }) => {
 
       <FlexColumn>
         <Link to={`/dashboard/reservations/view/${reservation._id}`}>
-          <Button>More Info</Button>
+          <Button style={{ margin: "10px 0" }}>More Info</Button>
         </Link>
       </FlexColumn>
     </FlexRow>
