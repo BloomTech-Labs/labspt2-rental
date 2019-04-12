@@ -1,6 +1,5 @@
 import React, { Component } from "react";
 import { Header, Input, Button, Divider } from "semantic-ui-react";
-import { Link } from "react-router-dom";
 import { FlexRow, FlexColumn } from "custom-components";
 
 class EmployeeAdd extends Component {
@@ -45,7 +44,9 @@ class EmployeeAdd extends Component {
           this.props.history.push("/dashboard/employees");
         }
       })
-      .catch(err => {});
+      .catch(err => {
+        console.log("blah");
+      });
   };
 
   render() {
