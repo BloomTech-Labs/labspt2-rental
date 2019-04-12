@@ -107,12 +107,11 @@ export const getProperties = () => {
 };
 
 export const createEmployee = body => dispatch => {
-  dispatch({ type: actions.EMPLOYEE_STARTED });
-
   return axios
     .post(`${config.apiUrl}/api/employees`, body)
-    .then(data => {
+    .then(({ data }) => {
       dispatch(getEmployees());
+      return data.data;
     })
     .catch(err => {
       dispatch({ type: actions.EMPLOYEE_FAILURE, error: err });
