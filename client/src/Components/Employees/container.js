@@ -10,6 +10,7 @@ import {
 } from "./actionCreator";
 import _Employees from "./Employees";
 import _EmployeeAdd from "./EmployeeAdd";
+import _EmployeeSingle from "./EmployeeSingle";
 
 const mapStateToProps = ({ employees }) => {
   return employees;
@@ -28,3 +29,4 @@ const connector = connect(
 
 export const Employees = connector(withRouter(_Employees));
 export const EmployeeAdd = connector(withRouter(_EmployeeAdd));
+export const EmployeeSingle = connector(withRouter(_EmployeeSingle));

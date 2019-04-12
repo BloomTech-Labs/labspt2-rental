@@ -22,7 +22,6 @@ export class BaseController {
       const doc = await this.mongooseModel
         .findOne({ createdBy: req.user._id, _id: req.params.id })
         .lean()
-        .populate(this.populate)
         .exec();
 
       if (!doc) {
