@@ -16,6 +16,7 @@ class TaskList extends Component {
 
     return (
       <FlexColumn width="800px" alignCenter style={{ position: "relative" }}>
+        
         <Pagination 
           className="space-bottom"
           onPageChange={handlePageChange}
@@ -26,6 +27,7 @@ class TaskList extends Component {
           siblingRange={1}
           totalPages={count}
         />
+        
         {this.props.tasks.map((task, ind) => (
           <>
             <TaskListItem task={task} key={ind} />
