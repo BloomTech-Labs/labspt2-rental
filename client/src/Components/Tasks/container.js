@@ -5,7 +5,8 @@ import {
   fetchProperties,
   fetchEmployees,
   fetchReservations,
-  createTask
+  createTask,
+  fetchTaskCount
 } from "./actionCreator";
 import _Tasks from "./Tasks";
 import _TaskAdd from "./TaskAdd";
@@ -17,6 +18,7 @@ const mapStateToProps = state => ({
   employees: state.employees,
   reservations: state.reservations,
   loading: state.loading,
+  taskCount: state.taskCount,
   error: state.error
 });
 
@@ -28,7 +30,8 @@ const connector = connect(
     fetchProperties,
     fetchEmployees,
     fetchReservations,
-    createTask
+    createTask,
+    fetchTaskCount
   }
 );
 
