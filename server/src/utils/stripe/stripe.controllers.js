@@ -165,6 +165,8 @@ export const updateUsage = async (req, res) => {
   }
 };
 
+// Just send success 201 from this endpoint so that Jess can hit the next endpoint to add the property
+
 const createUsageRecord = async (user, res) => {
   const currentDate = Math.floor(Date.now() / 1000);
   stripe.usageRecords.create(
