@@ -11,6 +11,7 @@ class TaskList extends Component {
   }
 
   render() {
+
     return (
       <FlexColumn width="800px" alignCenter style={{ position: "relative" }}>
         {this.props.tasks.map((task, ind) => (

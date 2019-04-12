@@ -3,26 +3,48 @@ import * as actions from "./actions";
 const initialState = {
   loading: false,
   error: false,
-  tasks: []
+  tasks: [],
+  reservations: [],
+  properties: [],
+  employees: []
 };
 
-const taskReducer = (state = initialState, action) => {
-  switch (action.type) {
+const taskReducer = (state = initialState, { type, payload }) => {
+  switch (type) {
     case actions.FETCH_TASK_ATTEMPT:
       return {
-        ...state
+        ...state,
+        loading: true
       };
     case actions.FETCH_TASK_SUCCESS:
       return {
         ...state,
         loading: false,
-        tasks: action.payload.data
+        tasks: payload.data
+      };
+    case actions.PROPERTIES_SUCCESS:
+      return {
+        ...state,
+        loading: false,
+        properties: payload.properties
+      };
+    case actions.EMPLOYEES_SUCCESS:
+      return {
+        ...state,
+        loading: false,
+        employees: payload.employees
+      };
+    case actions.RESERVATIONS_SUCCESS:
+      return {
+        ...state,
+        loading: false,
+        employees: payload.reservations
       };
     case actions.FETCH_TASK_FAILURE:
       return {
         ...state,
         loading: false,
-        error: action.error
+        error: payload.error
       };
     default:
       return { ...state };

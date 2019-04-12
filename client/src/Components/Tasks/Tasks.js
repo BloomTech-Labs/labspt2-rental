@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import { Header, Tab, Icon, Segment } from "semantic-ui-react";
 import { FlexColumn, FlexRow } from "custom-components";
+import { Link } from 'react-router-dom';
 import Search from "../shared/Search/Search";
 import TaskList from "./TaskList";
 
@@ -52,9 +53,11 @@ class Tasks extends Component {
       <FlexColumn>
         <FlexRow width="100%" justifyBetween style={{ alignItems: "baseline" }}>
           <Header as="h1">Tasks</Header>
-          <Segment style={{ marginBottom: "14px" }}>
-            <Icon name="add" />
-          </Segment>
+          <Link to="/dashboard/tasks/add">
+            <Segment style={{ marginBottom: "14px" }}>
+              <Icon name="add" />
+            </Segment>
+          </Link>
         </FlexRow>
 
         <Tab
@@ -65,11 +68,15 @@ class Tasks extends Component {
               menuItem: tab,
               render: () => (
                 <Tab.Pane attached={false}>
-                  <TaskList
+                {!tasks ? 
+                <h2>Loading...</h2>
+                :
+                <TaskList
                     status={tab}
                     tasks={tasks}
                     handlePageChange={this.handlePageChange}
                   />
+                }
                 </Tab.Pane>
               )
             })),
