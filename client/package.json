@@ -52,5 +52,6 @@
     "gulp": "^3.9.1",
     "semantic-ui": "^2.4.2"
   },
-  "proxy": "http://localhost:3000"
+  "proxy": "http://localhost:3000",
+  "homepage": "https://www.roostr.tech"
 }
