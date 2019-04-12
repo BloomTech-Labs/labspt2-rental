@@ -2,13 +2,15 @@ import axios from "axios";
 import * as actions from "./actions";
 import config from "config";
 
-export const getTasks = () => {
+export const getTasks = (filterSort = {}) => {
+  const { sort, page, pageSize } = filterSort;
+
   return dispatch => {
     dispatch({
       type: actions.FETCH_TASK_ATTEMPT
     });
     axios
-      .get(`${config.apiUrl}/api/tasks`)
+      .get(`${config.apiUrl}/api/tasks?limit=${pageSize}&skip=${(page - 1) * pageSize}`)
       .then(response => {
         console.log(response);
         dispatch({
@@ -26,7 +28,7 @@ export const getTasks = () => {
 };
 
 export const searchTasks = (filterSort = {}) => {
-  const { filter, sort, search } = filterSort;
+  const { sort, page, pageSize, search } = filterSort;
 
   return dispatch => {
     dispatch({
@@ -34,7 +36,8 @@ export const searchTasks = (filterSort = {}) => {
     });
     axios
       .get(
-        `${config.apiUrl}/api/tasks/search?search=${search || ""}&sort=${sort}`
+        `${config.apiUrl}/api/tasks/search?search=${search || 
+          ""}&sort=${sort}&limit=${pageSize}&skip=${(page - 1) * pageSize}`
       )
       .then(response => {
         console.log(response);

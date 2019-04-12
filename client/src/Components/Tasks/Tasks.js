@@ -10,8 +10,10 @@ class Tasks extends Component {
     super(props);
 
     this.query = {
+      page: 1,
+      pageSize: 5,
       search: "",
-      filter: { status: "due today" },
+      // filter: { status: "due today" },
       sort: "_id"
     };
 
@@ -21,8 +23,8 @@ class Tasks extends Component {
   }
 
   componentDidMount() {
-    const { sort, filter } = this.query;
-    this.props.getTasks({ sort, filter });
+    const { page, pageSize, sort, filter } = this.query;
+    this.props.getTasks({ page, pageSize, sort, filter });
     // this.props.fetchTaskCount("upcoming");
   }
 
@@ -40,6 +42,7 @@ class Tasks extends Component {
   };
 
   handlePageChange = (event, data) => {
+    this.query.page = data.activePage;
     this.props.getTasks({ ...this.query });
   };
 
@@ -48,6 +51,7 @@ class Tasks extends Component {
     const {
       tasks: { tasks, loading }
     } = this.props;
+    const { page, PageSize } = this.query;
 
     return (
       <FlexColumn>
