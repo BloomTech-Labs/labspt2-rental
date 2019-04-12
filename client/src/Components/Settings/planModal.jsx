@@ -10,8 +10,7 @@ export default class PlanModal extends Component {
   state = {
     open: false,
     free: false,
-    midlevel: true,
-    enterprise: true
+    upgraded: true
   };
 
   close = () => this.setState({ open: false });
@@ -31,8 +30,13 @@ export default class PlanModal extends Component {
     if (value === "free") {
       this.setState({
         free: false,
-        upgraded: true
-      });
+        upgraded: true,
+     })
+    } else {
+        this.setState({
+            free: true,
+            upgraded: false
+        })
     }
   };
 

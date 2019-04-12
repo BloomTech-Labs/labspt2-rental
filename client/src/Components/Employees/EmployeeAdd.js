@@ -180,9 +180,11 @@ class EmployeeAdd extends Component {
         <br />
 
         <FlexRow width="full" justifyCenter>
-          <Button color="green" onClick={this.handleSubmit}>
-            Add Employee
-          </Button>
+          <Link to="/dashboard/employees">
+            <Button color="green" onClick={this.handleSubmit}>
+              Add Employee
+            </Button>
+          </Link>
         </FlexRow>
       </FlexColumn>
     );
