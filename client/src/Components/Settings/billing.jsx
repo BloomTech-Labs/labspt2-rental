@@ -55,26 +55,16 @@ export default class Billing extends Component {
             {billingPlans[billingPlan].description}
           </Segment.Inline>
           <FlexRow style={{ marginTop: "25px" }}>
-            <PlanModal customerID={this.state.stripeCustomerID} />
+            <PlanModal customerID={this.state.stripeCustomerID} user={this.props.user}/>
           </FlexRow>
         </Segment>
       );
     }
 
-    const cc = {
-      cardType: "Visa",
-      lastFour: "8753",
-      expiration: "10/2022",
-      address: "1234 Mountain Flower Ct",
-      city: "Augustus",
-      state: "GA",
-      zip: "54309"
-    };
-
     return (
       <div>
         <Header as="h1">Billing Details</Header>
-        <CreditCard user={this.props.user} cc={cc} />
+        <CreditCard user={this.props.user} />
 
         <FlexRow style={{ marginTop: "25px", marginBottom: "35px" }}>
           <p>Your next bill will be sent on {nextBilling}.</p>

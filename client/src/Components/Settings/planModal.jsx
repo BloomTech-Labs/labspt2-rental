@@ -6,6 +6,8 @@ import { config } from "../../config/dev";
 
 // Stretch: set the auto chosen button based on billing plan on state
 
+// To give this and the CheckoutForm user info, pass it props via user={this.props.user} or user={this.state.user}. With that syntax, it it setup to pass that down to the CheckoutForm
+
 export default class PlanModal extends Component {
   state = {
     open: false,
@@ -16,15 +18,6 @@ export default class PlanModal extends Component {
   close = () => this.setState({ open: false });
 
   show = () => this.setState({ open: true });
-
-  handleSubmit = e => {
-    e.preventDefault();
-    if (this.props.customerID) {
-      // update subscription
-    } else {
-      // create subscription if paid upgrade
-    }
-  };
 
   handleChange = (e, { value }) => {
     if (value === "free") {
@@ -42,6 +35,7 @@ export default class PlanModal extends Component {
 
   render() {
     const { open } = this.state;
+    console.log('passed user:', this.props.user)
 
     return (
       <div>
@@ -92,7 +86,7 @@ export default class PlanModal extends Component {
 
             <StripeProvider apiKey={config.stripeApiKey}>
               <Elements>
-                <CheckoutForm close={this.close} />
+                <CheckoutForm close={this.close} free={this.state.free} user={this.props.user} upgraded={this.state.upgraded} />
               </Elements>
             </StripeProvider>
           </Modal.Content>

@@ -18,7 +18,7 @@ const userObject = {
   last4: '',
   cardType: '',
   cardExpiration: '',
-  billingPlan: 'upgraded'
+  billingPlan: ''
 };
 
 export const render = async (req, res, next) => {
@@ -86,8 +86,6 @@ const updateUserWithStripeInfo = async (err, res) => {
         .lean()
         .exec();
 
-      console.log('updated user', user);
-
       if (user) {
         return res.status(201).send(user);
       }
@@ -120,6 +118,8 @@ export const subscribe = async (req, res) => {
       address_zip,
       name
     } = req.body.token;
+
+    userObject.billingPlan = req.body.updatedPlan;
 
     stripe.customers.create(
       {
