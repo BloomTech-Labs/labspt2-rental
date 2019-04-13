@@ -15,6 +15,7 @@ class TaskAdd extends Component {
       endDate: null,
       reservation: null,
       assignedTo: null,
+      status: "upcoming"
 
     }
   }

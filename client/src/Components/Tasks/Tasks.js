@@ -13,7 +13,7 @@ class Tasks extends Component {
       page: 1,
       pageSize: 5,
       search: "",
-      // filter: { status: "due today" },
+      filter: { status: "overdue" },
       sort: "_id"
     };
 
@@ -25,7 +25,7 @@ class Tasks extends Component {
   componentDidMount() {
     const { page, pageSize, sort, filter } = this.query;
     this.props.getTasks({ page, pageSize, sort, filter });
-    this.props.fetchTaskCount();
+    this.props.fetchTaskCount("overdue");
   }
 
   handleSearchChange = value => {
@@ -39,7 +39,7 @@ class Tasks extends Component {
     this.query.filter = { status: activeTab };
     this.props.getTasks({ ...this.query });
     this.props.fetchTaskCount(activeTab);
-  };
+  }
 
   handlePageChange = (event, data) => {
     this.query.page = data.activePage;
@@ -63,6 +63,8 @@ class Tasks extends Component {
             </Segment>
           </Link>
         </FlexRow>
+
+        {/* <Label color='red' circular>{taskCount}</Label> */}
 
         <Tab
           onTabChange={this.handleTabChange}
