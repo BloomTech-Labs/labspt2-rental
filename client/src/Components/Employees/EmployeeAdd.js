@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { Header, Input, Button, Divider } from "semantic-ui-react";
+import { Header, Input, Button, Divider, Dropdown } from "semantic-ui-react";
 import { FlexRow, FlexColumn } from "custom-components";
 
 class EmployeeAdd extends Component {
@@ -20,6 +20,11 @@ class EmployeeAdd extends Component {
         state: null,
         zip: null
       },
+      permissions: {
+        task: false,
+        property: false,
+        checkout: false
+      },
       username: null,
       password: null
     };
@@ -32,11 +37,13 @@ class EmployeeAdd extends Component {
   handleSubmit = () => {
     const request = this.state.employee;
     request.address = this.state.address;
+    request.permissions = this.state.permissions;
     request.username = `${request.lastName
       .slice(0, 4)
       .toLowerCase()}_${request.firstName.toLowerCase()}`;
     request.password = "changeme";
     request.role = "employee";
+    console.log(request)
     this.props
       .createEmployee(request)
       .then(data => {
@@ -50,7 +57,19 @@ class EmployeeAdd extends Component {
   };
 
   render() {
-    const { employee, address } = this.state;
+    const { employee, address, permissions } = this.state;
+    const permissionValues = [
+      {
+        key: "yes",
+        text: "Yes",
+        value: true
+      },
+      {
+        key: "no",
+        text: "No",
+        value: false
+      }
+    ];
 
     return (
       <FlexColumn
@@ -179,10 +198,48 @@ class EmployeeAdd extends Component {
         <br />
         <br />
 
+        <FlexColumn width="50%">
+          <div>
+            Can re-assign tasks{"   "}
+            <Dropdown inline options={permissionValues} defaultValue={false}
+            onChange={(e, val) =>
+              this.handleChange("permissions", {
+                ...permissions,
+                task: val.value
+              })
+            }/>
+          </div>
+          <br />
+          <div>
+            Can re-assign properties{"   "}
+            <Dropdown inline options={permissionValues} defaultValue={false}
+            onChange={(e, val) =>
+              this.handleChange("permissions", {
+                ...permissions,
+                property: val.value
+              })
+            } />
+          </div>
+          <br />
+          <div>
+            Can bill guests{"   "}
+            <Dropdown inline options={permissionValues} defaultValue={false}
+            onChange={(e, val) =>
+              this.handleChange("permissions", {
+                ...permissions,
+                checkout: val.value
+              })
+            }/>
+          </div>
+        </FlexColumn>
+
+        <br />
+        <br />
+
         <FlexRow width="full" justifyCenter>
-            <Button color="green" onClick={this.handleSubmit}>
-              Add Employee
-            </Button>
+          <Button color="green" onClick={this.handleSubmit}>
+            Add Employee
+          </Button>
         </FlexRow>
       </FlexColumn>
     );
