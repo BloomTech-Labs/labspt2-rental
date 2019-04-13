@@ -50,6 +50,7 @@ class Dashboard extends Component {
             render={() => <Employees />}
           />
           <Route
+            exact
             path="/dashboard/employees/add"
             render={() => <EmployeeAdd />}
           />
@@ -60,16 +61,16 @@ class Dashboard extends Component {
 
           {/*TODO work on these pages*/}
 
-                <Route 
+                <Route
                   exact
-                  path="/dashboard/tasks" 
-                  render={() => <Tasks />} 
+                  path="/dashboard/tasks"
+                  render={() => <Tasks />}
                 />
 
-                <Route 
+                <Route
                   exact
-                  path="/dashboard/tasks/add" 
-                  render={() => <TaskAdd />} 
+                  path="/dashboard/tasks/add"
+                  render={() => <TaskAdd />}
                 />
 
 
