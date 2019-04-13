@@ -72,5 +72,13 @@ describe('Task model', () => {
         required: true
       });
     });
+
+    test('status', () => {
+      const { status } = Task.schema.obj;
+      expect(status).toEqual({
+        type: String,
+        enum: ['upcoming', 'due today', 'overdue']
+      });
+    });
   });
 });

@@ -41,7 +41,11 @@ const taskSchema = new Schema(
       ref: 'user',
       autopopulate: true,
       required: true
-    }
+    },
+    status: {
+      type: String,
+      enum: ['upcoming', 'due today', 'overdue']
+    },
   },
   { timestamps: true }
 );

@@ -13,7 +13,7 @@ class Tasks extends Component {
       page: 1,
       pageSize: 5,
       search: "",
-      // filter: { status: "due today" },
+      filter: { status: "overdue" },
       sort: "_id"
     };
 
@@ -25,7 +25,7 @@ class Tasks extends Component {
   componentDidMount() {
     const { page, pageSize, sort, filter } = this.query;
     this.props.getTasks({ page, pageSize, sort, filter });
-    this.props.fetchTaskCount();
+    this.props.fetchTaskCount("overdue");
   }
 
   handleSearchChange = value => {

@@ -3,14 +3,17 @@ import * as actions from "./actions";
 import config from "config";
 
 export const getTasks = (filterSort = {}) => {
-  const { sort, page, pageSize } = filterSort;
+  const { filter, sort, page, pageSize } = filterSort;
 
   return dispatch => {
     dispatch({
       type: actions.FETCH_TASK_ATTEMPT
     });
     axios
-      .get(`${config.apiUrl}/api/tasks?limit=${pageSize}&skip=${(page - 1) * pageSize}`)
+      .get(
+        `${config.apiUrl}/api/tasks?filter=${JSON.stringify(filter) ||
+          ""}&sort=${sort}&limit=${pageSize}&skip=${(page - 1) * pageSize}`
+      )
       .then(response => {
         console.log(response);
         dispatch({
@@ -28,7 +31,7 @@ export const getTasks = (filterSort = {}) => {
 };
 
 export const searchTasks = (filterSort = {}) => {
-  const { sort, page, pageSize, search } = filterSort;
+  const { filter, sort, page, pageSize, search } = filterSort;
 
   return dispatch => {
     dispatch({
@@ -36,7 +39,8 @@ export const searchTasks = (filterSort = {}) => {
     });
     axios
       .get(
-        `${config.apiUrl}/api/tasks/search?search=${search || 
+        `${config.apiUrl}/api/tasks/search?search=${search ||
+          ""}&filter=${JSON.stringify(filter) ||
           ""}&sort=${sort}&limit=${pageSize}&skip=${(page - 1) * pageSize}`
       )
       .then(response => {
