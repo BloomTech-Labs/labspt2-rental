@@ -4,7 +4,7 @@ import { Elements, StripeProvider } from "react-stripe-elements";
 import CheckoutForm from "./updatePlan";
 import { config } from "../../config/dev";
 
-// Stretch: set the auto chosen button based on billing plan on state
+// Update: check IF customer ID exists. If so, just update usage - but must delete properties first??
 
 // To give this and the CheckoutForm user info, pass it props via user={this.props.user} or user={this.state.user}. With that syntax, it it setup to pass that down to the CheckoutForm
 
@@ -18,6 +18,15 @@ export default class PlanModal extends Component {
   close = () => this.setState({ open: false });
 
   show = () => this.setState({ open: true });
+
+  componentDidMount = () => {
+    if(this.props.user.billingPlan === 'upgraded'){
+      this.setState({
+        free: true,
+        upgraded: false
+      })
+    }
+  }
 
   handleChange = (e, { value }) => {
     if (value === "free") {
@@ -35,7 +44,6 @@ export default class PlanModal extends Component {
 
   render() {
     const { open } = this.state;
-    console.log('passed user:', this.props.user)
 
     return (
       <div>
