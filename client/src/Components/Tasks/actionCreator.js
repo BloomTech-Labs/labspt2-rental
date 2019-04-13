@@ -81,6 +81,7 @@ export const fetchTaskCount = (status = null) => dispatch => {
 };
 
 
+
 // Needed For TaskAdd Page
 export const fetchProperties = () => dispatch => {
   dispatch({ type: actions.FETCH_TASK_ATTEMPT });

@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import { FlexColumn, Divider } from "custom-components";
 import TaskListItem from "./TaskListItem";
-import { Tab, Pagination } from "semantic-ui-react";
+import { Tab, Pagination, Label } from "semantic-ui-react";
 
 class TaskList extends Component {
   constructor(props) {

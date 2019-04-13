@@ -31,7 +31,7 @@ const connector = connect(
     fetchEmployees,
     fetchReservations,
     createTask,
-    fetchTaskCount
+    fetchTaskCount,
   }
 );
 

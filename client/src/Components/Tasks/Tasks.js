@@ -39,7 +39,7 @@ class Tasks extends Component {
     this.query.filter = { status: activeTab };
     this.props.getTasks({ ...this.query });
     this.props.fetchTaskCount(activeTab);
-  };
+  }
 
   handlePageChange = (event, data) => {
     this.query.page = data.activePage;
@@ -63,6 +63,8 @@ class Tasks extends Component {
             </Segment>
           </Link>
         </FlexRow>
+
+        {/* <Label color='red' circular>{taskCount}</Label> */}
 
         <Tab
           onTabChange={this.handleTabChange}
