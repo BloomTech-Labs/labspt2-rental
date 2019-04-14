@@ -15,7 +15,7 @@ export default class Billing extends Component {
   }
 
   componentDidMount = () => {
-    console.log(this.props.user.stripeCustomerID);
+    console.log('properties length:', this.props.properties.length);
     this.setState({
       nextBilling: "April 21, 2019",
       billingPlan: this.props.user.billingPlan,
@@ -25,7 +25,6 @@ export default class Billing extends Component {
 
   componentDidUpdate = prevProps => {
     if (this.props !== prevProps) {
-      console.log("updated", this.props.user);
       this.setState({
         billingPlan: this.props.user.billingPlan
       });
