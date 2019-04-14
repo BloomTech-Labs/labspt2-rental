@@ -4,14 +4,10 @@ import { FlexColumn, Divider, FlexRow } from "custom-components";
 import EmployeeListItem from "./EmployeeListItem";
 import { Link } from "react-router-dom";
 
-import taskPropertyAssign from './taskPropertyHelper';
+import taskPropertyAssign from "./taskPropertyHelper";
 
 const EmployeeList = props => {
-  const {
-    numPages,
-    page,
-    handlePageChange
-  } = props;
+  const { numPages, page, handlePageChange } = props;
 
   const modEmployees = taskPropertyAssign(props);
 

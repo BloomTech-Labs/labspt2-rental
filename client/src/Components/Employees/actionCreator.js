@@ -119,10 +119,13 @@ export const createEmployee = body => dispatch => {
 };
 
 export const updateEmployee = (id, body) => dispatch => {
-  return axios.put(`${config.apiUrl}/api/employees/${id}`, body).then(({ data }) => {
-    console.log(data)
-    dispatch(getEmployees())
-  }).catch(err => {
-    dispatch({ type: actions.EMPLOYEE_FAILURE, error: err });
-  })
-}
+  return axios
+    .put(`${config.apiUrl}/api/employees/${id}`, body)
+    .then(({ data }) => {
+      console.log(data);
+      dispatch(getEmployees());
+    })
+    .catch(err => {
+      dispatch({ type: actions.EMPLOYEE_FAILURE, error: err });
+    });
+};

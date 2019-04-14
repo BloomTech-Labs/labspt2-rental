@@ -1,9 +1,5 @@
 const taskPropertyAssign = opts => {
-  const {
-    employees,
-    tasks,
-    properties
-  } = opts;
+  const { employees, tasks, properties } = opts;
 
   if (tasks && properties) {
     const currentTime = Date.now();
@@ -34,13 +30,13 @@ const taskPropertyAssign = opts => {
       properties.forEach(property => {
         if (property.assistants.includes(employee._id)) {
           employee.properties++;
-          employee.assignedProp.push(property.name)
+          employee.assignedProp.push(property.name);
         }
       });
     });
   }
 
-  return employees
+  return employees;
 };
 
 export default taskPropertyAssign;
