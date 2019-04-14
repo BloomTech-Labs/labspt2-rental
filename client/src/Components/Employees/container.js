@@ -6,7 +6,8 @@ import {
   searchEmployees,
   getNumberEmployees,
   getTaskList,
-  createEmployee
+  createEmployee,
+  updateEmployee
 } from "./actionCreator";
 import _Employees from "./Employees";
 import _EmployeeAdd from "./EmployeeAdd";
@@ -23,7 +24,8 @@ const connector = connect(
     searchEmployees,
     getNumberEmployees,
     getTaskList,
-    createEmployee
+    createEmployee,
+    updateEmployee
   }
 );
 

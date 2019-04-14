@@ -43,7 +43,6 @@ class EmployeeAdd extends Component {
       .toLowerCase()}_${request.firstName.toLowerCase()}`;
     request.password = "changeme";
     request.role = "employee";
-    console.log(request)
     this.props
       .createEmployee(request)
       .then(data => {
@@ -200,36 +199,51 @@ class EmployeeAdd extends Component {
 
         <FlexColumn width="50%">
           <div>
-            Can re-assign tasks{"   "}
-            <Dropdown inline options={permissionValues} defaultValue={false}
-            onChange={(e, val) =>
-              this.handleChange("permissions", {
-                ...permissions,
-                task: val.value
-              })
-            }/>
+            Can re-assign tasks
+            <Dropdown
+              className="space-left-20"
+              inline
+              options={permissionValues}
+              defaultValue={false}
+              onChange={(e, val) =>
+                this.handleChange("permissions", {
+                  ...permissions,
+                  task: val.value
+                })
+              }
+            />
           </div>
           <br />
           <div>
             Can re-assign properties{"   "}
-            <Dropdown inline options={permissionValues} defaultValue={false}
-            onChange={(e, val) =>
-              this.handleChange("permissions", {
-                ...permissions,
-                property: val.value
-              })
-            } />
+            <Dropdown
+              className="space-left-20"
+              inline
+              options={permissionValues}
+              defaultValue={false}
+              onChange={(e, val) =>
+                this.handleChange("permissions", {
+                  ...permissions,
+                  property: val.value
+                })
+              }
+            />
           </div>
           <br />
           <div>
             Can bill guests{"   "}
-            <Dropdown inline options={permissionValues} defaultValue={false}
-            onChange={(e, val) =>
-              this.handleChange("permissions", {
-                ...permissions,
-                checkout: val.value
-              })
-            }/>
+            <Dropdown
+              className="space-left-20"
+              inline
+              options={permissionValues}
+              defaultValue={false}
+              onChange={(e, val) =>
+                this.handleChange("permissions", {
+                  ...permissions,
+                  checkout: val.value
+                })
+              }
+            />
           </div>
         </FlexColumn>
 
