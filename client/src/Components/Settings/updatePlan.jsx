@@ -27,31 +27,37 @@ class CheckoutForm extends Component {
       loading: true
     });
 
-    // Fetch data from state to fill into the token. For now, it's dummy data.
+    let planType = '';
+
+    if(this.props.free === true && this.props.upgraded === false){
+      planType = 'upgraded'
+    } else if (this.props.free === false && this.props.upgraded === true){
+      planType = 'free'
+    } else {
+      window.alert('Error - plan type not chosen');
+    };
 
     let { token } = await this.props.stripe.createToken({
-      email: "owner@roostr.io",
-      address_line1: "1234 Mountain Flower Ct",
-      address_city: "Jonesville",
-      address_state: "TX",
-      address_zip: "77345",
-      name: "Gwenog Jones"
+      email: this.props.user.email,
+      address_line1: this.props.user.billingAddress.address1,
+      address_city: this.props.user.billingAddress.city,
+      address_state: this.props.user.billingAddress.state,
+      address_zip: this.props.user.billingAddress.zip,
+      name: `${this.props.user.firstName} ${this.props.user.lastName}`
     });
 
     let response = await axios.post(`${config.apiUrl}/api/stripe/subscribe`, {
       token: token,
-      updatedPlan: "upgraded"
+      updatedPlan: planType
     });
-    console.log("response", response);
 
     if (response) {
-      console.log("subscribe response", response.data);
       this.setState({
         loading: false
       });
     }
 
-    if (response.status === 200 || response.status === 201)
+    if (response.status === 201)
       this.setState({ complete: true });
   }
 

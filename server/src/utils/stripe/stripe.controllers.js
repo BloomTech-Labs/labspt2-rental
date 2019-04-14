@@ -18,7 +18,7 @@ const userObject = {
   last4: '',
   cardType: '',
   cardExpiration: '',
-  billingPlan: 'upgraded'
+  billingPlan: ''
 };
 
 export const render = async (req, res, next) => {
@@ -86,8 +86,6 @@ const updateUserWithStripeInfo = async (err, res) => {
         .lean()
         .exec();
 
-      console.log('updated user', user);
-
       if (user) {
         return res.status(201).send(user);
       }
@@ -120,6 +118,8 @@ export const subscribe = async (req, res) => {
       address_zip,
       name
     } = req.body.token;
+
+    userObject.billingPlan = req.body.updatedPlan;
 
     stripe.customers.create(
       {
@@ -164,6 +164,8 @@ export const updateUsage = async (req, res) => {
     return res.status(500).json({ message: 'Unable to update usage record' });
   }
 };
+
+// Just send success 201 from this endpoint so that Jess can hit the next endpoint to add the property
 
 const createUsageRecord = async (user, res) => {
   const currentDate = Math.floor(Date.now() / 1000);
@@ -236,6 +238,7 @@ export const updateCC = async (req, res) => {
     res.status(500).end();
   }
 };
+
 // Updating card details but not card number:
 
 // export const updateCC = async (req, res) => {

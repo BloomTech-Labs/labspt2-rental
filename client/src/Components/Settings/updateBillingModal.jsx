@@ -11,7 +11,6 @@ import {
 import { Elements, StripeProvider } from "react-stripe-elements";
 import UpdateCardModal from "./updateCardModal";
 import { config } from "../../config/dev";
-import axios from "axios";
 
 export default class UpdateBillingModal extends Component {
   state = {
@@ -19,7 +18,6 @@ export default class UpdateBillingModal extends Component {
     address1: "",
     city: "",
     state: "",
-    zip: ""
   };
 
   close = () =>
@@ -28,7 +26,6 @@ export default class UpdateBillingModal extends Component {
       address1: this.props.user.billingAddress.address1,
       city: this.props.user.billingAddress.city,
       state: this.props.user.billingAddress.state,
-      zip: this.props.user.billingAddress.zip
     });
 
   show = () => this.setState({ open: true });
@@ -38,7 +35,6 @@ export default class UpdateBillingModal extends Component {
       address1: this.props.user.billingAddress.address1,
       city: this.props.user.billingAddress.city,
       state: this.props.user.billingAddress.state,
-      zip: this.props.user.billingAddress.zip
     });
   };
 
@@ -48,7 +44,6 @@ export default class UpdateBillingModal extends Component {
         address1: this.props.user.billingAddress.address1,
         city: this.props.user.billingAddress.city,
         state: this.props.user.billingAddress.state,
-        zip: this.props.user.billingAddress.zip
       });
     }
   };
@@ -61,7 +56,7 @@ export default class UpdateBillingModal extends Component {
 
   render() {
     const { open } = this.state;
-    const { address1, city, state, zip } = this.state;
+    const { address1, city, state } = this.state;
 
     return (
       <div>

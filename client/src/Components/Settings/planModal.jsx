@@ -4,7 +4,13 @@ import { Elements, StripeProvider } from "react-stripe-elements";
 import CheckoutForm from "./updatePlan";
 import { config } from "../../config/dev";
 
-// Stretch: set the auto chosen button based on billing plan on state
+// IF no customer ID exists, create customer first time subscribe
+// IF customer ID, check # of properties. Modal to prevent going to free until properties down to 1 -- or does this need to be active properties?
+
+// Test updating usage functionality
+
+
+// To give this and the CheckoutForm user info, pass it props via user={this.props.user} or user={this.state.user}. With that syntax, it it setup to pass that down to the CheckoutForm
 
 export default class PlanModal extends Component {
   state = {
@@ -17,14 +23,14 @@ export default class PlanModal extends Component {
 
   show = () => this.setState({ open: true });
 
-  handleSubmit = e => {
-    e.preventDefault();
-    if (this.props.customerID) {
-      // update subscription
-    } else {
-      // create subscription if paid upgrade
+  componentDidMount = () => {
+    if(this.props.user.billingPlan === 'upgraded'){
+      this.setState({
+        free: true,
+        upgraded: false
+      })
     }
-  };
+  }
 
   handleChange = (e, { value }) => {
     if (value === "free") {
@@ -92,7 +98,7 @@ export default class PlanModal extends Component {
 
             <StripeProvider apiKey={config.stripeApiKey}>
               <Elements>
-                <CheckoutForm close={this.close} />
+                <CheckoutForm close={this.close} free={this.state.free} user={this.props.user} upgraded={this.state.upgraded} properties={this.props.properties} />
               </Elements>
             </StripeProvider>
           </Modal.Content>
