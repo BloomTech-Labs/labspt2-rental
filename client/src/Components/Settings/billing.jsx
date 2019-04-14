@@ -15,7 +15,6 @@ export default class Billing extends Component {
   }
 
   componentDidMount = () => {
-    console.log('properties length:', this.props.properties.length);
     this.setState({
       nextBilling: "April 21, 2019",
       billingPlan: this.props.user.billingPlan,
@@ -54,7 +53,7 @@ export default class Billing extends Component {
             {billingPlans[billingPlan].description}
           </Segment.Inline>
           <FlexRow style={{ marginTop: "25px" }}>
-            <PlanModal customerID={this.state.stripeCustomerID} user={this.props.user}/>
+            <PlanModal customerID={this.state.stripeCustomerID} user={this.props.user} properties={this.props.properties} />
           </FlexRow>
         </Segment>
       );
