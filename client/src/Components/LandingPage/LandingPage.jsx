@@ -16,6 +16,7 @@ import {
   Visibility
 } from "semantic-ui-react";
 import { Link } from "react-router-dom";
+import Slider from "react-slick";
 
 // Features to promote:
 
@@ -38,6 +39,47 @@ import { Link } from "react-router-dom";
 // Jana (female): <img src="//joeschmoe.io/api/v1/jana">
 
 // Current basic blue Semantic UI button color hex: 0080D6
+
+// Keep Roostr short motto up front and top header. Find succinet 6-8 word way to describe it. (i.e. Teach your app to see emotions; Make your website better. Instantly; One app to manage your properties.)
+
+// Then, 4 checkmark section: free to use for one property, we will not spam you with automated emails, you don't have to provide a CC unless you upgrade, simplify managing your short term rentals today
+
+// OR a click bait type link to more: "Learn how Roostr helps your team increase productivity"
+
+// OR pain point sections with images next to them: mobile responsive, seamless checkout, etc.
+
+// Testimonials section. Images with short quotes on the left, scrolling. On the right, a comment about "Owners love how Roostr increases productivity and customer service, without increasing time spent managing." Using "trust" or "trusted by" sells better.
+
+// Great product explanation: 6-8 word headers: "Create the perfect page with A/B testing", "Make changes quickly with the native editor"
+// "Quickly add properties with custom task lists", "Easily assign tasks and properties to employees", "Customize employee permissions with the click of a button", "Stop organizing tasks, start prioritizing your team's work"
+
+
+// Use a step to show simple customer checkout process or signup process
+
+// const StepExampleOrdered = () => (
+//   <Step.Group ordered>
+//     <Step completed>
+//       <Step.Content>
+//         <Step.Title>Shipping</Step.Title>
+//         <Step.Description>Choose your shipping options</Step.Description>
+//       </Step.Content>
+//     </Step>
+
+//     <Step completed>
+//       <Step.Content>
+//         <Step.Title>Billing</Step.Title>
+//         <Step.Description>Enter billing information</Step.Description>
+//       </Step.Content>
+//     </Step>
+
+//     <Step active>
+//       <Step.Content>
+//         <Step.Title>Confirm Order</Step.Title>
+//       </Step.Content>
+//     </Step>
+//   </Step.Group>
+// )
+
 
 // Heads up!
 // We using React Static to prerender our docs with server side rendering, this is a quite simple solution.
@@ -148,7 +190,7 @@ class DesktopContainer extends Component {
             <HomepageHeading />
           </Segment>
         </Visibility>
-
+        <SimpleSlider></SimpleSlider>
         {children}
       </Responsive>
     );
@@ -235,6 +277,41 @@ const ResponsiveContainer = ({ children }) => (
 ResponsiveContainer.propTypes = {
   children: PropTypes.node
 };
+
+class SimpleSlider extends React.Component {
+  render() {
+    var settings = {
+      dots: true,
+      infinite: true,
+      speed: 500,
+      arrows: true,
+      slidesToShow: 1,
+      slidesToScroll: 1
+    };
+    return (
+      <Slider {...settings}>
+        <div>
+          <h3>1</h3>
+        </div>
+        <div>
+          <h3>2</h3>
+        </div>
+        <div>
+          <h3>3</h3>
+        </div>
+        <div>
+          <h3>4</h3>
+        </div>
+        <div>
+          <h3>5</h3>
+        </div>
+        <div>
+          <h3>6</h3>
+        </div>
+      </Slider>
+    );
+  }
+}
 
 const HomepageLayout = () => (
   <ResponsiveContainer>
