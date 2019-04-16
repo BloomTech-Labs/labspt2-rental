@@ -65,8 +65,8 @@ class Tasks extends Component {
           </Link>
         </FlexRow>
 
-        <Label color='red' circular>{taskCount}</Label>
-        <Label color='red' circular>{pageSize}</Label>
+        {/* <Label color='red' circular>{taskCount}</Label>
+        <Label color='red' circular>{pageSize}</Label> */}
 
         <Tab
           onTabChange={this.handleTabChange}
