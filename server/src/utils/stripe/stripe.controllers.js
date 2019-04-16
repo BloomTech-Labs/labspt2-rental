@@ -159,7 +159,7 @@ export const updateUsage = async (req, res) => {
 
   const updatedUsage = await createUsageRecord(userInfo, res);
   if (updatedUsage) {
-    return res.status(201).json(updatedUsage);
+    return res.status(201);
   } else {
     return res.status(500).json({ message: 'Unable to update usage record' });
   }
@@ -182,7 +182,8 @@ const createUsageRecord = async (user, res) => {
           err
         });
       } else {
-        return res.status(201).send(usageRecord);
+        console.log('Updated usage record from Stripe', usageRecord);
+        return res.status(201);
       }
     }
   );
