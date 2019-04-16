@@ -18,7 +18,7 @@ const DashboardCards = props => {
           <Label horizontal color={props.color1} >{props.value1}</Label>
           {props.label1}
         </List.Item>
-        {props.value2 ? (
+        {props.label2 ? (
           <List.Item>
             <Label horizontal color={props.color2} >{props.value2}</Label>
             {props.label2}

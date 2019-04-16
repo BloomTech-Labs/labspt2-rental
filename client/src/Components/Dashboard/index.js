@@ -1,1 +1,2 @@
-export { default as Dashboard } from "./container";
+export { Dashboard } from "./container";
+export { DashboardContent } from './container'
