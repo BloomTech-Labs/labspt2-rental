@@ -108,6 +108,7 @@ export default async () => {
               propertiesArr.push({
                 name: 'House ' + (i + 1),
                 assistants: [employeeId],
+                active: true,
                 createdBy: ownerId,
                 address1: faker.address.streetAddress(),
                 city: faker.address.city(),

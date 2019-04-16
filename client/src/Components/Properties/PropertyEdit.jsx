@@ -7,6 +7,7 @@ class PropertyEdit extends Component {
     super(props);
     this.state = {
       _id: this.props.match.params.id
+      // active: true
     };
   }
   componentDidMount() {
@@ -14,13 +15,29 @@ class PropertyEdit extends Component {
     this.props.getEmployees();
   }
 
+  // componentDidUpdate() {
+  //   let property = this.props.properties.find(
+  //     property => property._id === this.state._id
+  //   );
+  //   this.setState({
+  //     active: property.active
+  //   });
+  // }
+
   handleChange(prop, val) {
     this.setState({ [prop]: val });
+    console.log(this.state);
   }
 
   handleSubmit = () => {
     this.props.updateProperty(this.state).then(response => {
       this.props.history.push(`/dashboard/properties/${this.state._id}`);
+    });
+  };
+
+  checkboxHandler = e => {
+    this.setState({
+      active: !this.state.active
     });
   };
 
@@ -55,7 +72,6 @@ class PropertyEdit extends Component {
               onChange={e => this.handleChange("address2", e.target.value)}
             />
             <FlexRow>
-              {" "}
               <Input
                 label="City"
                 style={{ margin: "5px" }}
@@ -104,17 +120,21 @@ class PropertyEdit extends Component {
               onChange={(e, val) => this.handleChange("assistants", val.value)}
               placeholder="Employee"
               options={
-                this.props.loading
-                  ? [{ text: "Loading...", value: "loading" }]
-                  : this.props.employees &&
-                    this.props.employees.map(e => ({
-                      key: e._id,
-                      text: e.firstName + " " + e.lastName,
-                      value: e._id
-                    }))
+                this.props.employees &&
+                this.props.employees.map(e => ({
+                  key: e._id,
+                  text: e.firstName + " " + e.lastName,
+                  value: e._id
+                }))
               }
             />
-            <Checkbox label="Pause reservations" />
+            <Checkbox
+              defaultChecked={
+                this.props.loading ? true : property.active ? false : true
+              }
+              label="Pause reservations"
+              onClick={this.checkboxHandler}
+            />
             <Link to={`/dashboard/properties/`}>
               <Button
                 style={{ margin: "5px" }}
