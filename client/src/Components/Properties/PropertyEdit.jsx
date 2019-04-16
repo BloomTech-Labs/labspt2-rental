@@ -7,7 +7,6 @@ class PropertyEdit extends Component {
     super(props);
     this.state = {
       _id: this.props.match.params.id
-      // active: true
     };
   }
   componentDidMount() {
@@ -26,7 +25,6 @@ class PropertyEdit extends Component {
 
   handleChange(prop, val) {
     this.setState({ [prop]: val });
-    console.log(this.state);
   }
 
   handleSubmit = () => {
@@ -36,9 +34,16 @@ class PropertyEdit extends Component {
   };
 
   checkboxHandler = e => {
-    this.setState({
-      active: !this.state.active
-    });
+    const checked = document.getElementById("checkbox").checked;
+    if (checked) {
+      this.setState({
+        active: false
+      });
+    } else {
+      this.setState({
+        active: true
+      });
+    }
   };
 
   render() {
@@ -129,8 +134,9 @@ class PropertyEdit extends Component {
               }
             />
             <Checkbox
+              id="checkbox"
               defaultChecked={
-                this.props.loading ? true : property.active ? false : true
+                this.props.loading ? false : property.active ? false : true
               }
               label="Pause reservations"
               onClick={this.checkboxHandler}
