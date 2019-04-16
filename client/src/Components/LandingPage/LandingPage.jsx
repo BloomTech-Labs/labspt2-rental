@@ -19,11 +19,6 @@ import MobileContainer from './MobileContainer';
 
 // Testimonials
 
-// Jess (female): <img src="//joeschmoe.io/api/v1/jess">
-// Jon (male): <img src="//joeschmoe.io/api/v1/jon">
-// Joe (male): <img src="//joeschmoe.io/api/v1/joe">
-// Jana (female): <img src="//joeschmoe.io/api/v1/jana">
-
 // Current basic blue Semantic UI button color hex: 0080D6
 
 // Keep Roostr short motto up front and top header. Find succinet 6-8 word way to describe it. (i.e. Teach your app to see emotions; Make your website better. Instantly; One app to manage your properties.)

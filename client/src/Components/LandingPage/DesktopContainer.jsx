@@ -10,6 +10,7 @@ import {
 } from "semantic-ui-react";
 import { Link } from "react-router-dom";
 import {HomePageHeader} from './Header';
+import { Testimonials } from "./Testmonials";
 
 // Heads up!
 // We using React Static to prerender our docs with server side rendering, this is a quite simple solution.
@@ -80,6 +81,7 @@ const getWidth = () => {
                 </Container>
               </Menu>
               <HomePageHeader />
+              <Testimonials />
             </Segment>
           </Visibility>
           {children}

@@ -51,6 +51,7 @@ class MobileContainer extends Component {
           vertical
           visible={sidebarOpened}
         >
+        {/* Can add additional menu links here with Menu.Item; set active on currently chosen */}
           <Menu.Item as="a" active>
             Home
           </Menu.Item>
