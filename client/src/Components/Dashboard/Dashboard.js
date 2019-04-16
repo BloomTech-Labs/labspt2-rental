@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import { Route, withRouter } from "react-router-dom";
 import { Segment } from "semantic-ui-react";
 import { FlexRow, Container } from "custom-components";
-import DashboardContent from "./DashboardContent";
+import { DashboardContent } from "./"
 import { Properties, Property, PropertyEdit, PropertyAdd } from "../Properties";
 import {
   Reservations,

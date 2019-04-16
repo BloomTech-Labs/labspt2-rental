@@ -10,13 +10,13 @@ export default class DashboardContent extends Component {
 
     this.state = {
       counts: {
-        reservTotals: 0,
+        reservTotals: 10,
         reservActive: 0,
-        propTotal: 0,
-        propInactive: 0,
-        emplTotal: 0,
-        tasksToday: 0,
-        tasksOverdue: 0
+        propTotal: 5,
+        propInactive: 2,
+        emplTotal: 4,
+        tasksToday: 15,
+        tasksOverdue: 2
       }
     };
   }
