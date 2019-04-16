@@ -14,11 +14,45 @@ export default class DashboardContent extends Component {
   render() {
     return (
       <Container>
-        <DashboardCards title="Reservations" iconName="book" />
-        <DashboardCards title="Properties" iconName="home" />
-        <DashboardCards title="Employees" iconName="address card" />
-        <DashboardCards title="Overdue Tasks" iconName="warning sign" />
-        <DashboardCards title="Today's Tasks" iconName="clipboard list" />
+        <FlexColumn alignCenter width="full">
+          <DashboardCards
+            title="Reservations"
+            iconName="book"
+            value1={10}
+            label1="Total"
+            color1="blue"
+            value2={5}
+            label2="Active"
+            color2="blue"
+          />
+          <DashboardCards
+            title="Properties"
+            iconName="home"
+            value1={10}
+            label1="Total"
+            color1="blue"
+            value2={5}
+            label2="Unreserved"
+            color2="blue"
+          />
+          <DashboardCards
+            title="Employees"
+            iconName="address card"
+            value1={10}
+            label1="Total"
+            color1="blue"
+          />
+          <DashboardCards
+            title="Tasks"
+            iconName="clipboard list"
+            value1={10}
+            label1="Today"
+            color1="blue"
+            value2={5}
+            label2="Overdue"
+            color2="blue"
+          />
+        </FlexColumn>
       </Container>
     );
   }
