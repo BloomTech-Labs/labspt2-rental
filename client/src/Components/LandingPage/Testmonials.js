@@ -38,7 +38,25 @@ export const Testimonials = ({ mobile }) => (
         text
     >
 
-        <Grid columns={mobile ? 1 : 2} divided style={{ marginLeft: mobile ? '1em' : '1em', marginRight: mobile ? null : '1em'}}>
+          <Header
+                as="h2"
+                content="Our customers love Roostr"
+                style={{
+                fontSize: mobile ? "2em" : "3em",
+                fontWeight: "normal",
+                marginTop: mobile ? "0.5em" : "1em",
+                marginBottom: mobile ? '0.5em' : '1em'
+                }}
+            />
+
+        <Grid 
+            columns={mobile ? 1 : 2} 
+            divided 
+            style={{ 
+                marginLeft: mobile ? '1em' : '1em', 
+                marginRight: mobile ? null : '1em',
+                marginBottom: mobile ? '3em' : '4em'
+                }}>
             <Grid.Row>
             <Grid.Column
                 style={{
@@ -121,35 +139,6 @@ export const Testimonials = ({ mobile }) => (
             </Grid.Column>
             </Grid.Row>
         </Grid>
-
-        {/* <Image src={Jon} size='small' circular />
-        <Image src={Jess} size='small' circular />
-        <Image src={Jana} size='small' circular />
-        <Image src={Joe} size='small' circular /> */}
-
-
-      <Header
-        as="h2"
-        content="Our customers love Roostr"
-        style={{
-          fontSize: mobile ? "2em" : "3em",
-          fontWeight: "normal",
-          marginBottom: 0,
-          marginTop: mobile ? "1.5em" : "3em"
-        }}
-      />
-
-      <Header
-        as="h2"
-        content="The easy way to manage your properties."
-        inverted
-        style={{
-          fontSize: mobile ? "1.5em" : "1.7em",
-          fontWeight: "normal",
-          marginTop: mobile ? "0.5em" : "1.5em",
-          marginBottom: mobile ? "1em" : "1.5em"
-        }}
-      />
 
       <Link to="/register">
         <Button primary size="huge">
