@@ -38,7 +38,25 @@ export default class DashboardContent extends Component {
       tasksToday,
       tasksOverdue
     } = this.state.counts;
-    
+
+    // this sets the color of the overdue label to red if any exist
+    let overdueColor = "blue"
+    if (tasksOverdue) overdueColor = "red"
+
+    // this sets the color of unreserved properties label to yellow if any exist and red if more than 50% of total exist
+    let propInactiveColor = 'blue'
+    if (propInactive) {
+      if (propInactive >= propTotal / 2) {
+        propInactiveColor = "red"
+      } else propInactiveColor = "yellow"
+    }
+
+    // this sets the color of the active reservations and total reservations labels to red if none exist
+    let reservTotalsColor = "blue"
+    let reservActiveColor = "blue"
+    if (!reservTotals) reservTotalsColor = "red"
+    if (!reservActive) reservActiveColor = "red"
+
     console.log(this.props)
 
     return (
@@ -49,10 +67,10 @@ export default class DashboardContent extends Component {
             iconName="book"
             value1={reservTotals}
             label1="Total"
-            color1="blue"
+            color1={reservTotalsColor}
             value2={reservActive}
             label2="Active"
-            color2="blue"
+            color2={reservActiveColor}
           />
           <DashboardCards
             title="Properties"
@@ -62,7 +80,7 @@ export default class DashboardContent extends Component {
             color1="blue"
             value2={propInactive}
             label2="Unreserved"
-            color2="blue"
+            color2={propInactiveColor}
           />
           <DashboardCards
             title="Employees"
@@ -79,7 +97,7 @@ export default class DashboardContent extends Component {
             color1="blue"
             value2={tasksOverdue}
             label2="Overdue"
-            color2="blue"
+            color2={overdueColor}
           />
         </FlexColumn>
       </Container>

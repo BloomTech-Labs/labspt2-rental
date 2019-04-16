@@ -3,7 +3,7 @@ import { Header, Icon, Label, List } from "semantic-ui-react";
 import { FlexColumn, FlexRow } from "custom-components";
 
 const DashboardCards = props => {
-  // Takes in a title, icon, and up to two values and labels
+  // Takes in a title, icon, and up to two values, labels, and colors
   // the second value and label is optional
   return (
     <FlexRow justifyBetween width="50%" className="space-bottom-20">
