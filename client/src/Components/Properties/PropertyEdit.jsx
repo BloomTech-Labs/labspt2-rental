@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import { FlexColumn, FlexRow } from "custom-components";
-import { Input, Button } from "semantic-ui-react";
+import { Input, Button, Dropdown, Checkbox } from "semantic-ui-react";
 import { Link } from "react-router-dom";
 class PropertyEdit extends Component {
   constructor(props) {
@@ -11,6 +11,7 @@ class PropertyEdit extends Component {
   }
   componentDidMount() {
     this.props.getProperties();
+    this.props.getEmployees();
   }
 
   handleChange(prop, val) {
@@ -98,6 +99,22 @@ class PropertyEdit extends Component {
               placeholder={property.image}
               onChange={e => this.handleChange("image", e.target.value)}
             />
+            <Dropdown
+              selection
+              onChange={(e, val) => this.handleChange("assistants", val.value)}
+              placeholder="Employee"
+              options={
+                this.props.loading
+                  ? [{ text: "Loading...", value: "loading" }]
+                  : this.props.employees &&
+                    this.props.employees.map(e => ({
+                      key: e._id,
+                      text: e.firstName + " " + e.lastName,
+                      value: e._id
+                    }))
+              }
+            />
+            <Checkbox label="Pause reservations" />
             <Link to={`/dashboard/properties/`}>
               <Button
                 style={{ margin: "5px" }}
