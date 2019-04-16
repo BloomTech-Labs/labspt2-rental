@@ -18,6 +18,7 @@ const taskPropertyAssign = opts => {
       employee.overdue = 0;
       employee.todayTask = 0;
       employee.properties = 0;
+      employee.assignedProp = [];
       newTasks.forEach(task => {
         if (task.employee === employee._id) {
           if (task.overdue) {
@@ -28,9 +29,10 @@ const taskPropertyAssign = opts => {
         }
       });
       properties.forEach(property => {
-        if (property.assistants.includes(employee._id)) {
+        const ids = property.assistants.map(item => item._id) || [];
+        if (ids.includes(employee._id)) {
           employee.properties++;
-          employee.assignedProp.push(property.name);
+          employee.assignedProp.push({name: property.name, _id:property._id});
         }
       });
     });
