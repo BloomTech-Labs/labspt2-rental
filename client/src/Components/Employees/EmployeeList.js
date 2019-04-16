@@ -19,7 +19,7 @@ const EmployeeList = props => {
           onPageChange={handlePageChange}
           className="space-bottom"
           boundaryRange={0}
-          defaultActivePage={1}
+          defaultActivePage={page}
           firstItem={null}
           lastItem={null}
           ellipsisItem={null}
