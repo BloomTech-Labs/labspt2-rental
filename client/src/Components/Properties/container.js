@@ -20,7 +20,7 @@ const mapStateToProps = data => ({
   error: data.properties.error,
   property: data.properties.property,
   employees: data.properties.employees,
-  reservations: data.reservations
+  reservations: data.properties.reservations
 });
 
 const connector = connect(
