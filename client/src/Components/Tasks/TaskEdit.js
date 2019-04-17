@@ -3,7 +3,7 @@ import { FlexColumn, FlexRow, Text } from "custom-components";
 import { Header, Input, Dropdown, Button, Segment } from "semantic-ui-react";
 import DateRangePickerWrapper from "../shared/DatePicker/DatePicker";
 
-class TaskAdd extends Component {
+class TaskEdit extends Component {
   constructor() {
     super();
 
@@ -18,6 +18,7 @@ class TaskAdd extends Component {
     };
   }
 
+  //methods here
   componentDidMount() {
     this.props.fetchEmployees();
     this.props.fetchProperties();
@@ -44,6 +45,8 @@ class TaskAdd extends Component {
   };
 
   render() {
+    // const { description } = this.state;
+
     return (
       <FlexColumn>
         <FlexRow>
@@ -52,17 +55,33 @@ class TaskAdd extends Component {
 
         <br />
 
-        <FlexColumn style={{ width: "100%" }}>
-          <FlexRow style={{ width: "100%" }}>
+        <FlexColumn>
+          <FlexRow>
             <Input
-              style={{ width: "100%" }}
               placeholder="Add Task"
               onChange={e => this.handleChange("description", e.target.value)}
             />
           </FlexRow>
+
+          {/* <br />
+
+          <FlexRow width="100%" justifyCenter>
+            <Button color='teal'>Add Task</Button>
+          </FlexRow> */}
         </FlexColumn>
 
         <br />
+
+        {/* <FlexRow width="full" justifyCenter>
+          <Segment>       
+            <FlexColumn width="full" justifyCenter> */}
+        {/* map over tasks as they are created */}
+        {/* <p>Task Item 1</p>
+              <p>Task Item 2</p>
+              <p>Task Item 3</p>
+            </FlexColumn>
+          </Segment>
+        </FlexRow> */}
 
         <FlexRow width="full">
           <DateRangePickerWrapper onChange={this.handleDateChange} />
@@ -145,4 +164,4 @@ class TaskAdd extends Component {
   }
 }
 
-export default TaskAdd;
+export default TaskEdit;
