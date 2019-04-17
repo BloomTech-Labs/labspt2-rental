@@ -12,7 +12,7 @@ export class Desktop extends Component {
     const { visible } = this.state;
 
     return (
-      <Sidebar.Pushable style={{ width: "100%" }}>
+      <Sidebar.Pushable style={{ width: "100%", minHeight: "100vh" }}>
         <Sidebar
           visible={visible}
           as={Menu}
@@ -32,7 +32,10 @@ export class Desktop extends Component {
           ))}
         </Sidebar>
 
-        <Sidebar.Pusher as={Segment} style={{ marginLeft: "130px" }}>
+        <Sidebar.Pusher
+          as={Segment}
+          style={{ marginLeft: "130px", minHeight: "calc(100vh - 20px)" }}
+        >
           {/*style={{ marginLeft: visible && "140px" }}*/}
           <FlexRow width="full" justifyCenter>
             {this.props.pusher}

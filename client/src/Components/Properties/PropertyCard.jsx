@@ -3,17 +3,14 @@ import InfoCard from "../shared/Card/InfoCard";
 
 const PropertyCard = props => {
   return (
-    <InfoCard
-      imageLoc={props.image}
-      header={props.name}
-      lineOneTitle="Address"
-      lineTwoTitle="Employee"
-      lineThreeTitle="Max Guests"
-      lineOneInfo={props.address}
-      lineTwoInfo={props.assistants}
-      lineThreeInfo={props.occupants}
-      linkto={props.linkto}
-    />
+    <InfoCard link={props.linkto}>
+      <InfoCard.Image>{props.image}</InfoCard.Image>
+      <InfoCard.Title>{props.address}</InfoCard.Title>
+      <InfoCard.Label hover={props.addressFull}>{props.name}</InfoCard.Label>
+      <InfoCard.ID>{props.id}</InfoCard.ID>
+      <InfoCard.StatA label="Assistants">{props.assistants}</InfoCard.StatA>
+      <InfoCard.StatB label="Max Occupants">{props.occupants}</InfoCard.StatB>
+    </InfoCard>
   );
 };
 

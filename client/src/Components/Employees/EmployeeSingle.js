@@ -71,7 +71,10 @@ class EmployeeSingle extends Component {
                 <Header as="h3"> Email: {employee.email} </Header>
                 <Header as="h3"> Phone: {employee.phone} </Header>
                 <br />
-                <Header as="h3">{`Today's Tasks: `}{employee.todayTask}</Header>
+                <Header as="h3">
+                  {`Today's Tasks: `}
+                  {employee.todayTask}
+                </Header>
                 <Header as="h3">Overdue Tasks: {employee.overdue}</Header>
               </FlexColumn>
               {employee.imageLoc ? (
