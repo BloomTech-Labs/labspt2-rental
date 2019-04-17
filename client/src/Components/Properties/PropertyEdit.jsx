@@ -1,6 +1,14 @@
 import React, { Component } from "react";
 import { FlexColumn, FlexRow } from "custom-components";
-import { Input, Button, Dropdown, Checkbox } from "semantic-ui-react";
+import {
+  Input,
+  Button,
+  Dropdown,
+  Checkbox,
+  Form,
+  FormDropdown,
+  FormCheckbox
+} from "semantic-ui-react";
 import { Link } from "react-router-dom";
 class PropertyEdit extends Component {
   constructor(props) {
@@ -55,104 +63,130 @@ class PropertyEdit extends Component {
         {property && (
           <FlexColumn>
             <h1>Edit {property.name}</h1>
-            <Input
-              label="Name"
-              style={{ margin: "5px" }}
-              defaultValue={property.name}
-              placeholder={property.name}
-              onChange={e => this.handleChange("name", e.target.value)}
-            />
-            <Input
-              label="Address"
-              style={{ margin: "5px" }}
-              defaultValue={property.address1}
-              placeholder={property.address1}
-              onChange={e => this.handleChange("address1", e.target.value)}
-            />
-            <Input
-              label="Address 2"
-              style={{ margin: "5px" }}
-              defaultValue={property.address2}
-              placeholder={property.address2}
-              onChange={e => this.handleChange("address2", e.target.value)}
-            />
-            <FlexRow>
-              <Input
-                label="City"
+            <Form>
+              <Form.Field
+                control={Input}
+                label="Name"
                 style={{ margin: "5px" }}
-                defaultValue={property.city}
-                placeholder={property.city}
-                onChange={e => this.handleChange("city", e.target.value)}
+                defaultValue={property.name}
+                placeholder={property.name}
+                onChange={e => this.handleChange("name", e.target.value)}
               />
-              <Input
-                label="State"
+              <Form.Field
+                control={Input}
+                label="Address"
                 style={{ margin: "5px" }}
-                defaultValue={property.state}
-                placeholder={property.state}
-                onChange={e => this.handleChange("state", e.target.value)}
+                defaultValue={property.address1}
+                placeholder={property.address1}
+                onChange={e => this.handleChange("address1", e.target.value)}
               />
-              <Input
-                label="Zip"
+              <Form.Field
+                control={Input}
+                label="Address 2"
                 style={{ margin: "5px" }}
-                defaultValue={property.zip}
-                placeholder={property.zip}
-                onChange={e => this.handleChange("zip", e.target.value)}
+                defaultValue={property.address2}
+                placeholder={
+                  property.address2 ? property.address2 : "Address 2"
+                }
+                onChange={e => this.handleChange("address2", e.target.value)}
               />
-            </FlexRow>
-            <Input
-              label="Price per Night"
-              style={{ margin: "5px" }}
-              defaultValue={property.price}
-              placeholder={property.price}
-              onChange={e => this.handleChange("price", e.target.value)}
-            />
-            <Input
-              label="Max Guests"
-              style={{ margin: "5px" }}
-              defaultValue={property.occupants}
-              placeholder={property.occupants}
-              onChange={e => this.handleChange("occupants", e.target.value)}
-            />
-            <Input
-              label="Image URL"
-              style={{ margin: "5px" }}
-              defaultValue={property.image}
-              placeholder={property.image}
-              onChange={e => this.handleChange("image", e.target.value)}
-            />
-            <Dropdown
-              selection
-              onChange={(e, val) => this.handleChange("assistants", val.value)}
-              placeholder="Employee"
-              options={
-                this.props.employees &&
-                this.props.employees.map(e => ({
-                  key: e._id,
-                  text: e.firstName + " " + e.lastName,
-                  value: e._id
-                }))
-              }
-            />
-            <Checkbox
-              id="checkbox"
-              defaultChecked={
-                this.props.loading ? false : property.active ? false : true
-              }
-              label="Pause reservations"
-              onClick={this.checkboxHandler}
-            />
-            <Link to={`/dashboard/properties/`}>
-              <Button
+              <Form.Group inline>
+                <Form.Field
+                  control={Input}
+                  label="City"
+                  style={{ margin: "5px" }}
+                  defaultValue={property.city}
+                  placeholder={property.city}
+                  onChange={e => this.handleChange("city", e.target.value)}
+                />
+                <Form.Field
+                  control={Input}
+                  label="State"
+                  style={{ margin: "5px" }}
+                  defaultValue={property.state}
+                  placeholder={property.state}
+                  onChange={e => this.handleChange("state", e.target.value)}
+                />
+                <Form.Field
+                  control={Input}
+                  label="Zip"
+                  style={{ margin: "5px" }}
+                  defaultValue={property.zip}
+                  placeholder={property.zip}
+                  onChange={e => this.handleChange("zip", e.target.value)}
+                />
+              </Form.Group>
+              <Form.Group widths={4}>
+                <Form.Field
+                  control={Input}
+                  label="Price per Night"
+                  style={{ margin: "5px" }}
+                  defaultValue={property.price}
+                  placeholder={property.price}
+                  onChange={e => this.handleChange("price", e.target.value)}
+                />
+                <Form.Field
+                  control={Input}
+                  label="Max Guests"
+                  style={{ margin: "5px" }}
+                  defaultValue={property.occupants}
+                  placeholder={property.occupants}
+                  onChange={e => this.handleChange("occupants", e.target.value)}
+                />
+              </Form.Group>
+              <Form.Field
+                control={Input}
+                label="Image URL"
                 style={{ margin: "5px" }}
-                color="green"
-                onClick={this.handleSubmit}
-              >
-                Update
-              </Button>
-              <Button style={{ margin: "5px" }} color="red">
-                Cancel
-              </Button>
-            </Link>
+                defaultValue={property.image}
+                placeholder={property.image}
+                onChange={e => this.handleChange("image", e.target.value)}
+              />
+              <Form.Field
+                control={Dropdown}
+                selection
+                onChange={(e, val) =>
+                  this.handleChange("assistants", val.value)
+                }
+                placeholder="Employee"
+                options={
+                  this.props.employees &&
+                  this.props.employees.map(e => ({
+                    key: e._id,
+                    text: e.firstName + " " + e.lastName,
+                    value: e._id
+                  }))
+                }
+              />
+              <Form.Field
+                control={Checkbox}
+                id="checkbox"
+                defaultChecked={
+                  this.props.loading ? false : property.active ? false : true
+                }
+                label="Pause reservations"
+                onClick={this.checkboxHandler}
+              />
+              <Form.Group inline>
+                <Link to={`/dashboard/properties/`}>
+                  <Form.Field
+                    control={Button}
+                    style={{ margin: "5px" }}
+                    color="green"
+                    onClick={this.handleSubmit}
+                  >
+                    Update
+                  </Form.Field>
+                  <Form.Field
+                    control={Button}
+                    style={{ margin: "5px" }}
+                    color="red"
+                  >
+                    Cancel
+                  </Form.Field>
+                </Link>
+              </Form.Group>
+            </Form>
           </FlexColumn>
         )}
       </>
