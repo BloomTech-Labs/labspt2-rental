@@ -14,18 +14,25 @@ class TaskEdit extends Component {
     this.props.getTasks();
   }
 
-  static getDerivedStateFromProps(props, state) {
-    if (!state._id) {
-      return props.tasks.tasks.find(t => t._id === props.match.params.id);
-    }
-    return null;
-  }
+  // static getDerivedStateFromProps(props, state) {
+  //   if (!state._id) {
+  //     return props.tasks.find(t => t._id === props.match.params.id);
+  //   }
+  //   return null;
+  // }
+
+  handleChange = (prop, val) => {
+    this.setState({ [prop]: val });
+  };
 
   render() {
     const {
       tasks: { tasks, loading, taskCount }
     } = this.props;
+    
+    const task = tasks.find(t => t._id === this.props.match.params.id);
 
+    console.log(task);
 
     return (
       <FlexColumn>
@@ -41,6 +48,7 @@ class TaskEdit extends Component {
               style={{ width: "100%" }}
               placeholder="Add Task"
               onChange={e => this.handleChange("description", e.target.value)}
+              value={ task ? task.description : null }
             />
           </FlexRow>
 
@@ -60,6 +68,7 @@ class TaskEdit extends Component {
           <Dropdown
             placeholder="Property"
             style={{ marginRight: "10px" }}
+            value={ task ? task.property._id : null }
             selection
             onChange={(e, val) => this.handleChange("property", val.value)}
             options={
@@ -82,6 +91,7 @@ class TaskEdit extends Component {
             placeholder="Reservation"
             style={{ marginRight: "10px" }}
             selection
+            value={ task ? task.reservation._id : null }
             onChange={(e, val) => this.handleChange("reservation", val.value)}
             options={
               this.props.loading
@@ -103,6 +113,7 @@ class TaskEdit extends Component {
             placeholder="Employee"
             style={{ marginRight: "10px" }}
             selection
+            value={ task ? task.assignedTo._id : null }
             onChange={(e, val) => this.handleChange("assignedTo", val.value)}
             options={
               this.props.loading
