@@ -2,7 +2,6 @@ import React, { Component } from "react";
 import PropertyCard from "./PropertyCard";
 import { FlexColumn, FlexRow } from "custom-components";
 import Search from "../shared/Search/Search";
-import DatePicker from "../shared/DatePicker/DatePicker";
 import { Icon } from "semantic-ui-react";
 import { Link } from "react-router-dom";
 
@@ -35,7 +34,6 @@ class Properties extends Component {
       <FlexColumn width="800px" alignCenter style={{ position: "relative" }}>
         <FlexRow width="100%">
           <Search width="40%" />
-          <DatePicker />
           <Link to="/dashboard/properties/add">
             <Icon
               name="plus square"
