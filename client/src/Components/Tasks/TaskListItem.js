@@ -19,7 +19,7 @@ const TaskListItem = ({ task }) => {
           <Link to={`/dashboard/tasks/edit/${task._id}`}>
             <Popup
               trigger={
-                <Label size="mini" circular>
+                <Label size="mini" circular style={{ marginLeft: "5px" }}>
                   <Icon fitted name="info" />
                 </Label>
               }
@@ -33,7 +33,7 @@ const TaskListItem = ({ task }) => {
         </p>
       </FlexColumn>
 
-      <FlexColumn style={{ alignItems: "flex-end" }}>
+      <FlexColumn style={{ alignItems: "flex-end"}}>
         <Popup 
           trigger={
             <Label 

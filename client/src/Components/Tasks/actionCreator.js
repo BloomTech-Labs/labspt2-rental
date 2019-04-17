@@ -59,6 +59,8 @@ export const searchTasks = (filterSort = {}) => {
   };
 };
 
+
+
 // Needed for Pagination
 export const fetchTaskCount = (status = null) => dispatch => {
   dispatch({ type: actions.FETCH_TASK_ATTEMPT });

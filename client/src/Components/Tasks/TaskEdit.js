@@ -4,50 +4,24 @@ import { Header, Input, Dropdown, Button, Segment } from "semantic-ui-react";
 import DateRangePickerWrapper from "../shared/DatePicker/DatePicker";
 
 class TaskEdit extends Component {
-  constructor() {
-    super();
+  constructor(props) {
+    super(props);
 
     this.state = {
-      description: null,
-      property: null,
-      startDate: null,
-      endDate: null,
-      reservation: null,
-      assignedTo: null,
-      status: "upcoming"
+      _id: this.props.match.params.id
     };
   }
 
-  //methods here
+  // methods here
   componentDidMount() {
-    this.props.fetchEmployees();
-    this.props.fetchProperties();
-    this.props.fetchReservations();
+    this.props.getTasks();
   }
 
-  handleChange = (prop, val) => {
-    this.setState({ [prop]: val });
-  };
-
-  handleDateChange = ({ startDate, endDate }) => {
-    this.setState({ startDate: startDate, endDate: endDate });
-  };
-
-  handleSubmit = () => {
-    this.props
-      .createTask(this.state)
-      .then(data => {
-        if (data._id) {
-          this.props.history.push("/dashboard/tasks");
-        }
-      })
-      .catch(err => {});
-  };
-
   render() {
-
+  
     return (
       <FlexColumn>
+        
         <FlexRow>
           <Header as="h1">Edit Tasks</Header>
         </FlexRow>
@@ -62,25 +36,9 @@ class TaskEdit extends Component {
             />
           </FlexRow>
 
-          {/* <br />
-
-          <FlexRow width="100%" justifyCenter>
-            <Button color='teal'>Add Task</Button>
-          </FlexRow> */}
         </FlexColumn>
 
         <br />
-
-        {/* <FlexRow width="full" justifyCenter>
-          <Segment>       
-            <FlexColumn width="full" justifyCenter> */}
-        {/* map over tasks as they are created */}
-        {/* <p>Task Item 1</p>
-              <p>Task Item 2</p>
-              <p>Task Item 3</p>
-            </FlexColumn>
-          </Segment>
-        </FlexRow> */}
 
         <FlexRow width="full">
           <DateRangePickerWrapper onChange={this.handleDateChange} />
