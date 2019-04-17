@@ -30,6 +30,12 @@ export const getEverything = () => dispatch => {
     );
   }
 
+  function getActiveReservations() {
+    return axios.get(`${config.apiUrl}/api/reservations?filter=${JSON.stringify({
+      $and: [{ checkOut: { $gte: today } }, { checkIn: { $lte: today } }]
+    })}`)
+  }
+
   const rightNow = new Date();
   const today = new Date(
     rightNow
@@ -42,31 +48,36 @@ export const getEverything = () => dispatch => {
   axios
     .all([
       getCounts("reservations", { checkOut: { $gte: today } }),
-      getCounts("reservations", {
-        $and: [{ checkOut: { $gte: today } }, { checkIn: { $lte: today } }]
-      }),
       getCounts("properties"),
-      // getCounts("properties", "filter"),
       getCounts("employees", { role: "employee" }),
       getCounts("tasks", {
         $and: [{ endDate: { $gte: today } }, { endDate: { $lte: tomorrow } }]
       }),
-      getCounts("tasks", { endDate: { $lte: today } })
+      getCounts("tasks", { endDate: { $lte: today } }),
+      getActiveReservations()
     ])
     .then(
       axios.spread((
         reservTotals,
-        reservActive,
         propTotal,
-        // propInactive,
         emplTotal,
         tasksToday,
-        tasksOverdue
+        tasksOverdue,
+        activeReservations
       ) => {
+        const activeReservArr = activeReservations.data.data
+        console.log(activeReservArr)
+        const uniqueIds = [];
+        activeReservArr.forEach(item => {
+          if (!uniqueIds.includes(item.property._id)) {
+            uniqueIds.push(item.property._id)
+          }
+        })
         const result = {
           reservTotals: reservTotals.data.count,
-          reservActive: reservActive.data.count,
+          reservActive: activeReservArr.length,
           propTotal: propTotal.data.count,
+          propInactive: propTotal.data.count - uniqueIds.length,
           emplTotal: emplTotal.data.count,
           tasksToday: tasksToday.data.count,
           tasksOverdue: tasksOverdue.data.count
