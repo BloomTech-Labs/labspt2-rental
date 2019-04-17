@@ -10,6 +10,7 @@ import {
   Icon
 } from "semantic-ui-react";
 import {HomePageHeader} from './Header';
+import {Testimonials} from './Testmonials';
 
 // Heads up!
 // We using React Static to prerender our docs with server side rendering, this is a quite simple solution.
@@ -80,6 +81,7 @@ class MobileContainer extends Component {
               </Menu>
             </Container>
             <HomePageHeader mobile />
+            <Testimonials mobile />
           </Segment>
 
           {children}

@@ -30,8 +30,8 @@ export const Testimonials = ({ mobile }) => (
         style={{ 
             backgroundColor: 'white', 
             width: '100%', 
-            border: '2px solid green',
-            marginTop: mobile ? "3em" : "4em",
+            border: '1px solid black',
+            marginTop: mobile ? "3em" : "14em",
             marginBottom: mobile ? "3em" : "4em",
             paddingBottom: mobile ? "2em" : "3em"
         }} 
