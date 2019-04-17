@@ -16,7 +16,7 @@ const TaskListItem = ({ task }) => {
       <FlexColumn>
         <FlexRow style={{ alignItems: "baseline" }}>
           <Checkbox label={task.description} />
-          <Link to="/dashboard/tasks/edit/:id">
+          <Link to={`/dashboard/tasks/edit/${task._id}`}>
             <Popup
               trigger={
                 <Label size="mini" circular>

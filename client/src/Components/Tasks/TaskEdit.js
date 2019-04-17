@@ -45,12 +45,11 @@ class TaskEdit extends Component {
   };
 
   render() {
-    // const { description } = this.state;
 
     return (
       <FlexColumn>
         <FlexRow>
-          <Header as="h1">Add Tasks</Header>
+          <Header as="h1">Edit Tasks</Header>
         </FlexRow>
 
         <br />
