@@ -18,32 +18,32 @@ class Properties extends Component {
     this.props.getProperties();
   }
 
-  // addClickHandle() {
-  //   console.log(this.state);
-  //   const numOfProps = this.props.properties.length;
-  //   if (numOfProps === 1) {
-  //     window.alert("we're going to have to change the billing plan");
-  //   }
-  //   if (numOfProps === 9) {
-  //     window.alert("this account needs the discounted rate");
-  //   } else this.props.history.push("/dashboard/properties/add");
-  // }
+  addClickHandle = () => {
+    const numOfProps = this.props.properties.length;
+    if (numOfProps === 1) {
+      window.alert("we're going to have to change the billing plan");
+      this.props.history.push("/dashboard/settings");
+      //this will need to go to update plan modal. not working right now.
+    } else if (numOfProps === 9) {
+      window.alert("this account needs the discounted rate");
+      this.props.history.push("/dashboard/properties/add");
+    } else {
+      this.props.history.push("/dashboard/properties/add");
+    }
+  };
 
   render() {
     return (
       <FlexColumn width="800px" alignCenter style={{ position: "relative" }}>
         <FlexRow width="100%">
           <Search width="40%" />
-          <Link to="/dashboard/properties/add">
-            <Icon
-              name="plus square"
-              size="big"
-              style={{ margin: "10px" }}
-              onClick={this.addClickHandle}
-            />
-          </Link>
+          <Icon
+            name="plus square"
+            size="big"
+            style={{ margin: "10px" }}
+            onClick={this.addClickHandle}
+          />
         </FlexRow>
-        {console.log(this.props)}
         {this.props.properties.map(property => {
           return (
             <PropertyCard
