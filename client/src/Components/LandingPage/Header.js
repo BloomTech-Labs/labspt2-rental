@@ -17,28 +17,28 @@ export const HomePageHeader = ({ mobile }) => (
     <Container text>
       <Header
         as="h1"
-        content="roostr.io"
+        content="Roostr"
         inverted
         style={{
           fontSize: mobile ? "3em" : "4em",
           fontWeight: "normal",
-          marginBottom: 0,
-          marginTop: mobile ? "1.5em" : "3em"
+          marginBottom: mobile ? "0.5em" : 0,
+          marginTop: mobile ? "2em" : "3em"
         }}
       />
       <Header
         as="h2"
-        content="The easy way to manage your properties."
+        content="One app to manage your properties."
         inverted
         style={{
           fontSize: mobile ? "1.5em" : "1.7em",
           fontWeight: "normal",
           marginTop: mobile ? "0.5em" : "1.5em",
-          marginBottom: mobile ? "1em" : "1.5em"
+          marginBottom: mobile ? "1.5em" : "1.5em"
         }}
       />
       <Link to="/register">
-        <Button primary size="huge">
+        <Button primary size="huge" style={{marginBottom: mobile ? "4em" : 0}}>
           Get Started
           <Icon name="right arrow" />
         </Button>

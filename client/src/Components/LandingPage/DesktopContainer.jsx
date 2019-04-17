@@ -57,7 +57,7 @@ const getWidth = () => {
                 secondary={!fixed}
                 size="large"
               >
-                <Container>
+                <Container >
                   <Menu.Item as="a" active>
                     Home
                   </Menu.Item>
@@ -80,8 +80,12 @@ const getWidth = () => {
                   </Menu.Item>
                 </Container>
               </Menu>
+
               <HomePageHeader />
-              <Testimonials />
+
+              <Responsive getWidth={getWidth} minWidth={Responsive.onlyTablet.minWidth} style={{backgroundColor: '#f6f9fc'}}>
+                <Testimonials />
+              </Responsive>
             </Segment>
           </Visibility>
           {children}

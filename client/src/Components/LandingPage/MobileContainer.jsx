@@ -81,7 +81,15 @@ class MobileContainer extends Component {
               </Menu>
             </Container>
             <HomePageHeader mobile />
-            <Testimonials mobile />
+
+            <Responsive 
+                getWidth={getWidth} 
+                minWidth={Responsive.onlyMobile.minWidth} 
+                style={{backgroundColor: '#f6f9fc'}} 
+            >
+                <Testimonials mobile />
+            </Responsive>
+
           </Segment>
 
           {children}
