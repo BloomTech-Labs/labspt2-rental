@@ -85,9 +85,9 @@ class PropertyAdd extends Component {
           placeholder="Optional"
           onChange={e => this.handleChange("image", e.target.value)}
         />
-        {/* <Dropdown
+        <Dropdown
           selection
-          onChange={(e, val) => this.handleChange("assistant", val.value)}
+          onChange={(e, val) => this.handleChange("assistants", val.value)}
           placeholder="Employee"
           options={
             this.props.loading
@@ -99,7 +99,7 @@ class PropertyAdd extends Component {
                   value: e._id
                 }))
           }
-        /> */}
+        />
         <Link to={`/dashboard/properties/`}>
           <Button
             style={{ margin: "5px" }}

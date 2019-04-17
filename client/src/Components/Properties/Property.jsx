@@ -60,13 +60,14 @@ class Property extends Component {
                       : "Not Assigned"}
                   </p>
                 </div>
-                <Checkbox label="Pause reservations" />
-                <Link to={`/dashboard/properties/edit/${property._id}`}>
-                  <Button content="Edit" />
-                </Link>
-                <Button color="red" onClick={this.handleDelete}>
-                  Delete
-                </Button>
+                <FlexRow>
+                  <Link to={`/dashboard/properties/edit/${property._id}`}>
+                    <Button content="Edit" />
+                  </Link>
+                  <Button color="red" onClick={this.handleDelete}>
+                    Delete
+                  </Button>
+                </FlexRow>
               </FlexColumn>
               <FlexColumn>
                 <Image src={property.image} size="medium" />

@@ -11,7 +11,7 @@ class TaskList extends Component {
   }
 
   render() {
-    const { loading, tasks, handlePageChange, count } = this.props;
+    const { loading, tasks, handlePageChange, count, page } = this.props;
 
     return (
       <FlexColumn width="800px" alignCenter style={{ position: "relative" }}>
@@ -19,12 +19,13 @@ class TaskList extends Component {
           className="space-bottom"
           onPageChange={handlePageChange}
           boundaryRange={1}
-          defaultActivePage={1}
           firstItem={null}
           lastItem={null}
-          ellipsisItem={null}
+          ellipsisItem={true}
           siblingRange={1}
           totalPages={count}
+          showEllipsis={true}
+          activePage={page}
         />
 
         {this.props.tasks.map((task, ind) => (

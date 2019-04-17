@@ -85,16 +85,3 @@ export default class Employees extends Component {
     );
   }
 }
-
-// const mapStateToProps = state => {
-//   return {
-//     employees: state.employees.employees,
-//     loading: state.employees.loading,
-//     error: state.employees.error
-//   };
-// };
-
-// export default connect(
-//   mapStateToProps,
-//   { getEmployees, searchEmployees, getNumberEmployees }
-// )(Employees);

@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { Header, Tab, Icon, Segment } from "semantic-ui-react";
+import { Header, Tab, Icon, Segment, Label } from "semantic-ui-react";
 import { FlexColumn, FlexRow } from "custom-components";
 import { Link } from "react-router-dom";
 import Search from "../shared/Search/Search";
@@ -36,6 +36,7 @@ class Tasks extends Component {
   handleTabChange = (e, data) => {
     const { tabs } = this.state;
     const activeTab = tabs[data.activeIndex].toLowerCase();
+    this.query.page = 1;
     this.query.filter = { status: activeTab };
     this.props.getTasks({ ...this.query });
     this.props.fetchTaskCount(activeTab);
@@ -51,7 +52,7 @@ class Tasks extends Component {
     const {
       tasks: { tasks, loading, taskCount }
     } = this.props;
-    const { pageSize } = this.query;
+    const { pageSize, page } = this.query;
 
     return (
       <FlexColumn>
@@ -64,7 +65,8 @@ class Tasks extends Component {
           </Link>
         </FlexRow>
 
-        {/* <Label color='red' circular>{taskCount}</Label> */}
+        {/* <Label color='red' circular>{taskCount}</Label>
+        <Label color='red' circular>{pageSize}</Label> */}
 
         <Tab
           onTabChange={this.handleTabChange}
@@ -83,6 +85,7 @@ class Tasks extends Component {
                       handlePageChange={this.handlePageChange}
                       loading={loading}
                       count={Math.ceil(taskCount / pageSize)}
+                      page={page}
                     />
                   )}
                 </Tab.Pane>

@@ -1,8 +1,9 @@
 import React, { Component } from "react";
-// import { Route, Link, withRouter } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { Button, Icon, Image, Header, Dropdown } from "semantic-ui-react";
 import { FlexRow, Container, FlexColumn } from "custom-components";
 
+import EmployeePropertyCard from "./EmployeePropertyCard";
 import taskPropertyAssign from "./taskPropertyHelper";
 
 class EmployeeSingle extends Component {
@@ -21,6 +22,17 @@ class EmployeeSingle extends Component {
       };
       this.props.getEmployees({ ...query });
     }
+  }
+
+  removeEmplFromProperty = (id) => {
+    // this removes an employee from a property's assigned employee list
+    const property = this.props.properties.find(item => item._id === id)
+    const { assistants } = property
+    console.log(property)
+    const newAssistants = assistants.filter(item => item._id !== this.props.match.params.id)
+    console.log(newAssistants)
+    console.log({...property, assistants: newAssistants})
+    // this.props.updateProperty({...property, assistants: newAssistants})
   }
 
   permissionChange = body => {
@@ -93,6 +105,7 @@ class EmployeeSingle extends Component {
 
             <FlexRow justifyAround className="space-top-20" width="full">
               <FlexColumn width="40%">
+                <Header as="h2">Employee Permissions</Header>
                 <Header as="h3">
                   Can re-assign tasks
                   <Dropdown
@@ -140,10 +153,14 @@ class EmployeeSingle extends Component {
                 </Header>
               </FlexColumn>
               <FlexColumn alignCenter width="30%">
-                <Header as="h3">Assigned Properties</Header>
-                {employee.properties ? (
-                  employee.properties.map(property => (
-                    <div>{property.name}</div>
+                <Header as="h2">Assigned Properties</Header>
+                {typeof employee.assignedProp !== 'undefined' && employee.assignedProp.length ? (
+                  employee.assignedProp.map(property => (
+                    <EmployeePropertyCard
+                      key={property._id}
+                      property={property}
+                      removeEmplFromProperty = {this.removeEmplFromProperty}
+                    />
                   ))
                 ) : (
                   <FlexColumn>

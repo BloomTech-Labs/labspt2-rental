@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import { FlexColumn, FlexRow } from "custom-components";
-import { Input, Button } from "semantic-ui-react";
+import { Input, Button, Dropdown, Checkbox } from "semantic-ui-react";
 import { Link } from "react-router-dom";
 class PropertyEdit extends Component {
   constructor(props) {
@@ -11,7 +11,17 @@ class PropertyEdit extends Component {
   }
   componentDidMount() {
     this.props.getProperties();
+    this.props.getEmployees();
   }
+
+  // componentDidUpdate() {
+  //   let property = this.props.properties.find(
+  //     property => property._id === this.state._id
+  //   );
+  //   this.setState({
+  //     active: property.active
+  //   });
+  // }
 
   handleChange(prop, val) {
     this.setState({ [prop]: val });
@@ -21,6 +31,19 @@ class PropertyEdit extends Component {
     this.props.updateProperty(this.state).then(response => {
       this.props.history.push(`/dashboard/properties/${this.state._id}`);
     });
+  };
+
+  checkboxHandler = e => {
+    const checked = document.getElementById("checkbox").checked;
+    if (checked) {
+      this.setState({
+        active: false
+      });
+    } else {
+      this.setState({
+        active: true
+      });
+    }
   };
 
   render() {
@@ -54,7 +77,6 @@ class PropertyEdit extends Component {
               onChange={e => this.handleChange("address2", e.target.value)}
             />
             <FlexRow>
-              {" "}
               <Input
                 label="City"
                 style={{ margin: "5px" }}
@@ -97,6 +119,27 @@ class PropertyEdit extends Component {
               defaultValue={property.image}
               placeholder={property.image}
               onChange={e => this.handleChange("image", e.target.value)}
+            />
+            <Dropdown
+              selection
+              onChange={(e, val) => this.handleChange("assistants", val.value)}
+              placeholder="Employee"
+              options={
+                this.props.employees &&
+                this.props.employees.map(e => ({
+                  key: e._id,
+                  text: e.firstName + " " + e.lastName,
+                  value: e._id
+                }))
+              }
+            />
+            <Checkbox
+              id="checkbox"
+              defaultChecked={
+                this.props.loading ? false : property.active ? false : true
+              }
+              label="Pause reservations"
+              onClick={this.checkboxHandler}
             />
             <Link to={`/dashboard/properties/`}>
               <Button
