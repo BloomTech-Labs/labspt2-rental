@@ -137,7 +137,7 @@ class TaskAdd extends Component {
 
         <FlexRow width="full" justifyCenter>
           <Button color="green" onClick={this.handleSubmit}>
-            Submit Task List
+            Submit Task
           </Button>
         </FlexRow>
       </FlexColumn>

@@ -4,33 +4,41 @@ import { Header, Input, Dropdown, Button, Segment } from "semantic-ui-react";
 import DateRangePickerWrapper from "../shared/DatePicker/DatePicker";
 
 class TaskEdit extends Component {
-  constructor(props) {
-    super(props);
-
-    this.state = {
-      _id: this.props.match.params.id
-    };
-  }
+  state = {};
 
   // methods here
   componentDidMount() {
+    this.props.fetchEmployees();
+    this.props.fetchProperties();
+    this.props.fetchReservations();
     this.props.getTasks();
   }
 
+  static getDerivedStateFromProps(props, state) {
+    if (!state._id) {
+      return props.tasks.tasks.find(t => t._id === props.match.params.id);
+    }
+    return null;
+  }
+
   render() {
-  
+    const {
+      tasks: { tasks, loading, taskCount }
+    } = this.props;
+
+
     return (
       <FlexColumn>
-        
         <FlexRow>
-          <Header as="h1">Edit Tasks</Header>
+          <Header as="h1">Edit Task</Header>
         </FlexRow>
 
         <br />
 
-        <FlexColumn>
-          <FlexRow>
+        <FlexColumn style={{ width: "100%" }}>
+          <FlexRow style={{ width: "100%" }}>
             <Input
+              style={{ width: "100%" }}
               placeholder="Add Task"
               onChange={e => this.handleChange("description", e.target.value)}
             />
@@ -113,7 +121,10 @@ class TaskEdit extends Component {
 
         <FlexRow width="full" justifyCenter>
           <Button color="green" onClick={this.handleSubmit}>
-            Submit Task List
+            Update Task
+          </Button>
+          <Button color="red">
+            Delete Task
           </Button>
         </FlexRow>
       </FlexColumn>
