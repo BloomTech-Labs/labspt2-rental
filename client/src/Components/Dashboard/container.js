@@ -1,12 +1,17 @@
 import { connect } from "react-redux";
-import { registerUser } from "./actionCreator";
-import Dashboard from "./Dashboard";
+import { withRouter } from "react-router-dom";
 
-const mapStateToProps = ({ registration }) => ({
-  registration
-});
+import { registerUser, getEverything } from "./actionCreator";
+import _Dashboard from "./Dashboard";
+import _DashboardContent from "./DashboardContent";
 
-export default connect(
+// registration is never used from the Dashboard and so mapStateToProps has been rewritten to utilize state for the Dashboard components
+const mapStateToProps = ({dashboard}) => dashboard;
+
+const connector = connect(
   mapStateToProps,
-  { registerUser }
-)(Dashboard);
+  { registerUser, getEverything }
+);
+
+export const Dashboard = connector(withRouter(_Dashboard));
+export const DashboardContent = connector(withRouter(_DashboardContent));
