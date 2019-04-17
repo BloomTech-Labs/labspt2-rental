@@ -74,7 +74,7 @@ class Properties extends Component {
                 }
                 occupants={property.occupants}
                 buttonFunction={() => this.cardHandleClick(property._id)}
-                linkto={`/dashboard/properties/edit/${property._id}`}
+                linkto={`/dashboard/properties/view/${property._id}`}
               />
               <Divider />
             </>
