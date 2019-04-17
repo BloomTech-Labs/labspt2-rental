@@ -61,18 +61,9 @@ class Dashboard extends Component {
 
           {/*TODO work on these pages*/}
 
-                <Route
-                  exact
-                  path="/dashboard/tasks"
-                  render={() => <Tasks />}
-                />
+          <Route exact path="/dashboard/tasks" render={() => <Tasks />} />
 
-                <Route
-                  exact
-                  path="/dashboard/tasks/add"
-                  render={() => <TaskAdd />}
-                />
-
+          <Route exact path="/dashboard/tasks/add" render={() => <TaskAdd />} />
 
           <Route
             exact

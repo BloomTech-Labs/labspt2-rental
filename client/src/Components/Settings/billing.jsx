@@ -53,7 +53,11 @@ export default class Billing extends Component {
             {billingPlans[billingPlan].description}
           </Segment.Inline>
           <FlexRow style={{ marginTop: "25px" }}>
-            <PlanModal customerID={this.state.stripeCustomerID} user={this.props.user} properties={this.props.properties} />
+            <PlanModal
+              customerID={this.state.stripeCustomerID}
+              user={this.props.user}
+              properties={this.props.properties}
+            />
           </FlexRow>
         </Segment>
       );

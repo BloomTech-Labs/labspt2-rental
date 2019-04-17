@@ -20,13 +20,11 @@ const TaskListItem = ({ task }) => {
         </p>
       </FlexColumn>
 
-    
-      <FlexColumn style={{alignItems: "flex-end"}}>
-        <Label color='purple'>{task.property.name}</Label>
-          <p style={{ paddingTop: "5px" }}>
-            Due: <strong>{moment(task.endDate).format("MM/DD")}</strong>
-          </p>
-
+      <FlexColumn style={{ alignItems: "flex-end" }}>
+        <Label color="purple">{task.property.name}</Label>
+        <p style={{ paddingTop: "5px" }}>
+          Due: <strong>{moment(task.endDate).format("MM/DD")}</strong>
+        </p>
       </FlexColumn>
     </FlexRow>
   );

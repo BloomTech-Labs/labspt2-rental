@@ -27,15 +27,15 @@ class CheckoutForm extends Component {
       loading: true
     });
 
-    let planType = '';
+    let planType = "";
 
-    if(this.props.free === true && this.props.upgraded === false){
-      planType = 'upgraded'
-    } else if (this.props.free === false && this.props.upgraded === true){
-      planType = 'free'
+    if (this.props.free === true && this.props.upgraded === false) {
+      planType = "upgraded";
+    } else if (this.props.free === false && this.props.upgraded === true) {
+      planType = "free";
     } else {
-      window.alert('Error - plan type not chosen');
-    };
+      window.alert("Error - plan type not chosen");
+    }
 
     let { token } = await this.props.stripe.createToken({
       email: this.props.user.email,
@@ -57,8 +57,7 @@ class CheckoutForm extends Component {
       });
     }
 
-    if (response.status === 201)
-      this.setState({ complete: true });
+    if (response.status === 201) this.setState({ complete: true });
   }
 
   render() {

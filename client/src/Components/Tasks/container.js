@@ -1,5 +1,5 @@
 import { connect } from "react-redux";
-import { 
+import {
   getTasks,
   searchTasks,
   fetchProperties,
@@ -31,7 +31,7 @@ const connector = connect(
     fetchEmployees,
     fetchReservations,
     createTask,
-    fetchTaskCount,
+    fetchTaskCount
   }
 );
 
