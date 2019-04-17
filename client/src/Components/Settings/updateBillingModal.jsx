@@ -17,7 +17,7 @@ export default class UpdateBillingModal extends Component {
     open: false,
     address1: "",
     city: "",
-    state: "",
+    state: ""
   };
 
   close = () =>
@@ -25,7 +25,7 @@ export default class UpdateBillingModal extends Component {
       open: false,
       address1: this.props.user.billingAddress.address1,
       city: this.props.user.billingAddress.city,
-      state: this.props.user.billingAddress.state,
+      state: this.props.user.billingAddress.state
     });
 
   show = () => this.setState({ open: true });
@@ -34,7 +34,7 @@ export default class UpdateBillingModal extends Component {
     this.setState({
       address1: this.props.user.billingAddress.address1,
       city: this.props.user.billingAddress.city,
-      state: this.props.user.billingAddress.state,
+      state: this.props.user.billingAddress.state
     });
   };
 
@@ -43,7 +43,7 @@ export default class UpdateBillingModal extends Component {
       this.setState({
         address1: this.props.user.billingAddress.address1,
         city: this.props.user.billingAddress.city,
-        state: this.props.user.billingAddress.state,
+        state: this.props.user.billingAddress.state
       });
     }
   };

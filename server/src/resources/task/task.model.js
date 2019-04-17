@@ -45,7 +45,7 @@ const taskSchema = new Schema(
     status: {
       type: String,
       enum: ['upcoming', 'due today', 'overdue']
-    },
+    }
   },
   { timestamps: true }
 );

@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import { Header, Tab, Icon, Segment, Label } from "semantic-ui-react";
 import { FlexColumn, FlexRow } from "custom-components";
-import { Link } from 'react-router-dom';
+import { Link } from "react-router-dom";
 import Search from "../shared/Search/Search";
 import TaskList from "./TaskList";
 
@@ -40,7 +40,7 @@ class Tasks extends Component {
     this.query.filter = { status: activeTab };
     this.props.getTasks({ ...this.query });
     this.props.fetchTaskCount(activeTab);
-  }
+  };
 
   handlePageChange = (event, data) => {
     this.query.page = data.activePage;
@@ -76,18 +76,18 @@ class Tasks extends Component {
               menuItem: tab,
               render: () => (
                 <Tab.Pane attached={false}>
-                {!tasks ? 
-                <h2>Loading...</h2>
-                :
-                <TaskList
-                    status={tab}
-                    tasks={tasks}
-                    handlePageChange={this.handlePageChange}
-                    loading={loading}
-                    count={Math.ceil(taskCount / pageSize)}
-                    page={page}
-                  />
-                }
+                  {!tasks ? (
+                    <h2>Loading...</h2>
+                  ) : (
+                    <TaskList
+                      status={tab}
+                      tasks={tasks}
+                      handlePageChange={this.handlePageChange}
+                      loading={loading}
+                      count={Math.ceil(taskCount / pageSize)}
+                      page={page}
+                    />
+                  )}
                 </Tab.Pane>
               )
             })),

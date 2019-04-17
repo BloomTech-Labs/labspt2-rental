@@ -9,7 +9,6 @@ import { config } from "../../config/dev";
 
 // Test updating usage functionality
 
-
 // To give this and the CheckoutForm user info, pass it props via user={this.props.user} or user={this.state.user}. With that syntax, it it setup to pass that down to the CheckoutForm
 
 export default class PlanModal extends Component {
@@ -24,25 +23,25 @@ export default class PlanModal extends Component {
   show = () => this.setState({ open: true });
 
   componentDidMount = () => {
-    if(this.props.user.billingPlan === 'upgraded'){
+    if (this.props.user.billingPlan === "upgraded") {
       this.setState({
         free: true,
         upgraded: false
-      })
+      });
     }
-  }
+  };
 
   handleChange = (e, { value }) => {
     if (value === "free") {
       this.setState({
         free: false,
-        upgraded: true,
-     })
+        upgraded: true
+      });
     } else {
-        this.setState({
-            free: true,
-            upgraded: false
-        })
+      this.setState({
+        free: true,
+        upgraded: false
+      });
     }
   };
 
@@ -98,7 +97,13 @@ export default class PlanModal extends Component {
 
             <StripeProvider apiKey={config.stripeApiKey}>
               <Elements>
-                <CheckoutForm close={this.close} free={this.state.free} user={this.props.user} upgraded={this.state.upgraded} properties={this.props.properties} />
+                <CheckoutForm
+                  close={this.close}
+                  free={this.state.free}
+                  user={this.props.user}
+                  upgraded={this.state.upgraded}
+                  properties={this.props.properties}
+                />
               </Elements>
             </StripeProvider>
           </Modal.Content>

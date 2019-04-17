@@ -11,13 +11,11 @@ class TaskList extends Component {
   }
 
   render() {
-
     const { loading, tasks, handlePageChange, count, page } = this.props;
 
     return (
       <FlexColumn width="800px" alignCenter style={{ position: "relative" }}>
-        
-        <Pagination 
+        <Pagination
           className="space-bottom"
           onPageChange={handlePageChange}
           boundaryRange={1}

@@ -74,7 +74,7 @@ export const FlexColumn = styled.div`
 
 export const Container = styled(FlexColumn)`
   width: 100vw;
-  height: 100vh;
+  min-height: 100vh;
   padding: ${props => (props.padding ? "40px" : "0")};
   box-sizing: border-box;
 `;
