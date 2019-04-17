@@ -2,7 +2,6 @@ import React, { Component } from "react";
 import PropertyCard from "./PropertyCard";
 import { FlexColumn, FlexRow, Divider } from "custom-components";
 import Search from "../shared/Search/Search";
-import DatePicker from "../shared/DatePicker/DatePicker";
 import { Button, Icon, Segment } from "semantic-ui-react";
 import { Link } from "react-router-dom";
 
@@ -40,7 +39,6 @@ class Properties extends Component {
           style={{ padding: "5px" }}
         >
           <Search style={{ flexGrow: "1", marginRight: "10px" }} />
-          <DatePicker />
           <Link to="/dashboard/properties/add">
             <Button
               className="space-left-20 space-right-20"

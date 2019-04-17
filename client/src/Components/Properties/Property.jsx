@@ -6,7 +6,6 @@ import { END_DATE } from "react-dates/lib/constants";
 
 class Property extends Component {
   componentDidMount() {
-    console.log("properties cdm");
     this.props.getProperties();
     this.props.getReservations();
   }
