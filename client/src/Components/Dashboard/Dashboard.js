@@ -82,6 +82,12 @@ class Dashboard extends Component {
 
             <Route
               exact
+              path="/dashboard/properties/"
+              render={() => <Properties />}
+            />
+
+            <Route
+              exact
               path="/dashboard/properties/edit/:id"
               render={() => <PropertyEdit />}
             />
