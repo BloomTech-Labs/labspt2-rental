@@ -1,5 +1,4 @@
 import React, { Component } from "react";
-import { Header, Tab } from "semantic-ui-react";
 import { FlexColumn, Container } from "custom-components";
 
 import DashboardCards from "./DashboardCards";
@@ -7,25 +6,10 @@ import DashboardCards from "./DashboardCards";
 export default class DashboardContent extends Component {
   constructor(props) {
     super(props);
-
-    this.state = {
-      counts: {
-        reservTotals: 10,
-        reservActive: 0,
-        propTotal: 5,
-        propInactive: 2,
-        emplTotal: 4,
-        tasksToday: 15,
-        tasksOverdue: 2
-      }
-    };
   }
 
   componentDidMount() {
-    // get total number of reservations - reservation total and active and properties unreserved
-    // get total number of properties - just total
-    // get total number of employees - just total
-    // get total number of tasks - tasks overdue and due today
+    this.props.getEverything();
   }
 
   render() {
@@ -37,27 +21,25 @@ export default class DashboardContent extends Component {
       emplTotal,
       tasksToday,
       tasksOverdue
-    } = this.state.counts;
+    } = this.props;
 
     // this sets the color of the overdue label to red if any exist
-    let overdueColor = "blue"
-    if (tasksOverdue) overdueColor = "red"
+    let overdueColor = "blue";
+    if (tasksOverdue) overdueColor = "red";
 
     // this sets the color of unreserved properties label to yellow if any exist and red if more than 50% of total exist
-    let propInactiveColor = 'blue'
+    let propInactiveColor = "blue";
     if (propInactive) {
       if (propInactive >= propTotal / 2) {
-        propInactiveColor = "red"
-      } else propInactiveColor = "yellow"
+        propInactiveColor = "red";
+      } else propInactiveColor = "yellow";
     }
 
     // this sets the color of the active reservations and total reservations labels to red if none exist
-    let reservTotalsColor = "blue"
-    let reservActiveColor = "blue"
-    if (!reservTotals) reservTotalsColor = "red"
-    if (!reservActive) reservActiveColor = "red"
-
-    console.log(this.props)
+    let reservTotalsColor = "blue";
+    let reservActiveColor = "blue";
+    if (!reservTotals) reservTotalsColor = "red";
+    if (!reservActive) reservActiveColor = "red";
 
     return (
       <Container>
