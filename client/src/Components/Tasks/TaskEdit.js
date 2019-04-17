@@ -57,7 +57,11 @@ class TaskEdit extends Component {
         <br />
 
         <FlexRow width="full">
-          <DateRangePickerWrapper onChange={this.handleDateChange} />
+          <DateRangePickerWrapper 
+            // onChange={this.handleDateChange}
+            initialStartDate={new Date(task ? task.startDate : null) }
+            initialEndDate={ new Date(task ? task.endDate : null) }
+          />
         </FlexRow>
 
         <br />
