@@ -1,5 +1,5 @@
 import { connect } from "react-redux";
-import { 
+import {
   getTasks,
   searchTasks,
   fetchProperties,
@@ -10,6 +10,7 @@ import {
 } from "./actionCreator";
 import _Tasks from "./Tasks";
 import _TaskAdd from "./TaskAdd";
+import _TaskEdit from "./TaskEdit";
 import { withRouter } from "react-router-dom";
 
 const mapStateToProps = state => ({
@@ -31,9 +32,10 @@ const connector = connect(
     fetchEmployees,
     fetchReservations,
     createTask,
-    fetchTaskCount,
+    fetchTaskCount
   }
 );
 
 export const Tasks = connector(withRouter(_Tasks));
 export const TaskAdd = connector(withRouter(_TaskAdd));
+export const TaskEdit = connector(withRouter(_TaskEdit));

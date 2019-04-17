@@ -82,11 +82,13 @@ export const getProperties = () => {
       type: actions.PROPERTY_STARTED
     });
     try {
-      const propertiesFetched = await axios.get(`${config.apiUrl}/api/properties`);
+      const propertiesFetched = await axios.get(
+        `${config.apiUrl}/api/properties`
+      );
       dispatch({
         type: actions.FETCH_PROPERTIES_SUCCESS,
         payload: propertiesFetched.data.data
-      })
+      });
     } catch (err) {
       console.error(err);
       dispatch({ type: actions.PROPERTY_FAILURE, payload: err });

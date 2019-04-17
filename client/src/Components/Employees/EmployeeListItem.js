@@ -3,17 +3,20 @@ import InfoCard from "../shared/Card/InfoCard";
 
 const EmployeeListItem = props => {
   return (
-    <InfoCard
-      imageLoc={props.employee.imageLoc}
-      header={`${props.employee.firstName} ${props.employee.lastName}`}
-      lineOneTitle="Tasks Due Today"
-      lineTwoTitle="OverDue Tasks"
-      lineThreeTitle="Assigned Properties"
-      lineOneInfo={props.employee.todayTask}
-      lineTwoInfo={props.employee.overdue}
-      lineThreeInfo={props.employee.properties}
-      linkto={`/dashboard/employees/${props.employee._id}`}
-    />
+    <InfoCard link={`/dashboard/employees/${props.employee._id}`}>
+      <InfoCard.Image>{props.employee.imageLoc}</InfoCard.Image>
+      <InfoCard.Title>{`${props.employee.firstName} ${
+        props.employee.lastName
+      }`}</InfoCard.Title>
+      <InfoCard.Label hover="Assigned Properties">
+        {props.employee.properties}
+      </InfoCard.Label>
+      <InfoCard.ID>{props.employee._id}</InfoCard.ID>
+      <InfoCard.StatA label="Due Today">
+        {props.employee.todayTask}
+      </InfoCard.StatA>
+      <InfoCard.StatB label="Overdue">{props.employee.overdue}</InfoCard.StatB>
+    </InfoCard>
   );
 };
 
