@@ -12,7 +12,7 @@ import {
 } from "../Reservations";
 import { EmployeeSingle, EmployeeAdd, Employees } from "../Employees";
 import { Checkout } from "../Checkout";
-import { Tasks, TaskAdd } from "../Tasks";
+import { Tasks, TaskAdd, TaskEdit } from "../Tasks";
 import { Settings } from "../Settings";
 import { Sidebar } from "./components";
 
@@ -78,6 +78,18 @@ class Dashboard extends Component {
               exact
               path="/dashboard/tasks/add"
               render={() => <TaskAdd />}
+            />
+
+            <Route
+              exact
+              path="/dashboard/tasks/edit/:id"
+              render={() => <TaskEdit />}
+            />
+
+            <Route
+              exact
+              path="/dashboard/properties"
+              render={() => <Properties />}
             />
 
             <Route

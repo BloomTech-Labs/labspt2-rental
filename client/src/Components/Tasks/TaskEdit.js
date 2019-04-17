@@ -3,51 +3,34 @@ import { FlexColumn, FlexRow, Text } from "custom-components";
 import { Header, Input, Dropdown, Button, Segment } from "semantic-ui-react";
 import DateRangePickerWrapper from "../shared/DatePicker/DatePicker";
 
-class TaskAdd extends Component {
-  constructor() {
-    super();
+class TaskEdit extends Component {
+  state = {};
 
-    this.state = {
-      description: null,
-      property: null,
-      startDate: null,
-      endDate: null,
-      reservation: null,
-      assignedTo: null,
-      status: "upcoming"
-    };
-  }
-
+  // methods here
   componentDidMount() {
     this.props.fetchEmployees();
     this.props.fetchProperties();
     this.props.fetchReservations();
+    this.props.getTasks();
   }
 
-  handleChange = (prop, val) => {
-    this.setState({ [prop]: val });
-  };
-
-  handleDateChange = ({ startDate, endDate }) => {
-    this.setState({ startDate: startDate, endDate: endDate });
-  };
-
-  handleSubmit = () => {
-    this.props
-      .createTask(this.state)
-      .then(data => {
-        if (data._id) {
-          this.props.history.push("/dashboard/tasks");
-        }
-      })
-      .catch(err => {});
-  };
+  static getDerivedStateFromProps(props, state) {
+    if (!state._id) {
+      return props.tasks.tasks.find(t => t._id === props.match.params.id);
+    }
+    return null;
+  }
 
   render() {
+    const {
+      tasks: { tasks, loading, taskCount }
+    } = this.props;
+
+
     return (
       <FlexColumn>
         <FlexRow>
-          <Header as="h1">Add Tasks</Header>
+          <Header as="h1">Edit Task</Header>
         </FlexRow>
 
         <br />
@@ -60,6 +43,7 @@ class TaskAdd extends Component {
               onChange={e => this.handleChange("description", e.target.value)}
             />
           </FlexRow>
+
         </FlexColumn>
 
         <br />
@@ -137,7 +121,10 @@ class TaskAdd extends Component {
 
         <FlexRow width="full" justifyCenter>
           <Button color="green" onClick={this.handleSubmit}>
-            Submit Task
+            Update Task
+          </Button>
+          <Button color="red">
+            Delete Task
           </Button>
         </FlexRow>
       </FlexColumn>
@@ -145,4 +132,4 @@ class TaskAdd extends Component {
   }
 }
 
-export default TaskAdd;
+export default TaskEdit;
