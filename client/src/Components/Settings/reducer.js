@@ -26,18 +26,18 @@ const settingsReducer = (state = initialState, action) => {
         loading: false,
         error: action.error
       };
-      case actions.PROPERTY_STARTED:
+    case actions.PROPERTY_STARTED:
       return {
         ...state,
         loading: true
       };
-      case actions.FETCH_PROPERTIES_SUCCESS:
+    case actions.FETCH_PROPERTIES_SUCCESS:
       return {
         ...state,
         loading: false,
         properties: action.payload
       };
-      case actions.PROPERTY_FAILURE:
+    case actions.PROPERTY_FAILURE:
       return {
         ...state,
         loading: false,

@@ -1,14 +1,13 @@
-import React, { Component } from 'react';
-import { FlexColumn, FlexRow, Text } from 'custom-components';
-import { Header, Input, Dropdown, Button, Segment } from 'semantic-ui-react';
-import DateRangePickerWrapper from '../shared/DatePicker/DatePicker';
+import React, { Component } from "react";
+import { FlexColumn, FlexRow, Text } from "custom-components";
+import { Header, Input, Dropdown, Button, Segment } from "semantic-ui-react";
+import DateRangePickerWrapper from "../shared/DatePicker/DatePicker";
 
 class TaskAdd extends Component {
   constructor() {
     super();
 
-    this.state = { 
-      
+    this.state = {
       description: null,
       property: null,
       startDate: null,
@@ -16,8 +15,7 @@ class TaskAdd extends Component {
       reservation: null,
       assignedTo: null,
       status: "upcoming"
-
-    }
+    };
   }
 
   //methods here
@@ -25,7 +23,7 @@ class TaskAdd extends Component {
     this.props.fetchEmployees();
     this.props.fetchProperties();
     this.props.fetchReservations();
-  };
+  }
 
   handleChange = (prop, val) => {
     this.setState({ [prop]: val });
@@ -41,16 +39,15 @@ class TaskAdd extends Component {
       .then(data => {
         if (data._id) {
           this.props.history.push("/dashboard/tasks");
-        }        
+        }
       })
       .catch(err => {});
   };
 
-  render() { 
-
+  render() {
     // const { description } = this.state;
 
-    return ( 
+    return (
       <FlexColumn>
         <FlexRow>
           <Header as="h1">Add Tasks</Header>
@@ -59,13 +56,10 @@ class TaskAdd extends Component {
         <br />
 
         <FlexColumn>
-
           <FlexRow>
             <Input
               placeholder="Add Task"
-              onChange={e =>
-                this.handleChange("description", e.target.value)
-              }
+              onChange={e => this.handleChange("description", e.target.value)}
             />
           </FlexRow>
 
@@ -74,7 +68,6 @@ class TaskAdd extends Component {
           <FlexRow width="100%" justifyCenter>
             <Button color='teal'>Add Task</Button>
           </FlexRow> */}
-
         </FlexColumn>
 
         <br />
@@ -82,15 +75,15 @@ class TaskAdd extends Component {
         {/* <FlexRow width="full" justifyCenter>
           <Segment>       
             <FlexColumn width="full" justifyCenter> */}
-              {/* map over tasks as they are created */}
-              {/* <p>Task Item 1</p>
+        {/* map over tasks as they are created */}
+        {/* <p>Task Item 1</p>
               <p>Task Item 2</p>
               <p>Task Item 3</p>
             </FlexColumn>
           </Segment>
         </FlexRow> */}
 
-        <FlexRow width='full'>
+        <FlexRow width="full">
           <DateRangePickerWrapper onChange={this.handleDateChange} />
         </FlexRow>
 
@@ -99,7 +92,7 @@ class TaskAdd extends Component {
         {console.log(this.props)}
 
         <FlexRow>
-          <Dropdown 
+          <Dropdown
             placeholder="Property"
             style={{ marginRight: "10px" }}
             selection
@@ -162,11 +155,10 @@ class TaskAdd extends Component {
         <br />
 
         <FlexRow width="full" justifyCenter>
-          <Button color='green' onClick={this.handleSubmit}>
+          <Button color="green" onClick={this.handleSubmit}>
             Submit Task List
           </Button>
         </FlexRow>
-
       </FlexColumn>
     );
   }

@@ -38,7 +38,7 @@ const ReservationListItem = ({ reservation }) => {
           trigger={
             <Label
               as="a"
-              color="red"
+              color="blue"
               content={reservation.property.name}
               icon="home"
             />
