@@ -1,6 +1,5 @@
 import PropTypes from "prop-types";
 import React from "react";
-import {Footer} from './Footer';
 import DesktopContainer from './DesktopContainer';
 import MobileContainer from './MobileContainer';
 
@@ -19,7 +18,10 @@ import MobileContainer from './MobileContainer';
 
 // Testimonials
 
-// Current basic blue Semantic UI button color hex: 0080D6
+// Current basic blue Semantic UI button color hex: #0080D6
+// Background light blue: #f6f9fc
+// Dark grey: #1a1b1c
+// Icon green: #4ca34b
 
 // Keep Roostr short motto up front and top header. Find succinet 6-8 word way to describe it. (i.e. Teach your app to see emotions; Make your website better. Instantly; One app to manage your properties.)
 

@@ -41,7 +41,7 @@ export const Testimonials = ({ mobile }) => (
         {mobile ? <MobileTestimonials /> : <DesktopTestimonials />}
 
       <Link to="/register">
-        <Button primary size="huge">
+        <Button primary size="huge"  >
           Try Roostr For Free
           <Icon name="right arrow" />
         </Button>
@@ -111,7 +111,7 @@ const DesktopTestimonials = () => (
             <Container>
             <Header 
                 as="h5"
-                content="Roostr saves me time and energy."
+                content={`"Roostr saves me time and energy."`}
                 style={{fontSize: "1em"}}
             />
                 <p style={{ color: 'black'}}>- Joe, Seattle</p>
@@ -126,7 +126,7 @@ const DesktopTestimonials = () => (
             <Container>
             <Header 
                 as="h5"
-                content="I love the customization. Each property is unique but being run equally efficiently."
+                content={`"I love the customization. Each property is unique but being run equally efficiently."`}
                 style={{fontSize: "1em"}}
             />
                 <p style={{ color: 'black'}}>- Jess, Boston</p>
@@ -145,7 +145,7 @@ const DesktopTestimonials = () => (
             <Container>
             <Header 
                 as="h5"
-                content="My employees' productivity has increased and guest ratings are higher than ever."
+                content={`"My employees' productivity has increased and guest ratings are higher than ever."`}
                 style={{fontSize: "1em"
                 }}
             />
@@ -162,7 +162,7 @@ const DesktopTestimonials = () => (
             <Container>
             <Header 
                 as="h5"
-                content="Simple to use, from my office to on the go."
+                content={`"Simple to use, from my office to on the go."`}
                 style={{fontSize: "1em"}}
             />
                 <p style={{ color: 'black'}}>- Jon, Chatanooga</p>

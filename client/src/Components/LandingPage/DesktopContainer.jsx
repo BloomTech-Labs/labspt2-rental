@@ -13,6 +13,7 @@ import {HomePageHeader} from './Header';
 import { Testimonials } from "./Testmonials";
 import {Footer} from './Footer';
 import {GetStarted} from './GetStarted';
+import {Features} from './Features';
 
 // Heads up!
 // We using React Static to prerender our docs with server side rendering, this is a quite simple solution.
@@ -90,16 +91,10 @@ const getWidth = () => {
                 <GetStarted />
               </Responsive>
 
-              <Responsive getWidth={getWidth} minWidth={Responsive.onlyTablet.minWidth} style={{backgroundColor: '#f6f9fc', border: '1px solid green', height: '15em'}}>
-                <div>Hello</div>
+              <Responsive getWidth={getWidth} minWidth={Responsive.onlyTablet.minWidth} style={{backgroundColor: '#f6f9fc', border: '1px solid green'}}>
+                <Features />
               </Responsive>
-
-              {/* <Responsive getWidth={getWidth} minWidth={Responsive.onlyTablet.minWidth} style={{backgroundColor: 'black', border: '1px solid green'}}>
-                <StepExampleOrdered />
-              </Responsive> */}
-
-
-
+              
             </Segment>
 
           </Visibility>

@@ -6,6 +6,7 @@ import {
   Header
 } from "semantic-ui-react";
 import {FlexColumn} from '../../custom-components/index';
+import { Link } from "react-router-dom";
 
 export const GetStarted = ({mobile}) => (
     <FlexColumn style={{width: '100%', height: mobile ? '75vh' : '28vh', backgroundColor: '#1a1b1c', display: 'flex', alignItems: 'center', paddingTop: '3em'}}>
@@ -14,13 +15,15 @@ export const GetStarted = ({mobile}) => (
         <Container style={{display: 'flex', justifyContent: 'center', alignItems: 'center', marginTop: mobile ? '2em' : '1em', paddingBottom: '2em'}}>
 
         <Step.Group >
-            <Step  style={{backgroundColor: '#1a1b1c', border: '1px solid #f6f9fc'}}>
-            <Icon name='user outline' style={{color: '#4ca34b'}} />
-            <Step.Content>
-                <Step.Title style={{color: '#f6f9fc', fontWeight: 'bold'}}>Sign Up</Step.Title>
-                <Step.Description style={{color: '#f6f9fc'}}>Create Your Account</Step.Description>
-            </Step.Content>
-            </Step>
+                <Step  style={{backgroundColor: '#1a1b1c', border: '1px solid #f6f9fc'}} >
+                    <Icon name='user outline' style={{color: '#4ca34b'}} />
+                    <Step.Content>
+                        <Link to='/register'>
+                            <Step.Title style={{color: '#f6f9fc', fontWeight: 'bold'}}>Sign Up</Step.Title>
+                            <Step.Description style={{color: '#f6f9fc'}}>Create Your Account</Step.Description>
+                        </Link>
+                    </Step.Content>
+                </Step>
 
             <Step style={{backgroundColor: '#1a1b1c', border: '1px solid #f6f9fc'}} >
             <Icon name='home' style={{color: '#4ca34b'}}/>
