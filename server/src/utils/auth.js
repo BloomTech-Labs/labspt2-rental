@@ -23,6 +23,18 @@ export const register = async (req, res, next) => {
     next(err);
   }
 
+  if (!req.body.firstName || !req.body.lastName) {
+    let err = new Error('First and last name required');
+    err.statusCode = 400;
+    next(err);
+  }
+
+  if (!req.body.username) {
+    let err = new Error('Username required');
+    err.statusCode = 400;
+    next(err);
+  }
+
   try {
     // Right now, what we have is okay, but we need to do a check
     // to see if the user already exists and throw appropriate status code

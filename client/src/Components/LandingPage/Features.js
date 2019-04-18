@@ -17,7 +17,7 @@ import {payment as PaymentLogo} from './svgs/payment_undraw';
 export const Features = ({mobile}) => (
     <Container >
 
-        <Grid stackable style={{paddingTop: mobile ? '5em' : '3em', paddingBottom: mobile? '3em' : 0}}>
+        <Grid stackable style={{paddingTop: mobile ? '5em' : '7em', paddingBottom: mobile? '3em' : 0}}>
 
             <Grid.Column width={4}>
             <WorldLogo mobile style={{minWidth: '200px'}} />
@@ -30,7 +30,7 @@ export const Features = ({mobile}) => (
 
         </Grid>
 
-        <Grid stackable style={{paddingTop: mobile ? '1em' : '3em', paddingBottom: mobile ? '3em' : 0, flexDirection: mobile ? 'column-reverse' : null}}>
+        <Grid stackable style={{paddingTop: mobile ? '1em' : '4em', paddingBottom: mobile ? '3em' : 0, flexDirection: mobile ? 'column-reverse' : null}}>
 
             <Grid.Column width={8} style={{display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center'}}>
             <Header as='h2' content='Customize Properties, Simplify Workflow' />
@@ -43,7 +43,7 @@ export const Features = ({mobile}) => (
 
         </Grid>
 
-        <Grid stackable style={{paddingTop: mobile ? '1em' : '3em', paddingBottom: mobile? '3em' : 0}}>
+        <Grid stackable style={{paddingTop: mobile ? '1em' : '4em', paddingBottom: mobile? '3em' : 0}}>
 
             <Grid.Column width={6}>
             <MobileLogo style={{minWidth: '200px'}} />
@@ -56,7 +56,7 @@ export const Features = ({mobile}) => (
 
         </Grid>
 
-        <Grid stackable style={{paddingTop: mobile ? '1em' : '3em', paddingBottom: mobile ? '5em' : '4em', flexDirection: mobile ? 'column-reverse' : null}}>
+        <Grid stackable style={{paddingTop: mobile ? '1em' : '4em', paddingBottom: mobile ? '5em' : '4em', flexDirection: mobile ? 'column-reverse' : null}}>
 
             <Grid.Column width={8} style={{display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center'}}>
             <Header as='h2' content='Secure Checkout with Stripe Payments' />

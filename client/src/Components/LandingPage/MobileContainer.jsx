@@ -9,6 +9,7 @@ import {
   Sidebar,
   Icon
 } from "semantic-ui-react";
+import { Link } from "react-router-dom";
 import {HomePageHeader} from './Header';
 import {Testimonials} from './Testmonials';
 import {Footer} from './Footer';
@@ -43,7 +44,7 @@ class MobileContainer extends Component {
 
     return (
       <Responsive
-        as={Sidebar.Pushable}
+        // as={Sidebar.Pushable}
         getWidth={getWidth}
         maxWidth={Responsive.onlyMobile.maxWidth}
       >
@@ -68,18 +69,28 @@ class MobileContainer extends Component {
             style={{ minHeight: 350, padding: "1em 0em" }}
             vertical
           >
-            <Container>
+            <Container >
               <Menu inverted pointing secondary size="large">
                 <Menu.Item onClick={this.handleToggle}>
                   <Icon name="sidebar" />
                 </Menu.Item>
                 <Menu.Item position="right">
-                  <Button as="a" inverted>
-                    Log in
-                  </Button>
-                  <Button as="a" inverted style={{ marginLeft: "0.5em" }}>
-                    Sign Up
-                  </Button>
+
+                    <Link to='/login'>
+                      <Button inverted>
+                        Log in
+                      </Button>
+                    </Link>
+
+                    <Link to="/register">
+                      <Button
+                        inverted
+                        style={{ marginLeft: "0.5em" }}
+                      >
+                        Sign Up
+                      </Button>
+                    </Link>
+
                 </Menu.Item>
               </Menu>
             </Container>
