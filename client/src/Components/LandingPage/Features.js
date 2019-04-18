@@ -3,8 +3,12 @@ import PropTypes from 'prop-types';
 import {
     Container,
     Grid,
-    Header
+    Header,
+    Button,
+    Icon,
+    Divider
 } from 'semantic-ui-react';
+import { Link } from "react-router-dom";
 import {aroundTheWorld as WorldLogo} from './svgs/around_the_world_undraw';
 import {apartment as HouseLogo} from './svgs/apartment_undraw';
 import {mobileLogo as MobileLogo} from './svgs/mobile_undraw';
@@ -52,7 +56,7 @@ export const Features = ({mobile}) => (
 
         </Grid>
 
-        <Grid stackable style={{paddingTop: mobile ? '1em' : '3em', paddingBottom: mobile ? '5em' : '3em', flexDirection: mobile ? 'column-reverse' : null}}>
+        <Grid stackable style={{paddingTop: mobile ? '1em' : '3em', paddingBottom: mobile ? '5em' : '4em', flexDirection: mobile ? 'column-reverse' : null}}>
 
             <Grid.Column width={8} style={{display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center'}}>
             <Header as='h2' content='Secure Checkout with Stripe Payments' />
@@ -64,6 +68,20 @@ export const Features = ({mobile}) => (
             </Grid.Column>
 
         </Grid>
+
+        <Divider></Divider>
+
+        <Container style={{marginTop: mobile ? '3em' : '5em', marginBottom: mobile ? '3em' : '3em', display: 'flex', flexDirection: 'column', justifyContent: 'center'}}>
+            <Header as='h1' content='Ready to Get Started?' />
+                <Link to="/register" >
+                    <Button animated primary size="huge" style={{ marginTop: '1.5em', marginBottom: mobile ? '3em' : '3em'}} >
+                        <Button.Content visible>Sign Up Today</Button.Content>
+                        <Button.Content hidden>
+                            <Icon name="right arrow" />
+                        </Button.Content>
+                    </Button>
+                 </Link>
+        </Container>
 
     </Container>
 )
