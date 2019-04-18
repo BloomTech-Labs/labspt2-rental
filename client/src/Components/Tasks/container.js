@@ -21,7 +21,6 @@ const mapStateToProps = state => ({
   reservations: state.reservations,
   loading: state.loading,
   taskCount: state.taskCount,
-  task: state.task,
   error: state.error
 });
 

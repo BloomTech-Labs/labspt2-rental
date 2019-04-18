@@ -4,6 +4,7 @@ import moment from "moment";
 import { Checkbox, Label, Popup, Icon } from "semantic-ui-react";
 import { Link } from "react-router-dom";
 import Tasks from "./Tasks";
+import { PROPERTY_STARTED } from "../Properties/actions";
 
 const TaskListItem = ({ task }) => {
   return (
@@ -15,7 +16,10 @@ const TaskListItem = ({ task }) => {
     >
       <FlexColumn>
         <FlexRow style={{ alignItems: "baseline" }}>
-          <Checkbox label={task.description} />
+          <Checkbox 
+            label={task.description} 
+            
+          />
           <Link to={`/dashboard/tasks/edit/${task._id}`}>
             <Popup
               trigger={

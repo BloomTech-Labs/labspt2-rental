@@ -8,7 +8,7 @@ class TaskEdit extends Component {
     super(props);
 
     this.state = {
-      _id: this.props.match.params.id
+      // _id: this.props.match.params.id
     };
   }
 
@@ -20,14 +20,23 @@ class TaskEdit extends Component {
     this.props.getTasks();
   }
 
+  static getDerivedStateFromProps(props, state) {
+    if (!state._id) {
+      return props.tasks.tasks.find(t => t._id === props.match.params.id);
+    }
+    return null;
+  }
+
   handleChange = (prop, val) => {
     this.setState({ [prop]: val });
     console.log(prop);
   };
 
-  handleDateChange = ({ prop, val }) => {
-    this.setState({ [prop]: val});
-    console.log(prop);
+
+  handleDateChange = ({ startDate, endDate }) => {
+    console.log(startDate);
+    this.setState({ startDate: startDate, endDate: endDate});
+    
   };
 
   handleSubmit = () => {
@@ -35,7 +44,7 @@ class TaskEdit extends Component {
     this.props
       .updateTask(this.state)
       .then(data => 
-          this.props.history.push(`/dashboard/tasks/${this.state._id}`)
+          this.props.history.push(`/dashboard/tasks/`)
       )
       .catch(err => {});
   };
@@ -45,7 +54,9 @@ class TaskEdit extends Component {
       tasks: { tasks }
     } = this.props;
     
-    const task = tasks.find(t => t._id === this.props.match.params.id);
+    // const task = tasks.find(t => t._id === this.props.match.params.id);
+
+    console.log(this.state)
 
     return (
       <FlexColumn>
@@ -59,9 +70,8 @@ class TaskEdit extends Component {
           <FlexRow style={{ width: "100%" }}>
             <Input
               style={{ width: "100%" }}
-              placeholder="Add Task"
-              onChange={(e, val) => this.handleChange("description", val)}
-              value={ task ? task.description : null }
+              onChange={(e) => this.handleChange("description", e.target.value)}
+              value={this.state.description}
             />
           </FlexRow>
 
@@ -72,8 +82,8 @@ class TaskEdit extends Component {
         <FlexRow width="full">
           <DateRangePickerWrapper 
             onChange={this.handleDateChange}
-            initialStartDate={new Date(task ? task.startDate : null) }
-            initialEndDate={new Date(task ? task.endDate : null) }
+            initialStartDate={new Date(this.state.startDate ? this.state.startDate : null) }
+            initialEndDate={new Date(this.state.endDate ? this.state.endDate : null) }
           />
         </FlexRow>
 
@@ -84,9 +94,16 @@ class TaskEdit extends Component {
           <Dropdown
             placeholder="Property"
             style={{ marginRight: "10px" }}
-            value={ task ? task.property._id : null }
+            // value={ task ? task.property._id : null }
+            value={ this.state.property ? this.state.property._id : null }
             selection
-            onChange={(e, val) => this.handleChange("property", val.value)}
+            // onChange={(e, val) => this.handleChange("property", val.value)}
+            onChange={(e, val) =>
+              this.handleChange("property", {
+                ...this.state.property,
+                _id: val.value
+              })
+            }
             options={
               this.props.loading
                 ? [{ text: "Loading...", value: "loading" }]
@@ -107,8 +124,13 @@ class TaskEdit extends Component {
             placeholder="Reservation"
             style={{ marginRight: "10px" }}
             selection
-            value={ task ? task.reservation._id : null }
-            onChange={(e, val) => this.handleChange("reservation", val.value)}
+            value={ this.state.reservation ? this.state.reservation._id : null }
+            onChange={(e, val) =>
+              this.handleChange("reservation", {
+                ...this.state.reservation,
+                _id: val.value
+              })
+            }
             options={
               this.props.loading
                 ? [{ text: "Loading...", value: "loading" }]
@@ -129,8 +151,13 @@ class TaskEdit extends Component {
             placeholder="Employee"
             style={{ marginRight: "10px" }}
             selection
-            value={ task ? task.assignedTo._id : null }
-            onChange={(e, val) => this.handleChange("assignedTo", val.value)}
+            value={ this.state.assignedTo ? this.state.assignedTo._id : null }
+            onChange={(e, val) =>
+              this.handleChange("assignedTo", {
+                ...this.state.assignedTo,
+                _id: val.value
+              })
+            }
             options={
               this.props.loading
                 ? [{ text: "Loading...", value: "loading" }]

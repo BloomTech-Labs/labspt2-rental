@@ -15,7 +15,6 @@ export const getTasks = (filterSort = {}) => {
           ""}&sort=${sort}&limit=${pageSize}&skip=${(page - 1) * pageSize}`
       )
       .then(response => {
-        console.log(response);
         dispatch({
           type: actions.FETCH_TASK_SUCCESS,
           payload: response.data
@@ -44,7 +43,6 @@ export const searchTasks = (filterSort = {}) => {
           ""}&sort=${sort}&limit=${pageSize}&skip=${(page - 1) * pageSize}`
       )
       .then(response => {
-        console.log(response);
         dispatch({
           type: actions.FETCH_TASK_SUCCESS,
           payload: response.data
@@ -150,17 +148,16 @@ export const createTask = (body = {}) => dispatch => {
 };
 
 // Needed to Update task
-export const updateTask = id => {
-  return dispatch => {
-    dispatch({
-      type: actions.FETCH_TASK_ATTEMPT
-    });
-  axios
-    .put(`${config.apiUrl}/api/tasks/${id}`)
+export const updateTask = (body = {}) => dispatch => {
+  dispatch({
+    type: actions.FETCH_TASK_ATTEMPT
+  })
+  return axios
+    .put(`${config.apiUrl}/api/tasks/${body._id}`, body)
     .then(({ data }) => {
       dispatch({
         type: actions.FETCH_TASK_SUCCESS,
-        payload: { task: data.data }
+        payload: { tasks: data.data }
       });
       return data.data;
     })
@@ -169,4 +166,3 @@ export const updateTask = id => {
       throw err;
     });
   };
-};
