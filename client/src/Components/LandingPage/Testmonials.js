@@ -6,12 +6,10 @@ import {
   Header,
   Icon,
   Image,
-  Grid,
-  Divider
+  Grid
 } from "semantic-ui-react";
 import { Link } from "react-router-dom";
 import { FlexColumn, FlexRow } from '../../custom-components/index';
-import DesktopContainer from "./DesktopContainer";
 
 /* eslint-disable react/no-multi-comp */
 /* Heads up! HomepageHeading uses inline styling, however it's not the best practice. Use CSS or styled components for
@@ -87,7 +85,7 @@ const MobileTestimonials = () => (
             
             <Grid.Column style={{ display: 'flex', justifyContent: 'center', width: '90%', minHeight: '15vh'}} >
                 <FlexColumn alignCenter justifyCenter >
-                <p style={{ color: 'black', fontWeight: 'bold'}}>"Simple to use, from my office to my pocket on the go."</p>
+                <p style={{ color: 'black', fontWeight: 'bold'}}>"Simple to use, from my office to on the go."</p>
                 <p style={{ color: 'black'}}> - Jess, Boston</p>
                 </FlexColumn>
             </Grid.Column>
@@ -105,72 +103,74 @@ const DesktopTestimonials = () => (
         marginRight: '1em',
         marginBottom: '4em'
         }}>
-        
+
     <Grid.Row>
-    <Grid.Column
-        style={{marginTop: '2em'}}
-    >
+        <Grid.Column style={{marginTop: '2em', minWidth: '20em'}}>
+            <FlexRow>
+            <Image src="https://joeschmoe.io/api/v1/joe" fluid circular />
+            <Container>
+            <Header 
+                as="h5"
+                content="Roostr saves me time and energy."
+                style={{fontSize: "1em"}}
+            />
+                <p style={{ color: 'black'}}>- Joe, Seattle</p>
+            </Container>
+            </FlexRow>
+        </Grid.Column>
+        <Grid.Column
+            style={{marginTop: '2em'}}
+        >
         <FlexRow>
-        <Image src="https://joeschmoe.io/api/v1/joe" size='small' circular />
-        <Container>
-        <Header 
-            as="h5"
-            content="Roostr saves me time and energy."
-            style={{fontSize: "1em"}}
-        />
-            <p style={{ color: 'black'}}>- Joe, Seattle</p>
-        </Container>
-        </FlexRow>
-    </Grid.Column>
-    <Grid.Column
-        style={{marginTop: '2em'}}
-    >
-    <FlexRow>
-        <Image src="https://joeschmoe.io/api/v1/jess" size='small' circular />
-        <Container>
-        <Header 
-            as="h5"
-            content="Simple to use, from my office to my pocket on the go."
-            style={{fontSize: "1em"}}
-        />
-            <p style={{ color: 'black'}}>- Jess, Boston</p>
-        </Container>
-        </FlexRow>
-    </Grid.Column>
+            <Image src="https://joeschmoe.io/api/v1/jess" fluid circular />
+            <Container>
+            <Header 
+                as="h5"
+                content="I love the customization. Each property is unique but being run equally efficiently."
+                style={{fontSize: "1em"}}
+            />
+                <p style={{ color: 'black'}}>- Jess, Boston</p>
+            </Container>
+            </FlexRow>
+        </Grid.Column>
     </Grid.Row>
 
     <Grid.Row >
-    <Grid.Column
-        style={{marginTop: '2em',}}
-    >
+
+        <Grid.Column
+            style={{marginTop: '2em'}}
+        >
         <FlexRow>
-        <Image src="https://joeschmoe.io/api/v1/jon" size='small' circular />
-        <Container>
-        <Header 
-            as="h5"
-            content="I love the customization, to run my properties individually but with the same processes."
-            style={{fontSize: "1em"}}
-        />
-            <p style={{ color: 'black'}}>- Jon, Chatanooga</p>
-        </Container>
-        </FlexRow>
-    </Grid.Column>
-    <Grid.Column
-        style={{marginTop: '2em'}}
-    >
-    <FlexRow>
-        <Image src="https://joeschmoe.io/api/v1/jana" size='small' circular />
-        <Container>
-        <Header 
-            as="h5"
-            content="My employees' productivity has increased and guests are rating higher than ever."
-            style={{fontSize: "1em"
-            }}
-        />
-            <p style={{ color: 'black'}}>- Jana, Chicago</p>
-        </Container>
-        </FlexRow>
-    </Grid.Column>
+            <Image src="https://joeschmoe.io/api/v1/jana" fluid circular />
+            <Container>
+            <Header 
+                as="h5"
+                content="My employees' productivity has increased and guest ratings are higher than ever."
+                style={{fontSize: "1em"
+                }}
+            />
+                <p style={{ color: 'black'}}>- Jana, Chicago</p>
+            </Container>
+            </FlexRow>
+        </Grid.Column>
+
+        <Grid.Column
+            style={{marginTop: '2em',}}
+        >
+            <FlexRow>
+            <Image src="https://joeschmoe.io/api/v1/jon" fluid circular />
+            <Container>
+            <Header 
+                as="h5"
+                content="Simple to use, from my office to on the go."
+                style={{fontSize: "1em"}}
+            />
+                <p style={{ color: 'black'}}>- Jon, Chatanooga</p>
+            </Container>
+            </FlexRow>
+        </Grid.Column>
+
     </Grid.Row>
+
 </Grid>
 );

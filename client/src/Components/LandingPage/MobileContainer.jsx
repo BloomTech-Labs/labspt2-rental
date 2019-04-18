@@ -11,6 +11,8 @@ import {
 } from "semantic-ui-react";
 import {HomePageHeader} from './Header';
 import {Testimonials} from './Testmonials';
+import {Footer} from './Footer';
+import { GetStarted } from "./GetStarted";
 
 // Heads up!
 // We using React Static to prerender our docs with server side rendering, this is a quite simple solution.
@@ -88,11 +90,13 @@ class MobileContainer extends Component {
                 style={{backgroundColor: '#f6f9fc'}} 
             >
                 <Testimonials mobile />
+                <GetStarted mobile />
             </Responsive>
 
           </Segment>
 
           {children}
+          <Footer mobile />
         </Sidebar.Pusher>
       </Responsive>
     );
