@@ -1,14 +1,28 @@
-import React from "react";
+import React, { Component } from 'react';
 import { FlexRow, FlexColumn } from "custom-components";
 import moment from "moment";
 import { Checkbox, Label, Popup, Icon } from "semantic-ui-react";
 import { Link } from "react-router-dom";
 import Tasks from "./Tasks";
 import { PROPERTY_STARTED } from "../Properties/actions";
+import Properties from "../Properties/Properties";
 
-const TaskListItem = ({ task }) => {
-  return (
-    <FlexRow
+class TaskListItem extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {  }
+  }
+
+  toggleComplete = () => {
+    const { task } = this.props;
+    window.alert(`toggle ${task._id}? completed: ${task.completed}`);
+  }
+  
+  render() { 
+    const { task } = this.props;
+
+    return ( 
+      <FlexRow
       alignCenter
       justifyBetween
       width="full"
@@ -18,7 +32,7 @@ const TaskListItem = ({ task }) => {
         <FlexRow style={{ alignItems: "baseline" }}>
           <Checkbox 
             label={task.description} 
-            
+            onChange={this.toggleComplete}
           />
           <Link to={`/dashboard/tasks/edit/${task._id}`}>
             <Popup
@@ -56,7 +70,8 @@ const TaskListItem = ({ task }) => {
         </p>
       </FlexColumn>
     </FlexRow>
-  );
-};
+    );
+  }
+}
 
 export default TaskListItem;

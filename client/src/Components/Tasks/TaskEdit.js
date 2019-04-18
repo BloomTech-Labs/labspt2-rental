@@ -45,6 +45,10 @@ class TaskEdit extends Component {
       .catch(err => {});
   };
 
+  handleDelete = () => {
+    window.alert("Are you sure?");
+  }
+
   render() {
     const {
       tasks: { tasks }
@@ -166,10 +170,16 @@ class TaskEdit extends Component {
         <br />
 
         <FlexRow width="full" justifyCenter>
-          <Button color="green" onClick={this.handleSubmit}>
+          <Button 
+            color="green" 
+            onClick={this.handleSubmit}
+          >
             Update Task
           </Button>
-          <Button color="red">
+          <Button 
+            color="red"
+            onClick={this.handleDelete}
+          >
             Delete Task
           </Button>
         </FlexRow>
