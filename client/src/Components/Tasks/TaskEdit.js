@@ -7,9 +7,7 @@ class TaskEdit extends Component {
   constructor(props) {
     super(props);
 
-    this.state = {
-      // _id: this.props.match.params.id
-    };
+    this.state = {};
   }
 
   // methods here
@@ -36,11 +34,9 @@ class TaskEdit extends Component {
   handleDateChange = ({ startDate, endDate }) => {
     console.log(startDate);
     this.setState({ startDate: startDate, endDate: endDate});
-    
   };
 
   handleSubmit = () => {
-    console.log(this.props);
     this.props
       .updateTask(this.state)
       .then(data => 
@@ -53,10 +49,6 @@ class TaskEdit extends Component {
     const {
       tasks: { tasks }
     } = this.props;
-    
-    // const task = tasks.find(t => t._id === this.props.match.params.id);
-
-    console.log(this.state)
 
     return (
       <FlexColumn>
