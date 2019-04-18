@@ -4,7 +4,11 @@ import { Header, Input, Dropdown, Button, Segment } from "semantic-ui-react";
 import DateRangePickerWrapper from "../shared/DatePicker/DatePicker";
 
 class TaskEdit extends Component {
-  state = {};
+  constructor(props) {
+    super(props);
+
+    this.state = {};
+  }
 
   // methods here
   componentDidMount() {
@@ -21,11 +25,40 @@ class TaskEdit extends Component {
     return null;
   }
 
+  handleChange = (prop, val) => {
+    this.setState({ [prop]: val });
+    console.log(prop);
+  };
+
+
+  handleDateChange = ({ startDate, endDate }) => {
+    console.log(startDate);
+    this.setState({ startDate: startDate, endDate: endDate});
+  };
+
+  handleSubmit = () => {
+    this.props
+      .updateTask(this.state)
+      .then(data => 
+          this.props.history.push(`/dashboard/tasks/`)
+      )
+      .catch(err => {});
+  };
+
+  handleDelete = () => {
+    window.alert("Are you sure you want to delete this task?");
+    this.props
+      .deleteTask(this.props.match.params.id)
+      .then(data => 
+          this.props.history.push(`/dashboard/tasks/`)
+        )
+      .catch(err => {});
+  }
+
   render() {
     const {
-      tasks: { tasks, loading, taskCount }
+      tasks: { tasks }
     } = this.props;
-
 
     return (
       <FlexColumn>
@@ -39,8 +72,8 @@ class TaskEdit extends Component {
           <FlexRow style={{ width: "100%" }}>
             <Input
               style={{ width: "100%" }}
-              placeholder="Add Task"
-              onChange={e => this.handleChange("description", e.target.value)}
+              onChange={(e) => this.handleChange("description", e.target.value)}
+              value={this.state.description}
             />
           </FlexRow>
 
@@ -49,19 +82,30 @@ class TaskEdit extends Component {
         <br />
 
         <FlexRow width="full">
-          <DateRangePickerWrapper onChange={this.handleDateChange} />
+          <DateRangePickerWrapper 
+            onChange={this.handleDateChange}
+            initialStartDate={new Date(this.state.startDate ? this.state.startDate : null) }
+            initialEndDate={new Date(this.state.endDate ? this.state.endDate : null) }
+          />
         </FlexRow>
 
         <br />
         <br />
-        {console.log(this.props)}
 
         <FlexRow>
           <Dropdown
             placeholder="Property"
             style={{ marginRight: "10px" }}
+            // value={ task ? task.property._id : null }
+            value={ this.state.property ? this.state.property._id : null }
             selection
-            onChange={(e, val) => this.handleChange("property", val.value)}
+            // onChange={(e, val) => this.handleChange("property", val.value)}
+            onChange={(e, val) =>
+              this.handleChange("property", {
+                ...this.state.property,
+                _id: val.value
+              })
+            }
             options={
               this.props.loading
                 ? [{ text: "Loading...", value: "loading" }]
@@ -82,7 +126,13 @@ class TaskEdit extends Component {
             placeholder="Reservation"
             style={{ marginRight: "10px" }}
             selection
-            onChange={(e, val) => this.handleChange("reservation", val.value)}
+            value={ this.state.reservation ? this.state.reservation._id : null }
+            onChange={(e, val) =>
+              this.handleChange("reservation", {
+                ...this.state.reservation,
+                _id: val.value
+              })
+            }
             options={
               this.props.loading
                 ? [{ text: "Loading...", value: "loading" }]
@@ -103,7 +153,13 @@ class TaskEdit extends Component {
             placeholder="Employee"
             style={{ marginRight: "10px" }}
             selection
-            onChange={(e, val) => this.handleChange("assignedTo", val.value)}
+            value={ this.state.assignedTo ? this.state.assignedTo._id : null }
+            onChange={(e, val) =>
+              this.handleChange("assignedTo", {
+                ...this.state.assignedTo,
+                _id: val.value
+              })
+            }
             options={
               this.props.loading
                 ? [{ text: "Loading...", value: "loading" }]
@@ -120,10 +176,16 @@ class TaskEdit extends Component {
         <br />
 
         <FlexRow width="full" justifyCenter>
-          <Button color="green" onClick={this.handleSubmit}>
+          <Button 
+            color="green" 
+            onClick={this.handleSubmit}
+          >
             Update Task
           </Button>
-          <Button color="red">
+          <Button 
+            color="red"
+            onClick={this.handleDelete}
+          >
             Delete Task
           </Button>
         </FlexRow>

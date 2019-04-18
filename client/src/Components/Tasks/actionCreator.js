@@ -15,7 +15,6 @@ export const getTasks = (filterSort = {}) => {
           ""}&sort=${sort}&limit=${pageSize}&skip=${(page - 1) * pageSize}`
       )
       .then(response => {
-        console.log(response);
         dispatch({
           type: actions.FETCH_TASK_SUCCESS,
           payload: response.data
@@ -44,7 +43,6 @@ export const searchTasks = (filterSort = {}) => {
           ""}&sort=${sort}&limit=${pageSize}&skip=${(page - 1) * pageSize}`
       )
       .then(response => {
-        console.log(response);
         dispatch({
           type: actions.FETCH_TASK_SUCCESS,
           payload: response.data
@@ -148,3 +146,42 @@ export const createTask = (body = {}) => dispatch => {
       throw err;
     });
 };
+
+// Needed to Update task
+export const updateTask = (body = {}) => dispatch => {
+  dispatch({
+    type: actions.FETCH_TASK_ATTEMPT
+  })
+  return axios
+    .put(`${config.apiUrl}/api/tasks/${body._id}`, body)
+    .then(({ data }) => {
+      dispatch({
+        type: actions.FETCH_TASK_SUCCESS,
+        payload: { tasks: data.data }
+      });
+      return data.data;
+    })
+    .catch(err => {
+      dispatch({ type: actions.FETCH_TASK_FAILURE, payload: err });
+      throw err;
+    });
+  };
+
+  // Needed to delete a task
+  export const deleteTask = id => dispatch => {
+    dispatch({ type: actions.FETCH_TASK_ATTEMPT });
+    return axios
+      .delete(`${config.apiUrl}/api/tasks/${id}`)
+      .then(response => {
+        dispatch({
+          type: actions.DELETE_TASK_SUCCESS,
+          payload: response.data
+        });
+      })
+      .catch(err => {
+        dispatch({
+          type: actions.FETCH_TASK_FAILURE,
+          payload: err
+        });
+      });
+  };

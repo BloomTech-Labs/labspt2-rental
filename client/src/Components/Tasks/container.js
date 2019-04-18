@@ -6,7 +6,9 @@ import {
   fetchEmployees,
   fetchReservations,
   createTask,
-  fetchTaskCount
+  fetchTaskCount,
+  updateTask,
+  deleteTask
 } from "./actionCreator";
 import _Tasks from "./Tasks";
 import _TaskAdd from "./TaskAdd";
@@ -32,7 +34,9 @@ const connector = connect(
     fetchEmployees,
     fetchReservations,
     createTask,
-    fetchTaskCount
+    fetchTaskCount,
+    updateTask,
+    deleteTask
   }
 );
 
