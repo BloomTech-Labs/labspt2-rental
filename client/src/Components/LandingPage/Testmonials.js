@@ -20,7 +20,7 @@ export const Testimonials = ({ mobile }) => (
     <Container 
         style={{ 
             width: '100%', 
-            border: '1px solid white',
+            border: '1px solid #f6f9fc',
             marginTop: mobile ? "3em" : "14em",
             marginBottom: mobile ? "3em" : "4em",
             paddingBottom: mobile ? "2em" : "3em"

@@ -10,15 +10,12 @@ export const registerUser = newUser => {
         `${config.apiUrl}/api/users/register`,
         newUser
       );
-      console.log(actions.REGISTER_USER_SUCCESS);
       dispatch({
         type: actions.REGISTER_USER_SUCCESS,
-        payload: "Bearer " + token
+        payload: "Bearer " + token.data.token
       });
     } catch (err) {
-      console.log("inside of catch");
-      console.error(err);
-      dispatch({ type: actions.REIGSTER_USER_FAILURE, payload: err });
+      dispatch({ type: actions.REGISTER_USER_FAILURE, payload: err.response.data.err.errmsg });
     }
   };
 };
