@@ -47,6 +47,13 @@ const taskReducer = (state = initialState, { type, payload }) => {
         loading: false,
         taskCount: payload.taskCount
       };
+    // Added for Delete
+    case actions.DELETE_TASK_SUCCESS:
+      return {
+        ...state,
+        loading: false,
+        taskCount: payload.data
+      };
     case actions.FETCH_TASK_FAILURE:
       return {
         ...state,

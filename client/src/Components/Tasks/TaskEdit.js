@@ -47,6 +47,12 @@ class TaskEdit extends Component {
 
   handleDelete = () => {
     window.alert("Are you sure?");
+    this.props
+      .deleteTask(this.props.match.params.id)
+      .then(data => 
+          this.props.history.push(`/dashboard/tasks/`)
+        )
+      .catch(err => {});
   }
 
   render() {

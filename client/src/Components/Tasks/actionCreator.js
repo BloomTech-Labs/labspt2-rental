@@ -166,3 +166,22 @@ export const updateTask = (body = {}) => dispatch => {
       throw err;
     });
   };
+
+  // Needed to delete a task
+  export const deleteTask = id => dispatch => {
+    dispatch({ type: actions.FETCH_TASK_ATTEMPT });
+    return axios
+      .delete(`${config.apiUrl}/api/tasks/${id}`)
+      .then(response => {
+        dispatch({
+          type: actions.DELETE_TASK_SUCCESS,
+          payload: response.data
+        });
+      })
+      .catch(err => {
+        dispatch({
+          type: actions.FETCH_TASK_FAILURE,
+          payload: err
+        });
+      });
+  };
