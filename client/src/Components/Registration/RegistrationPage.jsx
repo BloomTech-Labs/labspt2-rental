@@ -20,10 +20,10 @@ class RegistrationPage extends Component {
   }
   
   handleInputChange = (e) => {
-    const { password, oldPassword, username, email, firstName, lastName } = this.state;
+    const { password, passwordCheck, username, email, firstName, lastName } = this.state;
 
     if (e.target.name === "passwordCheck") {
-      if (e.target.value === password && oldPassword !== "" && username !== "" && email !== "" && firstName !== "" && lastName !== "") {
+      if (e.target.value === password && passwordCheck !== "" && username !== "" && email !== "" && firstName !== "" && lastName !== "") {
         this.setState({
           disabled: false,
           message: ""
