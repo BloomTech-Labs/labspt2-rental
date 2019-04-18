@@ -31,8 +31,8 @@ class TaskList extends Component {
         />
 
         {this.props.tasks.map((task, ind) => (
-          <>
-            {/* <Responsive maxWidth={700}>
+          <div style={{ width: "100%" }}>
+            <Responsive maxWidth={700}>
               <TaskListItemMobile 
                 task={task} key={ind}
               />
@@ -41,10 +41,10 @@ class TaskList extends Component {
               <TaskListItemDesktop 
                 task={task} key={ind}
               />
-            </Responsive> */}
-            <TaskListItem task={task} key={ind} />
+            </Responsive>
+            {/* <TaskListItem task={task} key={ind} /> */}
             <Divider />
-          </>
+          </div>
         ))}
       </FlexColumn>
     );

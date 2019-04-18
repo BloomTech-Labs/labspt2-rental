@@ -1,11 +1,9 @@
 import React, { Component } from 'react';
 import { FlexRow, FlexColumn } from "custom-components";
 import moment from "moment";
-import { Checkbox, Label, Popup, Icon } from "semantic-ui-react";
+import { Checkbox, Label, Popup, Icon, Responsive } from "semantic-ui-react";
 import { Link } from "react-router-dom";
 import Tasks from "./Tasks";
-import { PROPERTY_STARTED } from "../Properties/actions";
-import Properties from "../Properties/Properties";
 
 class TaskListItem extends Component {
   constructor(props) {
@@ -22,7 +20,6 @@ class TaskListItem extends Component {
     const { task } = this.props;
 
     return ( 
-      
       <FlexRow
         alignCenter
         justifyBetween
