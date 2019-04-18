@@ -65,9 +65,6 @@ class Tasks extends Component {
           </Link>
         </FlexRow>
 
-        {/* <Label color='red' circular>{taskCount}</Label>
-        <Label color='red' circular>{pageSize}</Label> */}
-
         <Tab
           onTabChange={this.handleTabChange}
           menu={{ attached: false }}
@@ -92,7 +89,12 @@ class Tasks extends Component {
               )
             })),
             {
-              menuItem: <Search onChange={this.handleSearchChange} />
+              menuItem: (
+                <Search 
+                  onChange={this.handleSearchChange} 
+                  style={{ minWidth: "300px", flexGrow: "1" }}
+                />
+              )
             }
           ]}
         />

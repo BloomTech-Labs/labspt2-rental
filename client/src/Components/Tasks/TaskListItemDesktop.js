@@ -4,10 +4,8 @@ import moment from "moment";
 import { Checkbox, Label, Popup, Icon } from "semantic-ui-react";
 import { Link } from "react-router-dom";
 import Tasks from "./Tasks";
-import { PROPERTY_STARTED } from "../Properties/actions";
-import Properties from "../Properties/Properties";
 
-class TaskListItem extends Component {
+class TaskListItemDesktop extends Component {
   constructor(props) {
     super(props);
     this.state = {  }
@@ -22,7 +20,7 @@ class TaskListItem extends Component {
     const { task } = this.props;
 
     return ( 
-      
+    
       <FlexRow
         alignCenter
         justifyBetween
@@ -53,7 +51,7 @@ class TaskListItem extends Component {
         </p>
       </FlexColumn>
 
-      <FlexColumn style={{ alignItems: "flex-end" }} >
+      <FlexColumn style={{ alignItems: "flex-end" }}>
         <Popup 
           trigger={
             <Label 
@@ -77,4 +75,4 @@ class TaskListItem extends Component {
   }
 }
 
-export default TaskListItem;
+export default TaskListItemDesktop;
