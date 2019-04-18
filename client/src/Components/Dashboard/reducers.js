@@ -7,7 +7,8 @@ const initialState = {
   propInactive: 0,
   emplTotal: 0,
   tasksToday: 0,
-  tasksOverdue: 0
+  tasksOverdue: 0,
+  user: null
 };
 
 const dashboardReducer = (state = initialState, action) => {
@@ -18,6 +19,11 @@ const dashboardReducer = (state = initialState, action) => {
       return {
         ...state,
         error: action.payload.error
+      };
+    case actions.USER_ROLE_SUCCESS:
+      return {
+        ...state,
+        user: action.payload
       };
     default:
       return { ...state };
