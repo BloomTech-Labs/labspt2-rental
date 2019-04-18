@@ -3,13 +3,14 @@ import {
   Container,
   Step,
   Icon,
-  Header
+  Header,
+  Button
 } from "semantic-ui-react";
 import {FlexColumn} from '../../custom-components/index';
 import { Link } from "react-router-dom";
 
 export const GetStarted = ({mobile}) => (
-    <FlexColumn style={{width: '100%', height: mobile ? '75vh' : '28vh', backgroundColor: '#1a1b1c', display: 'flex', alignItems: 'center', paddingTop: '3em'}}>
+    <FlexColumn style={{width: '100%', height: mobile ? '84vh' : '46vh', backgroundColor: '#1a1b1c', display: 'flex', alignItems: 'center', paddingTop: '4em'}}>
         <Header inverted as='h2' content='Get started in three simple steps:'/>
 
         <Container style={{display: 'flex', justifyContent: 'center', alignItems: 'center', marginTop: mobile ? '2em' : '1em', paddingBottom: '2em'}}>
@@ -41,6 +42,16 @@ export const GetStarted = ({mobile}) => (
             </Step.Content>
             </Step>
         </Step.Group>
+
     </Container>
+
+
+    <Link to="/register" style={{ marginTop: mobile ? '1em' : '2em', marginBottom: mobile ? '1em' : '2em'}}>
+        <Button primary size="huge"  >
+          Register Today
+          <Icon name="right arrow" />
+        </Button>
+      </Link>
+
   </FlexColumn>
 );

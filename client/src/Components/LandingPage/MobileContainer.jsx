@@ -13,6 +13,7 @@ import {HomePageHeader} from './Header';
 import {Testimonials} from './Testmonials';
 import {Footer} from './Footer';
 import { GetStarted } from "./GetStarted";
+import {Features} from './Features';
 
 // Heads up!
 // We using React Static to prerender our docs with server side rendering, this is a quite simple solution.
@@ -91,6 +92,10 @@ class MobileContainer extends Component {
             >
                 <Testimonials mobile />
                 <GetStarted mobile />
+            </Responsive>
+
+            <Responsive getWidth={getWidth} minWidth={Responsive.onlyMobile.minWidth} style={{backgroundColor: '#f6f9fc', border: '1px solid green'}}>
+                <Features mobile />
             </Responsive>
 
           </Segment>
