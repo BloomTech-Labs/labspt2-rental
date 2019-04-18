@@ -12,18 +12,19 @@ const registrationReducer = (state = initialState, action) => {
       return {
         ...state,
         loading: true,
-        token: action.payload
       }
     case actions.REGISTER_USER_SUCCESS:
       return {
         ...state,
         loading: false,
+        token: action.payload
       }
-    case actions.REIGSTER_USER_FAILURE:
+    case actions.REGISTER_USER_FAILURE:
       return {
         ...state,
         loading: false,
-        error: action.payload}
+        error: action.payload
+      }
     default:
       return state;
   }

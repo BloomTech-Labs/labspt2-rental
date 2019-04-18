@@ -1,26 +1,52 @@
 import React, { Component } from 'react'
-import { Button, Form, Divider, Segment, Header } from 'semantic-ui-react'
+import { Button, Form, Divider, Segment, Header, Message, Dimmer, Icon } from 'semantic-ui-react'
 import { FlexColumn, FlexRow } from 'custom-components'
 import { Link } from "react-router-dom";
 
 class RegistrationPage extends Component {
-  state = {
-    username: '',
-    email: '',
-    password: '',
-    passwordCheck: '',
-    firstName: '',
-    lastName: ''
+  constructor(props){
+    super(props);
+    this.state = {
+      username: '',
+      email: '',
+      password: '',
+      passwordCheck: '',
+      firstName: '',
+      lastName: '',
+      message: '',
+      disabled: true,
+      active: false
+    }
+  }
+  
+  handleInputChange = (e) => {
+    const { password, oldPassword, username, email, firstName, lastName } = this.state;
+
+    if (e.target.name === "passwordCheck") {
+      if (e.target.value === password && oldPassword !== "" && username !== "" && email !== "" && firstName !== "" && lastName !== "") {
+        this.setState({
+          disabled: false,
+          message: ""
+        });
+      } else {
+        this.setState({
+          disabled: true,
+          message: "mismatch"
+        });
+      }
+    }
+    this.setState({
+      [e.target.name]: e.target.value
+    });
   }
 
-  handleInputChange = (event) => {
-    const { target: { name, value } } = event
-    this.setState({ [name]: value })
-  }
+  dimmerClose = () => {
+    this.setState({ active: false });
+    this.props.history.push(`/dashboard/`)
+  };
 
   handleSubmit = (event) => {
     event.preventDefault();
-    const { registerUser } = this.props
     const user = {
       email: this.state.email,
       username: this.state.username,
@@ -32,15 +58,67 @@ class RegistrationPage extends Component {
 
     event.preventDefault()
 
-    registerUser(user)
+    this.props.registerUser(user)
+      .then(success => {
+        if(this.props.registration.token){
+          this.setState({
+            active: true
+          })
+        } else {
+          this.setState({
+            message: `Could not create user account`
+          })
+        }
+    })
+      .catch(err => {
+        this.setState({
+          message: `${err}`
+        })
+      })
   }
 
   render () {
+    const {message, disabled, active} = this.state;
+
+    let messageAlert;
+    if (message === "mismatch") {
+      messageAlert = <Message size="tiny">Passwords must match!</Message>;
+    } else if (message !== "") {
+      messageAlert = <Message size="tiny">{message}</Message>;
+    } else {
+      messageAlert = <Divider section />;
+    }
+
+    let submitButton;
+    if (disabled) {
+      submitButton = <Button basic color='green' disabled>Update</Button>;
+    } else {
+      submitButton = (
+        <Button color="green" type='submit' active>
+          Submit
+        </Button>
+      );
+    }
+
+    let success;
+    if (active) {
+      success = (
+        <Dimmer active onClickOutside={this.dimmerClose} page>
+          <Header as="h2" icon inverted>
+            <Icon name="check circle outline" />
+            Account created!
+          </Header>
+        </Dimmer>
+      );
+    } else {
+      success = null;
+    }
+
     return (
       <FlexColumn width="full" alignCenter justifyCenter style={{backgroundColor: '#1a1b1c', height: '100vh'}}>
         <Segment className="sm-container">
           <Header size='large'>Registration</Header>
-
+          {success}
           <Divider/>
 
           <Form onSubmit={this.handleSubmit}>
@@ -112,7 +190,7 @@ class RegistrationPage extends Component {
               />
             </Form.Field>
 
-            <br/>
+            {messageAlert}
 
             <FlexRow width="full" alignEnd justifyBetween>
               <FlexColumn alignStart justifyBetween>
@@ -122,7 +200,7 @@ class RegistrationPage extends Component {
                 </Link>
               </FlexColumn>
 
-              <Button color="green" type='submit'>Submit</Button>
+              {submitButton}
             </FlexRow>
           </Form>
         </Segment>
