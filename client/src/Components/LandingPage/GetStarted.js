@@ -1,4 +1,5 @@
 import React from "react";
+import PropTypes from 'prop-types';
 import {
   Container,
   Step,
@@ -55,3 +56,7 @@ export const GetStarted = ({mobile}) => (
 
   </FlexColumn>
 );
+
+GetStarted.propTypes = {
+    mobile: PropTypes.bool
+  };

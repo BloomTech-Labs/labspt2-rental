@@ -174,3 +174,7 @@ const DesktopTestimonials = () => (
 
 </Grid>
 );
+
+Testimonials.propTypes = {
+    mobile: PropTypes.bool
+  };

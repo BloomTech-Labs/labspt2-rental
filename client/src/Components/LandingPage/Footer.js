@@ -1,4 +1,5 @@
 import React from "react";
+import PropTypes from "prop-types";
 import {
   Container,
   Grid,
@@ -41,3 +42,7 @@ export const Footer = ({mobile}) => (
         </Container>
       </Segment>
   );
+
+  Footer.propTypes = {
+    mobile: PropTypes.bool
+  };

@@ -6,8 +6,8 @@ import {
     Header
 } from 'semantic-ui-react';
 import {aroundTheWorld as WorldLogo} from './svgs/around_the_world_undraw';
-import {house as HouseLogo} from './svgs/apartment_undraw';
-import {mobile as MobileLogo} from './svgs/mobile_undraw';
+import {apartment as HouseLogo} from './svgs/apartment_undraw';
+import {mobileLogo as MobileLogo} from './svgs/mobile_undraw';
 import {payment as PaymentLogo} from './svgs/payment_undraw';
 
 export const Features = ({mobile}) => (

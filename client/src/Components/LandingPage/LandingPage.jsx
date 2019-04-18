@@ -23,22 +23,6 @@ import MobileContainer from './MobileContainer';
 // Dark grey: #1a1b1c
 // Icon green: #4ca34b
 
-// Keep Roostr short motto up front and top header. Find succinet 6-8 word way to describe it. (i.e. Teach your app to see emotions; Make your website better. Instantly; One app to manage your properties.)
-
-// Then, 4 checkmark section: free to use for one property, we will not spam you with automated emails, you don't have to provide a CC unless you upgrade, simplify managing your short term rentals today
-
-// OR a click bait type link to more: "Learn how Roostr helps your team increase productivity"
-
-// OR pain point sections with images next to them: mobile responsive, seamless checkout, etc.
-
-// Testimonials section. Images with short quotes on the left, scrolling. On the right, a comment about "Owners love how Roostr increases productivity and customer service, without increasing time spent managing." Using "trust" or "trusted by" sells better.
-
-// Great product explanation: 6-8 word headers: "Create the perfect page with A/B testing", "Make changes quickly with the native editor"
-// "Quickly add properties with custom task lists", "Easily assign tasks and properties to employees", "Customize employee permissions with the click of a button", "Stop organizing tasks, start prioritizing your team's work"
-
-
-// Use a step to show simple customer checkout process or signup process
-
 const ResponsiveContainer = ({ children }) => (
   <div>
     <DesktopContainer>{children}</DesktopContainer>
@@ -51,7 +35,6 @@ ResponsiveContainer.propTypes = {
 };
 
 const LandingPage = () => (
-  <ResponsiveContainer>
-  </ResponsiveContainer>
+  <ResponsiveContainer/>
 );
 export default LandingPage;
