@@ -49,8 +49,7 @@ const propertySchema = new Schema(
       required: true
     },
     occupants: {
-      type: Number,
-      required: true
+      type: Number
     },
     image: String
   },

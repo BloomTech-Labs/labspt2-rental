@@ -18,16 +18,19 @@ class Properties extends Component {
     this.props.getProperties();
   }
 
-  // addClickHandle() {
-  //   console.log(this.state);
-  //   const numOfProps = this.props.properties.length;
-  //   if (numOfProps === 1) {
-  //     window.alert("we're going to have to change the billing plan");
-  //   }
-  //   if (numOfProps === 9) {
-  //     window.alert("this account needs the discounted rate");
-  //   } else this.props.history.push("/dashboard/properties/add");
-  // }
+  addClickHandle = () => {
+    const numOfProps = this.props.properties.length;
+    if (numOfProps === 1) {
+      window.alert("we're going to have to change the billing plan");
+      this.props.history.push("/dashboard/settings");
+      //this will need to go to update plan modal. not working right now.
+    } else if (numOfProps === 9) {
+      window.alert("this account needs the discounted rate");
+      this.props.history.push("/dashboard/properties/add");
+    } else {
+      this.props.history.push("/dashboard/properties/add");
+    }
+  };
 
   render() {
     return (
@@ -39,15 +42,13 @@ class Properties extends Component {
           style={{ padding: "5px" }}
         >
           <Search style={{ flexGrow: "1", marginRight: "10px" }} />
-          <Link to="/dashboard/properties/add">
-            <Button
-              className="space-left-20 space-right-20"
-              circular
-              icon="plus"
-              color="orange"
-              onClick={this.addClickHandle}
-            />
-          </Link>
+          <Button
+            className="space-left-20 space-right-20"
+            circular
+            icon="plus"
+            color="orange"
+            onClick={this.addClickHandle}
+          />
         </Segment>
         {this.props.properties.map(property => {
           return (
@@ -73,7 +74,7 @@ class Properties extends Component {
                 }
                 occupants={property.occupants}
                 buttonFunction={() => this.cardHandleClick(property._id)}
-                linkto={`/dashboard/properties/edit/${property._id}`}
+                linkto={`/dashboard/properties/view/${property._id}`}
               />
               <Divider />
             </>
