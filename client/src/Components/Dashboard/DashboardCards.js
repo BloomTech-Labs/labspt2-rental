@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { Header, Icon, Label, List } from "semantic-ui-react";
+import { Header, Icon, Label, List, Popup } from "semantic-ui-react";
 import { FlexColumn, FlexRow } from "custom-components";
 
 const DashboardCards = props => {
@@ -14,15 +14,29 @@ const DashboardCards = props => {
         </Header>
       </FlexRow>
       <List style={{ width: "50%" }}>
-        <List.Item>
-          <Label horizontal color={props.color1} >{props.value1}</Label>
-          {props.label1}
-        </List.Item>
+        <Popup
+          trigger={
+            <List.Item>
+              <Label horizontal color={props.color1}>
+                {props.value1}
+              </Label>
+              {props.label1}
+            </List.Item>
+          }
+          content={props.popupText1}
+        />
         {props.label2 ? (
-          <List.Item>
-            <Label horizontal color={props.color2} >{props.value2}</Label>
-            {props.label2}
-          </List.Item>
+          <Popup
+            trigger={
+              <List.Item>
+                <Label horizontal color={props.color2}>
+                  {props.value2}
+                </Label>
+                {props.label2}
+              </List.Item>
+            }
+            content={props.popupText2}
+          />
         ) : null}
       </List>
     </FlexRow>
