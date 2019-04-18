@@ -4,7 +4,13 @@ import { Header, Input, Dropdown, Button, Segment } from "semantic-ui-react";
 import DateRangePickerWrapper from "../shared/DatePicker/DatePicker";
 
 class TaskEdit extends Component {
-  state = {};
+  constructor(props) {
+    super(props);
+
+    this.state = {
+      _id: this.props.match.params.id
+    };
+  }
 
   // methods here
   componentDidMount() {
@@ -14,25 +20,32 @@ class TaskEdit extends Component {
     this.props.getTasks();
   }
 
-  // static getDerivedStateFromProps(props, state) {
-  //   if (!state._id) {
-  //     return props.tasks.find(t => t._id === props.match.params.id);
-  //   }
-  //   return null;
-  // }
-
   handleChange = (prop, val) => {
     this.setState({ [prop]: val });
+    console.log(prop);
+  };
+
+  handleDateChange = ({ prop, val }) => {
+    this.setState({ [prop]: val});
+    console.log(prop);
+  };
+
+  handleSubmit = () => {
+    console.log(this.props);
+    this.props
+      .updateTask(this.state)
+      .then(data => 
+          this.props.history.push(`/dashboard/tasks/${this.state._id}`)
+      )
+      .catch(err => {});
   };
 
   render() {
     const {
-      tasks: { tasks, loading, taskCount }
+      tasks: { tasks }
     } = this.props;
     
     const task = tasks.find(t => t._id === this.props.match.params.id);
-
-    console.log(task);
 
     return (
       <FlexColumn>
@@ -47,7 +60,7 @@ class TaskEdit extends Component {
             <Input
               style={{ width: "100%" }}
               placeholder="Add Task"
-              onChange={e => this.handleChange("description", e.target.value)}
+              onChange={(e, val) => this.handleChange("description", val)}
               value={ task ? task.description : null }
             />
           </FlexRow>
@@ -58,15 +71,14 @@ class TaskEdit extends Component {
 
         <FlexRow width="full">
           <DateRangePickerWrapper 
-            // onChange={this.handleDateChange}
+            onChange={this.handleDateChange}
             initialStartDate={new Date(task ? task.startDate : null) }
-            initialEndDate={ new Date(task ? task.endDate : null) }
+            initialEndDate={new Date(task ? task.endDate : null) }
           />
         </FlexRow>
 
         <br />
         <br />
-        {console.log(this.props)}
 
         <FlexRow>
           <Dropdown

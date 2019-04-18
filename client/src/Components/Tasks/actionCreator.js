@@ -148,3 +148,25 @@ export const createTask = (body = {}) => dispatch => {
       throw err;
     });
 };
+
+// Needed to Update task
+export const updateTask = id => {
+  return dispatch => {
+    dispatch({
+      type: actions.FETCH_TASK_ATTEMPT
+    });
+  axios
+    .put(`${config.apiUrl}/api/tasks/${id}`)
+    .then(({ data }) => {
+      dispatch({
+        type: actions.FETCH_TASK_SUCCESS,
+        payload: { task: data.data }
+      });
+      return data.data;
+    })
+    .catch(err => {
+      dispatch({ type: actions.FETCH_TASK_FAILURE, payload: err });
+      throw err;
+    });
+  };
+};
