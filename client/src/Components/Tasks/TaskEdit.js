@@ -46,7 +46,7 @@ class TaskEdit extends Component {
   };
 
   handleDelete = () => {
-    window.alert("Are you sure?");
+    window.alert("Are you sure you want to delete this task?");
     this.props
       .deleteTask(this.props.match.params.id)
       .then(data => 
