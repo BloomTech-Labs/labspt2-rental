@@ -1,5 +1,5 @@
 import React, { Fragment } from "react";
-import { Switch, Route } from "react-router-dom";
+import { Switch, Route, Redirect } from "react-router-dom";
 import { Registration } from "./Components/Registration";
 import { LoginPage } from "./Components/LoginPage";
 import { UserList } from "./Components/UserList";
@@ -22,14 +22,21 @@ const Router = () => {
       */
     }
   })();
-
+  const token = localStorage.getItem("authToken");
+  let block = true;
+  if (token) {
+    block = false;
+  } else {
+    block = true;
+  }
   return (
     <Fragment>
       <Switch>
+        {/* <Route path="/dashboard" render={() => (block ? (<Redirect to="/login"/>) : (<Dashboard/>) )}/> */}
         <Route path="/register" component={Registration} />
         <Route path="/users" component={UserList} />
         <Route path="/login" component={LoginPage} />
-        <Route path="/dashboard" component={Dashboard} />
+        <Route path="/dashboard/" component={Dashboard} />
         <Route path="/properties" component={Properties} />
         <Route path="/" component={Home} />
       </Switch>

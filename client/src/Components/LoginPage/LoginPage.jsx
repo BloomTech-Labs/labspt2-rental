@@ -38,7 +38,7 @@ class LoginPage extends Component {
 
   dimmerClose = () => {
     this.setState({ active: false });
-    this.props.history.push(`/dashboard/`)
+    this.props.history.push(`/dashboard`)
   };
 
   handleSubmit = (e) => {
@@ -94,7 +94,7 @@ class LoginPage extends Component {
         <Dimmer active onClickOutside={this.dimmerClose} page>
           <Header as="h2" icon inverted>
             <Icon name="check circle outline" />
-            Account created!
+            Login Successful!
           </Header>
         </Dimmer>
       );
