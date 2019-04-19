@@ -4,6 +4,7 @@ const initialState = {
   loading: true,
   error: false,
   reservations: [],
+  reservation: {},
   properties: [],
   employees: [],
   reservationCount: 0
@@ -45,6 +46,12 @@ const reservationsReducer = (state = initialState, { type, payload }) => {
         ...state,
         loading: false,
         reservationCount: payload.reservationCount
+      };
+    case actions.RESERVATION_SINGLE_SUCCESS:
+      return {
+        ...state,
+        loading: false,
+        reservation: payload.reservation
       };
     default:
       return { ...state };

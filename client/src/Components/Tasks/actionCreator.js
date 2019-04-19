@@ -57,8 +57,6 @@ export const searchTasks = (filterSort = {}) => {
   };
 };
 
-
-
 // Needed for Pagination
 export const fetchTaskCount = (status = null) => dispatch => {
   dispatch({ type: actions.FETCH_TASK_ATTEMPT });
@@ -151,7 +149,7 @@ export const createTask = (body = {}) => dispatch => {
 export const updateTask = (body = {}) => dispatch => {
   dispatch({
     type: actions.FETCH_TASK_ATTEMPT
-  })
+  });
   return axios
     .put(`${config.apiUrl}/api/tasks/${body._id}`, body)
     .then(({ data }) => {
@@ -165,7 +163,7 @@ export const updateTask = (body = {}) => dispatch => {
       dispatch({ type: actions.FETCH_TASK_FAILURE, payload: err });
       throw err;
     });
-  };
+};
 
   // Needed to Toggle
   export const toggleTask = (body = {}) => dispatch => {
@@ -204,4 +202,5 @@ export const updateTask = (body = {}) => dispatch => {
           payload: err
         });
       });
-  };
+    };
+

@@ -17,13 +17,14 @@ class ReservationEdit extends Component {
   state = {};
 
   componentDidMount() {
+    this.props.fetchSingleReservation(this.props.match.params.id);
     this.props.fetchEmployees();
     this.props.fetchProperties();
   }
 
   static getDerivedStateFromProps(props, state) {
-    if (!state._id) {
-      return props.reservations.find(r => r._id === props.match.params.id);
+    if (!state._id && props.reservation._id) {
+      return props.reservation;
     }
     return null;
   }
@@ -47,11 +48,14 @@ class ReservationEdit extends Component {
       .catch(err => {});
   };
   render() {
+    const { loading } = this.props;
     const { guest, guests, ...reservation } = this.state;
 
-    return (
+    return loading ? (
+      "Loading"
+    ) : (
       <>
-        {reservation && (
+        {reservation._id && (
           <FlexColumn justifyBetween alignCenter width="full">
             <FlexRow width="full">
               <Header as="h1">Add New Reservation</Header>
@@ -182,8 +186,18 @@ class ReservationEdit extends Component {
 
             <br />
 
-            <FlexRow width="full" justifyCenter>
-              <Button color="green" onClick={this.handleSubmit}>
+            <FlexRow width="full" justifyBetween spaceTop="20px">
+              <Link
+                to={`/dashboard/reservations/view/${
+                  this.props.match.params.id
+                }`}
+              >
+                <Button basic onClick={this.handleSubmit}>
+                  Go Back
+                </Button>
+              </Link>
+
+              <Button color="blue" onClick={this.handleSubmit}>
                 Update Reservation
               </Button>
             </FlexRow>

@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { Component } from "react";
 import { FlexRow, FlexColumn } from "custom-components";
 import moment from "moment";
 import { Checkbox, Label, Popup, Icon, Responsive } from "semantic-ui-react";
@@ -8,13 +8,14 @@ import Tasks from "./Tasks";
 class TaskListItem extends Component {
   constructor(props) {
     super(props);
-    this.state = {  }
+    this.state = {};
   }
+
   
   render() { 
     const { task } = this.props;
 
-    return ( 
+    return (
       <FlexRow
         alignCenter
         justifyBetween

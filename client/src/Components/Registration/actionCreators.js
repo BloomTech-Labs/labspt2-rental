@@ -15,7 +15,10 @@ export const registerUser = newUser => {
         payload: "Bearer " + token.data.token
       });
     } catch (err) {
-      dispatch({ type: actions.REGISTER_USER_FAILURE, payload: err.response.data.err.errmsg });
+      dispatch({
+        type: actions.REGISTER_USER_FAILURE,
+        payload: err.response.data.err.errmsg
+      });
     }
   };
 };

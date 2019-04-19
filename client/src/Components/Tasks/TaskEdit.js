@@ -30,10 +30,9 @@ class TaskEdit extends Component {
     console.log(prop);
   };
 
-
   handleDateChange = ({ startDate, endDate }) => {
     console.log(startDate);
-    this.setState({ startDate: startDate, endDate: endDate});
+    this.setState({ startDate: startDate, endDate: endDate });
   };
 
   handleCancel = () => {
@@ -53,11 +52,9 @@ class TaskEdit extends Component {
     window.alert("Are you sure you want to delete this task?");
     this.props
       .deleteTask(this.props.match.params.id)
-      .then(data => 
-          this.props.history.push(`/dashboard/tasks/`)
-        )
+      .then(data => this.props.history.push(`/dashboard/tasks/`))
       .catch(err => {});
-  }
+  };
 
   render() {
     const {
@@ -76,20 +73,23 @@ class TaskEdit extends Component {
           <FlexRow style={{ width: "100%" }}>
             <Input
               style={{ width: "100%" }}
-              onChange={(e) => this.handleChange("description", e.target.value)}
+              onChange={e => this.handleChange("description", e.target.value)}
               value={this.state.description}
             />
           </FlexRow>
-
         </FlexColumn>
 
         <br />
 
         <FlexRow width="full">
-          <DateRangePickerWrapper 
+          <DateRangePickerWrapper
             onChange={this.handleDateChange}
-            initialStartDate={new Date(this.state.startDate ? this.state.startDate : null) }
-            initialEndDate={new Date(this.state.endDate ? this.state.endDate : null) }
+            initialStartDate={
+              new Date(this.state.startDate ? this.state.startDate : null)
+            }
+            initialEndDate={
+              new Date(this.state.endDate ? this.state.endDate : null)
+            }
           />
         </FlexRow>
 
@@ -101,7 +101,7 @@ class TaskEdit extends Component {
             placeholder="Property"
             style={{ marginRight: "10px" }}
             // value={ task ? task.property._id : null }
-            value={ this.state.property ? this.state.property._id : null }
+            value={this.state.property ? this.state.property._id : null}
             selection
             // onChange={(e, val) => this.handleChange("property", val.value)}
             onChange={(e, val) =>
@@ -130,7 +130,7 @@ class TaskEdit extends Component {
             placeholder="Reservation"
             style={{ marginRight: "10px" }}
             selection
-            value={ this.state.reservation ? this.state.reservation._id : null }
+            value={this.state.reservation ? this.state.reservation._id : null}
             onChange={(e, val) =>
               this.handleChange("reservation", {
                 ...this.state.reservation,
@@ -157,7 +157,7 @@ class TaskEdit extends Component {
             placeholder="Employee"
             style={{ marginRight: "10px" }}
             selection
-            value={ this.state.assignedTo ? this.state.assignedTo._id : null }
+            value={this.state.assignedTo ? this.state.assignedTo._id : null}
             onChange={(e, val) =>
               this.handleChange("assignedTo", {
                 ...this.state.assignedTo,
@@ -180,6 +180,7 @@ class TaskEdit extends Component {
         <br />
 
         <FlexRow width="full" justifyCenter>
+
           <Button 
             color="yellow" 
             onClick={this.handleCancel}
@@ -192,10 +193,7 @@ class TaskEdit extends Component {
           >
             Update Task
           </Button>
-          <Button 
-            color="red"
-            onClick={this.handleDelete}
-          >
+          <Button color="red" onClick={this.handleDelete}>
             Delete Task
           </Button>
         </FlexRow>
