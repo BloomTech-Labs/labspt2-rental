@@ -165,15 +165,42 @@ export const updateTask = (body = {}) => dispatch => {
     });
 };
 
-// Needed to delete a task
-export const deleteTask = id => dispatch => {
-  dispatch({ type: actions.FETCH_TASK_ATTEMPT });
-  return axios
-    .delete(`${config.apiUrl}/api/tasks/${id}`)
-    .then(response => {
-      dispatch({
-        type: actions.DELETE_TASK_SUCCESS,
-        payload: response.data
+  // Needed to Toggle
+  export const toggleTask = (body = {}) => dispatch => {
+    dispatch({
+      type: actions.FETCH_TASK_ATTEMPT
+    })
+    return axios
+      .put(`${config.apiUrl}/api/tasks/${body._id}`, body)
+      .then(({ data }) => {
+        dispatch({
+          type: actions.TASK_TOGGLE_SUCCESS,
+          payload: { tasks: data.data }
+        });
+        return data.data;
+      })
+      .catch(err => {
+        dispatch({ type: actions.FETCH_TASK_FAILURE, payload: err });
+        throw err;
+      });
+    };
+
+  // Needed to delete a task
+  export const deleteTask = id => dispatch => {
+    dispatch({ type: actions.FETCH_TASK_ATTEMPT });
+    return axios
+      .delete(`${config.apiUrl}/api/tasks/${id}`)
+      .then(response => {
+        dispatch({
+          type: actions.DELETE_TASK_SUCCESS,
+          payload: response.data
+        });
+      })
+      .catch(err => {
+        dispatch({
+          type: actions.FETCH_TASK_FAILURE,
+          payload: err
+        });
       });
     })
     .catch(err => {

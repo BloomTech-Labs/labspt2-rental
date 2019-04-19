@@ -35,11 +35,17 @@ class TaskEdit extends Component {
     this.setState({ startDate: startDate, endDate: endDate });
   };
 
+  handleCancel = () => {
+    this.props.history.push('/dashboard/tasks/');
+  };
+
   handleSubmit = () => {
     this.props
       .updateTask(this.state)
-      .then(data => this.props.history.push(`/dashboard/tasks/`))
-      .catch(err => {});
+      .then(data => 
+          this.props.history.push(`/dashboard/tasks/`)
+      )
+      .catch(err => []);
   };
 
   handleDelete = () => {
@@ -174,7 +180,17 @@ class TaskEdit extends Component {
         <br />
 
         <FlexRow width="full" justifyCenter>
-          <Button color="green" onClick={this.handleSubmit}>
+
+          <Button 
+            color="yellow" 
+            onClick={this.handleCancel}
+          >
+            Cancel Update
+          </Button>
+          <Button 
+            color="green" 
+            onClick={this.handleSubmit}
+          >
             Update Task
           </Button>
           <Button color="red" onClick={this.handleDelete}>
