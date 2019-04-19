@@ -8,6 +8,7 @@ import {
   createTask,
   fetchTaskCount,
   updateTask,
+  toggleTask,
   deleteTask
 } from "./actionCreator";
 import _Tasks from "./Tasks";
@@ -36,6 +37,7 @@ const connector = connect(
     createTask,
     fetchTaskCount,
     updateTask,
+    toggleTask,
     deleteTask
   }
 );

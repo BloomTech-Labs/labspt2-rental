@@ -1,21 +1,14 @@
 import React, { Component } from 'react';
 import { FlexRow, FlexColumn } from "custom-components";
 import moment from "moment";
-import { Checkbox, Label, Popup, Icon } from "semantic-ui-react";
+import { Checkbox, Label, Popup, Icon, Responsive } from "semantic-ui-react";
 import { Link } from "react-router-dom";
 import Tasks from "./Tasks";
-import { PROPERTY_STARTED } from "../Properties/actions";
-import Properties from "../Properties/Properties";
 
 class TaskListItem extends Component {
   constructor(props) {
     super(props);
     this.state = {  }
-  }
-
-  toggleComplete = () => {
-    const { task } = this.props;
-    window.alert(`toggle ${task._id}? completed: ${task.completed}`);
   }
   
   render() { 
@@ -23,11 +16,12 @@ class TaskListItem extends Component {
 
     return ( 
       <FlexRow
-      alignCenter
-      justifyBetween
-      width="full"
-      style={{ marginTop: "5px" }}
-    >
+        alignCenter
+        justifyBetween
+        width="full"
+        style={{ marginTop: "5px" }}
+      >
+
       <FlexColumn>
         <FlexRow style={{ alignItems: "baseline" }}>
           <Checkbox 
@@ -37,7 +31,7 @@ class TaskListItem extends Component {
           <Link to={`/dashboard/tasks/edit/${task._id}`}>
             <Popup
               trigger={
-                <Label size="mini" circular style={{ marginLeft: "5px" }}>
+                <Label size="mini" circular style={{ marginLeft: "5px", marginRight: "5px" }}>
                   <Icon fitted name="info" />
                 </Label>
               }
@@ -51,7 +45,7 @@ class TaskListItem extends Component {
         </p>
       </FlexColumn>
 
-      <FlexColumn style={{ alignItems: "flex-end"}}>
+      <FlexColumn style={{ alignItems: "flex-end" }} >
         <Popup 
           trigger={
             <Label 
@@ -69,6 +63,7 @@ class TaskListItem extends Component {
           Due: <strong>{moment(task.endDate).format("MM/DD")}</strong>
         </p>
       </FlexColumn>
+
     </FlexRow>
     );
   }
