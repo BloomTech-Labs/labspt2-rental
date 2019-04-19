@@ -1,6 +1,6 @@
 import React, { Component } from "react";
-import { FlexColumn, FlexRow, Text } from "custom-components";
-import { Header, Input, Dropdown, Button, Segment } from "semantic-ui-react";
+import { FlexColumn, FlexRow } from "custom-components";
+import { Header, Input, Dropdown, Button } from "semantic-ui-react";
 import DateRangePickerWrapper from "../shared/DatePicker/DatePicker";
 
 class TaskEdit extends Component {
@@ -27,11 +27,9 @@ class TaskEdit extends Component {
 
   handleChange = (prop, val) => {
     this.setState({ [prop]: val });
-    console.log(prop);
   };
 
   handleDateChange = ({ startDate, endDate }) => {
-    console.log(startDate);
     this.setState({ startDate: startDate, endDate: endDate });
   };
 
@@ -58,7 +56,7 @@ class TaskEdit extends Component {
 
   render() {
     const {
-      tasks: { tasks, loading }
+      tasks: { loading }
     } = this.props;
     
     return loading ? (

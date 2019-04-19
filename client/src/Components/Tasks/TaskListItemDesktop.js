@@ -1,9 +1,8 @@
-import React, { Component } from 'react';
+import React from 'react';
 import { FlexRow, FlexColumn } from "custom-components";
 import moment from "moment";
 import { Checkbox, Label, Popup, Icon } from "semantic-ui-react";
 import { Link } from "react-router-dom";
-import Tasks from "./Tasks";
 
 const TaskListItemDesktop = (props) => {
   

@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { Header, Tab, Icon, Segment, Label } from "semantic-ui-react";
+import { Header, Tab, Icon, Segment } from "semantic-ui-react";
 import { FlexColumn, FlexRow } from "custom-components";
 import { Link } from "react-router-dom";
 import Search from "../shared/Search/Search";

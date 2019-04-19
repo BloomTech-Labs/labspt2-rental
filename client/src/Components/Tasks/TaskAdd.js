@@ -1,6 +1,6 @@
 import React, { Component } from "react";
-import { FlexColumn, FlexRow, Text } from "custom-components";
-import { Header, Input, Dropdown, Button, Segment } from "semantic-ui-react";
+import { FlexColumn, FlexRow } from "custom-components";
+import { Header, Input, Dropdown, Button } from "semantic-ui-react";
 import DateRangePickerWrapper from "../shared/DatePicker/DatePicker";
 
 class TaskAdd extends Component {
@@ -70,7 +70,6 @@ class TaskAdd extends Component {
 
         <br />
         <br />
-        {console.log(this.props)}
 
         <FlexRow>
           <Dropdown
