@@ -202,11 +202,5 @@ export const updateTask = (body = {}) => dispatch => {
           payload: err
         });
       });
-    })
-    .catch(err => {
-      dispatch({
-        type: actions.FETCH_TASK_FAILURE,
-        payload: err
-      });
-    });
-};
+    };
+
