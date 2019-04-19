@@ -10,7 +10,7 @@ router
 
 router.route('/search').get(controllers.searchAll);
 
-router.route('/count').get(controllers.count)
+router.route('/count').get(controllers.count);
 
 router
   .route('/:id')

@@ -132,3 +132,19 @@ export const fetchReservationCount = (status = null) => dispatch => {
       dispatch({ type: actions.RESERVATION_FAILURE, payload: err });
     });
 };
+
+export const fetchSingleReservation = id => dispatch => {
+  dispatch({ type: actions.RESERVATION_STARTED });
+
+  return axios
+    .get(`${config.apiUrl}/api/reservations/${id}`)
+    .then(({ data }) => {
+      dispatch({
+        type: actions.RESERVATION_SINGLE_SUCCESS,
+        payload: { reservation: data.data }
+      });
+    })
+    .catch(err => {
+      dispatch({ type: actions.RESERVATION_FAILURE, payload: err });
+    });
+};

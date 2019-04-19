@@ -32,7 +32,10 @@ const taskPropertyAssign = opts => {
         const ids = property.assistants.map(item => item._id) || [];
         if (ids.includes(employee._id)) {
           employee.properties++;
-          employee.assignedProp.push({name: property.name, _id:property._id});
+          employee.assignedProp.push({
+            name: property.name,
+            _id: property._id
+          });
         }
       });
     });

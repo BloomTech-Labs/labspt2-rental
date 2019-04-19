@@ -9,7 +9,7 @@ import {
   createEmployee,
   updateEmployee
 } from "./actionCreator";
-import { updateProperty } from '../Properties/actionCreator';
+import { updateProperty } from "../Properties/actionCreator";
 import _Employees from "./Employees";
 import _EmployeeAdd from "./EmployeeAdd";
 import _EmployeeSingle from "./EmployeeSingle";

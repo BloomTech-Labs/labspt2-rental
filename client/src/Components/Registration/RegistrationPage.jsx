@@ -1,29 +1,52 @@
-import React, { Component } from 'react'
-import { Button, Form, Divider, Segment, Header, Message, Dimmer, Icon } from 'semantic-ui-react'
-import { FlexColumn, FlexRow } from 'custom-components'
+import React, { Component } from "react";
+import {
+  Button,
+  Form,
+  Divider,
+  Segment,
+  Header,
+  Message,
+  Dimmer,
+  Icon
+} from "semantic-ui-react";
+import { FlexColumn, FlexRow } from "custom-components";
 import { Link } from "react-router-dom";
 
 class RegistrationPage extends Component {
-  constructor(props){
+  constructor(props) {
     super(props);
     this.state = {
-      username: '',
-      email: '',
-      password: '',
-      passwordCheck: '',
-      firstName: '',
-      lastName: '',
-      message: '',
+      username: "",
+      email: "",
+      password: "",
+      passwordCheck: "",
+      firstName: "",
+      lastName: "",
+      message: "",
       disabled: true,
       active: false
-    }
+    };
   }
-  
-  handleInputChange = (e) => {
-    const { password, passwordCheck, username, email, firstName, lastName } = this.state;
+
+  handleInputChange = e => {
+    const {
+      password,
+      passwordCheck,
+      username,
+      email,
+      firstName,
+      lastName
+    } = this.state;
 
     if (e.target.name === "passwordCheck") {
-      if (e.target.value === password && passwordCheck !== "" && username !== "" && email !== "" && firstName !== "" && lastName !== "") {
+      if (
+        e.target.value === password &&
+        passwordCheck !== "" &&
+        username !== "" &&
+        email !== "" &&
+        firstName !== "" &&
+        lastName !== ""
+      ) {
         this.setState({
           disabled: false,
           message: ""
@@ -38,14 +61,14 @@ class RegistrationPage extends Component {
     this.setState({
       [e.target.name]: e.target.value
     });
-  }
+  };
 
   dimmerClose = () => {
     this.setState({ active: false });
-    this.props.history.push(`/dashboard/`)
+    this.props.history.push(`/dashboard/`);
   };
 
-  handleSubmit = (event) => {
+  handleSubmit = event => {
     event.preventDefault();
     const user = {
       email: this.state.email,
@@ -53,32 +76,33 @@ class RegistrationPage extends Component {
       password: this.state.password,
       firstName: this.state.firstName,
       lastName: this.state.lastName,
-      role: 'owner'
-    }
+      role: "owner"
+    };
 
-    event.preventDefault()
+    event.preventDefault();
 
-    this.props.registerUser(user)
+    this.props
+      .registerUser(user)
       .then(success => {
-        if(this.props.registration.token){
+        if (this.props.registration.token) {
           this.setState({
             active: true
-          })
+          });
         } else {
           this.setState({
             message: `Could not create user account`
-          })
+          });
         }
-    })
+      })
       .catch(err => {
         this.setState({
           message: `${err}`
-        })
-      })
-  }
+        });
+      });
+  };
 
-  render () {
-    const {message, disabled, active} = this.state;
+  render() {
+    const { message, disabled, active } = this.state;
 
     let messageAlert;
     if (message === "mismatch") {
@@ -91,10 +115,14 @@ class RegistrationPage extends Component {
 
     let submitButton;
     if (disabled) {
-      submitButton = <Button basic color='green' disabled>Update</Button>;
+      submitButton = (
+        <Button basic color="green" disabled>
+          Update
+        </Button>
+      );
     } else {
       submitButton = (
-        <Button color="green" type='submit' active>
+        <Button color="green" type="submit" active>
           Submit
         </Button>
       );
@@ -115,18 +143,23 @@ class RegistrationPage extends Component {
     }
 
     return (
-      <FlexColumn width="full" alignCenter justifyCenter style={{backgroundColor: '#1a1b1c', height: '100vh'}}>
+      <FlexColumn
+        width="full"
+        alignCenter
+        justifyCenter
+        style={{ backgroundColor: "#1a1b1c", height: "100vh" }}
+      >
         <Segment className="sm-container">
-          <Header size='large'>Registration</Header>
+          <Header size="large">Registration</Header>
           {success}
-          <Divider/>
+          <Divider />
 
           <Form onSubmit={this.handleSubmit}>
             <Form.Field>
               <label htmlFor="username-input">Username</label>
               <input
                 id="username-input"
-                placeholder='Username'
+                placeholder="Username"
                 name="username"
                 value={this.state.username}
                 onChange={this.handleInputChange}
@@ -136,7 +169,7 @@ class RegistrationPage extends Component {
               <label htmlFor="email-input">Email</label>
               <input
                 id="email-input"
-                placeholder='Email'
+                placeholder="Email"
                 name="email"
                 value={this.state.email}
                 onChange={this.handleInputChange}
@@ -146,7 +179,7 @@ class RegistrationPage extends Component {
               <label htmlFor="first-name-input">First Name</label>
               <input
                 id="firstName-input"
-                placeholder='First Name'
+                placeholder="First Name"
                 name="firstName"
                 type="text"
                 value={this.state.firstName}
@@ -157,7 +190,7 @@ class RegistrationPage extends Component {
               <label htmlFor="last-name-input">Last Name</label>
               <input
                 id="lastName-input"
-                placeholder='Last Name'
+                placeholder="Last Name"
                 name="lastName"
                 type="text"
                 value={this.state.lastName}
@@ -165,13 +198,20 @@ class RegistrationPage extends Component {
               />
             </Form.Field>
 
-            <Divider style={{margin: 'auto', marginTop: '2em', marginBottom: '2em', width: '80%'}}/>
+            <Divider
+              style={{
+                margin: "auto",
+                marginTop: "2em",
+                marginBottom: "2em",
+                width: "80%"
+              }}
+            />
 
             <Form.Field>
               <label htmlFor="password-input">Password</label>
               <input
                 id="password-input"
-                placeholder='Password'
+                placeholder="Password"
                 name="password"
                 type="password"
                 value={this.state.password}
@@ -182,7 +222,7 @@ class RegistrationPage extends Component {
               <label htmlFor="input-password-again">Verify Password</label>
               <input
                 id="second-password-input"
-                placeholder='Verify Password'
+                placeholder="Verify Password"
                 name="passwordCheck"
                 type="password"
                 value={this.state.passwordCheck}
@@ -194,9 +234,11 @@ class RegistrationPage extends Component {
 
             <FlexRow width="full" alignEnd justifyBetween>
               <FlexColumn alignStart justifyBetween>
-                <p style={{color: '#1a1b1c', marginLeft: '5px'}}>Already registered?</p>
+                <p style={{ color: "#1a1b1c", marginLeft: "5px" }}>
+                  Already registered?
+                </p>
                 <Link to="/login">
-                  <Button>Login</Button >
+                  <Button>Login</Button>
                 </Link>
               </FlexColumn>
 
@@ -205,8 +247,8 @@ class RegistrationPage extends Component {
           </Form>
         </Segment>
       </FlexColumn>
-    )
+    );
   }
 }
 
-export default RegistrationPage
+export default RegistrationPage;
