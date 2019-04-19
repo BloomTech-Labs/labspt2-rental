@@ -1,7 +1,6 @@
 import React, { Component } from "react";
 import { FlexColumn, Divider} from "custom-components";
-import TaskListItem from "./TaskListItem";
-import { Tab, Pagination, Label, Responsive } from "semantic-ui-react";
+import { Pagination, Responsive } from "semantic-ui-react";
 import TaskListItemDesktop from "./TaskListItemDesktop";
 import TaskListItemMobile from "./TaskListItemMobile";
 
@@ -13,7 +12,7 @@ class TaskList extends Component {
   }
 
   render() {
-    const { loading, tasks, handlePageChange, count, page } = this.props;
+    const { handlePageChange, count, page } = this.props;
 
     return (
       <FlexColumn alignCenter style={{ position: "relative" }}>
