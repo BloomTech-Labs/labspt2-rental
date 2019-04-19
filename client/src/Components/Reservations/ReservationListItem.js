@@ -17,8 +17,13 @@ const ReservationListItem = ({ reservation }) => {
     <FlexRow alignCenter justifyBetween width="full" wrap>
       <Image rounded src={reservation.property.image} size="small" />
 
-      <FlexColumn grow="1" spaceLeft="20px" style={{ height: "100px" }}>
-        <FlexRow alignCenter spaceBottom="20px">
+      <FlexColumn
+        grow="1"
+        spaceLeft="20px"
+        spaceBottom
+        style={{ height: "100px" }}
+      >
+        <FlexRow alignCenter spaceBottom="20px" spaceRight>
           <Header size="medium" style={{ margin: "0" }}>
             {reservation.guest.firstName}&nbsp;{reservation.guest.lastName}
             &nbsp;
@@ -49,10 +54,8 @@ const ReservationListItem = ({ reservation }) => {
         />
       </FlexColumn>
 
-      <br />
-
       <FlexRow grow="1" spaceRight="20px">
-        <Statistic size="tiny" style={{ margin: "0 15px" }}>
+        <Statistic size="tiny" style={{ margin: "0 15px 0 0" }}>
           <Statistic.Label>Check In</Statistic.Label>
           <Statistic.Value>
             {moment(reservation.checkIn).format("MM/DD")}
