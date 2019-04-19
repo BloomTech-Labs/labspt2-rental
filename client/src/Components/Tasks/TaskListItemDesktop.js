@@ -5,19 +5,9 @@ import { Checkbox, Label, Popup, Icon } from "semantic-ui-react";
 import { Link } from "react-router-dom";
 import Tasks from "./Tasks";
 
-class TaskListItemDesktop extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {  }
-  }
-
-  toggleComplete = () => {
-    const { task } = this.props;
-    window.alert(`toggle ${task._id}? completed: ${task.completed}`);
-  }
+const TaskListItemDesktop = (props) => {
   
-  render() { 
-    const { task } = this.props;
+    const { task } = props;
 
     return ( 
       <FlexRow
@@ -31,7 +21,7 @@ class TaskListItemDesktop extends Component {
           <FlexRow style={{ alignItems: "baseline" }}>
             <Checkbox 
               label={task.description}
-              onChange={this.toggleComplete}
+              onChange={() => props.toggleComplete(task)}
             />
             <Link to={`/dashboard/tasks/edit/${task._id}`}>
               <Popup
@@ -75,6 +65,5 @@ class TaskListItemDesktop extends Component {
       
     );
   }
-}
 
 export default TaskListItemDesktop;

@@ -10,11 +10,6 @@ class TaskListItem extends Component {
     super(props);
     this.state = {  }
   }
-
-  toggleComplete = () => {
-    const { task } = this.props;
-    window.alert(`toggle ${task._id}? completed: ${task.completed}`);
-  }
   
   render() { 
     const { task } = this.props;
