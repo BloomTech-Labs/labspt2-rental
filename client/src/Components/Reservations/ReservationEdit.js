@@ -50,7 +50,6 @@ class ReservationEdit extends Component {
   render() {
     const { loading } = this.props;
     const { guest, guests, ...reservation } = this.state;
-    console.log(reservation);
 
     return loading ? (
       "Loading"
