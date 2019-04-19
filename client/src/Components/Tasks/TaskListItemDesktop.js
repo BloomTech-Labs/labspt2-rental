@@ -22,6 +22,7 @@ const TaskListItemDesktop = (props) => {
             <Checkbox 
               label={task.description}
               onChange={() => props.toggleComplete(task)}
+              checked={task.completed}
             />
             <Link to={`/dashboard/tasks/edit/${task._id}`}>
               <Popup

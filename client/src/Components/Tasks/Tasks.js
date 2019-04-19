@@ -47,6 +47,13 @@ class Tasks extends Component {
     this.props.getTasks({ ...this.query });
   };
 
+  toggleComplete = (task) => {
+    
+  task.completed = task.completed ? false : true;
+  this.props
+    .toggleTask(task)
+    }
+
   render() {
     const { tabs } = this.state;
     const {
@@ -83,6 +90,8 @@ class Tasks extends Component {
                       loading={loading}
                       count={Math.ceil(taskCount / pageSize)}
                       page={page}
+                      toggleComplete={this.toggleComplete}
+
                     />
                   )}
                 </Tab.Pane>

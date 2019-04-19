@@ -12,12 +12,6 @@ class TaskList extends Component {
     this.state = {};
   }
 
-  toggleComplete = (task) => {
-    window.alert(`task id: ${task._id}, completed: ${task.completed}`);
-
-    }
-
-
   render() {
     const { loading, tasks, handlePageChange, count, page } = this.props;
 
@@ -40,12 +34,12 @@ class TaskList extends Component {
           <div style={{ width: "100%" }}>
             <Responsive maxWidth={700}>
               <TaskListItemMobile 
-                task={task} key={ind} toggleComplete={this.toggleComplete}
+                task={task} key={ind} toggleComplete={this.props.toggleComplete}
               />
             </Responsive>
             <Responsive minWidth={701}>
               <TaskListItemDesktop 
-                task={task} key={ind} toggleComplete={this.toggleComplete}
+                task={task} key={ind} toggleComplete={this.props.toggleComplete}
               />
             </Responsive>
             {/* <TaskListItem task={task} key={ind} /> */}
