@@ -117,7 +117,7 @@ class RegistrationPage extends Component {
     return (
       <FlexColumn width="full" alignCenter justifyCenter style={{backgroundColor: '#1a1b1c', height: '100vh'}}>
         <Segment className="sm-container">
-          <Header size='large'>Registration</Header>
+          <Header size='large' style={{color:"#4ca34b"}}>Registration</Header>
           {success}
           <Divider/>
 
