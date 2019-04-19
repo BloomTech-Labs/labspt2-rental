@@ -1,9 +1,8 @@
 import React, { Component } from "react";
 import PropertyCard from "./PropertyCard";
-import { FlexColumn, FlexRow } from "custom-components";
+import { FlexColumn, FlexRow, Divider } from "custom-components";
 import Search from "../shared/Search/Search";
-import DatePicker from "../shared/DatePicker/DatePicker";
-import { Icon } from "semantic-ui-react";
+import { Button, Icon, Segment } from "semantic-ui-react";
 import { Link } from "react-router-dom";
 
 class Properties extends Component {
@@ -19,56 +18,66 @@ class Properties extends Component {
     this.props.getProperties();
   }
 
-  // addClickHandle() {
-  //   console.log(this.state);
-  //   const numOfProps = this.props.properties.length;
-  //   if (numOfProps === 1) {
-  //     window.alert("we're going to have to change the billing plan");
-  //   }
-  //   if (numOfProps === 9) {
-  //     window.alert("this account needs the discounted rate");
-  //   } else this.props.history.push("/dashboard/properties/add");
-  // }
+  addClickHandle = () => {
+    const numOfProps = this.props.properties.length;
+    if (numOfProps === 1) {
+      window.alert("we're going to have to change the billing plan");
+      this.props.history.push("/dashboard/settings");
+      //this will need to go to update plan modal. not working right now.
+    } else if (numOfProps === 9) {
+      window.alert("this account needs the discounted rate");
+      this.props.history.push("/dashboard/properties/add");
+    } else {
+      this.props.history.push("/dashboard/properties/add");
+    }
+  };
 
   render() {
     return (
       <FlexColumn width="800px" alignCenter style={{ position: "relative" }}>
-        <FlexRow width="100%">
-          <Search width="40%" />
-          <DatePicker />
-          <Link to="/dashboard/properties/add">
-            <Icon
-              name="plus square"
-              size="big"
-              style={{ margin: "10px" }}
-              onClick={this.addClickHandle}
-            />
-          </Link>
-        </FlexRow>
-        {console.log(this.props)}
+        <Segment
+          as={FlexRow}
+          alignCenter
+          width="100%"
+          style={{ padding: "5px" }}
+        >
+          <Search style={{ flexGrow: "1", marginRight: "10px" }} />
+          <Button
+            className="space-left-20 space-right-20"
+            circular
+            icon="plus"
+            color="orange"
+            onClick={this.addClickHandle}
+          />
+        </Segment>
         {this.props.properties.map(property => {
           return (
-            <PropertyCard
-              image={property.image}
-              name={property.name}
-              address={
-                property.address1 +
-                " " +
-                property.city +
-                " " +
-                property.state +
-                " " +
-                property.zip
-              }
-              assistants={
-                property.assistants.length
-                  ? `${property.assistants[0].firstName}`
-                  : "Not Assigned"
-              }
-              occupants={property.occupants}
-              buttonFunction={() => this.cardHandleClick(property._id)}
-              linkto={`/dashboard/properties/${property._id}`}
-            />
+            <>
+              <PropertyCard
+                id={property._id}
+                image={property.image}
+                name={property.name}
+                address={property.address1}
+                addressFull={
+                  property.address1 +
+                  " " +
+                  property.city +
+                  " " +
+                  property.state +
+                  " " +
+                  property.zip
+                }
+                assistants={
+                  property.assistants.length
+                    ? `${property.assistants[0].firstName}`
+                    : "Not Assigned"
+                }
+                occupants={property.occupants}
+                buttonFunction={() => this.cardHandleClick(property._id)}
+                linkto={`/dashboard/properties/view/${property._id}`}
+              />
+              <Divider />
+            </>
           );
         })}
       </FlexColumn>

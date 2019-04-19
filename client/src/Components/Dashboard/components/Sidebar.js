@@ -7,6 +7,7 @@ import { Desktop } from "./Desktop";
 
 const Sidebar = props => {
   const links = [
+    { url: `/dashboard/`, name: "Dashboard", icon: "dashboard" },
     { url: `/dashboard/reservations`, name: "Reservations", icon: "book" },
     { url: `/dashboard/properties`, name: "Properties", icon: "home" },
     { url: `/dashboard/employees`, name: "Employees", icon: "address card" },

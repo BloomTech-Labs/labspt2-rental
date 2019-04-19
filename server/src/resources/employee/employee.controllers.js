@@ -19,6 +19,10 @@ class EmployeesControllers extends BaseController {
 
     return this.search(req, res, next, { filter, search });
   };
+
+  count = (req, res, next) => {
+    return this.countMine(req, res, next);
+  };
 }
 
 const controllers = new EmployeesControllers(User);

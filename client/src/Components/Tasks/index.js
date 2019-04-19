@@ -1,1 +1,3 @@
-export { default as Tasks } from "./container";
+export { Tasks } from "./container";
+export { TaskAdd } from "./container";
+export { TaskEdit } from "./container";

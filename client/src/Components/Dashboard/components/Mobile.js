@@ -12,7 +12,7 @@ export class Mobile extends Component {
     const { visible } = this.state;
 
     return (
-      <Sidebar.Pushable style={{ width: "100%" }}>
+      <Sidebar.Pushable style={{ width: "100%", minHeight: "100vh" }}>
         <Sidebar
           visible={visible}
           as={Menu}

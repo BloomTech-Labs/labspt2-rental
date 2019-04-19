@@ -76,6 +76,16 @@ const reservationSchema = new Schema(
   { timestamps: true, versionKey: false }
 );
 
+// Tasks.virtual('status').get(function() {
+//   if (endDate < Date().today()) {
+//     return 'overdue';
+//   } else if (endDate > Date().today()) {
+//     return 'upcoming';
+//   } else if (endDate === Date.Today()) {
+//     return 'due today';
+//   }
+// })
+
 reservationSchema.plugin(require('mongoose-autopopulate'));
 
 export const Reservation = mongoose.model('reservation', reservationSchema);

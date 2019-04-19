@@ -4,49 +4,13 @@ import { FlexColumn, Divider, FlexRow } from "custom-components";
 import EmployeeListItem from "./EmployeeListItem";
 import { Link } from "react-router-dom";
 
-const EmployeeList = props => {
-  const {
-    employees,
-    tasks,
-    properties,
-    numPages,
-    page,
-    handlePageChange
-  } = props;
+import taskPropertyAssign from "./taskPropertyHelper";
 
-  if (tasks && properties) {
-    const currentTime = Date.now();
-    const newTasks = [];
-    tasks.forEach(item => {
-      const newTaskData = {};
-      if (Date.parse(item.endDate) < currentTime) {
-        newTaskData.overdue = true;
-      } else if (Date.parse(item.startDate) < currentTime) {
-        newTaskData.todayTask = true;
-      }
-      newTaskData.employee = item.assignedTo._id;
-      newTasks.push(newTaskData);
-    });
-    employees.forEach(employee => {
-      employee.overdue = 0;
-      employee.todayTask = 0;
-      employee.properties = 0;
-      newTasks.forEach(task => {
-        if (task.employee === employee._id) {
-          if (task.overdue) {
-            employee.overdue++;
-          } else if (task.todayTask) {
-            employee.todayTask++;
-          }
-        }
-      });
-      properties.forEach(property => {
-        if (property.assistants.includes(employee._id)) {
-          employee.properties++;
-        }
-      });
-    });
-  }
+const EmployeeList = props => {
+  const { numPages, page, handlePageChange } = props;
+
+  // modEmployees is used as a temp replacement for employees because employees is read-only at this point and cannot be directly modified
+  const modEmployees = taskPropertyAssign(props);
 
   return (
     <FlexColumn width="800px" alignCenter style={{ position: "relative" }}>
@@ -71,7 +35,7 @@ const EmployeeList = props => {
           />
         </Link>
       </FlexRow>
-      {employees.map(item => (
+      {modEmployees.map(item => (
         <>
           <EmployeeListItem key={item._id} employee={item} />
           <Divider />

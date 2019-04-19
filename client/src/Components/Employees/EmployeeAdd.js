@@ -1,17 +1,6 @@
 import React, { Component } from "react";
-import {
-  Dropdown,
-  Header,
-  Input,
-  Button,
-  Divider,
-  Label,
-  Statistic,
-  Popup,
-  Icon
-} from "semantic-ui-react";
-import { FlexRow, FlexColumn, Text } from "custom-components";
-import DateRangePickerWrapper from "../shared/DatePicker/DatePicker";
+import { Header, Input, Button, Divider, Dropdown } from "semantic-ui-react";
+import { FlexRow, FlexColumn } from "custom-components";
 
 class EmployeeAdd extends Component {
   constructor() {
@@ -31,6 +20,11 @@ class EmployeeAdd extends Component {
         state: null,
         zip: null
       },
+      permissions: {
+        task: false,
+        property: false,
+        checkout: false
+      },
       username: null,
       password: null
     };
@@ -43,23 +37,38 @@ class EmployeeAdd extends Component {
   handleSubmit = () => {
     const request = this.state.employee;
     request.address = this.state.address;
+    request.permissions = this.state.permissions;
     request.username = `${request.lastName
       .slice(0, 4)
       .toLowerCase()}_${request.firstName.toLowerCase()}`;
     request.password = "changeme";
-    console.log(request);
+    request.role = "employee";
     this.props
       .createEmployee(request)
       .then(data => {
         if (data._id) {
-          // this.props.history.push("/dashboard/employees");
+          this.props.history.push("/dashboard/employees");
         }
       })
-      .catch(err => {});
+      .catch(err => {
+        console.log("blah");
+      });
   };
 
   render() {
-    const { employee, address } = this.state;
+    const { employee, address, permissions } = this.state;
+    const permissionValues = [
+      {
+        key: "yes",
+        text: "Yes",
+        value: true
+      },
+      {
+        key: "no",
+        text: "No",
+        value: false
+      }
+    ];
 
     return (
       <FlexColumn
@@ -183,6 +192,59 @@ class EmployeeAdd extends Component {
               }
             />
           </FlexRow>
+        </FlexColumn>
+
+        <br />
+        <br />
+
+        <FlexColumn width="50%">
+          <div>
+            Can re-assign tasks
+            <Dropdown
+              className="space-left-20"
+              inline
+              options={permissionValues}
+              defaultValue={false}
+              onChange={(e, val) =>
+                this.handleChange("permissions", {
+                  ...permissions,
+                  task: val.value
+                })
+              }
+            />
+          </div>
+          <br />
+          <div>
+            Can re-assign properties{"   "}
+            <Dropdown
+              className="space-left-20"
+              inline
+              options={permissionValues}
+              defaultValue={false}
+              onChange={(e, val) =>
+                this.handleChange("permissions", {
+                  ...permissions,
+                  property: val.value
+                })
+              }
+            />
+          </div>
+          <br />
+          <div>
+            Can bill guests{"   "}
+            <Dropdown
+              className="space-left-20"
+              inline
+              options={permissionValues}
+              defaultValue={false}
+              onChange={(e, val) =>
+                this.handleChange("permissions", {
+                  ...permissions,
+                  checkout: val.value
+                })
+              }
+            />
+          </div>
         </FlexColumn>
 
         <br />

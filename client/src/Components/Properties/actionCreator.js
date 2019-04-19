@@ -108,10 +108,10 @@ export const getEmployees = () => dispatch => {
   dispatch({ type: actions.PROPERTY_STARTED });
   return axios
     .get(`${config.apiUrl}/api/employees`)
-    .then(response => {
+    .then(({ data }) => {
       dispatch({
         type: actions.EMPLOYEES_SUCCESS,
-        payload: response.data
+        payload: { employees: data.data }
       });
     })
     .catch(err => {
