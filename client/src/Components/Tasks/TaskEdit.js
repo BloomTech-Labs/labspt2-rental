@@ -49,7 +49,7 @@ class TaskEdit extends Component {
   };
 
   handleDelete = () => {
-    window.alert("Are you sure you want to delete this task?");
+    window.alert("This task has been deleted.");
     this.props
       .deleteTask(this.props.match.params.id)
       .then(data => this.props.history.push(`/dashboard/tasks/`))
@@ -58,10 +58,14 @@ class TaskEdit extends Component {
 
   render() {
     const {
-      tasks: { tasks }
+      tasks: { tasks, loading }
     } = this.props;
-
-    return (
+    
+    return loading ? (
+      "Loading"
+    ) : (
+      <>
+        {this.state._id && (
       <FlexColumn>
         <FlexRow>
           <Header as="h1">Edit Task</Header>
@@ -180,24 +184,29 @@ class TaskEdit extends Component {
         <br />
 
         <FlexRow width="full" justifyCenter>
-
+        <Button 
+            basic 
+            color="red" 
+            onClick={this.handleDelete}
+          >
+            Delete Task
+          </Button>
           <Button 
-            color="yellow" 
+            basic
             onClick={this.handleCancel}
           >
             Cancel Update
           </Button>
           <Button 
-            color="green" 
+            color="blue" 
             onClick={this.handleSubmit}
           >
             Update Task
           </Button>
-          <Button color="red" onClick={this.handleDelete}>
-            Delete Task
-          </Button>
         </FlexRow>
       </FlexColumn>
+      )}
+      </>
     );
   }
 }
