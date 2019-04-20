@@ -1,1 +1,1 @@
-export { default as Checkout } from "./container";
+export { CheckoutCart } from "./container";

@@ -11,7 +11,7 @@ import {
   ReservationEdit
 } from "../Reservations";
 import { EmployeeSingle, EmployeeAdd, Employees } from "../Employees";
-import { Checkout } from "../Checkout";
+import { CheckoutCart } from "../Checkout";
 import { Tasks, TaskAdd, TaskEdit } from "../Tasks";
 import { Settings } from "../Settings";
 import { Sidebar } from "./components";
@@ -53,7 +53,7 @@ class Dashboard extends Component {
             <Route
               exact
               path="/dashboard/checkout/:id"
-              render={(props) => <Checkout {...props} />}
+              render={(props) => <CheckoutCart {...props} />}
             />
             <Route
               exact

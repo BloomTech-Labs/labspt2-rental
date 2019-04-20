@@ -4,8 +4,6 @@ import { Header, Statistic, Label, Button } from "semantic-ui-react";
 import { FlexRow, FlexColumn } from "custom-components";
 import CheckoutInvoiceItemCard from "./CheckoutInvoiceItemCard";
 
-// reservation: 5cbb572a0806ea4653dd75cc
-
 export default class Checkout extends Component {
   constructor(props){
     super(props);
@@ -13,9 +11,10 @@ export default class Checkout extends Component {
   }
 
   componentDidMount = () => {
-    this.props.getReservation('5cbb572a0806ea4653dd75cc')
+    console.log('props', this.props.match.params.id);
+    this.props.getReservation(`${this.props.match.params.id}`)
     .then(response => {
-      console.log('props', this.props.reservation.assistant);
+      console.log('assistant res', this.props.reservation.assistant);
       this.props.getEmployee(this.props.reservation.assistant)
         .then(response => {
           console.log('yay employee', this.props)
@@ -23,7 +22,6 @@ export default class Checkout extends Component {
     })
   }
   render(){
-  console.log('props', this.props.match.params.id);
   return (
     <FlexRow alignCenter justifyBetween style={{ width: "650px" }}>
       <FlexColumn>

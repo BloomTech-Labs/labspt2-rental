@@ -27,52 +27,52 @@ const checkoutReducer = (state = initialState, action) => {
       loading: false,
       error: action.error
     };
-    case actions.RESERVATION_STARTED:
+    case actions.FETCH_RESERVATION_STARTED:
       return {
         ...state,
         loading: true
       };
-    case actions.RESERVATION_SUCCESS:
+    case actions.FETCH_RESERVATION_SUCCESS:
       return {
         ...state,
         loading: false,
         reservation: action.payload
       };
-    case actions.RESERVATION_ERROR:
+    case actions.FETCH_RESERVATION_ERROR:
       return {
         ...state,
         loading: false,
         error: action.error
       };
-    case actions.PROPERTY_STARTED:
+    case actions.FETCH_PROPERTY_STARTED:
       return {
         ...state,
         loading: true
       };
-    case actions.PROPERTY_SUCCESS:
+    case actions.FETCH_PROPERTY_SUCCESS:
       return {
         ...state,
         loading: false,
         property: action.payload
       };
-    case actions.PROPERTY_FAILURE:
+    case actions.FETCH_PROPERTY_FAILURE:
       return {
         ...state,
         loading: false,
         error: action.error
       };
-      case actions.EMPLOYEE_STARTED:
+      case actions.FETCH_EMPLOYEE_STARTED:
       return {
         ...state,
         loading: true
       };
-    case actions.EMPLOYEE_SUCCESS:
+    case actions.FETCH_EMPLOYEE_SUCCESS:
       return {
         ...state,
         loading: false,
         employee: action.payload
       };
-    case actions.EMPLOYEE_ERROR:
+    case actions.FETCH_EMPLOYEE_ERROR:
       return {
         ...state,
         loading: false,
