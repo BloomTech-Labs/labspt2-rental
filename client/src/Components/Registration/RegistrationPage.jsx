@@ -91,7 +91,7 @@ class RegistrationPage extends Component {
 
     let submitButton;
     if (disabled) {
-      submitButton = <Button basic color='green' disabled>Update</Button>;
+      submitButton = <Button basic color='green' type='submit' disabled>Update</Button>;
     } else {
       submitButton = (
         <Button color="green" type='submit' active>
@@ -196,7 +196,7 @@ class RegistrationPage extends Component {
               <FlexColumn alignStart justifyBetween>
                 <p style={{color: '#1a1b1c', marginLeft: '5px'}}>Already registered?</p>
                 <Link to="/login">
-                  <Button>Login</Button >
+                  <Button type='button'>Login</Button >
                 </Link>
               </FlexColumn>
 

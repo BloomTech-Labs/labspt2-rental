@@ -2,7 +2,7 @@ import React from "react";
 import { Link } from "react-router-dom";
 import { Header, Statistic, Label, Button } from "semantic-ui-react";
 import { FlexRow, FlexColumn } from "custom-components";
-import CheckoutEnvioceItemCard from "./CheckoutEnvioceItemCard";
+import CheckoutInvoiceItemCard from "./CheckoutInvoiceItemCard";
 
 const Checkout = () => {
   return (
@@ -31,7 +31,7 @@ const Checkout = () => {
           </Statistic>
         </FlexRow>
 
-        <CheckoutEnvioceItemCard />
+        <CheckoutInvoiceItemCard />
 
         <FlexRow style={{ paddingTop: "10px" }}>
           <Header size="medium">Employee:</Header>

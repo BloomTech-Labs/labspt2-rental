@@ -32,7 +32,7 @@ const Router = () => {
   return (
     <Fragment>
       <Switch>
-        {/* <Route path="/dashboard" render={() => (block ? (<Redirect to="/login"/>) : (<Dashboard/>) )}/> */}
+        {/* <Route exact path="/dashboard" render={() => (block ? (<Redirect to="/login"/>) : (<Dashboard/>) )}/> */}
         <Route path="/register" component={Registration} />
         <Route path="/users" component={UserList} />
         <Route path="/login" component={LoginPage} />
@@ -45,3 +45,54 @@ const Router = () => {
 };
 
 export default Router;
+
+{/* <Switch>
+<ProtectedRoute
+  exact
+  path="/dashboard"
+  component={DashboardView}
+/>
+<Route path="/login" component={LoginView} />
+<ProtectedRoute
+  path="/results/:username"
+  component={SearchResult}
+/>
+<Redirect exact from="/" to="/login" />
+<Route component={NotFound} />
+</Switch> */}
+
+// const ProtectedRoute = ({ component: Component, ...rest }) => {
+//     const token = localStorage.getItem('token');
+    
+//     const checkAuth = () => {
+//         axios.get('url', {
+//             headers: {
+//                 authorization: `bearer ${token}`
+//             }
+//         }) //a restricted route that verifies the token is good. a simple res.status 200 would work
+//         .then(res => {
+//             if (res.status !== 401) {
+//                 return true;
+//             }
+//             return false
+//         }).catch(err => {
+//             return false;
+//         })
+//     }
+
+//     return (
+//         <Route
+//           render={props =>
+//             token /*or checkAuth()*/ ? <Component {...props} /> : <Redirect to="/login" />
+//           }
+//           {...rest}
+//         />
+//     )
+//     };
+
+    // render={ async props => {
+    //   authorized = await checkAuth()
+    //   authorized ?
+    //   <Component {...props} :
+    //   <Redirect />
+    //   }}

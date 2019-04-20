@@ -79,7 +79,7 @@ class LoginPage extends Component {
 
     let submitButton;
     if (disabled) {
-      submitButton = <Button basic color='green' disabled>Update</Button>;
+      submitButton = <Button basic color='green' type='submit' disabled>Update</Button>;
     } else {
       submitButton = (
         <Button color="green" type='submit' active>
@@ -139,7 +139,7 @@ class LoginPage extends Component {
               <FlexColumn alignStart justifyBetween>
                 <p style={{color: '#1a1b1c', marginLeft: '5px'}}>Not yet registered?</p>
                 <Link to="/register">
-                  <Button>Register</Button >
+                  <Button type='button'>Register</Button >
                 </Link>
               </FlexColumn>
 

@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import { Statistic, Icon } from "semantic-ui-react";
 import { FlexRow, FlexColumn } from "custom-components";
 
-class CheckoutEnvioceItemCard extends Component {
+class CheckoutInvoiceItemCard extends Component {
   constructor(props) {
     super(props);
 
@@ -35,4 +35,4 @@ class CheckoutEnvioceItemCard extends Component {
   }
 }
 
-export default CheckoutEnvioceItemCard;
+export default CheckoutInvoiceItemCard;
