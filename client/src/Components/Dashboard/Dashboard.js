@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import { Route, withRouter } from "react-router-dom";
 import { Segment } from "semantic-ui-react";
-import { FlexRow, Container } from "custom-components";
+import { Container } from "custom-components";
 import { DashboardContent } from "./";
 import { Properties, Property, PropertyEdit, PropertyAdd } from "../Properties";
 import {
@@ -52,8 +52,8 @@ class Dashboard extends Component {
             />
             <Route
               exact
-              path="/dashboard/checkout"
-              render={() => <Checkout />}
+              path="/dashboard/checkout/:id"
+              render={(props) => <Checkout {...props} />}
             />
             <Route
               exact
@@ -107,7 +107,7 @@ class Dashboard extends Component {
               render={() => <PropertyAdd />}
             />
             {/*<Route path="/dashboard/tasks" render={() => <Tasks/>}/>*/}
-            <Route path="/dashboard/settings" render={() => <Settings />} />
+            <Route path="/dashboard/settings" render={(props) => <Settings {...props} />} />
           </Segment>
         </Sidebar>
       </Container>

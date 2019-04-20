@@ -56,7 +56,7 @@ class ReservationView extends Component {
                 <Button>Edit</Button>
               </Link>
               <Button color="purple">Send Invoice</Button>
-              <Link to="/dashboard/checkout">
+              <Link to={`/dashboard/checkout/${reservation._id}`} >
                 <Button color="blue">Process Payment</Button>
               </Link>
             </FlexRow>

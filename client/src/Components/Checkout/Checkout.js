@@ -1,10 +1,29 @@
-import React from "react";
+import React, {Component} from "react";
 import { Link } from "react-router-dom";
 import { Header, Statistic, Label, Button } from "semantic-ui-react";
 import { FlexRow, FlexColumn } from "custom-components";
 import CheckoutInvoiceItemCard from "./CheckoutInvoiceItemCard";
 
-const Checkout = () => {
+// reservation: 5cbb572a0806ea4653dd75cc
+
+export default class Checkout extends Component {
+  constructor(props){
+    super(props);
+    this.state = {}
+  }
+
+  componentDidMount = () => {
+    this.props.getReservation('5cbb572a0806ea4653dd75cc')
+    .then(response => {
+      console.log('props', this.props.reservation.assistant);
+      this.props.getEmployee(this.props.reservation.assistant)
+        .then(response => {
+          console.log('yay employee', this.props)
+        })
+    })
+  }
+  render(){
+  console.log('props', this.props.match.params.id);
   return (
     <FlexRow alignCenter justifyBetween style={{ width: "650px" }}>
       <FlexColumn>
@@ -36,7 +55,7 @@ const Checkout = () => {
         <FlexRow style={{ paddingTop: "10px" }}>
           <Header size="medium">Employee:</Header>
           <Label color="grey" style={{ marginLeft: "10px" }}>
-            Name
+            {this.props.employee.firstName} {this.props.employee.lastName}
           </Label>
         </FlexRow>
 
@@ -54,9 +73,9 @@ const Checkout = () => {
           <Button color="teal">Send Invoice</Button>
           <Button color="orange">Process Payment</Button>
         </FlexRow>
+
       </FlexColumn>
     </FlexRow>
   );
 };
-
-export default Checkout;
+}

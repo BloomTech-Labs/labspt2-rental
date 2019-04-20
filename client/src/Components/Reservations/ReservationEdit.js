@@ -54,7 +54,7 @@ class ReservationEdit extends Component {
         {reservation && (
           <FlexColumn justifyBetween alignCenter width="full">
             <FlexRow width="full">
-              <Header as="h1">Add New Reservation</Header>
+              <Header as="h1">Edit Reservation</Header>
             </FlexRow>
 
             <br />
