@@ -63,7 +63,6 @@ export const checkout = (token, amount, reservationID) => {
           `${config.apiUrl}/api/stripe/charge`,
           {token: token, amount: amount, reservationID: reservationID}
         );
-        console.log('actionCreator', payment)
         dispatch({
           type: actions.CHECKOUT_SUCCESS,
           payload: payment

@@ -1,5 +1,11 @@
 import { Router } from 'express';
-import { render, subscribe, updateUsage, updateCC, singleCharge } from './stripe.controllers';
+import {
+  render,
+  subscribe,
+  updateUsage,
+  updateCC,
+  singleCharge
+} from './stripe.controllers';
 
 const router = Router();
 

@@ -1,6 +1,6 @@
 import React, {Component} from "react";
 import { Link } from "react-router-dom";
-import { Header, Statistic, Label, Button, Segment, Dimmer, Loader } from "semantic-ui-react";
+import { Header, Statistic, Label, Button, Segment, Dimmer, Loader, Grid, Item } from "semantic-ui-react";
 import { FlexRow, FlexColumn } from "custom-components";
 import CheckoutInvoiceItemCard from "./CheckoutInvoiceItemCard";
 import { differenceInDays, format } from 'date-fns';
@@ -61,16 +61,74 @@ export default class Checkout extends Component {
         'MM/DD/YYYY'
       );
 
+      const checkInMonth = format(
+        new Date(this.props.reservation.checkIn),
+        'MMM'
+      );
+
+      const checkInDay = format(
+        new Date(this.props.reservation.checkIn),
+        'dddd'
+      );
+
       const checkOut = format(
         new Date(this.props.reservation.checkOut),
         'MM/DD/YYYY'
       );
 
+      const checkOutMonth = format(
+        new Date(this.props.reservation.checkOut),
+        'MMM'
+      );
+
+      const checkOutDay = format(
+        new Date(this.props.reservation.checkOut),
+        'dddd'
+      );
+
     loading = (<FlexRow alignCenter justifyBetween style={{ width: "650px" }}>
       <FlexColumn>
-        <Header as='h1' color="orange">
-          Review Reservation
+        <Header as='h1'>
+          Review Your Reservation
         </Header>
+
+        <Header as='h3'>{nights} nights in {this.props.property.city}</Header>
+
+
+        <FlexRow style={{marginTop: '3em'}}>
+              <FlexRow stackable >
+
+            {/* <FlexRow.Row > */}
+            <FlexRow width={6}>
+              <FlexColumn alignCenter style={{backgroundColor: '#e2e2e2', width: '60px', height: '54px', marginRight: '7%'}}>
+                <p style={{marginBottom: '-5%', marginTop: '13%', fontWeight: 'bold'}}>{checkInMonth}</p>
+                <p style={{fontWeight: 'bold'}}>{checkIn[3]}{checkIn[4]}</p>
+              </FlexColumn>
+
+              <FlexColumn >
+                <p style={{margin: 0, marginTop: '4%', marginBottom: '1%'}}>{checkInDay} Check In</p>
+                <p style={{}}>2 PM - 8 PM</p>
+              </FlexColumn>
+            </FlexRow >
+            {/* </Grid.Row>
+
+            <Grid.Row > */}
+            <FlexRow>
+              <FlexColumn alignCenter style={{backgroundColor: '#e2e2e2', width: '60px', height: '54px', marginRight: '7%'}}>
+                <p style={{marginBottom: '-5%', marginTop: '13%', fontWeight: 'bold'}}>{checkOutMonth}</p>
+                <p style={{fontWeight: 'bold'}}>{checkOut[3]}{checkOut[4]}</p>
+              </FlexColumn>
+
+              <FlexColumn >
+                <p style={{margin: 0, marginTop: '4%', marginBottom: '1%'}}>{checkOutDay} Check Out</p>
+                <p style={{}}>10AM</p>
+              </FlexColumn>
+
+              </FlexRow>
+            {/* </Grid.Row> */}
+
+              </FlexRow>
+        </FlexRow>
 
         <Header size="medium">{this.props.reservation.guest.firstName} {this.props.reservation.guest.lastName}</Header>
         <p>{this.props.reservation.guest.email}</p>
