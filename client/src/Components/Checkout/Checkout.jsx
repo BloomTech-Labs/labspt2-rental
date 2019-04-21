@@ -1,15 +1,17 @@
 import React, {Component} from "react";
 import { Link } from "react-router-dom";
-import { Header, Statistic, Label, Button, Segment, Dimmer, Loader, Divider, Icon } from "semantic-ui-react";
+import { Header, Statistic, Label, Image, Button, Segment, Dimmer, Loader, Grid, Icon } from "semantic-ui-react";
 import { FlexRow, FlexColumn } from "custom-components";
-import CheckoutInvoiceItemCard from "./CheckoutInvoiceItemCard";
 import { differenceInDays, format } from 'date-fns';
 import CheckoutModal from './checkoutModal';
+import CheckoutElement from './checkoutElement';
+import { Elements, StripeProvider } from "react-stripe-elements";
+import { config } from "../../config/dev";
 
 export default class Checkout extends Component {
   constructor(props){
     super(props);
-    this.state = { loading: true, total: 0 }
+    this.state = { loading: true, total: 0, stripeTotal: 0 }
   }
 
   componentDidMount = () => {
@@ -34,8 +36,10 @@ export default class Checkout extends Component {
       new Date(this.props.reservation.checkIn)
     );
     const totalBill = (nights * this.props.property.price) + this.props.reservation.cleaningFee;
+    const stripeTotal = totalBill * 100;
     this.setState({
-      total: totalBill
+      total: totalBill,
+      stripeTotal: stripeTotal
     })
   }
 
@@ -51,10 +55,12 @@ export default class Checkout extends Component {
       );
     } else {
       let paid = this.props.reservation.paid;
+
       const nights = differenceInDays(
         new Date(this.props.reservation.checkOut),
         new Date(this.props.reservation.checkIn)
       );
+      const nightlyTotal = nights * this.props.property.price;
 
       const checkIn = format(
         new Date(this.props.reservation.checkIn),
@@ -88,16 +94,21 @@ export default class Checkout extends Component {
 
     loading = (
     <FlexRow alignCenter justifyBetween style={{ width: "650px" }}>
-      <FlexColumn style={{paddingLeft: '2%'}}>
+      <FlexColumn style={{paddingLeft: '2%', paddingTop: '2%'}}>
+
         <Header as='h1'>
           Review Your Reservation
         </Header>
 
-        <Header as='h3'>{nights} nights in {this.props.property.city}</Header>
+        <FlexRow justifyBetween style={{width: '100%', marginTop: '-5%'}}>
+          <Header as='h3' style={{ alignSelf: 'flex-end'}}>{nights} nights in {this.props.property.city}</Header>
+          <Image src={`${this.props.property.image}`} size='small' />
+        </FlexRow>
 
 
-        <FlexRow justifyBetween style={{marginTop: '1.5em', width: '80%'}}>
-            <FlexRow style={{width: '45%'}}>
+        {/* Check In and Check Out View */}
+        <FlexRow justifyBetween style={{marginTop: '1.5em', width: '100%'}}>
+            <FlexRow style={{width: '25vw', marginRight: '5vw'}}>
               <FlexColumn alignCenter style={{backgroundColor: '#e2e2e2', width: '60px', height: '54px', marginRight: '7%'}}>
                 <p style={{marginBottom: '-5%', marginTop: '13%', fontWeight: 'bold'}}>{checkInMonth}</p>
                 <p style={{fontWeight: 'bold'}}>{checkIn[3]}{checkIn[4]}</p>
@@ -109,7 +120,7 @@ export default class Checkout extends Component {
               </FlexColumn>
             </FlexRow >
 
-            <FlexRow style={{width: '45%'}}>
+            <FlexRow style={{width: '25vw', marginRight: '5vw'}}>
               <FlexColumn alignCenter style={{backgroundColor: '#e2e2e2', width: '60px', height: '54px', marginRight: '7%'}}>
                 <p style={{marginBottom: '-5%', marginTop: '13%', fontWeight: 'bold'}}>{checkOutMonth}</p>
                 <p style={{fontWeight: 'bold'}}>{checkOut[3]}{checkOut[4]}</p>
@@ -123,10 +134,34 @@ export default class Checkout extends Component {
               </FlexRow>
         </FlexRow>
 
-        <FlexRow style={{marginTop: '5%', width: '80%'}}>
-          <Icon name='handshake outline' size='large' style={{marginRight: '2%'}} />
-          <p>On Site Staff Member: {this.props.employee.firstName} {this.props.employee.lastName}</p>
-        </FlexRow>
+        {/* Reservation Details and Cost Breakdown */}
+        <React.Fragment >
+          <Grid divided='vertically' style={{marginLeft: '0%', marginTop: '0%', width: '100%', border: '1px solid blue'}} >
+            <Grid.Row>
+              <FlexRow style={{marginTop: '5%', width: '80%'}}>
+                <Icon name='handshake outline' size='large' style={{marginRight: '2%', color: 'light green'}} />
+                <FlexRow justifyBetween style={{width: '70%'}}>
+                  <p>${this.props.property.price}.00 X {nights} nights</p>
+                  <p>${nightlyTotal}.00</p>
+                </FlexRow>
+              </FlexRow>
+            </Grid.Row>
+
+            <Grid.Row>
+              <FlexRow style={{marginTop: '5%', width: '80%'}}>
+                <Icon name='users' size='large' style={{marginRight: '2%'}} />
+                <p>Guests: {this.props.reservation.guests}</p>
+              </FlexRow>
+            </Grid.Row>
+
+            <Grid.Row>
+              <FlexRow style={{marginTop: '3%', width: '80%'}}>
+                <Icon name='handshake outline' size='large' style={{marginRight: '2%'}} />
+                <p>Total: ${this.state.total}.00</p>
+              </FlexRow>
+            </Grid.Row>
+          </Grid>
+        </React.Fragment>
 
         {/* <Header size="medium">{this.props.reservation.guest.firstName} {this.props.reservation.guest.lastName}</Header>
         <p>{this.props.reservation.guest.email}</p>
@@ -136,17 +171,6 @@ export default class Checkout extends Component {
           {this.props.property.name}
         </Label>
         <Header>Address: {this.props.property.address1}, {this.props.property.city}, {this.props.property.state} {this.props.property.zip} </Header>
-
-        <FlexRow style={{ paddingTop: "10px" }}>
-          <Statistic size="tiny">
-            <Statistic.Label>Check-in</Statistic.Label>
-            <Statistic.Value>{checkIn}</Statistic.Value>
-          </Statistic>
-          <Statistic size="tiny">
-            <Statistic.Label>Check-out</Statistic.Label>
-            <Statistic.Value>{checkOut}</Statistic.Value>
-          </Statistic>
-        </FlexRow>
 
         <CheckoutInvoiceItemCard nights={nights} guests={this.props.reservation.guests} cleaningFee={this.props.reservation.cleaningFee} />
 
@@ -165,21 +189,17 @@ export default class Checkout extends Component {
           </Label>
         </FlexRow> */}
 
-        <FlexRow style={{ marginTop: "10px" }}>
-          <Link to="/dashboard/reservations">
-            <Button color="grey">Exit</Button>
-          </Link>
-          {/* <Button color="teal">Send Invoice</Button> */}
+        <FlexRow style={{width: '100%'}}>
 
-          <CheckoutModal 
-            guest={this.props.reservation.guest} 
-            total={this.state.total} 
-            nights={nights} 
-            cleaningFee={this.props.reservation.cleaningFee} 
-            price={this.props.property.price}
-            checkout={this.props.checkout} 
-            reservationID={this.props.reservation._id}
-          />
+        <StripeProvider apiKey={config.stripeApiKey}>
+          <Elements >
+            <CheckoutElement
+              close={this.close} guest={this.props.reservation.guest} checkout={this.props.checkout} reservationID={this.props.reservation._id}
+              // totalAmount={stripeTotalAmount} 
+            />
+          </Elements>
+        </StripeProvider>
+
         </FlexRow>
 
       </FlexColumn>

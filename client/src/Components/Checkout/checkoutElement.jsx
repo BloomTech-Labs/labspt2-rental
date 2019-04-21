@@ -80,8 +80,8 @@ class CheckoutElement extends Component {
     }
 
     return (
-      <div className="checkout">
-        <Segment clearing padded>
+      <div className="checkout" style={{width: '100%', marginTop: '5%'}}>
+        <Segment clearing padded >
           <p>Confirm and Pay</p>
           <Segment padded style={{ marginTop: "25px", marginBottom: "25px" }}>
             {success}
@@ -90,9 +90,9 @@ class CheckoutElement extends Component {
             {loader}
           </Segment>
 
-          <Button floated="right" negative basic onClick={this.props.close}>
-            Cancel
-          </Button>
+          <Link to={`/dashboard/reservations/view/${this.props.reservationID}`}>
+            <Button floated='right' negative basic onClick={this.props.close} >Back</Button>
+          </Link>
 
             <Button floated='right' positive onClick={this.submit} >
                 <Button.Content visible>

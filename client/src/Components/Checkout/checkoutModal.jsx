@@ -61,7 +61,7 @@ export default class CheckoutModal extends Component {
                   guest={this.props.guest} 
                   checkout={this.props.checkout} 
                   totalAmount={stripeTotalAmount}
-                  reservationID={this.props.reservationID}
+                  reservationID={this.props.reservationID   }
                 />
               </Elements>
             </StripeProvider>
