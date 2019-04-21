@@ -1,5 +1,5 @@
 import { connect } from 'react-redux';
-import { getReservation, getEmployee } from './actionCreator';
+import { getReservation, getEmployee, getProperty } from './actionCreator';
 import { withRouter } from "react-router-dom";
 import Checkout from './Checkout';
 
@@ -11,17 +11,13 @@ const mapStateToProps = ({checkout}) => ({
     employee: checkout.employee
 });
 
-// export default connect(
-//     mapStateToProps,
-//     { getReservation, getEmployee }
-// )(Checkout);
-
 const connector = connect(
     mapStateToProps,
     {
         getEmployee, 
-        getReservation
+        getReservation,
+        getProperty
     }
 )
 
-export const CheckoutCart = connector(withRouter(Checkout))
+export const CheckoutCart = connector(withRouter(Checkout));

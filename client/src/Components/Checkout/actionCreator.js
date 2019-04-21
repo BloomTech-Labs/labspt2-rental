@@ -8,7 +8,6 @@ import config from "../../config/index";
 // Reservation: Check in, Check out, Nights, Guests, Paid status, Booking ID
 
 export const getReservation = reservationID => {
-    console.log('reservation id passed', reservationID);
     return async dispatch => {
       dispatch({ type: actions.FETCH_RESERVATION_STARTED });
       try {
@@ -36,6 +35,22 @@ export const getEmployee = employeeID => {
         } catch (err) {
             console.error(err);
             dispatch({ type: actions.FETCH_EMPLOYEE_ERROR, payload: err });
+        }
+    }
+}
+
+export const getProperty = propertyID => {
+    return async dispatch => {
+        dispatch({ type: actions.CHECKOUT_PROPERTY_STARTED });
+        try{
+            const property = await axios.get(`${config.apiUrl}/api/properties/${propertyID}`);
+            dispatch({
+                type: actions.CHECKOUT_PROPERTY_SUCCESS,
+                payload: property.data.data
+            })
+        } catch (err) {
+            console.error(err);
+            dispatch({ type: actions.CHECKOUT_PROPERTY_ERROR, payload: err });
         }
     }
 }

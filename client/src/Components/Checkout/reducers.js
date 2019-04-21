@@ -78,6 +78,23 @@ const checkoutReducer = (state = initialState, action) => {
         loading: false,
         error: action.error
       };
+      case actions.CHECKOUT_PROPERTY_STARTED:
+      return {
+        ...state,
+        loading: true
+      };
+    case actions.CHECKOUT_PROPERTY_SUCCESS:
+      return {
+        ...state,
+        loading: false,
+        property: action.payload
+      };
+    case actions.CHECKOUT_PROPERTY_ERROR:
+      return {
+        ...state,
+        loading: false,
+        error: action.error
+      };
     default:
       return { ...state };
   }

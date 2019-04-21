@@ -1,66 +1,102 @@
 import React, {Component} from "react";
 import { Link } from "react-router-dom";
-import { Header, Statistic, Label, Button } from "semantic-ui-react";
+import { Header, Statistic, Label, Button, Segment, Dimmer, Loader } from "semantic-ui-react";
 import { FlexRow, FlexColumn } from "custom-components";
 import CheckoutInvoiceItemCard from "./CheckoutInvoiceItemCard";
+import { differenceInDays, format } from 'date-fns';
 
 export default class Checkout extends Component {
   constructor(props){
     super(props);
-    this.state = {}
+    this.state = { loading: true, total: 0 }
   }
 
   componentDidMount = () => {
-    console.log('props', this.props.match.params.id);
     this.props.getReservation(`${this.props.match.params.id}`)
     .then(response => {
-      console.log('assistant res', this.props.reservation.assistant);
       this.props.getEmployee(this.props.reservation.assistant)
         .then(response => {
-          console.log('yay employee', this.props)
+          this.props.getProperty(this.props.reservation.property)
+            .then(response => {
+              this.setState({
+                loading: false
+              })
+            })
         })
     })
   }
+
+  calculateTotal = () => {
+    console.log('nightly price', this.props.property.price)
+  }
+
   render(){
-  return (
-    <FlexRow alignCenter justifyBetween style={{ width: "650px" }}>
+    let loading;
+    if (this.state.loading) {
+      loading = (
+        <Segment>
+          <Dimmer active inverted>
+            <Loader inverted>Loading</Loader>
+          </Dimmer>
+        </Segment>
+      );
+    } else {
+      let paid = this.props.reservation.paid;
+      const nights = differenceInDays(
+        new Date(this.props.reservation.checkOut),
+        new Date(this.props.reservation.checkIn)
+      );
+
+      const checkIn = format(
+        new Date(this.props.reservation.checkIn),
+        'MM/DD/YYYY'
+      );
+
+      const checkOut = format(
+        new Date(this.props.reservation.checkOut),
+        'MM/DD/YYYY'
+      );
+
+    loading = (<FlexRow alignCenter justifyBetween style={{ width: "650px" }}>
       <FlexColumn>
         <Header size="large" color="orange">
-          Booking ID: Some ID Number
+          Booking ID: {this.props.match.params.id}
         </Header>
-        <Header size="medium">Guest Name</Header>
-        <p>email@email.com</p>
-        <p>Phone Number</p>
+
+        <Header size="medium">{this.props.reservation.guest.firstName} {this.props.reservation.guest.lastName}</Header>
+        <p>{this.props.reservation.guest.email}</p>
+        <p>{this.props.reservation.guest.phoneNumber}</p>
 
         <Label color="blue" horizontal style={{ marginTop: "20px" }}>
-          House 1
+          {this.props.property.name}
         </Label>
-        <Header>Address: Some Address, ST 12345</Header>
+        <Header>Address: {this.props.property.address1}, {this.props.property.city}, {this.props.property.state} {this.props.property.zip} </Header>
 
         <FlexRow style={{ paddingTop: "10px" }}>
           <Statistic size="tiny">
             <Statistic.Label>Check-in</Statistic.Label>
-            <Statistic.Value>1/27</Statistic.Value>
+            <Statistic.Value>{checkIn}</Statistic.Value>
           </Statistic>
           <Statistic size="tiny">
             <Statistic.Label>Check-out</Statistic.Label>
-            <Statistic.Value>1/30</Statistic.Value>
+            <Statistic.Value>{checkOut}</Statistic.Value>
           </Statistic>
         </FlexRow>
 
-        <CheckoutInvoiceItemCard />
+        <CheckoutInvoiceItemCard nights={nights} guests={this.props.reservation.guests} cleaningFee={this.props.reservation.cleaningFee} />
 
-        <FlexRow style={{ paddingTop: "10px" }}>
-          <Header size="medium">Employee:</Header>
-          <Label color="grey" style={{ marginLeft: "10px" }}>
-            {this.props.employee.firstName} {this.props.employee.lastName}
-          </Label>
-        </FlexRow>
+         <FlexRow style={{ paddingTop: "10px" }}>
+           <Header size="medium">Employee:</Header>
+           <Label color="grey" style={{ marginLeft: "10px" }}>
+             {this.props.employee.firstName} {this.props.employee.lastName}
+           </Label>
+         </FlexRow> 
 
         <FlexRow style={{ marginTop: "10px" }}>
+          <Header size="medium">Total: ${this.state.total}</Header>
           <Header size="medium">Billing Status:</Header>
           <Label color="red" style={{ marginLeft: "10px" }}>
-            Unpaid
+            { paid ? "Paid" : "Unpaid" }
           </Label>
         </FlexRow>
 
@@ -73,7 +109,11 @@ export default class Checkout extends Component {
         </FlexRow>
 
       </FlexColumn>
-    </FlexRow>
+    </FlexRow>)
+    }
+
+    return (
+      <React.Fragment>{loading}</React.Fragment>
   );
 };
 }

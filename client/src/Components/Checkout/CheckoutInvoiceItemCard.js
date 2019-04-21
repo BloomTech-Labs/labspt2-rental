@@ -7,10 +7,10 @@ class CheckoutInvoiceItemCard extends Component {
     super(props);
 
     this.details = [
-      { icon: "moon", option: "Nights of Stay:", amount: 3 },
-      { icon: "users", option: "Guests:", amount: 3 }
+      { icon: "moon", option: "Nights of Stay:", amount: props.nights },
+      { icon: "users", option: "Guests:", amount: props.guests },
       // this next item is on the wireframes but not the mockups so it's commented out
-      // { icon: 'leaf', option: 'Cleaning fee', amount: '$65' }
+      { icon: 'leaf', option: 'Cleaning fee', amount: `$${props.cleaningFee}` }
     ];
   }
 
