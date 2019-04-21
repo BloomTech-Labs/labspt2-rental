@@ -1,14 +1,6 @@
 import React, { Component } from "react";
 import { FlexColumn, FlexRow } from "custom-components";
-import {
-  Input,
-  Button,
-  Dropdown,
-  Checkbox,
-  Form,
-  FormDropdown,
-  FormCheckbox
-} from "semantic-ui-react";
+import { Input, Button, Dropdown, Checkbox, Form } from "semantic-ui-react";
 import { Link } from "react-router-dom";
 class PropertyEdit extends Component {
   constructor(props) {
@@ -22,22 +14,13 @@ class PropertyEdit extends Component {
     this.props.getEmployees();
   }
 
-  // componentDidUpdate() {
-  //   let property = this.props.properties.find(
-  //     property => property._id === this.state._id
-  //   );
-  //   this.setState({
-  //     active: property.active
-  //   });
-  // }
-
   handleChange(prop, val) {
     this.setState({ [prop]: val });
   }
 
   handleSubmit = () => {
     this.props.updateProperty(this.state).then(response => {
-      this.props.history.push(`/dashboard/properties/${this.state._id}`);
+      this.props.history.push(`/dashboard/properties/view/${this.state._id}`);
     });
   };
 
