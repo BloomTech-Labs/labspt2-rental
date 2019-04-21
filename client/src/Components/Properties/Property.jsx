@@ -55,7 +55,6 @@ class Property extends Component {
     const property = this.props.properties.find(
       property => property._id === this.props.match.params.id
     );
-    console.log(property);
     return (
       <>
         {property && (
