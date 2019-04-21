@@ -16,21 +16,21 @@ export const Footer = ({mobile}) => (
 
               <Grid.Column width={3} >
                 <Header inverted as="h4" content="About" />
-                <List link inverted>
+                <List inverted>
                   <List.Item as="a">Sitemap</List.Item>
-                  <List.Item as="a">Contact Us</List.Item>
-                </List>
-              </Grid.Column>
-
-              <Grid.Column width={3} >
-                <Header inverted as="h4" content="Services" />
-                <List link inverted>
-                  <List.Item as="a">Testimonials</List.Item>
                   <List.Item as="a">Sign Up</List.Item>
                 </List>
               </Grid.Column>
 
-              <Grid.Column width={7}>
+              <Grid.Column width={5} >
+                <Header inverted as="h4" content="Services" />
+                <List inverted>
+                  <List.Item as="a">Contact Us</List.Item>
+                  <List.Item link as="a">Roostr.tech@gmail.com</List.Item>
+                </List>
+              </Grid.Column>
+
+              <Grid.Column width={6}>
                 <Header as="h4" inverted>
                   roostr.tech
                 </Header>
