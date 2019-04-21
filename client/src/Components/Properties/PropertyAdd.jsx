@@ -4,12 +4,12 @@ import {
   Button,
   Dropdown,
   Form,
-  Modal,
+  Dimmer,
   Icon,
   Header
 } from "semantic-ui-react";
 import { Link } from "react-router-dom";
-import { FlexColumn } from "custom-components";
+import { FlexColumn, FlexRow } from "custom-components";
 import MonthlyFeeModal from "./MonthlyFeeModal";
 import ErrorModal from "./ErrorModal";
 
@@ -23,7 +23,7 @@ class PropertyAdd extends Component {
       assistants: [],
       errorModalOpen: false,
       priceModalOpen: false,
-      completeModalOpen: false,
+      dimmerOpen: false,
       modalMessage: "",
       modalSize: "mini"
     };
@@ -53,17 +53,22 @@ class PropertyAdd extends Component {
     };
     this.props.addProperty(newProp).then(response => {
       this.setState({
-        completeModalOpen: true,
+        dimmerOpen: true,
         priceModalOpen: false
       });
     });
+  };
+  successClose = () => {
+    this.setState({
+      dimmerOpen: false
+    });
+    this.props.history.push("/dashboard/properties");
   };
 
   modalClose = () => {
     this.setState({
       errorModalOpen: false,
-      priceModalOpen: false,
-      completeModalOpen: false
+      priceModalOpen: false
     });
   };
 
@@ -187,6 +192,7 @@ class PropertyAdd extends Component {
           />
           <Form.Field
             control={Dropdown}
+            label="Assigned Employee"
             selection
             onChange={(e, val) => this.handleChange("assistants", val.value)}
             placeholder="Employee"
@@ -203,17 +209,14 @@ class PropertyAdd extends Component {
             <Form.Field
               control={Button}
               style={{ margin: "5px" }}
-              color="green"
+              basic
+              color="blue"
               onClick={this.handleModals}
             >
               Create Property
             </Form.Field>
             <Link to={`/dashboard/properties/`}>
-              <Form.Field
-                control={Button}
-                style={{ margin: "5px" }}
-                color="red"
-              >
+              <Form.Field control={Button} style={{ margin: "5px" }}>
                 Cancel
               </Form.Field>
             </Link>
@@ -231,15 +234,17 @@ class PropertyAdd extends Component {
           modalMessage={this.state.modalMessage}
           modalClose={this.modalClose}
         />
-        <Modal basic size="medium" open={this.state.completeModalOpen}>
-          <Header>
-            <Icon name="check circle outline" />
+        <Dimmer
+          size="fullscreen"
+          active={this.state.dimmerOpen}
+          page
+          onClickOutside={this.successClose}
+        >
+          <Header as="h2" inverted>
+            <Icon size="big" inverted name="check circle outline" />
             Property Added!
           </Header>
-          <Link to={`/dashboard/properties/`}>
-            <Button color="blue">Return to Property List</Button>
-          </Link>
-        </Modal>
+        </Dimmer>
       </FlexColumn>
     );
   }
