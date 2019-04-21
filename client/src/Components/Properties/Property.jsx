@@ -61,11 +61,9 @@ class Property extends Component {
                 </div>
                 <FlexRow>
                   <Link to={`/dashboard/properties/edit/${property._id}`}>
-                    <Button content="Edit" />
+                    <Button content="Edit" color="blue" />
                   </Link>
-                  <Button color="red" onClick={this.handleDelete}>
-                    Delete
-                  </Button>
+                  <Button onClick={this.handleDelete}>Delete</Button>
                 </FlexRow>
               </FlexColumn>
               <FlexColumn>

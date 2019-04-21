@@ -51,140 +51,137 @@ class ReservationAdd extends Component {
 
   render() {
     const { guest, guests } = this.state;
-    const properties = this.props.properties.filter(p => p.active === true);
     return (
-      <>
-        {properties && (
-          <FlexColumn justifyBetween alignCenter width="full">
-            <FlexRow width="full">
-              <Header as="h1">Add New Reservation</Header>
-            </FlexRow>
+      <FlexColumn justifyBetween alignCenter width="full">
+        <FlexRow width="full">
+          <Header as="h1">Add New Reservation</Header>
+        </FlexRow>
 
-            <br />
+        <br />
 
-            <FlexRow width="full">
-              <DateRangePickerWrapper onChange={this.handleDateChange} />
-            </FlexRow>
+        <FlexRow width="full">
+          <DateRangePickerWrapper onChange={this.handleDateChange} />
+        </FlexRow>
 
-            <br />
-            <br />
+        <br />
+        <br />
 
-            <FlexRow alignCenter width="full">
-              <Dropdown
-                style={{ marginRight: "10px" }}
-                selection
-                onChange={(e, val) => this.handleChange("property", val.value)}
-                placeholder="Property"
-                options={
-                  this.props.loading
-                    ? [{ text: "Loading...", value: "loading" }]
-                    : properties &&
-                      properties.map(p => ({
-                        key: p._id,
-                        text: p.name,
-                        value: p._id
-                      }))
-                }
-              />
+        <FlexRow alignCenter width="full">
+          <Dropdown
+            style={{ marginRight: "10px" }}
+            selection
+            onChange={(e, val) => this.handleChange("property", val.value)}
+            placeholder="Property"
+            options={
+              this.props.loading
+                ? [{ text: "Loading...", value: "loading" }]
+                : this.props.properties &&
+                  this.props.properties
+                    .filter(p => p.active === true)
+                    .map(p => ({
+                      key: p._id,
+                      text: p.name,
+                      value: p._id
+                    }))
+            }
+          />
 
-              <Dropdown
-                selection
-                onChange={(e, val) => this.handleChange("assistant", val.value)}
-                placeholder="Employee"
-                options={
-                  this.props.loading
-                    ? [{ text: "Loading...", value: "loading" }]
-                    : this.props.employees &&
-                      this.props.employees.map(e => ({
-                        key: e._id,
-                        text: e.firstName + " " + e.lastName,
-                        value: e._id
-                      }))
-                }
-              />
-            </FlexRow>
+          <Dropdown
+            selection
+            onChange={(e, val) => this.handleChange("assistant", val.value)}
+            placeholder="Employee"
+            options={
+              this.props.loading
+                ? [{ text: "Loading...", value: "loading" }]
+                : this.props.employees &&
+                  this.props.employees.map(e => ({
+                    key: e._id,
+                    text: e.firstName + " " + e.lastName,
+                    value: e._id
+                  }))
+            }
+          />
+        </FlexRow>
 
-            <br />
+        <br />
 
-            <FlexRow width="full">
-              <Input
-                style={{ marginRight: "10px", flexGrow: "1" }}
-                placeholder="First Name"
-                onChange={e =>
-                  this.handleChange("guest", {
-                    ...guest,
-                    firstName: e.target.value
-                  })
-                }
-              />
-              <Input
-                style={{ flexGrow: "1" }}
-                placeholder="Last Name"
-                onChange={e =>
-                  this.handleChange("guest", {
-                    ...guest,
-                    lastName: e.target.value
-                  })
-                }
-              />
-            </FlexRow>
+        <FlexRow width="full">
+          <Input
+            style={{ marginRight: "10px", flexGrow: "1" }}
+            placeholder="First Name"
+            onChange={e =>
+              this.handleChange("guest", {
+                ...guest,
+                firstName: e.target.value
+              })
+            }
+          />
+          <Input
+            style={{ flexGrow: "1" }}
+            placeholder="Last Name"
+            onChange={e =>
+              this.handleChange("guest", {
+                ...guest,
+                lastName: e.target.value
+              })
+            }
+          />
+        </FlexRow>
 
-            <br />
+        <br />
 
-            <FlexRow width="full">
-              <Input
-                style={{ marginRight: "10px", flexGrow: "1" }}
-                placeholder="Phone Number"
-                onChange={e =>
-                  this.handleChange("guest", {
-                    ...guest,
-                    phoneNumber: e.target.value
-                  })
-                }
-              />
+        <FlexRow width="full">
+          <Input
+            style={{ marginRight: "10px", flexGrow: "1" }}
+            placeholder="Phone Number"
+            onChange={e =>
+              this.handleChange("guest", {
+                ...guest,
+                phoneNumber: e.target.value
+              })
+            }
+          />
 
-              <Input
-                style={{ flexGrow: "1" }}
-                placeholder="Email"
-                onChange={e =>
-                  this.handleChange("guest", {
-                    ...guest,
-                    email: e.target.value
-                  })
-                }
-              />
-            </FlexRow>
+          <Input
+            style={{ flexGrow: "1" }}
+            placeholder="Email"
+            onChange={e =>
+              this.handleChange("guest", {
+                ...guest,
+                email: e.target.value
+              })
+            }
+          />
+        </FlexRow>
 
-            <br />
-            <br />
+        <br />
+        <br />
 
-            <FlexRow alignCenter justifyCenter width="full">
-              <Button
-                circular
-                icon="minus"
-                onClick={() => this.handleChange("guests", guests - 1)}
-              />
-              <Statistic size="tiny" style={{ margin: "0 15px" }}>
-                <Statistic.Label>Guests</Statistic.Label>
-                <Statistic.Value>{guests}</Statistic.Value>
-              </Statistic>
-              <Button
-                circular
-                icon="plus"
-                onClick={() => this.handleChange("guests", guests + 1)}
-              />
-            </FlexRow>
+        <FlexRow alignCenter justifyCenter width="full">
+          <Button
+            circular
+            icon="minus"
+            onClick={() => this.handleChange("guests", guests - 1)}
+          />
+          <Statistic size="tiny" style={{ margin: "0 15px" }}>
+            <Statistic.Label>Guests</Statistic.Label>
+            <Statistic.Value>{guests}</Statistic.Value>
+          </Statistic>
+          <Button
+            circular
+            icon="plus"
+            onClick={() => this.handleChange("guests", guests + 1)}
+          />
+        </FlexRow>
 
-            <br />
+        <br />
 
-            <FlexRow width="full" justifyCenter>
-              <Button color="green" onClick={this.handleSubmit}>
-                Create Reservation
-              </Button>
-            </FlexRow>
-          </FlexColumn>
-        )}
-      </>
+        <FlexRow width="full" justifyCenter>
+          <Button color="green" onClick={this.handleSubmit}>
+            Create Reservation
+          </Button>
+        </FlexRow>
+      </FlexColumn>
     );
   }
 }

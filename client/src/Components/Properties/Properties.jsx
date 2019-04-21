@@ -6,14 +6,6 @@ import { Button, Icon, Segment } from "semantic-ui-react";
 import { Link } from "react-router-dom";
 
 class Properties extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      properties: [],
-      loading: false,
-      error: null
-    };
-  }
   componentDidMount() {
     this.props.getProperties();
   }
@@ -50,36 +42,38 @@ class Properties extends Component {
             onClick={this.addClickHandle}
           />
         </Segment>
-        {this.props.properties.map(property => {
-          return (
-            <>
-              <PropertyCard
-                id={property._id}
-                image={property.image}
-                name={property.name}
-                address={property.address1}
-                addressFull={
-                  property.address1 +
-                  " " +
-                  property.city +
-                  " " +
-                  property.state +
-                  " " +
-                  property.zip
-                }
-                assistants={
-                  property.assistants.length
-                    ? `${property.assistants[0].firstName}`
-                    : "Not Assigned"
-                }
-                occupants={property.occupants}
-                buttonFunction={() => this.cardHandleClick(property._id)}
-                linkto={`/dashboard/properties/view/${property._id}`}
-              />
-              <Divider />
-            </>
-          );
-        })}
+        {!this.props.loading &&
+          this.props.properties.length &&
+          this.props.properties.map(property => {
+            return (
+              <>
+                <PropertyCard
+                  id={property._id}
+                  image={property.image}
+                  name={property.name}
+                  address={property.address1}
+                  addressFull={
+                    property.address1 +
+                    " " +
+                    property.city +
+                    " " +
+                    property.state +
+                    " " +
+                    property.zip
+                  }
+                  assistants={
+                    property.assistants.length
+                      ? `${property.assistants[0].firstName}`
+                      : "Not Assigned"
+                  }
+                  occupants={property.occupants}
+                  buttonFunction={() => this.cardHandleClick(property._id)}
+                  linkto={`/dashboard/properties/view/${property._id}`}
+                />
+                <Divider />
+              </>
+            );
+          })}
       </FlexColumn>
     );
   }

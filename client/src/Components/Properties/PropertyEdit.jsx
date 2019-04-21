@@ -155,16 +155,12 @@ class PropertyEdit extends Component {
                   <Form.Field
                     control={Button}
                     style={{ margin: "5px" }}
-                    color="green"
+                    color="blue"
                     onClick={this.handleSubmit}
                   >
                     Update
                   </Form.Field>
-                  <Form.Field
-                    control={Button}
-                    style={{ margin: "5px" }}
-                    color="red"
-                  >
+                  <Form.Field control={Button} style={{ margin: "5px" }}>
                     Cancel
                   </Form.Field>
                 </Link>
