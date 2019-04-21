@@ -62,7 +62,7 @@ class Properties extends Component {
                     property.zip
                   }
                   assistants={
-                    property.assistants.length
+                    property.assistants != null && property.assistants.length
                       ? `${property.assistants[0].firstName}`
                       : "Not Assigned"
                   }

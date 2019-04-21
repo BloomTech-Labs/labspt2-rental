@@ -1,5 +1,13 @@
 import React, { Component } from "react";
-import { Input, Button, Dropdown, Form } from "semantic-ui-react";
+import {
+  Input,
+  Button,
+  Dropdown,
+  Form,
+  Modal,
+  Icon,
+  Header
+} from "semantic-ui-react";
 import { Link } from "react-router-dom";
 import { FlexColumn } from "custom-components";
 import MonthlyFeeModal from "./MonthlyFeeModal";
@@ -12,9 +20,10 @@ class PropertyAdd extends Component {
       image: "https://i.imgur.com/Cn7QlCX.jpg",
       address2: null,
       occupants: null,
-      assistants: null,
+      assistants: [],
       errorModalOpen: false,
       priceModalOpen: false,
+      completeModalOpen: false,
       modalMessage: "",
       modalSize: "mini"
     };
@@ -43,8 +52,18 @@ class PropertyAdd extends Component {
       image: this.state.image
     };
     this.props.addProperty(newProp).then(response => {
-      window.alert("Property created");
-      this.props.history.push(`/dashboard/properties/`);
+      this.setState({
+        completeModalOpen: true,
+        priceModalOpen: false
+      });
+    });
+  };
+
+  modalClose = () => {
+    this.setState({
+      errorModalOpen: false,
+      priceModalOpen: false,
+      completeModalOpen: false
     });
   };
 
@@ -206,6 +225,21 @@ class PropertyAdd extends Component {
           modalMessage={this.state.modalMessage}
           submitHandler={this.handleSubmit}
         />
+        <ErrorModal
+          size={this.state.size}
+          open={this.state.errorModalOpen}
+          modalMessage={this.state.modalMessage}
+          modalClose={this.modalClose}
+        />
+        <Modal basic size="medium" open={this.state.completeModalOpen}>
+          <Header>
+            <Icon name="check circle outline" />
+            Property Added!
+          </Header>
+          <Link to={`/dashboard/properties/`}>
+            <Button color="blue">Return to Property List</Button>
+          </Link>
+        </Modal>
       </FlexColumn>
     );
   }

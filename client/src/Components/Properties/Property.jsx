@@ -54,7 +54,7 @@ class Property extends Component {
                 <div>
                   <p>
                     Default Employee:
-                    {property.assistants.length
+                    {property.assistants != null && property.assistants.length
                       ? `${property.assistants[0].firstName}`
                       : "Not Assigned"}
                   </p>

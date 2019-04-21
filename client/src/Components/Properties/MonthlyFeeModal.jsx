@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 
 const MonthlyFeeModal = props => {
   return (
-    <Modal open={props.open} closeIcon size={props.size}>
+    <Modal open={props.open} size={props.size}>
       <Modal.Content>
         <p>{props.modalMessage}</p>
       </Modal.Content>
