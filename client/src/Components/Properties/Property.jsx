@@ -4,6 +4,7 @@ import { Button, Image, Dimmer, Header } from "semantic-ui-react";
 import { Link } from "react-router-dom";
 import DeleteModal from "./DeleteModal";
 import ErrorModal from "./ErrorModal";
+
 class Property extends Component {
   state = {
     errorModalOpen: false,

@@ -2,23 +2,24 @@ import React, { Component } from "react";
 import PropertyCard from "./PropertyCard";
 import { FlexColumn, FlexRow, Divider } from "custom-components";
 import Search from "../shared/Search/Search";
-import { Button, Icon, Segment } from "semantic-ui-react";
+import { Button, Segment, Modal } from "semantic-ui-react";
 import { Link } from "react-router-dom";
 
 class Properties extends Component {
+  state = {
+    modalOpen: false
+  };
   componentDidMount() {
     this.props.getProperties();
   }
 
+  closeModal = () => {
+    this.setState({ modalOpen: false });
+  };
   addClickHandle = () => {
     const numOfProps = this.props.properties.length;
     if (numOfProps === 1) {
-      window.alert("we're going to have to change the billing plan");
-      this.props.history.push("/dashboard/settings");
-      //this will need to go to update plan modal. not working right now.
-    } else if (numOfProps === 9) {
-      window.alert("this account needs the discounted rate");
-      this.props.history.push("/dashboard/properties/add");
+      this.setState({ modalOpen: true });
     } else {
       this.props.history.push("/dashboard/properties/add");
     }
@@ -27,6 +28,20 @@ class Properties extends Component {
   render() {
     return (
       <FlexColumn width="800px" alignCenter style={{ position: "relative" }}>
+        <Modal size="small" open={this.state.modalOpen}>
+          <Modal.Content>
+            <p>
+              We're glad you're enjoying Roostr! To add another property, please
+              visit your settings to update to our paid plan!
+            </p>
+          </Modal.Content>
+          <Modal.Actions>
+            <Link to="/dashboard/settings">
+              <Button color="blue">Continue to Settings</Button>
+            </Link>
+            <Button onClick={this.closeModal}>Cancel</Button>
+          </Modal.Actions>
+        </Modal>
         <Segment
           as={FlexRow}
           alignCenter
