@@ -13,7 +13,7 @@ const EmployeeList = props => {
   const modEmployees = taskPropertyAssign(props);
 
   return (
-    <FlexColumn width="800px" alignCenter style={{ position: "relative" }}>
+    <FlexColumn width="full" alignCenter >
       <FlexRow>
         <Pagination
           onPageChange={handlePageChange}
