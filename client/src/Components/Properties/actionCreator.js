@@ -90,7 +90,6 @@ export const addProperty = (body = {}) => dispatch => {
   return axios
     .post(`${config.apiUrl}/api/properties`, body)
     .then(response => {
-      console.log(response);
       dispatch({
         type: actions.ADD_PROPERTY_SUCCESS,
         payload: response.data
