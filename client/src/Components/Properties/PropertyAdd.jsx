@@ -51,10 +51,10 @@ class PropertyAdd extends Component {
   handleModals = () => {
     const numOfProps = this.props.properties.length;
     const price =
-      numOfProps >= 1
-        ? (numOfProps + 1) * 8
-        : numOfProps >= 9
+      numOfProps >= 9
         ? (numOfProps + 1) * 5
+        : numOfProps >= 1
+        ? (numOfProps + 1) * 8
         : 0;
     if (
       this.state.name &&
