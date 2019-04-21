@@ -1,6 +1,6 @@
 import React, {Component} from "react";
 import { Link } from "react-router-dom";
-import { Header, Statistic, Label, Button, Segment, Dimmer, Loader, Grid, Item } from "semantic-ui-react";
+import { Header, Statistic, Label, Button, Segment, Dimmer, Loader, Divider, Icon } from "semantic-ui-react";
 import { FlexRow, FlexColumn } from "custom-components";
 import CheckoutInvoiceItemCard from "./CheckoutInvoiceItemCard";
 import { differenceInDays, format } from 'date-fns';
@@ -86,8 +86,9 @@ export default class Checkout extends Component {
         'dddd'
       );
 
-    loading = (<FlexRow alignCenter justifyBetween style={{ width: "650px" }}>
-      <FlexColumn>
+    loading = (
+    <FlexRow alignCenter justifyBetween style={{ width: "650px" }}>
+      <FlexColumn style={{paddingLeft: '2%'}}>
         <Header as='h1'>
           Review Your Reservation
         </Header>
@@ -95,11 +96,8 @@ export default class Checkout extends Component {
         <Header as='h3'>{nights} nights in {this.props.property.city}</Header>
 
 
-        <FlexRow style={{marginTop: '3em'}}>
-              <FlexRow stackable >
-
-            {/* <FlexRow.Row > */}
-            <FlexRow width={6}>
+        <FlexRow justifyBetween style={{marginTop: '1.5em', width: '80%'}}>
+            <FlexRow style={{width: '45%'}}>
               <FlexColumn alignCenter style={{backgroundColor: '#e2e2e2', width: '60px', height: '54px', marginRight: '7%'}}>
                 <p style={{marginBottom: '-5%', marginTop: '13%', fontWeight: 'bold'}}>{checkInMonth}</p>
                 <p style={{fontWeight: 'bold'}}>{checkIn[3]}{checkIn[4]}</p>
@@ -110,10 +108,8 @@ export default class Checkout extends Component {
                 <p style={{}}>2 PM - 8 PM</p>
               </FlexColumn>
             </FlexRow >
-            {/* </Grid.Row>
 
-            <Grid.Row > */}
-            <FlexRow>
+            <FlexRow style={{width: '45%'}}>
               <FlexColumn alignCenter style={{backgroundColor: '#e2e2e2', width: '60px', height: '54px', marginRight: '7%'}}>
                 <p style={{marginBottom: '-5%', marginTop: '13%', fontWeight: 'bold'}}>{checkOutMonth}</p>
                 <p style={{fontWeight: 'bold'}}>{checkOut[3]}{checkOut[4]}</p>
@@ -125,12 +121,14 @@ export default class Checkout extends Component {
               </FlexColumn>
 
               </FlexRow>
-            {/* </Grid.Row> */}
-
-              </FlexRow>
         </FlexRow>
 
-        <Header size="medium">{this.props.reservation.guest.firstName} {this.props.reservation.guest.lastName}</Header>
+        <FlexRow style={{marginTop: '5%', width: '80%'}}>
+          <Icon name='handshake outline' size='large' style={{marginRight: '2%'}} />
+          <p>On Site Staff Member: {this.props.employee.firstName} {this.props.employee.lastName}</p>
+        </FlexRow>
+
+        {/* <Header size="medium">{this.props.reservation.guest.firstName} {this.props.reservation.guest.lastName}</Header>
         <p>{this.props.reservation.guest.email}</p>
         <p>{this.props.reservation.guest.phoneNumber}</p>
 
@@ -165,13 +163,13 @@ export default class Checkout extends Component {
           <Label color="red" style={{ marginLeft: "10px" }}>
             { paid ? "Paid" : "Unpaid" }
           </Label>
-        </FlexRow>
+        </FlexRow> */}
 
         <FlexRow style={{ marginTop: "10px" }}>
           <Link to="/dashboard/reservations">
             <Button color="grey">Exit</Button>
           </Link>
-          <Button color="teal">Send Invoice</Button>
+          {/* <Button color="teal">Send Invoice</Button> */}
 
           <CheckoutModal 
             guest={this.props.reservation.guest} 
