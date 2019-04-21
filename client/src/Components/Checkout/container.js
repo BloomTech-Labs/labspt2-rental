@@ -1,5 +1,5 @@
 import { connect } from 'react-redux';
-import { getReservation, getEmployee, getProperty } from './actionCreator';
+import { getReservation, getEmployee, getProperty, checkout } from './actionCreator';
 import { withRouter } from "react-router-dom";
 import Checkout from './Checkout.jsx';
 
@@ -16,7 +16,8 @@ const connector = connect(
     {
         getEmployee, 
         getReservation,
-        getProperty
+        getProperty,
+        checkout
     }
 )
 

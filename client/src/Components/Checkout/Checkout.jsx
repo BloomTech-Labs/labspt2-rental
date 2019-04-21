@@ -114,14 +114,16 @@ export default class Checkout extends Component {
             <Button color="grey">Exit</Button>
           </Link>
           <Button color="teal">Send Invoice</Button>
+
           <CheckoutModal 
             guest={this.props.reservation.guest} 
             total={this.state.total} 
             nights={nights} 
             cleaningFee={this.props.reservation.cleaningFee} 
-            price={this.props.property.price} 
+            price={this.props.property.price}
+            checkout={this.props.checkout} 
+            reservationID={this.props.reservation._id}
           />
-          {/* <Button color="orange">Process Payment</Button> */}
         </FlexRow>
 
       </FlexColumn>

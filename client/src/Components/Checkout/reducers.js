@@ -5,7 +5,8 @@ const initialState = {
   error: false,
   reservation: {},
   property: {},
-  employee: {}
+  employee: {},
+  billing: {}
 };
 
 const checkoutReducer = (state = initialState, action) => {
@@ -19,7 +20,7 @@ const checkoutReducer = (state = initialState, action) => {
     return {
       ...state,
       loading: false,
-      // set billing success
+    //   billing: action.payload
     };
   case actions.CHECKOUT_ERROR:
     return {

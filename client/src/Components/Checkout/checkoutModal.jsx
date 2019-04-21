@@ -15,6 +15,7 @@ export default class CheckoutModal extends Component {
 
   render() {
     const { open } = this.state;
+    const stripeTotalAmount = this.props.total * 100;
 
     return (
       <div>
@@ -51,15 +52,16 @@ export default class CheckoutModal extends Component {
                 </Grid.Row>
 
               </Grid>
-              {/* <Divider vertical /> */}
             </Segment>
 
             <StripeProvider apiKey={config.stripeApiKey}>
               <Elements>
                 <CheckoutElement
                   close={this.close}
-                //   user={this.props.user}
-                //   properties={this.props.properties}
+                  guest={this.props.guest} 
+                  checkout={this.props.checkout} 
+                  totalAmount={stripeTotalAmount}
+                  reservationID={this.props.reservationID}
                 />
               </Elements>
             </StripeProvider>

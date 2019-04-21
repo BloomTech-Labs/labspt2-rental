@@ -1,4 +1,6 @@
 import React, { Component } from "react";
+import { Link } from "react-router-dom";
+import { FlexColumn } from "custom-components";
 import { CardElement, injectStripe } from "react-stripe-elements";
 import {
   Button,
@@ -8,8 +10,6 @@ import {
   Icon,
   Loader
 } from "semantic-ui-react";
-import axios from "axios";
-import config from "../../config/index";
 
 // update package.json proxy line with non local host
 
@@ -20,44 +20,30 @@ class CheckoutElement extends Component {
     this.submit = this.submit.bind(this);
   }
 
-  dimmerClose = () => this.setState({ active: false, open: false });
+  dimmerClose = () => {
+      this.setState({ active: false, open: false });
+};
 
   async submit(ev) {
     this.setState({
-      loading: true
+      loading: true,
+      zip: '77059'
     });
 
-    // let planType = "";
+    let token = await this.props.stripe.createToken({
+      email: this.props.guest.email,
+      address_zip: this.state.zip,
+      name: `${this.props.guest.firstName} ${this.props.guest.lastName}`
+    });
 
-    // if (this.props.free === true && this.props.upgraded === false) {
-    //   planType = "upgraded";
-    // } else if (this.props.free === false && this.props.upgraded === true) {
-    //   planType = "free";
-    // } else {
-    //   window.alert("Error - plan type not chosen");
-    // }
+    let response = await this.props.checkout(token, this.props.totalAmount, this.props.reservationID)
 
-    // let { token } = await this.props.stripe.createToken({
-    //   email: this.props.user.email,
-    //   address_line1: this.props.user.billingAddress.address1,
-    //   address_city: this.props.user.billingAddress.city,
-    //   address_state: this.props.user.billingAddress.state,
-    //   address_zip: this.props.user.billingAddress.zip,
-    //   name: `${this.props.user.firstName} ${this.props.user.lastName}`
-    // });
-
-    // let response = await axios.post(`${config.apiUrl}/api/stripe/subscribe`, {
-    //   token: token,
-    //   updatedPlan: planType
-    // });
-
-    // if (response) {
-    //   this.setState({
-    //     loading: false
-    //   });
-    // }
-
-    // if (response.status === 201) this.setState({ complete: true });
+    if (response === 201) {
+      this.setState({
+        loading: false,
+        complete: true
+      });
+    }
   }
 
   render() {
@@ -65,10 +51,17 @@ class CheckoutElement extends Component {
     if (this.state.complete) {
       success = (
         <Dimmer active onClickOutside={this.props.close} page>
+        <FlexColumn alignCenter >
           <Header as="h2" icon inverted>
             <Icon name="check circle outline" />
             Reservation Successfully Paid!
           </Header>
+          <Link to={`/dashboard/reservations/view/${this.props.reservationID}`}>
+          <Button style={{marginTop: '1em'}}>
+              Close
+          </Button>
+          </Link>
+          </FlexColumn>
         </Dimmer>
       );
     } else {

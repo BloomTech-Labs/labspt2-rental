@@ -12,6 +12,8 @@ import {
 import { FlexRow, FlexColumn, Text } from "custom-components";
 import { Link } from "react-router-dom";
 
+// BUG: Needs to update when routed back to after payment to display paid: true
+
 class ReservationView extends Component {
   render() {
     const reservation = this.props.reservations.find(

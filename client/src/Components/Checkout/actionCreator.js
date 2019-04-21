@@ -21,7 +21,7 @@ export const getReservation = reservationID => {
         dispatch({ type: actions.FETCH_RESERVATION_ERROR, payload: err.message });
       }
     };
-  };
+};
 
 export const getEmployee = employeeID => {
     return async dispatch => {
@@ -37,7 +37,7 @@ export const getEmployee = employeeID => {
             dispatch({ type: actions.FETCH_EMPLOYEE_ERROR, payload: err });
         }
     }
-}
+};
 
 export const getProperty = propertyID => {
     return async dispatch => {
@@ -53,4 +53,25 @@ export const getProperty = propertyID => {
             dispatch({ type: actions.CHECKOUT_PROPERTY_ERROR, payload: err });
         }
     }
-}
+};
+
+export const checkout = (token, amount, reservationID) => {
+    return async dispatch => {
+      dispatch({ type: actions.CHECKOUT_STARTED });
+      try {
+        const payment = await axios.post(
+          `${config.apiUrl}/api/stripe/charge`,
+          {token: token, amount: amount, reservationID: reservationID}
+        );
+        console.log('actionCreator', payment)
+        dispatch({
+          type: actions.CHECKOUT_SUCCESS,
+          payload: payment
+        });
+        return payment.status
+      } catch (err) {
+        console.error(err);
+        dispatch({ type: actions.CHECKOUT_ERROR, payload: err });
+      }
+    };
+};
