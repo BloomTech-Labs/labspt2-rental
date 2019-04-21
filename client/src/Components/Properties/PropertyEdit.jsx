@@ -167,24 +167,22 @@ class PropertyEdit extends Component {
                 label="Pause reservations"
                 onClick={this.checkboxHandler}
               />
-              <Form.Group inline>
-                <Link to={`/dashboard/properties/`}>
-                  <Form.Field
-                    control={Button}
-                    style={{ margin: "5px" }}
-                    color="green"
-                    onClick={this.handleSubmit}
-                  >
-                    Update
-                  </Form.Field>
-                  <Form.Field
-                    control={Button}
-                    style={{ margin: "5px" }}
-                    color="red"
-                  >
-                    Cancel
-                  </Form.Field>
-                </Link>
+              <Form.Group inline style={{ margin: 0 }}>
+                <FlexRow width="full" justifyEnd>
+                  <Link to={`/dashboard/properties/`}>
+                    <Button control={Button} style={{ margin: "5px" }}>
+                      Cancel
+                    </Button>
+                    <Button
+                      control={Button}
+                      style={{ margin: "5px" }}
+                      color="blue"
+                      onClick={this.handleSubmit}
+                    >
+                      Update
+                    </Button>
+                  </Link>
+                </FlexRow>
               </Form.Group>
             </Form>
           </FlexColumn>
