@@ -1,7 +1,7 @@
 import { connect } from 'react-redux';
 import { getReservation, getEmployee, getProperty } from './actionCreator';
 import { withRouter } from "react-router-dom";
-import Checkout from './Checkout';
+import Checkout from './Checkout.jsx';
 
 const mapStateToProps = ({checkout}) => ({
     loading: checkout.loading,

@@ -4,6 +4,7 @@ import { Header, Statistic, Label, Button, Segment, Dimmer, Loader } from "seman
 import { FlexRow, FlexColumn } from "custom-components";
 import CheckoutInvoiceItemCard from "./CheckoutInvoiceItemCard";
 import { differenceInDays, format } from 'date-fns';
+import CheckoutModal from './checkoutModal';
 
 export default class Checkout extends Component {
   constructor(props){
@@ -18,6 +19,7 @@ export default class Checkout extends Component {
         .then(response => {
           this.props.getProperty(this.props.reservation.property)
             .then(response => {
+              this.calculateTotal();
               this.setState({
                 loading: false
               })
@@ -27,7 +29,14 @@ export default class Checkout extends Component {
   }
 
   calculateTotal = () => {
-    console.log('nightly price', this.props.property.price)
+    const nights = differenceInDays(
+      new Date(this.props.reservation.checkOut),
+      new Date(this.props.reservation.checkIn)
+    );
+    const totalBill = (nights * this.props.property.price) + this.props.reservation.cleaningFee;
+    this.setState({
+      total: totalBill
+    })
   }
 
   render(){
@@ -59,8 +68,8 @@ export default class Checkout extends Component {
 
     loading = (<FlexRow alignCenter justifyBetween style={{ width: "650px" }}>
       <FlexColumn>
-        <Header size="large" color="orange">
-          Booking ID: {this.props.match.params.id}
+        <Header as='h1' color="orange">
+          Review Reservation
         </Header>
 
         <Header size="medium">{this.props.reservation.guest.firstName} {this.props.reservation.guest.lastName}</Header>
@@ -105,7 +114,14 @@ export default class Checkout extends Component {
             <Button color="grey">Exit</Button>
           </Link>
           <Button color="teal">Send Invoice</Button>
-          <Button color="orange">Process Payment</Button>
+          <CheckoutModal 
+            guest={this.props.reservation.guest} 
+            total={this.state.total} 
+            nights={nights} 
+            cleaningFee={this.props.reservation.cleaningFee} 
+            price={this.props.property.price} 
+          />
+          {/* <Button color="orange">Process Payment</Button> */}
         </FlexRow>
 
       </FlexColumn>
