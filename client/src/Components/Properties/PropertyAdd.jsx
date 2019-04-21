@@ -1,18 +1,28 @@
 import React, { Component } from "react";
 import { Input, Button, Dropdown, Form } from "semantic-ui-react";
 import { Link } from "react-router-dom";
-import { FlexColumn, FlexRow } from "custom-components";
+import { FlexColumn } from "custom-components";
+import MonthlyFeeModal from "./MonthlyFeeModal";
+import ErrorModal from "./ErrorModal";
 
 class PropertyAdd extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      image: "https://i.imgur.com/Cn7QlCX.jpg"
+      image: "https://i.imgur.com/Cn7QlCX.jpg",
+      address2: null,
+      occupants: null,
+      assistants: null,
+      errorModalOpen: false,
+      priceModalOpen: false,
+      modalMessage: "",
+      modalSize: "mini"
     };
   }
 
   componentDidMount() {
     this.props.getEmployees();
+    this.props.getProperties();
   }
 
   handleChange(prop, val) {
@@ -20,6 +30,32 @@ class PropertyAdd extends Component {
   }
 
   handleSubmit = () => {
+    const newProp = {
+      name: this.state.name,
+      address1: this.state.address1,
+      address2: this.state.address2,
+      city: this.state.city,
+      state: this.state.state,
+      zip: this.state.zip,
+      price: this.state.price,
+      occupants: this.state.occupants,
+      assistants: this.state.assistants,
+      image: this.state.image
+    };
+    this.props.addProperty(newProp).then(response => {
+      window.alert("Property created");
+      this.props.history.push(`/dashboard/properties/`);
+    });
+  };
+
+  handleModals = () => {
+    const numOfProps = this.props.properties.length;
+    const price =
+      numOfProps >= 1
+        ? (numOfProps + 1) * 8
+        : numOfProps >= 9
+        ? (numOfProps + 1) * 5
+        : 0;
     if (
       this.state.name &&
       this.state.address1 &&
@@ -30,16 +66,26 @@ class PropertyAdd extends Component {
       this.state.state.length === 2 &&
       this.state.zip.length === 5
     ) {
-      this.props.addProperty(this.state).then(response => {
-        window.alert("Property created");
-        this.props.history.push(`/dashboard/properties/`);
+      this.setState({
+        priceModalOpen: true,
+        modalMessage: `Your monthly cost will now be $${price}.`,
+        modalSize: "small"
       });
     } else if (this.state.state.length !== 2) {
-      window.alert("State must be 2 character abbreviation");
+      this.setState({
+        modalMessage: "State must be 2 character abbreviation",
+        errorModalOpen: true
+      });
     } else if (this.state.zip.length !== 5) {
-      window.alert("Zip code must be in 5 digit format.");
+      this.setState({
+        modalMessage: "Zip code must be in 5 digit format.",
+        errorModalOpen: true
+      });
     } else {
-      window.alert("All fields marked with an * are required.");
+      this.setState({
+        modalMessage: "All fields marked with an * are required.",
+        errorModalOpen: true
+      });
     }
   };
   render() {
@@ -139,7 +185,7 @@ class PropertyAdd extends Component {
               control={Button}
               style={{ margin: "5px" }}
               color="green"
-              onClick={this.handleSubmit}
+              onClick={this.handleModals}
             >
               Create Property
             </Form.Field>
@@ -154,6 +200,12 @@ class PropertyAdd extends Component {
             </Link>
           </Form.Group>
         </Form>
+        <MonthlyFeeModal
+          size={this.state.size}
+          open={this.state.priceModalOpen}
+          modalMessage={this.state.modalMessage}
+          submitHandler={this.handleSubmit}
+        />
       </FlexColumn>
     );
   }
