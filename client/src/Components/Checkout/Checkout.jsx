@@ -136,28 +136,34 @@ export default class Checkout extends Component {
 
         {/* Reservation Details and Cost Breakdown */}
         <React.Fragment >
-          <Grid divided='vertically' style={{marginLeft: '0%', marginTop: '0%', width: '100%', border: '1px solid blue'}} >
+          <Grid divided='vertically' style={{marginLeft: '0%', marginTop: '0%', width: '100%'}} >
             <Grid.Row>
-              <FlexRow style={{marginTop: '5%', width: '80%'}}>
-                <Icon name='handshake outline' size='large' style={{marginRight: '2%', color: 'light green'}} />
-                <FlexRow justifyBetween style={{width: '70%'}}>
+              <FlexRow style={{marginTop: '5%', width: '80%', marginLeft: '10%'}}>
+                <Icon name='moon outline' size='large' style={{marginRight: '2%', color: 'light green'}} />
+                {/* <FlexRow justifyBetween style={{width: '70%'}}> */}
                   <p>${this.props.property.price}.00 X {nights} nights</p>
-                  <p>${nightlyTotal}.00</p>
-                </FlexRow>
+                  {/* <p>${nightlyTotal}.00</p>
+                </FlexRow> */}
               </FlexRow>
             </Grid.Row>
 
             <Grid.Row>
-              <FlexRow style={{marginTop: '5%', width: '80%'}}>
-                <Icon name='users' size='large' style={{marginRight: '2%'}} />
+              <FlexRow style={{marginTop: '1%', width: '80%', marginLeft: '10%'}}>
+                <Icon name='user outline' size='large' style={{marginRight: '2%'}} />
                 <p>Guests: {this.props.reservation.guests}</p>
               </FlexRow>
             </Grid.Row>
 
             <Grid.Row>
-              <FlexRow style={{marginTop: '3%', width: '80%'}}>
-                <Icon name='handshake outline' size='large' style={{marginRight: '2%'}} />
-                <p>Total: ${this.state.total}.00</p>
+              <FlexRow style={{marginTop: '1%', width: '80%', marginLeft: '10%'}}>
+                <Icon name='star outline' size='large' style={{marginRight: '2%'}} />
+                <o>Cleaning Fee: ${this.props.reservation.cleaningFee}.00</o>
+              </FlexRow>
+            </Grid.Row>
+
+            <Grid.Row >
+              <FlexRow style={{marginLeft: '10%'}}>
+                <p><strong>Total:</strong> ${this.state.total}.00</p>
               </FlexRow>
             </Grid.Row>
           </Grid>
