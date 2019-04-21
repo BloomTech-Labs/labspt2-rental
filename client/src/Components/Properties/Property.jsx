@@ -1,16 +1,22 @@
 import React, { Component } from "react";
 import { FlexColumn, FlexRow } from "custom-components";
-import { Checkbox, Button, Image } from "semantic-ui-react";
+import { Button, Image, Dimmer, Header } from "semantic-ui-react";
 import { Link } from "react-router-dom";
-import { END_DATE } from "react-dates/lib/constants";
-
+import DeleteModal from "./DeleteModal";
+import ErrorModal from "./ErrorModal";
 class Property extends Component {
+  state = {
+    errorModalOpen: false,
+    deleteModalOpen: false,
+    dimmerOpen: false,
+    modalMessage: ""
+  };
   componentDidMount() {
     this.props.getProperties();
     this.props.getReservations();
   }
 
-  handleDelete = () => {
+  openModal = () => {
     const reservationMatch = this.props.reservations.map(reservation => {
       if (reservation.property == null) {
         return false;
@@ -18,14 +24,30 @@ class Property extends Component {
         return true;
       } else return false;
     });
-    console.log(reservationMatch);
     if (reservationMatch.includes(true)) {
-      window.alert("Active reservation, property cannot be deleted");
+      this.setState({
+        errorModalOpen: true,
+        modalMessage: "Active reservation, property cannot be deleted"
+      });
     } else {
-      this.props.deleteProperty(this.props.match.params.id);
-      window.alert("Property has been deleted");
-      this.props.history.push("/dashboard/properties");
+      this.setState({
+        deleteModalOpen: true
+      });
     }
+  };
+
+  modalClose = () => {
+    this.setState({ errorModalOpen: false });
+  };
+  handleDelete = () => {
+    this.props.deleteProperty(this.props.match.params.id);
+    this.setState({ dimmerOpen: true, deleteModalOpen: false });
+  };
+  successClose = () => {
+    this.setState({
+      dimmerOpen: false
+    });
+    this.props.history.push("/dashboard/properties");
   };
 
   render() {
@@ -37,6 +59,29 @@ class Property extends Component {
       <>
         {property && (
           <div>
+            <Dimmer
+              size="fullscreen"
+              active={this.state.dimmerOpen}
+              page
+              onClickOutside={this.successClose}
+            >
+              <Header as="h1" inverted>
+                Property Deleted!
+                <Header.Subheader>
+                  Click to return to Property List
+                </Header.Subheader>
+              </Header>
+            </Dimmer>
+            <DeleteModal
+              open={this.state.deleteModalOpen}
+              submitHandler={this.handleDelete}
+            />
+            <ErrorModal
+              size="mini"
+              open={this.state.errorModalOpen}
+              modalMessage={this.state.modalMessage}
+              modalClose={this.modalClose}
+            />
             <FlexRow>
               <FlexColumn>
                 <h1>{property.name}</h1>
@@ -63,7 +108,7 @@ class Property extends Component {
                   <Link to={`/dashboard/properties/edit/${property._id}`}>
                     <Button content="Edit" color="blue" />
                   </Link>
-                  <Button onClick={this.handleDelete}>Delete</Button>
+                  <Button onClick={this.openModal}>Delete</Button>
                 </FlexRow>
               </FlexColumn>
               <FlexColumn>

@@ -240,9 +240,11 @@ class PropertyAdd extends Component {
           page
           onClickOutside={this.successClose}
         >
-          <Header as="h2" inverted>
-            <Icon size="big" inverted name="check circle outline" />
+          <Header as="h1" inverted>
             Property Added!
+            <Header.Subheader>
+              Click to return to Property List
+            </Header.Subheader>
           </Header>
         </Dimmer>
       </FlexColumn>
