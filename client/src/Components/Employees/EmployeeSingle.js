@@ -70,7 +70,9 @@ class EmployeeSingle extends Component {
     return (
       <Container>
         {this.loading ? (
-          <div>Please wait...</div>
+          this.props.match.params.id === "add" ? null : (
+            <div>Please wait...</div>
+          )
         ) : (
           <FlexColumn justifyCenter alignStart width="full">
             <FlexRow justifyAround alignCenter width="full">
