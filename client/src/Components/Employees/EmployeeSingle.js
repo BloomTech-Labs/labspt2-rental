@@ -24,16 +24,18 @@ class EmployeeSingle extends Component {
     }
   }
 
-  removeEmplFromProperty = (id) => {
+  removeEmplFromProperty = id => {
     // this removes an employee from a property's assigned employee list
-    const property = this.props.properties.find(item => item._id === id)
-    const { assistants } = property
-    console.log(property)
-    const newAssistants = assistants.filter(item => item._id !== this.props.match.params.id)
-    console.log(newAssistants)
-    console.log({...property, assistants: newAssistants})
+    const property = this.props.properties.find(item => item._id === id);
+    const { assistants } = property;
+    console.log(property);
+    const newAssistants = assistants.filter(
+      item => item._id !== this.props.match.params.id
+    );
+    console.log(newAssistants);
+    console.log({ ...property, assistants: newAssistants });
     // this.props.updateProperty({...property, assistants: newAssistants})
-  }
+  };
 
   permissionChange = body => {
     this.props.updateEmployee(this.props.match.params.id, body);
@@ -68,7 +70,9 @@ class EmployeeSingle extends Component {
     return (
       <Container>
         {this.loading ? (
-          <div>Please wait...</div>
+          this.props.match.params.id === "add" ? null : (
+            <div>Please wait...</div>
+          )
         ) : (
           <FlexColumn justifyCenter alignStart width="full">
             <FlexRow justifyAround alignCenter width="full">
@@ -154,12 +158,13 @@ class EmployeeSingle extends Component {
               </FlexColumn>
               <FlexColumn alignCenter width="30%">
                 <Header as="h2">Assigned Properties</Header>
-                {typeof employee.assignedProp !== 'undefined' && employee.assignedProp.length ? (
+                {typeof employee.assignedProp !== "undefined" &&
+                employee.assignedProp.length ? (
                   employee.assignedProp.map(property => (
                     <EmployeePropertyCard
                       key={property._id}
                       property={property}
-                      removeEmplFromProperty = {this.removeEmplFromProperty}
+                      removeEmplFromProperty={this.removeEmplFromProperty}
                     />
                   ))
                 ) : (

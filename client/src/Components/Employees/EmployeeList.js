@@ -12,7 +12,7 @@ const EmployeeList = props => {
   // modEmployees is used as a temp replacement for employees because employees is read-only at this point and cannot be directly modified
   const modEmployees = taskPropertyAssign(props);
   return (
-    <FlexColumn width="800px" alignCenter style={{ position: "relative" }}>
+    <FlexColumn width="full" alignCenter >
       <FlexRow>
         <Pagination
           onPageChange={handlePageChange}

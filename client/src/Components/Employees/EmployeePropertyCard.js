@@ -5,10 +5,11 @@ import { FlexRow, Container, FlexColumn } from "custom-components";
 
 const EmployeePropertyCard = props => {
   return (
-    <Link to={`/dashboard/properties/${props.property._id}`} style={{ width: "75%", textAlign: "center" }} >
-      <Segment  raised>
-        {props.property.name}
-      </Segment>
+    <Link
+      to={`/dashboard/properties/view/${props.property._id}`}
+      style={{ width: "75%", textAlign: "center" }}
+    >
+      <Segment raised>{props.property.name}</Segment>
     </Link>
   );
 };

@@ -6,7 +6,8 @@ import {
   Icon,
   Popup,
   Label,
-  Statistic
+  Statistic,
+  Responsive
 } from "semantic-ui-react";
 import { FlexRow, FlexColumn } from "custom-components";
 import { Link } from "react-router-dom";
@@ -39,7 +40,9 @@ const label = ({ children, hover }) => (
   />
 );
 const statA = ({ children, label }) => (
-  <Statistic size="tiny" style={{ margin: "0 15px" }}>
+
+  <Statistic size="tiny" style={{ margin: "0 15px 0 0" }}>
+
     <Statistic.Label>{label}</Statistic.Label>
     <Statistic.Value>{children}</Statistic.Value>
   </Statistic>
@@ -68,33 +71,38 @@ class InfoCard extends Component {
     });
 
     return (
-      <FlexRow alignCenter justifyBetween width="full" wrap>
-        {components.image}
+      <>
+        {/* Desktop view */}
+        <Responsive minWidth={701}>
+          <FlexRow alignCenter justifyBetween width="full" wrap>
+            {components.image}
 
-        <FlexColumn grow="1" spaceLeft="20px">
+
+        <FlexColumn grow="1" spaceLeft="20px" spaceRight="20px">
           <FlexRow alignCenter spaceBottom="10px">
             {components.title}
             {components.id}
           </FlexRow>
 
-          <FlexRow justifyBetween alignCenter width="full">
-            {components.label}
-
-            <FlexRow grow="1" spaceRight="20px" spaceLeft="20px" justifyCenter>
-              {components.statA}
-              {components.statB}
-            </FlexRow>
-
-            <FlexColumn>
-              <Link to={props.link}>
-                <Button style={{ margin: "10px 0" }}>
-                  {props.linkName || "More Info"}
-                </Button>
-              </Link>
-            </FlexColumn>
-          </FlexRow>
+          {components.label}
         </FlexColumn>
+
+        <FlexRow grow="1" justifyBetween spaceTop>
+          <FlexRow spaceRight="20px">
+            {components.statA}
+            {components.statB}
+          </FlexRow>
+
+          <FlexColumn>
+            <Link to={props.link}>
+              <Button style={{ margin: "10px 0" }}>
+                {props.linkName || "More Info"}
+              </Button>
+            </Link>
+          </FlexColumn>
+        </FlexRow>
       </FlexRow>
+
     );
   }
 }

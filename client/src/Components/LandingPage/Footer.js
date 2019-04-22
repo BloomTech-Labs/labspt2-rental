@@ -1,18 +1,23 @@
 import React from "react";
 import PropTypes from "prop-types";
-import {
-  Container,
-  Grid,
-  Header,
-  List,
-  Segment
-} from "semantic-ui-react";
+import { Container, Grid, Header, List, Segment } from "semantic-ui-react";
 
-export const Footer = ({mobile}) => (
-    <Segment inverted vertical style={{ padding: mobile ? "0em 0em 2em 0em" : "5em 0em" }}>
-        <Container>
-          <Grid divided inverted stackable>
-            <Grid.Row>
+export const Footer = ({ mobile }) => (
+  <Segment
+    inverted
+    vertical
+    style={{ padding: mobile ? "0em 0em 2em 0em" : "5em 0em" }}
+  >
+    <Container>
+      <Grid divided inverted stackable>
+        <Grid.Row>
+          <Grid.Column width={3}>
+            <Header inverted as="h4" content="About" />
+            <List link inverted>
+              <List.Item as="a">Sitemap</List.Item>
+              <List.Item as="a">Contact Us</List.Item>
+            </List>
+          </Grid.Column>
 
               <Grid.Column width={3} >
                 <Header inverted as="h4" content="About" />

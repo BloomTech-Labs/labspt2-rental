@@ -68,7 +68,7 @@ export default class PasswordModal extends Component {
           newPassword: { password: newPassword }
         })
         .then(success => {
-          console.log('password success', success)
+          console.log("password success", success);
           this.setState({
             active: true
           });

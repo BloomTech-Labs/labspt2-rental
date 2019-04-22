@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { Header, Tab, Icon, Segment, Label } from "semantic-ui-react";
+import { Header, Tab, Icon, Segment } from "semantic-ui-react";
 import { FlexColumn, FlexRow } from "custom-components";
 import { Link } from "react-router-dom";
 import Search from "../shared/Search/Search";
@@ -47,6 +47,11 @@ class Tasks extends Component {
     this.props.getTasks({ ...this.query });
   };
 
+  toggleComplete = task => {
+    task.completed = task.completed ? false : true;
+    this.props.toggleTask(task);
+  };
+
   render() {
     const { tabs } = this.state;
     const {
@@ -64,9 +69,6 @@ class Tasks extends Component {
             </Segment>
           </Link>
         </FlexRow>
-
-        {/* <Label color='red' circular>{taskCount}</Label>
-        <Label color='red' circular>{pageSize}</Label> */}
 
         <Tab
           onTabChange={this.handleTabChange}
@@ -86,13 +88,19 @@ class Tasks extends Component {
                       loading={loading}
                       count={Math.ceil(taskCount / pageSize)}
                       page={page}
+                      toggleComplete={this.toggleComplete}
                     />
                   )}
                 </Tab.Pane>
               )
             })),
             {
-              menuItem: <Search onChange={this.handleSearchChange} />
+              menuItem: (
+                <Search
+                  onChange={this.handleSearchChange}
+                  style={{ minWidth: "300px", flexGrow: "1" }}
+                />
+              )
             }
           ]}
         />
