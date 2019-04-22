@@ -12,6 +12,7 @@ export const getReservation = reservationID => {
       dispatch({ type: actions.FETCH_RESERVATION_STARTED });
       try {
         const reservation = await axios.get(`${config.apiUrl}/api/reservations/${reservationID}`);
+        console.log('reservation fetch payload .data', reservation.data.data)
         dispatch({
           type: actions.FETCH_RESERVATION_SUCCESS,
           payload: reservation.data.data

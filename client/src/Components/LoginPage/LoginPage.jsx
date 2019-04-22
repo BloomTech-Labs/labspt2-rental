@@ -89,15 +89,7 @@ class LoginPage extends Component {
 
     let submitButton;
     if (disabled) {
-<<<<<<< HEAD
       submitButton = <Button basic color='green' type='submit' disabled>Update</Button>;
-=======
-      submitButton = (
-        <Button basic color="green" disabled>
-          Update
-        </Button>
-      );
->>>>>>> edbed045984ec907cf3a23f3210b461080a809e3
     } else {
       submitButton = (
         <Button color="green" type="submit" active>
@@ -166,11 +158,7 @@ class LoginPage extends Component {
                   Not yet registered?
                 </p>
                 <Link to="/register">
-<<<<<<< HEAD
                   <Button type='button'>Register</Button >
-=======
-                  <Button>Register</Button>
->>>>>>> edbed045984ec907cf3a23f3210b461080a809e3
                 </Link>
               </FlexColumn>
 

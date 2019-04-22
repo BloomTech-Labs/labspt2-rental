@@ -146,11 +146,7 @@ class RegistrationPage extends Component {
         style={{ backgroundColor: "#1a1b1c", height: "100vh" }}
       >
         <Segment className="sm-container">
-<<<<<<< HEAD
           <Header size='large' style={{color:"#4ca34b"}}>Registration</Header>
-=======
-          <Header size="large">Registration</Header>
->>>>>>> edbed045984ec907cf3a23f3210b461080a809e3
           {success}
           <Divider />
 
@@ -238,11 +234,7 @@ class RegistrationPage extends Component {
                   Already registered?
                 </p>
                 <Link to="/login">
-<<<<<<< HEAD
                   <Button type='button'>Login</Button >
-=======
-                  <Button>Login</Button>
->>>>>>> edbed045984ec907cf3a23f3210b461080a809e3
                 </Link>
               </FlexColumn>
 

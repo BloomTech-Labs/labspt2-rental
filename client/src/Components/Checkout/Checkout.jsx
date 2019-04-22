@@ -15,18 +15,12 @@ export default class Checkout extends Component {
   componentDidMount = () => {
     this.props.getReservation(`${this.props.match.params.id}`)
     .then(response => {
-      this.props.getEmployee(this.props.reservation.assistant)
-        .then(response => {
-          this.props.getProperty(this.props.reservation.property)
-            .then(response => {
-              this.calculateTotal();
-              this.setState({
-                loading: false
-              })
-            })
-        })
+      this.calculateTotal();
+      this.setState({
+        loading: false
+      })
     })
-  }
+  };
 
   calculateTotal = () => {
     const nights = differenceInDays(
@@ -39,7 +33,7 @@ export default class Checkout extends Component {
       total: totalBill,
       stripeTotal: stripeTotal
     })
-  }
+  };
 
   render(){
     let loading;
@@ -52,13 +46,10 @@ export default class Checkout extends Component {
         </Segment>
       );
     } else {
-      let paid = this.props.reservation.paid;
-
       const nights = differenceInDays(
         new Date(this.props.reservation.checkOut),
         new Date(this.props.reservation.checkIn)
       );
-      const nightlyTotal = nights * this.props.property.price;
 
       const checkIn = format(
         new Date(this.props.reservation.checkIn),
@@ -138,10 +129,7 @@ export default class Checkout extends Component {
             <Grid.Row>
               <FlexRow style={{marginTop: '5%', width: '80%', marginLeft: '10%'}}>
                 <Icon name='moon outline' size='large' style={{marginRight: '2%', color: 'light green'}} />
-                {/* <FlexRow justifyBetween style={{width: '70%'}}> */}
                   <p>${this.props.property.price}.00 X {nights} nights</p>
-                  {/* <p>${nightlyTotal}.00</p>
-                </FlexRow> */}
               </FlexRow>
             </Grid.Row>
 
@@ -187,5 +175,5 @@ export default class Checkout extends Component {
     return (
       <React.Fragment>{loading}</React.Fragment>
   );
-};
+  };
 }

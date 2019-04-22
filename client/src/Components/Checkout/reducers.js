@@ -6,7 +6,6 @@ const initialState = {
   reservation: {},
   property: {},
   employee: {},
-  billing: {}
 };
 
 const checkoutReducer = (state = initialState, action) => {
@@ -20,7 +19,6 @@ const checkoutReducer = (state = initialState, action) => {
     return {
       ...state,
       loading: false,
-    //   billing: action.payload
     };
   case actions.CHECKOUT_ERROR:
     return {
@@ -37,43 +35,11 @@ const checkoutReducer = (state = initialState, action) => {
       return {
         ...state,
         loading: false,
-        reservation: action.payload
+        reservation: action.payload,
+        property: action.payload.property,
+        employee: action.payload.assistant
       };
     case actions.FETCH_RESERVATION_ERROR:
-      return {
-        ...state,
-        loading: false,
-        error: action.error
-      };
-    case actions.FETCH_PROPERTY_STARTED:
-      return {
-        ...state,
-        loading: true
-      };
-    case actions.FETCH_PROPERTY_SUCCESS:
-      return {
-        ...state,
-        loading: false,
-        property: action.payload
-      };
-    case actions.FETCH_PROPERTY_FAILURE:
-      return {
-        ...state,
-        loading: false,
-        error: action.error
-      };
-      case actions.FETCH_EMPLOYEE_STARTED:
-      return {
-        ...state,
-        loading: true
-      };
-    case actions.FETCH_EMPLOYEE_SUCCESS:
-      return {
-        ...state,
-        loading: false,
-        employee: action.payload
-      };
-    case actions.FETCH_EMPLOYEE_ERROR:
       return {
         ...state,
         loading: false,
