@@ -84,7 +84,8 @@ class ReservationEdit extends Component {
                 options={
                   this.props.loading
                     ? [{ text: "Loading...", value: "loading" }]
-                    : this.props.properties.map(p => ({
+                    : this.props.properties &&
+                      this.props.properties.map(p => ({
                         key: p._id,
                         text: p.name,
                         value: p._id
@@ -100,7 +101,8 @@ class ReservationEdit extends Component {
                 options={
                   this.props.loading
                     ? [{ text: "Loading...", value: "loading" }]
-                    : this.props.employees.map(e => ({
+                    : this.props.employees &&
+                      this.props.employees.map(e => ({
                         key: e._id,
                         text: e.firstName + " " + e.lastName,
                         value: e._id
