@@ -2,17 +2,11 @@ import axios from "axios";
 import * as actions from "./actions";
 import config from "../../config/index";
 
-// Checkout info required 
-// Guest: First & Last Name, email, phone number.
-// Property: name, address, employee, Cleaning Fee
-// Reservation: Check in, Check out, Nights, Guests, Paid status, Booking ID
-
 export const getReservation = reservationID => {
     return async dispatch => {
       dispatch({ type: actions.FETCH_RESERVATION_STARTED });
       try {
         const reservation = await axios.get(`${config.apiUrl}/api/reservations/${reservationID}`);
-        console.log('reservation fetch payload .data', reservation.data.data)
         dispatch({
           type: actions.FETCH_RESERVATION_SUCCESS,
           payload: reservation.data.data
