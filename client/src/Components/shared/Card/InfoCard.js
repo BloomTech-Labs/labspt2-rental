@@ -40,9 +40,7 @@ const label = ({ children, hover }) => (
   />
 );
 const statA = ({ children, label }) => (
-
   <Statistic size="tiny" style={{ margin: "0 15px 0 0" }}>
-
     <Statistic.Label>{label}</Statistic.Label>
     <Statistic.Value>{children}</Statistic.Value>
   </Statistic>
@@ -77,37 +75,37 @@ class InfoCard extends Component {
           <FlexRow alignCenter justifyBetween width="full" wrap>
             {components.image}
 
+            <FlexColumn grow="1" spaceLeft="20px" spaceRight="20px">
+              <FlexRow alignCenter spaceBottom="10px">
+                {components.title}
+                {components.id}
+              </FlexRow>
 
-        <FlexColumn grow="1" spaceLeft="20px" spaceRight="20px">
-          <FlexRow alignCenter spaceBottom="10px">
-            {components.title}
-            {components.id}
+              {components.label}
+            </FlexColumn>
+
+            <FlexRow grow="1" justifyBetween spaceTop>
+              <FlexRow spaceRight="20px">
+                {components.statA}
+                {components.statB}
+              </FlexRow>
+
+              <FlexColumn>
+                <Link to={props.link}>
+                  <Button style={{ margin: "10px 0" }}>
+                    {props.linkName || "More Info"}
+                  </Button>
+                </Link>
+              </FlexColumn>
+            </FlexRow>
           </FlexRow>
-
-          {components.label}
-        </FlexColumn>
-
-        <FlexRow grow="1" justifyBetween spaceTop>
-          <FlexRow spaceRight="20px">
-            {components.statA}
-            {components.statB}
-          </FlexRow>
-
-          <FlexColumn>
-            <Link to={props.link}>
-              <Button style={{ margin: "10px 0" }}>
-                {props.linkName || "More Info"}
-              </Button>
-            </Link>
-          </FlexColumn>
-        </FlexRow>
-      </FlexRow>
-
+        </Responsive>
+      </>
     );
   }
 }
 
 export default InfoCard;
-{
-  /*<Icon className="space-left-20" name="user circle" size="massive" />*/
-}
+// {
+//   /*<Icon className="space-left-20" name="user circle" size="massive" />*/
+// }

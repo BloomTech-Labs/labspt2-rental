@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { FlexColumn } from "custom-components";
+import { FlexColumn, FlexRow } from "custom-components";
 import { Input, Button, Dropdown, Checkbox, Form } from "semantic-ui-react";
 import { Link } from "react-router-dom";
 class PropertyEdit extends Component {

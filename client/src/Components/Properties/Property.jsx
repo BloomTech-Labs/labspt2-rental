@@ -4,10 +4,8 @@ import { Button, Image, Dimmer, Header } from "semantic-ui-react";
 import { Link } from "react-router-dom";
 import DeleteModal from "./DeleteModal";
 import ErrorModal from "./ErrorModal";
-<<<<<<< HEAD
 import axios from "axios";
 import config from "config";
-=======
 import styled from "styled-components";
 
 const Label = styled.span`
@@ -23,7 +21,6 @@ const Text = styled.span`
   font-size: 0.8rem;
   letter-spacing: 0.1rem;
 `;
->>>>>>> af17f8cf652dfddcd76155ca5323eb2a66ce9b3e
 
 class Property extends Component {
   state = {
