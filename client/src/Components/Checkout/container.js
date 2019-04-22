@@ -1,5 +1,5 @@
 import { connect } from 'react-redux';
-import { getReservation, getEmployee, getProperty, checkout } from './actionCreator';
+import { getReservation, checkout } from './actionCreator';
 import { withRouter } from "react-router-dom";
 import Checkout from './Checkout.jsx';
 
@@ -14,9 +14,7 @@ const mapStateToProps = ({checkout}) => ({
 const connector = connect(
     mapStateToProps,
     {
-        getEmployee, 
         getReservation,
-        getProperty,
         checkout
     }
 )
