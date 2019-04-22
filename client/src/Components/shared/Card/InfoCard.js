@@ -69,43 +69,40 @@ class InfoCard extends Component {
     });
 
     return (
-      <>
-        {/* Desktop view */}
-        <Responsive minWidth={701}>
-          <FlexRow alignCenter justifyBetween width="full" wrap>
-            {components.image}
+      <Responsive minWidth={701}>
+        <FlexRow alignCenter justifyBetween width="full" wrap>
+          {components.image}
 
-            <FlexColumn grow="1" spaceLeft="20px" spaceRight="20px">
-              <FlexRow alignCenter spaceBottom="10px">
-                {components.title}
-                {components.id}
-              </FlexRow>
-
-              {components.label}
-            </FlexColumn>
-
-            <FlexRow grow="1" justifyBetween spaceTop>
-              <FlexRow spaceRight="20px">
-                {components.statA}
-                {components.statB}
-              </FlexRow>
-
-              <FlexColumn>
-                <Link to={props.link}>
-                  <Button style={{ margin: "10px 0" }}>
-                    {props.linkName || "More Info"}
-                  </Button>
-                </Link>
-              </FlexColumn>
+          <FlexColumn grow="1" spaceLeft="20px" spaceRight="20px">
+            <FlexRow alignCenter spaceBottom="10px">
+              {components.title}
+              {components.id}
             </FlexRow>
+
+            {components.label}
+          </FlexColumn>
+
+          <FlexRow grow="1" justifyBetween spaceTop>
+            <FlexRow spaceRight="20px">
+              {components.statA}
+              {components.statB}
+            </FlexRow>
+
+            <FlexColumn>
+              <Link to={props.link}>
+                <Button style={{ margin: "10px 0" }}>
+                  {props.linkName || "More Info"}
+                </Button>
+              </Link>
+            </FlexColumn>
           </FlexRow>
-        </Responsive>
-      </>
+        </FlexRow>
+      </Responsive>
     );
   }
 }
 
 export default InfoCard;
-// {
-//   /*<Icon className="space-left-20" name="user circle" size="massive" />*/
-// }
+
+// eslint-disable-next-line no-lone-blocks
+/* <Icon className="space-left-20" name="user circle" size="massive" /> */

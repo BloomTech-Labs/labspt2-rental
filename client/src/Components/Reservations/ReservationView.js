@@ -1,14 +1,11 @@
 import React, { Component } from "react";
 import {
-  Dropdown,
   Header,
-  Input,
   Button,
   Label,
   Statistic,
   Popup,
-  Icon,
-  Message
+  Icon
 } from "semantic-ui-react";
 import { FlexRow, FlexColumn, Text } from "custom-components";
 import { Link } from "react-router-dom";
@@ -26,6 +23,8 @@ const ReservationContainer = styled(FlexColumn)`
   }
 `;
 
+// BUG: Needs to update when routed back to after payment to display paid: true
+
 class ReservationView extends Component {
   componentDidMount() {
     this.props.fetchSingleReservation(this.props.match.params.id);
@@ -33,6 +32,14 @@ class ReservationView extends Component {
 
   render() {
     const { reservation, loading } = this.props;
+    let processPaymentButton;
+    if(reservation.paid) {
+      processPaymentButton = null
+    } else {
+      processPaymentButton = <Link to={`/dashboard/checkout/${reservation._id}`} ><Button basic color="blue">
+      Process Payment
+    </Button> </Link>
+    }
     return loading ? (
       "Loading..."
     ) : (
@@ -106,11 +113,9 @@ class ReservationView extends Component {
               <Link to={`/dashboard/reservations/edit/${reservation._id}`}>
                 <Button basic>Edit</Button>
               </Link>
-              <Link to="/dashboard/checkout">
-                <Button basic color="blue" disabled={reservation.paid}>
-                  Process Payment
-                </Button>
-              </Link>
+
+              {processPaymentButton}
+
             </FlexRow>
           </ReservationContainer>
         )}

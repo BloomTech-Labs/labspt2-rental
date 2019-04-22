@@ -11,7 +11,6 @@ const EmployeeList = props => {
 
   // modEmployees is used as a temp replacement for employees because employees is read-only at this point and cannot be directly modified
   const modEmployees = taskPropertyAssign(props);
-
   return (
     <FlexColumn width="full" alignCenter >
       <FlexRow>
