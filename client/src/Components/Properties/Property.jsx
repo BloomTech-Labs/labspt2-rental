@@ -4,6 +4,8 @@ import { Button, Image, Dimmer, Header } from "semantic-ui-react";
 import { Link } from "react-router-dom";
 import DeleteModal from "./DeleteModal";
 import ErrorModal from "./ErrorModal";
+import axios from "axios";
+import config from "config";
 
 class Property extends Component {
   state = {
@@ -15,6 +17,7 @@ class Property extends Component {
   componentDidMount() {
     this.props.getProperties();
     this.props.getReservations();
+    this.props.getUser();
   }
 
   openModal = () => {
@@ -41,9 +44,43 @@ class Property extends Component {
     this.setState({ errorModalOpen: false });
   };
   handleDelete = () => {
-    this.props.deleteProperty(this.props.match.params.id);
-    this.setState({ dimmerOpen: true, deleteModalOpen: false });
+    if (this.props.properties.length > 1) {
+      const newQuantity = this.props.properties.length - 1;
+      const updatedUsage = {
+        _id: this.props.user._id,
+        quantity: newQuantity,
+        subscriptionItemID: this.props.user.subscriptionItemID
+      };
+      console.log(updatedUsage);
+      axios
+        .post(`${config.apiUrl}/api/stripe/updateUsage`, updatedUsage)
+        .then(response => {
+          if (response.status === 201) {
+            this.props.deleteProperty(this.props.match.params.id);
+            this.setState({ dimmerOpen: true, deleteModalOpen: false });
+          } else {
+            this.setState({
+              errorModalOpen: true,
+              modalMessage:
+                "An error occurred while updated your billing plan. Please try again.",
+              deleteModalOpen: false
+            });
+          }
+        })
+        .catch(err => {
+          this.setState({
+            errorModalOpen: true,
+            modalMessage:
+              "An error occurred while updated your billing plan. Please try again.",
+            deleteModalOpen: false
+          });
+        });
+    } else {
+      this.props.deleteProperty(this.props.match.params.id);
+      this.setState({ dimmerOpen: true, deleteModalOpen: false });
+    }
   };
+
   successClose = () => {
     this.setState({
       dimmerOpen: false

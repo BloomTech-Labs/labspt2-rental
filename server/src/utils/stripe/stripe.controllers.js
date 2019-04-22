@@ -159,13 +159,11 @@ export const updateUsage = async (req, res) => {
 
   const updatedUsage = await createUsageRecord(userInfo, res);
   if (updatedUsage) {
-    return res.status(201);
+    return res.status(201).json(updatedUsage);
   } else {
     return res.status(500).json({ message: 'Unable to update usage record' });
   }
 };
-
-// Just send success 201 from this endpoint so that Jess can hit the next endpoint to add the property
 
 const createUsageRecord = async (user, res) => {
   const currentDate = Math.floor(Date.now() / 1000);
@@ -182,13 +180,11 @@ const createUsageRecord = async (user, res) => {
           err
         });
       } else {
-        console.log('Updated usage record from Stripe', usageRecord);
-        return res.status(201);
+        return res.status(201).send(usageRecord);
       }
     }
   );
 };
-
 // Updating card details including card number:
 
 export const updateCC = async (req, res) => {

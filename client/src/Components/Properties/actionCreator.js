@@ -138,3 +138,19 @@ export const deleteProperty = id => dispatch => {
       });
     });
 };
+
+export const getUser = user => {
+  return async dispatch => {
+    dispatch({ type: actions.USER_STARTED });
+    try {
+      const user = await axios.get(`${config.apiUrl}/api/users/me`);
+      dispatch({
+        type: actions.USER_SUCCESS,
+        payload: user.data.data
+      });
+    } catch (err) {
+      console.error(err);
+      dispatch({ type: actions.USER_ERROR, payload: err });
+    }
+  };
+};
