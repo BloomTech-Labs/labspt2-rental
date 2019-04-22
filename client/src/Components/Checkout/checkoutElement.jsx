@@ -8,7 +8,8 @@ import {
   Dimmer,
   Header,
   Icon,
-  Loader
+  Loader,
+  Form
 } from "semantic-ui-react";
 
 // update package.json proxy line with non local host
@@ -16,7 +17,7 @@ import {
 class CheckoutElement extends Component {
   constructor(props) {
     super(props);
-    this.state = { complete: false, loading: false };
+    this.state = { complete: false, loading: false, billingName: ''};
     this.submit = this.submit.bind(this);
   }
 
@@ -24,17 +25,30 @@ class CheckoutElement extends Component {
       this.setState({ active: false, open: false });
 };
 
+componentDidMount = () => {
+    this.setState({
+        billingName: `${this.props.guest.firstName} ${this.props.guest.lastName}`
+    })
+}
+
+handleInputChange = (e) => {
+    this.setState({
+      [e.target.name]: e.target.value
+    });
+  };
+
   async submit(ev) {
     this.setState({
-      loading: true,
-      zip: '77059'
+      loading: true
     });
 
     let token = await this.props.stripe.createToken({
       email: this.props.guest.email,
-      address_zip: this.state.zip,
-      name: `${this.props.guest.firstName} ${this.props.guest.lastName}`
+    //   address_zip: this.state.billingZip,
+      name: this.state.billingName
     });
+
+    console.log(this.props.totalAmount, token)
 
     let response = await this.props.checkout(token, this.props.totalAmount, this.props.reservationID)
 
@@ -80,12 +94,27 @@ class CheckoutElement extends Component {
     }
 
     return (
-      <div className="checkout" style={{width: '100%', marginTop: '5%'}}>
+      <div className="checkout" style={{width: '100%', marginTop: '6%'}}>
         <Segment clearing padded >
-          <p>Confirm and Pay</p>
+          <Header as='h4'>Confirm and Pay</Header>
+
+            <Form style={{width: '90%'}}>
+                <Form.Field inline style={{display: 'flex', alignItems: 'flex-end', marginTop: '5%'}}>
+                <label htmlFor="billing-name-input" style={{marginBottom: '2%'}}>Billing Name:</label>
+                <input
+                    id="billingName"
+                    placeholder={this.state.billingName}
+                    name="billingName"
+                    type='text'
+                    value={this.state.billingName}
+                    onChange={this.handleInputChange}
+                    style={{ fontColor: 'black' }}
+                />
+                </Form.Field>
+            </Form>
+
           <Segment padded style={{ marginTop: "25px", marginBottom: "25px" }}>
             {success}
-            {/* first name, last name, billing info (zip code) */}
             <CardElement />
             {loader}
           </Segment>

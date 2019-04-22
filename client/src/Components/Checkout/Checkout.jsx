@@ -1,9 +1,7 @@
 import React, {Component} from "react";
-import { Link } from "react-router-dom";
-import { Header, Statistic, Label, Image, Button, Segment, Dimmer, Loader, Grid, Icon } from "semantic-ui-react";
+import { Header, Image, Segment, Dimmer, Loader, Grid, Icon } from "semantic-ui-react";
 import { FlexRow, FlexColumn } from "custom-components";
 import { differenceInDays, format } from 'date-fns';
-import CheckoutModal from './checkoutModal';
 import CheckoutElement from './checkoutElement';
 import { Elements, StripeProvider } from "react-stripe-elements";
 import { config } from "../../config/dev";
@@ -100,14 +98,14 @@ export default class Checkout extends Component {
           Review Your Reservation
         </Header>
 
-        <FlexRow justifyBetween style={{width: '100%', marginTop: '-5%'}}>
+        <FlexRow justifyBetween style={{width: '90%', marginTop: '-5%'}}>
           <Header as='h3' style={{ alignSelf: 'flex-end'}}>{nights} nights in {this.props.property.city}</Header>
           <Image src={`${this.props.property.image}`} size='small' />
         </FlexRow>
 
 
         {/* Check In and Check Out View */}
-        <FlexRow justifyBetween style={{marginTop: '1.5em', width: '100%'}}>
+        <FlexRow justifyBetween style={{marginTop: '2em', width: '100%'}}>
             <FlexRow style={{width: '25vw', marginRight: '5vw'}}>
               <FlexColumn alignCenter style={{backgroundColor: '#e2e2e2', width: '60px', height: '54px', marginRight: '7%'}}>
                 <p style={{marginBottom: '-5%', marginTop: '13%', fontWeight: 'bold'}}>{checkInMonth}</p>
@@ -157,7 +155,7 @@ export default class Checkout extends Component {
             <Grid.Row>
               <FlexRow style={{marginTop: '1%', width: '80%', marginLeft: '10%'}}>
                 <Icon name='star outline' size='large' style={{marginRight: '2%'}} />
-                <o>Cleaning Fee: ${this.props.reservation.cleaningFee}.00</o>
+                <p>Cleaning Fee: ${this.props.reservation.cleaningFee}.00</p>
               </FlexRow>
             </Grid.Row>
 
@@ -169,44 +167,18 @@ export default class Checkout extends Component {
           </Grid>
         </React.Fragment>
 
-        {/* <Header size="medium">{this.props.reservation.guest.firstName} {this.props.reservation.guest.lastName}</Header>
-        <p>{this.props.reservation.guest.email}</p>
-        <p>{this.props.reservation.guest.phoneNumber}</p>
-
-        <Label color="blue" horizontal style={{ marginTop: "20px" }}>
-          {this.props.property.name}
-        </Label>
-        <Header>Address: {this.props.property.address1}, {this.props.property.city}, {this.props.property.state} {this.props.property.zip} </Header>
-
-        <CheckoutInvoiceItemCard nights={nights} guests={this.props.reservation.guests} cleaningFee={this.props.reservation.cleaningFee} />
-
-         <FlexRow style={{ paddingTop: "10px" }}>
-           <Header size="medium">Employee:</Header>
-           <Label color="grey" style={{ marginLeft: "10px" }}>
-             {this.props.employee.firstName} {this.props.employee.lastName}
-           </Label>
-         </FlexRow> 
-
-        <FlexRow style={{ marginTop: "10px" }}>
-          <Header size="medium">Total: ${this.state.total}</Header>
-          <Header size="medium">Billing Status:</Header>
-          <Label color="red" style={{ marginLeft: "10px" }}>
-            { paid ? "Paid" : "Unpaid" }
-          </Label>
-        </FlexRow> */}
-
-        <FlexRow style={{width: '100%'}}>
+        <FlexColumn style={{width: '100%'}}>
 
         <StripeProvider apiKey={config.stripeApiKey}>
           <Elements >
             <CheckoutElement
               close={this.close} guest={this.props.reservation.guest} checkout={this.props.checkout} reservationID={this.props.reservation._id}
-              // totalAmount={stripeTotalAmount} 
+              totalAmount={this.state.stripeTotal} 
             />
           </Elements>
         </StripeProvider>
 
-        </FlexRow>
+        </FlexColumn>
 
       </FlexColumn>
     </FlexRow>)
