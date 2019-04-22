@@ -57,8 +57,9 @@ class Properties extends Component {
             onClick={this.addClickHandle}
           />
         </Segment>
+
         {!this.props.loading &&
-          this.props.properties.length &&
+          this.props.properties &&
           this.props.properties.map(property => {
             return (
               <>
@@ -77,7 +78,9 @@ class Properties extends Component {
                     property.zip
                   }
                   assistants={
+
                     property.assistants != null && property.assistants.length
+
                       ? `${property.assistants[0].firstName}`
                       : "Not Assigned"
                   }
