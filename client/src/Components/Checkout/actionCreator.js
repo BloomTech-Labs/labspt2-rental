@@ -18,38 +18,6 @@ export const getReservation = reservationID => {
     };
 };
 
-export const getEmployee = employeeID => {
-    return async dispatch => {
-        dispatch({ type: actions.FETCH_EMPLOYEE_STARTED });
-        try{
-            const employee = await axios.get(`${config.apiUrl}/api/employees/${employeeID}`);
-            dispatch({
-                type: actions.FETCH_EMPLOYEE_SUCCESS,
-                payload: employee.data.data
-            })
-        } catch (err) {
-            console.error(err);
-            dispatch({ type: actions.FETCH_EMPLOYEE_ERROR, payload: err });
-        }
-    }
-};
-
-export const getProperty = propertyID => {
-    return async dispatch => {
-        dispatch({ type: actions.CHECKOUT_PROPERTY_STARTED });
-        try{
-            const property = await axios.get(`${config.apiUrl}/api/properties/${propertyID}`);
-            dispatch({
-                type: actions.CHECKOUT_PROPERTY_SUCCESS,
-                payload: property.data.data
-            })
-        } catch (err) {
-            console.error(err);
-            dispatch({ type: actions.CHECKOUT_PROPERTY_ERROR, payload: err });
-        }
-    }
-};
-
 export const checkout = (token, amount, reservationID) => {
     return async dispatch => {
       dispatch({ type: actions.CHECKOUT_STARTED });
