@@ -102,12 +102,13 @@ class InfoCard extends Component {
           </FlexColumn>
         </FlexRow>
       </FlexRow>
-
+    </Responsive>
+  </>  
     );
   }
 }
 
 export default InfoCard;
-{
-  /*<Icon className="space-left-20" name="user circle" size="massive" />*/
-}
+// {
+//   /*<Icon className="space-left-20" name="user circle" size="massive" />*/
+// }

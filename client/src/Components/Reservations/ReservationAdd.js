@@ -1,15 +1,6 @@
 import React, { Component } from "react";
-import {
-  Dropdown,
-  Header,
-  Input,
-  Button,
-  Label,
-  Statistic,
-  Popup,
-  Icon
-} from "semantic-ui-react";
-import { FlexRow, FlexColumn, Text } from "custom-components";
+import { Dropdown, Header, Input, Button, Statistic } from "semantic-ui-react";
+import { FlexRow, FlexColumn } from "custom-components";
 import DateRangePickerWrapper from "../shared/DatePicker/DatePicker";
 
 class ReservationAdd extends Component {
@@ -60,7 +51,6 @@ class ReservationAdd extends Component {
 
   render() {
     const { guest, guests } = this.state;
-
     return (
       <FlexColumn justifyBetween alignCenter width="full">
         <FlexRow width="full">
@@ -86,11 +76,13 @@ class ReservationAdd extends Component {
               this.props.loading
                 ? [{ text: "Loading...", value: "loading" }]
                 : this.props.properties &&
-                  this.props.properties.map(p => ({
-                    key: p._id,
-                    text: p.name,
-                    value: p._id
-                  }))
+                  this.props.properties
+                    .filter(p => p.active === true)
+                    .map(p => ({
+                      key: p._id,
+                      text: p.name,
+                      value: p._id
+                    }))
             }
           />
 
