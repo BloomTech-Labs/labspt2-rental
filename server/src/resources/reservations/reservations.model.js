@@ -71,6 +71,9 @@ const reservationSchema = new Schema(
     guestLoginCode: {
       type: String,
       required: true
+    },
+    stripeCharge: {
+      type: String
     }
   },
   { timestamps: true, versionKey: false }

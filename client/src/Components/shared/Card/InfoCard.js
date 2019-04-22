@@ -71,8 +71,6 @@ class InfoCard extends Component {
     });
 
     return (
-      <>
-        {/* Desktop view */}
         <Responsive minWidth={701}>
           <FlexRow alignCenter justifyBetween width="full" wrap>
             {components.image}
@@ -102,13 +100,13 @@ class InfoCard extends Component {
           </FlexColumn>
         </FlexRow>
       </FlexRow>
-    </Responsive>
-  </>  
+      </Responsive>
+
     );
   }
 }
 
 export default InfoCard;
-// {
-//   /*<Icon className="space-left-20" name="user circle" size="massive" />*/
-// }
+
+// eslint-disable-next-line no-lone-blocks
+{/* <Icon className="space-left-20" name="user circle" size="massive" /> */}

@@ -2,15 +2,15 @@ import React, { Component } from "react";
 import { Statistic, Icon } from "semantic-ui-react";
 import { FlexRow, FlexColumn } from "custom-components";
 
-class CheckoutEnvioceItemCard extends Component {
+class CheckoutInvoiceItemCard extends Component {
   constructor(props) {
     super(props);
 
     this.details = [
-      { icon: "moon", option: "Nights of Stay:", amount: 3 },
-      { icon: "users", option: "Guests:", amount: 3 }
+      { icon: "moon", option: "Nights of Stay:", amount: props.nights },
+      { icon: "users", option: "Guests:", amount: props.guests },
       // this next item is on the wireframes but not the mockups so it's commented out
-      // { icon: 'leaf', option: 'Cleaning fee', amount: '$65' }
+      { icon: 'leaf', option: 'Cleaning fee', amount: `$${props.cleaningFee}` }
     ];
   }
 
@@ -35,4 +35,4 @@ class CheckoutEnvioceItemCard extends Component {
   }
 }
 
-export default CheckoutEnvioceItemCard;
+export default CheckoutInvoiceItemCard;
