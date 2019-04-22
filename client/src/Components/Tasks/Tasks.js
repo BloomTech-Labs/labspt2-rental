@@ -47,12 +47,10 @@ class Tasks extends Component {
     this.props.getTasks({ ...this.query });
   };
 
-  toggleComplete = (task) => {
-    
-  task.completed = task.completed ? false : true;
-  this.props
-    .toggleTask(task)
-    }
+  toggleComplete = task => {
+    task.completed = task.completed ? false : true;
+    this.props.toggleTask(task);
+  };
 
   render() {
     const { tabs } = this.state;
@@ -91,7 +89,6 @@ class Tasks extends Component {
                       count={Math.ceil(taskCount / pageSize)}
                       page={page}
                       toggleComplete={this.toggleComplete}
-
                     />
                   )}
                 </Tab.Pane>
@@ -99,8 +96,8 @@ class Tasks extends Component {
             })),
             {
               menuItem: (
-                <Search 
-                  onChange={this.handleSearchChange} 
+                <Search
+                  onChange={this.handleSearchChange}
                   style={{ minWidth: "300px", flexGrow: "1" }}
                 />
               )
