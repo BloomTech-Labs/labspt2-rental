@@ -21,8 +21,6 @@ export class BaseController {
     try {
       const doc = await this.mongooseModel
         .findOne({ createdBy: req.user._id, _id: req.params.id })
-        .lean()
-        .populate(this.populate)
         .exec();
 
       if (!doc) {
@@ -144,8 +142,6 @@ export class BaseController {
       pipeline.push({ $limit: limit });
     }
 
-    console.log(JSON.stringify(pipeline));
-
     this.mongooseModel.aggregate(pipeline, (err, docs) => {
       if (err) {
         return next(err);
@@ -209,7 +205,7 @@ export class BaseController {
       this.mongooseModel.countDocuments(
         { createdBy: req.user._id, ...filter },
         (err, count) => {
-          if (!count) {
+          if (err) {
             const error = new Error('Error counting documents');
             error.statusCode = 404;
             throw error;

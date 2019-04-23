@@ -6,6 +6,7 @@
     "@babel/core": "^7.3.4",
     "axios": "^0.18.0",
     "babel-loader": "^8.0.5",
+    "date-fns": "^1.30.1",
     "faker": "^4.1.0",
     "lodash": "^4.17.11",
     "moment": "^2.24.0",
@@ -16,6 +17,7 @@
     "react-redux": "^6.0.1",
     "react-router-dom": "^4.3.1",
     "react-scripts": "^2.1.8",
+    "react-slick": "^0.23.2",
     "react-stripe-elements": "^2.0.3",
     "react-testing-library": "^6.0.0",
     "react-throttle": "^0.3.0",
@@ -52,5 +54,6 @@
     "gulp": "^3.9.1",
     "semantic-ui": "^2.4.2"
   },
-  "proxy": "http://localhost:3000"
+  "proxy": "http://localhost:3000",
+  "homepage": "https://www.roostr.tech"
 }

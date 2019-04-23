@@ -90,7 +90,6 @@ export const addProperty = (body = {}) => dispatch => {
   return axios
     .post(`${config.apiUrl}/api/properties`, body)
     .then(response => {
-      console.log(response);
       dispatch({
         type: actions.ADD_PROPERTY_SUCCESS,
         payload: response.data
@@ -108,10 +107,10 @@ export const getEmployees = () => dispatch => {
   dispatch({ type: actions.PROPERTY_STARTED });
   return axios
     .get(`${config.apiUrl}/api/employees`)
-    .then(response => {
+    .then(({ data }) => {
       dispatch({
         type: actions.EMPLOYEES_SUCCESS,
-        payload: response.data
+        payload: { employees: data.data }
       });
     })
     .catch(err => {

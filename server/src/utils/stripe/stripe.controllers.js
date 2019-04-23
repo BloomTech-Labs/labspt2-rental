@@ -2,6 +2,7 @@
 import config from '../../config';
 import stripeModule from 'stripe';
 import { User } from '../../resources/user/user.model';
+import { Reservation } from '../../resources/reservations/reservations.model';
 
 const keyPublishable = config.keys.stripePublishable;
 const keySecret = config.keys.stripeSecret;
@@ -18,7 +19,7 @@ const userObject = {
   last4: '',
   cardType: '',
   cardExpiration: '',
-  billingPlan: 'upgraded'
+  billingPlan: ''
 };
 
 export const render = async (req, res, next) => {
@@ -86,8 +87,6 @@ const updateUserWithStripeInfo = async (err, res) => {
         .lean()
         .exec();
 
-      console.log('updated user', user);
-
       if (user) {
         return res.status(201).send(user);
       }
@@ -120,6 +119,8 @@ export const subscribe = async (req, res) => {
       address_zip,
       name
     } = req.body.token;
+
+    userObject.billingPlan = req.body.updatedPlan;
 
     stripe.customers.create(
       {
@@ -159,11 +160,13 @@ export const updateUsage = async (req, res) => {
 
   const updatedUsage = await createUsageRecord(userInfo, res);
   if (updatedUsage) {
-    return res.status(201).json(updatedUsage);
+    return res.status(201);
   } else {
     return res.status(500).json({ message: 'Unable to update usage record' });
   }
 };
+
+// Just send success 201 from this endpoint so that Jess can hit the next endpoint to add the property
 
 const createUsageRecord = async (user, res) => {
   const currentDate = Math.floor(Date.now() / 1000);
@@ -180,10 +183,69 @@ const createUsageRecord = async (user, res) => {
           err
         });
       } else {
-        return res.status(201).send(usageRecord);
+        console.log('Updated usage record from Stripe', usageRecord);
+        return res.status(201);
       }
     }
   );
+};
+
+// Runs a single charge for guests paying reservations
+// If not in development mode, source must be req.body.token.id; in test mode, source must be 'tok_visa' or 'tok_mastercard'
+// Automatically sends guests a receipt when in live mode, but not test mode.
+
+export const singleCharge = async (req, res) => {
+  try {
+    // eslint-disable-next-line no-unused-vars
+    const { id, email, name, address_zip } = req.body.token;
+    const reservationID = req.body.reservationID;
+
+    stripe.charges.create(
+      {
+        amount: req.body.amount,
+        currency: 'usd',
+        receipt_email: email,
+        name: name,
+        address_zip: address_zip,
+        source: 'tok_visa'
+      },
+      async (err, charge) => {
+        if (err && err != null) {
+          return res
+            .status(500)
+            .json({ message: 'Unable to process payment', err });
+        } else {
+          const updateUserObject = {
+            paid: true,
+            stripeCharge: charge.id
+          };
+          try {
+            const reservation = await Reservation.findByIdAndUpdate(
+              reservationID,
+              updateUserObject,
+              {
+                new: true
+              }
+            )
+              .select()
+              .lean()
+              .exec();
+
+            if (reservation) {
+              return res.status(201).send(reservation);
+            }
+          } catch (err) {
+            return res
+              .status(500)
+              .json({ message: 'Failed to updated reservation record', err });
+          }
+        }
+      }
+    );
+  } catch (err) {
+    console.error(err);
+    res.status(500).end();
+  }
 };
 
 // Updating card details including card number:
@@ -236,6 +298,7 @@ export const updateCC = async (req, res) => {
     res.status(500).end();
   }
 };
+
 // Updating card details but not card number:
 
 // export const updateCC = async (req, res) => {

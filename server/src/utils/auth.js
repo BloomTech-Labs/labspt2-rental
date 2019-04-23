@@ -18,9 +18,18 @@ export const verifyToken = token =>
 
 export const register = async (req, res, next) => {
   if (!req.body.email || !req.body.password) {
-    let err = new Error('Email and password required');
-    err.statusCode = 400;
-    next(err);
+    let err = { errmsg: 'Email and password required' };
+    return res.status(400).send({ err });
+  }
+
+  if (!req.body.firstName || !req.body.lastName) {
+    let err = { errmsg: 'First and last name required' };
+    return res.status(400).send({ err });
+  }
+
+  if (!req.body.username) {
+    let err = { errmsg: 'Username required' };
+    return res.status(400).send({ err });
   }
 
   try {
@@ -30,8 +39,7 @@ export const register = async (req, res, next) => {
     const token = newToken(user);
     return res.status(201).send({ token });
   } catch (err) {
-    err.statusCode = 500;
-    next(err);
+    return res.status(500).send({ err });
   }
 };
 

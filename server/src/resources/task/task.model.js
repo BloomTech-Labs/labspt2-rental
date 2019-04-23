@@ -18,7 +18,8 @@ const taskSchema = new Schema(
       type: Date
     },
     endDate: {
-      type: Date
+      type: Date,
+      required: true
     },
     completed: {
       type: Boolean,
@@ -40,6 +41,10 @@ const taskSchema = new Schema(
       ref: 'user',
       autopopulate: true,
       required: true
+    },
+    status: {
+      type: String,
+      enum: ['upcoming', 'due today', 'overdue']
     }
   },
   { timestamps: true }

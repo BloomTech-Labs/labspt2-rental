@@ -31,6 +31,7 @@ export default class Settings extends Component {
               user={this.props.user}
               getUser={this.props.getUser}
               update={this.props.updateUser}
+              properties={this.props.properties}
             />
           </Tab.Pane>
         )
@@ -39,7 +40,8 @@ export default class Settings extends Component {
   }
 
   componentDidMount = () => {
-    this.props.getUser().catch(err => console.log(err));
+    this.props.getUser().then(response => console.log(this.props)).catch(err => console.log(err));
+    this.props.getProperties().catch(err => console.log(err));
   };
 
   render() {

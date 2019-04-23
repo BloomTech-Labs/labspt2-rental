@@ -7,7 +7,9 @@ class PropertyControllers extends BaseController {
     this.mongooseModel = mongooseModel;
   }
 
-  // add custon methods if needed
+  count = (req, res, next) => {
+    return this.countMine(req, res, next);
+  };
 }
 
 const controllers = new PropertyControllers(Property);

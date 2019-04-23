@@ -1,82 +1,30 @@
 import React from "react";
-import {
-  Image,
-  Header,
-  Button,
-  Label,
-  Statistic,
-  Popup,
-  Icon
-} from "semantic-ui-react";
 import { FlexRow, FlexColumn, Text } from "custom-components";
 import moment from "moment";
-import { Link } from "react-router-dom";
+import InfoCard from "../shared/Card/InfoCard";
 
 const ReservationListItem = ({ reservation }) => {
   return (
-    <FlexRow alignCenter justifyBetween width="full">
-      <Image rounded src={reservation.property.image} size="small" />
-
-      <FlexColumn
-        grow="1"
-        className="space-left-20"
-        style={{ height: "100px" }}
+    <InfoCard link={`/dashboard/reservations/view/${reservation._id}`}>
+      <InfoCard.Image>{reservation.property.image}</InfoCard.Image>
+      <InfoCard.Title>
+        {reservation.guest.firstName}&nbsp;{reservation.guest.lastName}
+      </InfoCard.Title>
+      <InfoCard.Label
+        hover={`${reservation.property.address1} ${reservation.property.city} ${
+          reservation.property.state
+        } ${reservation.property.zip}`}
       >
-        <FlexRow alignCenter spaceBottom="20px">
-          <Header size="medium" style={{ margin: "0" }}>
-            {reservation.guest.firstName}&nbsp;{reservation.guest.lastName}
-            &nbsp;
-          </Header>
-
-          <Popup
-            trigger={
-              <Label circular>
-                <Icon fitted name="info" />
-              </Label>
-            }
-            content={reservation._id}
-          />
-        </FlexRow>
-
-        <Popup
-          trigger={
-            <Label
-              as="a"
-              color="red"
-              content={reservation.property.name}
-              icon="home"
-            />
-          }
-          content={`${reservation.property.address1} ${
-            reservation.property.city
-          } ${reservation.property.state} ${reservation.property.zip}`}
-        />
-      </FlexColumn>
-
-      <br />
-
-      <FlexRow grow="1">
-        <Statistic size="tiny" style={{ margin: "0 15px" }}>
-          <Statistic.Label>Check In</Statistic.Label>
-          <Statistic.Value>
-            {moment(reservation.checkIn).format("MM/DD")}
-          </Statistic.Value>
-        </Statistic>
-
-        <Statistic size="tiny" style={{ margin: "0 15px" }}>
-          <Statistic.Label>Check Out</Statistic.Label>
-          <Statistic.Value>
-            {moment(reservation.checkOut).format("MM/DD")}
-          </Statistic.Value>
-        </Statistic>
-      </FlexRow>
-
-      <FlexColumn>
-        <Link to={`/dashboard/reservations/view/${reservation._id}`}>
-          <Button>More Info</Button>
-        </Link>
-      </FlexColumn>
-    </FlexRow>
+        {reservation.property.name}
+      </InfoCard.Label>
+      <InfoCard.ID>{reservation._id}</InfoCard.ID>
+      <InfoCard.StatA label="Check In">
+        {moment(reservation.checkIn).format("MM/DD")}
+      </InfoCard.StatA>
+      <InfoCard.StatB label="Check Out">
+        {moment(reservation.checkOut).format("MM/DD")}
+      </InfoCard.StatB>
+    </InfoCard>
   );
 };
 

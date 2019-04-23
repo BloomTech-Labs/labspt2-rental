@@ -108,6 +108,7 @@ export default async () => {
               propertiesArr.push({
                 name: 'House ' + (i + 1),
                 assistants: [employeeId],
+                active: true,
                 createdBy: ownerId,
                 address1: faker.address.streetAddress(),
                 city: faker.address.city(),
@@ -151,6 +152,35 @@ export default async () => {
                   completed: false,
                   startDate: faker.date.soon(),
                   endDate: faker.date.future(),
+                  status: 'upcoming',
+                  reservation: reservation ? reservation._id : null,
+                  assignedTo: employeeId
+                });
+              }
+
+              for (let n = 0; n < 2; n++) {
+                tasksArr.push({
+                  createdBy: ownerId,
+                  description: faker.lorem.sentence(),
+                  property: properties[i]._id,
+                  completed: false,
+                  startDate: faker.date.recent(),
+                  endDate: faker.date.soon(),
+                  status: 'due today',
+                  reservation: reservation ? reservation._id : null,
+                  assignedTo: employeeId
+                });
+              }
+
+              for (let n = 0; n < 2; n++) {
+                tasksArr.push({
+                  createdBy: ownerId,
+                  description: faker.lorem.sentence(),
+                  property: properties[i]._id,
+                  completed: false,
+                  startDate: faker.date.past(),
+                  endDate: faker.date.recent(),
+                  status: 'overdue',
                   reservation: reservation ? reservation._id : null,
                   assignedTo: employeeId
                 });

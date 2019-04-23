@@ -9,6 +9,10 @@ const propertySchema = new Schema(
       required: [true, 'Name is a required field'],
       unique: [true, 'Name must be unique']
     },
+    active: {
+      type: Boolean,
+      default: true
+    },
     assistants: [
       {
         type: mongoose.SchemaTypes.ObjectId,
@@ -45,11 +49,11 @@ const propertySchema = new Schema(
       required: true
     },
     occupants: {
-      type: Number,
-      required: true
+      type: Number
     },
     image: String
   },
+
   { timestamps: true }
 );
 

@@ -1,4 +1,4 @@
-import * as actions from './actions'
+import * as actions from "./actions";
 
 const initialState = {
   loading: false,
@@ -11,22 +11,23 @@ const registrationReducer = (state = initialState, action) => {
     case actions.REGISTER_USER_STARTED:
       return {
         ...state,
-        loading: true,
-        token: action.payload
-      }
+        loading: true
+      };
     case actions.REGISTER_USER_SUCCESS:
       return {
         ...state,
         loading: false,
-      }
-    case actions.REIGSTER_USER_FAILURE:
+        token: action.payload
+      };
+    case actions.REGISTER_USER_FAILURE:
       return {
         ...state,
         loading: false,
-        error: action.payload}
+        error: action.payload
+      };
     default:
       return state;
   }
-}
+};
 
 export default registrationReducer;

@@ -107,16 +107,25 @@ export const getProperties = () => {
 };
 
 export const createEmployee = body => dispatch => {
-  dispatch({ type: actions.EMPLOYEE_STARTED });
-
   return axios
     .post(`${config.apiUrl}/api/employees`, body)
-    .then(data => {
-      console.log("in getEmployees success");
+    .then(({ data }) => {
+      dispatch(getEmployees());
+      return data.data;
+    })
+    .catch(err => {
+      dispatch({ type: actions.EMPLOYEE_FAILURE, error: err });
+    });
+};
+
+export const updateEmployee = (id, body) => dispatch => {
+  return axios
+    .put(`${config.apiUrl}/api/employees/${id}`, body)
+    .then(({ data }) => {
+      console.log(data);
       dispatch(getEmployees());
     })
     .catch(err => {
-      console.log("in getEmployees fail");
       dispatch({ type: actions.EMPLOYEE_FAILURE, error: err });
     });
 };

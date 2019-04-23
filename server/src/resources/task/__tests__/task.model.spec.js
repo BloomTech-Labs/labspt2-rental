@@ -31,7 +31,8 @@ describe('Task model', () => {
     test('endDate', () => {
       const { endDate } = Task.schema.obj;
       expect(endDate).toEqual({
-        type: Date
+        type: Date,
+        required: true
       });
     });
 
@@ -69,6 +70,14 @@ describe('Task model', () => {
         ref: 'user',
         autopopulate: true,
         required: true
+      });
+    });
+
+    test('status', () => {
+      const { status } = Task.schema.obj;
+      expect(status).toEqual({
+        type: String,
+        enum: ['upcoming', 'due today', 'overdue']
       });
     });
   });

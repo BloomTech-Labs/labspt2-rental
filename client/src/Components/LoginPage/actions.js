@@ -14,7 +14,6 @@ export const loginUser = credentials => {
         `${config.apiUrl}/api/users/login`,
         credentials
       );
-
       localStorage.setItem("authToken", "Bearer " + token.data.token);
 
       dispatch({

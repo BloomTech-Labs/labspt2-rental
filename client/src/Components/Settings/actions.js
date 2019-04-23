@@ -1,3 +1,8 @@
-export const USER_STARTED = "USER_STARTED";
-export const USER_SUCCESS = "USER_SUCCESS";
-export const USER_ERROR = "USER_ERROR";
+export const STRIPE_USER_STARTED = "STRIPE_USER_STARTED";
+export const STRIPE_USER_SUCCESS = "STRIPE_USER_SUCCESS";
+export const STRIPE_USER_ERROR = "STRIPE_USER_ERROR";
+
+// Actions to fetch properties for accessing number of properties on user's account
+export const STRIPE_PROPERTY_STARTED = "STRIPE_PROPERTY_STARTED";
+export const STRIPE_PROPERTIES_SUCCESS = "STRIPE_PROPERTIES_SUCCESS";
+export const STRIPE_PROPERTY_FAILURE = "STRIPE_PROPERTY_FAILURE";

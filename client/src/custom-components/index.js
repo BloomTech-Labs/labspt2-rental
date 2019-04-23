@@ -24,9 +24,9 @@ export const FlexRow = styled.div`
   height: ${props =>
     props.height ? (props.height === "full" ? "100%" : props.height) : "auto"};
   margin-right: ${props =>
-    ((g = props.spaceLeft) => (g ? (g === true ? "10px" : g) : "0"))()};
-  margin-left: ${props =>
     ((g = props.spaceRight) => (g ? (g === true ? "10px" : g) : "0"))()};
+  margin-left: ${props =>
+    ((g = props.spaceLeft) => (g ? (g === true ? "10px" : g) : "0"))()};
   margin-bottom: ${props =>
     ((g = props.spaceBottom) => (g ? (g === true ? "10px" : g) : "0"))()};
   margin-top: ${props =>
@@ -61,9 +61,9 @@ export const FlexColumn = styled.div`
     props.height ? (props.height === "full" ? "100%" : props.height) : "auto"};
   max-width: 100%;
   margin-right: ${props =>
-    ((g = props.spaceLeft) => (g ? (g === true ? "10px" : g) : "0"))()};
-  margin-left: ${props =>
     ((g = props.spaceRight) => (g ? (g === true ? "10px" : g) : "0"))()};
+  margin-left: ${props =>
+    ((g = props.spaceLeft) => (g ? (g === true ? "10px" : g) : "0"))()};
   margin-bottom: ${props =>
     ((g = props.spaceBottom) => (g ? (g === true ? "10px" : g) : "0"))()};
   margin-top: ${props =>
@@ -74,7 +74,7 @@ export const FlexColumn = styled.div`
 
 export const Container = styled(FlexColumn)`
   width: 100vw;
-  height: 100vh;
+  min-height: 100vh;
   padding: ${props => (props.padding ? "40px" : "0")};
   box-sizing: border-box;
 `;

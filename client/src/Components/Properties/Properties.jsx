@@ -1,76 +1,97 @@
 import React, { Component } from "react";
 import PropertyCard from "./PropertyCard";
-import { FlexColumn, FlexRow } from "custom-components";
+import { FlexColumn, FlexRow, Divider } from "custom-components";
 import Search from "../shared/Search/Search";
-import DatePicker from "../shared/DatePicker/DatePicker";
-import { Icon } from "semantic-ui-react";
+import { Button, Segment, Modal } from "semantic-ui-react";
 import { Link } from "react-router-dom";
 
 class Properties extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      properties: [],
-      loading: false,
-      error: null
-    };
-  }
+  state = {
+    modalOpen: false
+  };
   componentDidMount() {
     this.props.getProperties();
   }
 
-  // addClickHandle() {
-  //   console.log(this.state);
-  //   const numOfProps = this.props.properties.length;
-  //   if (numOfProps === 1) {
-  //     window.alert("we're going to have to change the billing plan");
-  //   }
-  //   if (numOfProps === 9) {
-  //     window.alert("this account needs the discounted rate");
-  //   } else this.props.history.push("/dashboard/properties/add");
-  // }
+  closeModal = () => {
+    this.setState({ modalOpen: false });
+  };
+  addClickHandle = () => {
+    const numOfProps = this.props.properties.length;
+    if (numOfProps === 1) {
+      this.setState({ modalOpen: true });
+    } else {
+      this.props.history.push("/dashboard/properties/add");
+    }
+  };
 
   render() {
     return (
       <FlexColumn width="800px" alignCenter style={{ position: "relative" }}>
-        <FlexRow width="100%">
-          <Search width="40%" />
-          <DatePicker />
-          <Link to="/dashboard/properties/add">
-            <Icon
-              name="plus square"
-              size="big"
-              style={{ margin: "10px" }}
-              onClick={this.addClickHandle}
-            />
-          </Link>
-        </FlexRow>
-        {console.log(this.props)}
-        {this.props.properties.map(property => {
-          return (
-            <PropertyCard
-              image={property.image}
-              name={property.name}
-              address={
-                property.address1 +
-                " " +
-                property.city +
-                " " +
-                property.state +
-                " " +
-                property.zip
-              }
-              assistants={
-                property.assistants.length
-                  ? `${property.assistants[0].firstName}`
-                  : "Not Assigned"
-              }
-              occupants={property.occupants}
-              buttonFunction={() => this.cardHandleClick(property._id)}
-              linkto={`/dashboard/properties/${property._id}`}
-            />
-          );
-        })}
+        <Modal size="small" open={this.state.modalOpen}>
+          <Modal.Content>
+            <p>
+              We're glad you're enjoying Roostr! To add another property, please
+              visit your settings to update to our paid plan!
+            </p>
+          </Modal.Content>
+          <Modal.Actions>
+            <Link to="/dashboard/settings">
+              <Button color="blue">Continue to Settings</Button>
+            </Link>
+            <Button onClick={this.closeModal}>Cancel</Button>
+          </Modal.Actions>
+        </Modal>
+        <Segment
+          as={FlexRow}
+          alignCenter
+          width="100%"
+          style={{ padding: "5px" }}
+        >
+          <Search style={{ flexGrow: "1", marginRight: "10px" }} />
+          <Button
+            className="space-left-20 space-right-20"
+            circular
+            icon="plus"
+            color="orange"
+            onClick={this.addClickHandle}
+          />
+        </Segment>
+
+        {!this.props.loading &&
+          this.props.properties &&
+          this.props.properties.map(property => {
+            return (
+              <>
+                <PropertyCard
+                  id={property._id}
+                  image={property.image}
+                  name={property.name}
+                  address={property.address1}
+                  addressFull={
+                    property.address1 +
+                    " " +
+                    property.city +
+                    " " +
+                    property.state +
+                    " " +
+                    property.zip
+                  }
+                  assistants={
+
+                    property.assistants != null && property.assistants.length
+
+                      ? `${property.assistants[0].firstName}`
+                      : "Not Assigned"
+                  }
+                  occupants={property.occupants}
+                  buttonFunction={() => this.cardHandleClick(property._id)}
+                  linkto={`/dashboard/properties/view/${property._id}`}
+                />
+                <Divider />
+              </>
+            );
+          })}
       </FlexColumn>
     );
   }
