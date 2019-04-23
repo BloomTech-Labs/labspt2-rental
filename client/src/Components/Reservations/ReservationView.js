@@ -33,12 +33,16 @@ class ReservationView extends Component {
   render() {
     const { reservation, loading } = this.props;
     let processPaymentButton;
-    if(reservation.paid) {
-      processPaymentButton = null
+    if (reservation.paid) {
+      processPaymentButton = null;
     } else {
-      processPaymentButton = <Link to={`/dashboard/checkout/${reservation._id}`} ><Button basic color="blue">
-      Process Payment
-    </Button> </Link>
+      processPaymentButton = (
+        <Link to={`/dashboard/checkout/${reservation._id}`}>
+          <Button basic color="blue">
+            Process Payment
+          </Button>{" "}
+        </Link>
+      );
     }
     return loading ? (
       "Loading..."
@@ -115,7 +119,6 @@ class ReservationView extends Component {
               </Link>
 
               {processPaymentButton}
-
             </FlexRow>
           </ReservationContainer>
         )}

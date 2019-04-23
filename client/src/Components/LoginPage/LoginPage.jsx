@@ -89,7 +89,11 @@ class LoginPage extends Component {
 
     let submitButton;
     if (disabled) {
-      submitButton = <Button basic color='green' type='submit' disabled>Update</Button>;
+      submitButton = (
+        <Button basic color="green" type="submit" disabled>
+          Update
+        </Button>
+      );
     } else {
       submitButton = (
         <Button color="green" type="submit" active>
@@ -158,7 +162,7 @@ class LoginPage extends Component {
                   Not yet registered?
                 </p>
                 <Link to="/register">
-                  <Button type='button'>Register</Button >
+                  <Button type="button">Register</Button>
                 </Link>
               </FlexColumn>
 
