@@ -12,6 +12,8 @@ import { Link } from "react-router-dom";
 import { FlexColumn, FlexRow } from "custom-components";
 import MonthlyFeeModal from "./MonthlyFeeModal";
 import ErrorModal from "./ErrorModal";
+import axios from "axios";
+import config from "config";
 
 class PropertyAdd extends Component {
   constructor(props) {
@@ -32,6 +34,7 @@ class PropertyAdd extends Component {
   componentDidMount() {
     this.props.getEmployees();
     this.props.getProperties();
+    this.props.getUser();
   }
 
   handleChange(prop, val) {
@@ -51,12 +54,39 @@ class PropertyAdd extends Component {
       assistants: this.state.assistants,
       image: this.state.image
     };
-    this.props.addProperty(newProp).then(response => {
-      this.setState({
-        dimmerOpen: true,
-        priceModalOpen: false
+    const newQuantity = this.props.properties.length + 1;
+    const updatedUsage = {
+      _id: this.props.user._id,
+      quantity: newQuantity,
+      subscriptionItemID: this.props.user.subscriptionItemID
+    };
+    axios
+      .post(`${config.apiUrl}/api/stripe/updateUsage`, updatedUsage)
+      .then(response => {
+        if (response.status === 201) {
+          this.props.addProperty(newProp).then(response => {
+            this.setState({
+              dimmerOpen: true,
+              priceModalOpen: false
+            });
+          });
+        } else {
+          this.setState({
+            errorModalOpen: true,
+            modalMessage:
+              "An error occurred while updated your billing plan. Please try again.",
+            priceModalOpen: false
+          });
+        }
+      })
+      .catch(err => {
+        this.setState({
+          errorModalOpen: true,
+          modalMessage:
+            "An error occurred while updated your billing plan. Please try again.",
+          priceModalOpen: false
+        });
       });
-    });
   };
   successClose = () => {
     this.setState({

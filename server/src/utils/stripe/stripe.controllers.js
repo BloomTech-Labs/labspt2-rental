@@ -151,6 +151,7 @@ export const subscribe = async (req, res) => {
 
 // Used for updating the quantity of properties on the user object and sending the updated usage amount to Stripe for adjusting their monthly subscription charge
 
+
 export const updateUsage = async (req, res) => {
   userID = req.body._id;
   const userInfo = {
@@ -158,18 +159,17 @@ export const updateUsage = async (req, res) => {
     subscriptionItemID: req.body.subscriptionItemID
   };
 
-  const updatedUsage = await createUsageRecord(userInfo, res);
+  const updatedUsage = createUsageRecord(userInfo, res);
   if (updatedUsage) {
-    return res.status(201);
+    return res.status(201).json(updatedUsage);
   } else {
     return res.status(500).json({ message: 'Unable to update usage record' });
   }
 };
 
-// Just send success 201 from this endpoint so that Jess can hit the next endpoint to add the property
-
 const createUsageRecord = async (user, res) => {
   const currentDate = Math.floor(Date.now() / 1000);
+
   stripe.usageRecords.create(
     user.subscriptionItemID,
     {
@@ -178,12 +178,11 @@ const createUsageRecord = async (user, res) => {
     },
     (err, usageRecord) => {
       if (err && err != null) {
-        return res.status(500).json({
+        return res.status(404).json({
           message: 'Failed to send usage record updating subscription',
           err
         });
       } else {
-        console.log('Updated usage record from Stripe', usageRecord);
         return res.status(201);
       }
     }
