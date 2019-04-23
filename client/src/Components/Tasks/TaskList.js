@@ -3,6 +3,7 @@ import { FlexColumn, Divider } from "custom-components";
 import { Pagination, Responsive } from "semantic-ui-react";
 import TaskListItemDesktop from "./TaskListItemDesktop";
 import TaskListItemMobile from "./TaskListItemMobile";
+import TaskListItemTablet from "./TaskListItemTablet";
 
 class TaskList extends Component {
   constructor(props) {
@@ -31,22 +32,31 @@ class TaskList extends Component {
 
         {this.props.tasks.map((task, ind) => (
           <div style={{ width: "100%" }}>
-            <Responsive maxWidth={700}>
+
+            <Responsive maxWidth={475}>
               <TaskListItemMobile
                 task={task}
                 key={ind}
                 toggleComplete={this.props.toggleComplete}
               />
             </Responsive>
-            <Responsive minWidth={701}>
+            <Responsive minWidth={476} maxWidth={779}>
+              <TaskListItemTablet
+                task={task}
+                key={ind}
+                toggleComplete={this.props.toggleComplete}
+              />
+            </Responsive>
+            <Responsive minWidth={780}>
               <TaskListItemDesktop
                 task={task}
                 key={ind}
                 toggleComplete={this.props.toggleComplete}
               />
             </Responsive>
-            {/* <TaskListItem task={task} key={ind} /> */}
+
             <Divider />
+            
           </div>
         ))}
       </FlexColumn>
