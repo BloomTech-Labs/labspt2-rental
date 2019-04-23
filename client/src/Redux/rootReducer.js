@@ -7,8 +7,8 @@ import employeesReducer from "../Components/Employees/reducers";
 import taskReducer from "../Components/Tasks/reducer";
 import loginReducer from "../Components/LoginPage/reducer";
 import settingsReducer from "../Components/Settings/reducer";
-import dashboardReducer from '../Components/Dashboard/reducers';
-import checkoutReducer from '../Components/Checkout/reducers';
+import dashboardReducer from "../Components/Dashboard/reducers";
+import checkoutReducer from "../Components/Checkout/reducers";
 
 export default combineReducers({
   properties: propertyReducer,

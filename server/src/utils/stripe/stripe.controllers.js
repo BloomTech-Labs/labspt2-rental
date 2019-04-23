@@ -151,7 +151,6 @@ export const subscribe = async (req, res) => {
 
 // Used for updating the quantity of properties on the user object and sending the updated usage amount to Stripe for adjusting their monthly subscription charge
 
-
 export const updateUsage = async (req, res) => {
   userID = req.body._id;
   const userInfo = {

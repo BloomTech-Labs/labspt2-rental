@@ -46,7 +46,8 @@ const Router = () => {
 
 export default Router;
 
-{/* <Switch>
+{
+  /* <Switch>
 <ProtectedRoute
   exact
   path="/dashboard"
@@ -59,11 +60,12 @@ export default Router;
 />
 <Redirect exact from="/" to="/login" />
 <Route component={NotFound} />
-</Switch> */}
+</Switch> */
+}
 
 // const ProtectedRoute = ({ component: Component, ...rest }) => {
 //     const token = localStorage.getItem('token');
-    
+
 //     const checkAuth = () => {
 //         axios.get('url', {
 //             headers: {
@@ -90,9 +92,9 @@ export default Router;
 //     )
 //     };
 
-    // render={ async props => {
-    //   authorized = await checkAuth()
-    //   authorized ?
-    //   <Component {...props} :
-    //   <Redirect />
-    //   }}
+// render={ async props => {
+//   authorized = await checkAuth()
+//   authorized ?
+//   <Component {...props} :
+//   <Redirect />
+//   }}

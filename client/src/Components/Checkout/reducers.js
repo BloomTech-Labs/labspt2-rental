@@ -5,27 +5,27 @@ const initialState = {
   error: false,
   reservation: {},
   property: {},
-  employee: {},
+  employee: {}
 };
 
 const checkoutReducer = (state = initialState, action) => {
   switch (action.type) {
     case actions.CHECKOUT_STARTED:
-    return {
-      ...state,
-      loading: true
-    };
-  case actions.CHECKOUT_SUCCESS:
-    return {
-      ...state,
-      loading: false,
-    };
-  case actions.CHECKOUT_ERROR:
-    return {
-      ...state,
-      loading: false,
-      error: action.error
-    };
+      return {
+        ...state,
+        loading: true
+      };
+    case actions.CHECKOUT_SUCCESS:
+      return {
+        ...state,
+        loading: false
+      };
+    case actions.CHECKOUT_ERROR:
+      return {
+        ...state,
+        loading: false,
+        error: action.error
+      };
     case actions.FETCH_RESERVATION_STARTED:
       return {
         ...state,

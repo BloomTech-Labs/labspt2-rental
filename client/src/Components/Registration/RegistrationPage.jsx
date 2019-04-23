@@ -115,7 +115,11 @@ class RegistrationPage extends Component {
 
     let submitButton;
     if (disabled) {
-      submitButton = <Button basic color='green' type='submit' disabled>Update</Button>;
+      submitButton = (
+        <Button basic color="green" type="submit" disabled>
+          Update
+        </Button>
+      );
     } else {
       submitButton = (
         <Button color="green" type="submit" active>
@@ -146,7 +150,9 @@ class RegistrationPage extends Component {
         style={{ backgroundColor: "#1a1b1c", height: "100vh" }}
       >
         <Segment className="sm-container">
-          <Header size='large' style={{color:"#4ca34b"}}>Registration</Header>
+          <Header size="large" style={{ color: "#4ca34b" }}>
+            Registration
+          </Header>
           {success}
           <Divider />
 
@@ -234,7 +240,7 @@ class RegistrationPage extends Component {
                   Already registered?
                 </p>
                 <Link to="/login">
-                  <Button type='button'>Login</Button >
+                  <Button type="button">Login</Button>
                 </Link>
               </FlexColumn>
 
