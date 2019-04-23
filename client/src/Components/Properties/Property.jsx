@@ -107,6 +107,13 @@ class Property extends Component {
     const property = this.props.properties.find(
       property => property._id === this.props.match.params.id
     );
+    const numOfProps = this.props.properties.length;
+    const price =
+      numOfProps >= 9
+        ? (numOfProps - 1) * 5
+        : numOfProps >= 1
+        ? (numOfProps - 1) * 8
+        : 0;
     return (
       <>
         {property && (
@@ -118,7 +125,7 @@ class Property extends Component {
               onClickOutside={this.successClose}
             >
               <Header as="h1" inverted>
-                Property Deleted!
+                Property Deleted! Your monthly cost is now ${price}.
                 <Header.Subheader>
                   Click to return to Property List
                 </Header.Subheader>
