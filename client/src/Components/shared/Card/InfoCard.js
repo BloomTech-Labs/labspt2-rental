@@ -1,16 +1,24 @@
 import React, { Component } from "react";
 import {
   Header,
-  Image,
-  Button,
   Icon,
-  Popup,
+  Image,
   Label,
-  Statistic,
-  Responsive
+  Popup,
+  Responsive,
+  Button,
+  Statistic
 } from "semantic-ui-react";
+import InfoCardDesktop from "./InfoCardDesktop";
+import InfoCardTablet from "./InfoCardTablet";
+import InfoCardMobile from "./InfoCardMobile";
 import { FlexRow, FlexColumn } from "custom-components";
 import { Link } from "react-router-dom";
+import styled from "styled-components";
+
+const FullResponsive = styled.div`
+  width: 100%;
+`;
 
 const title = ({ children }) => (
   <Header size="medium" style={{ margin: "0" }}>
@@ -35,22 +43,33 @@ const id = ({ children }) => (
 );
 const label = ({ children, hover }) => (
   <Popup
-    trigger={<Label as="a" color="blue" content={children} icon="home" />}
+    trigger={
+      <Label
+        className="ellipsis"
+        style={{ maxWidth: "105px", minWidth: "75px" }}
+        as="a"
+        color="blue"
+        content={children}
+        icon="home"
+      />
+    }
     content={hover}
   />
 );
 const statA = ({ children, label }) => (
-
-  <Statistic size="tiny" style={{ margin: "0 15px 0 0" }}>
-
+  <Statistic size="tiny" style={{ margin: "10px 15px", width: "125px" }}>
     <Statistic.Label>{label}</Statistic.Label>
-    <Statistic.Value>{children}</Statistic.Value>
+    <Statistic.Value className="ellipsis" style={{ maxWidth: "125px" }}>
+      {children}
+    </Statistic.Value>
   </Statistic>
 );
 const statB = ({ children, label }) => (
-  <Statistic size="tiny" style={{ margin: "0 15px" }}>
+  <Statistic size="tiny" style={{ margin: "10px 15px", width: "125px" }}>
     <Statistic.Label>{label}</Statistic.Label>
-    <Statistic.Value>{children}</Statistic.Value>
+    <Statistic.Value className="ellipsis" style={{ maxWidth: "125px" }}>
+      {children}
+    </Statistic.Value>
   </Statistic>
 );
 class InfoCard extends Component {
@@ -65,48 +84,30 @@ class InfoCard extends Component {
     const props = this.props;
 
     let components = {};
-    React.Children.map(props.children, child => {
+    React.Children.forEach(props.children, child => {
       components[child.type.name] = child;
-      return null;
     });
 
     return (
-        <Responsive minWidth={701}>
-          <FlexRow alignCenter justifyBetween width="full" wrap>
-            {components.image}
-
-
-        <FlexColumn grow="1" spaceLeft="20px" spaceRight="20px">
-          <FlexRow alignCenter spaceBottom="10px">
-            {components.title}
-            {components.id}
-          </FlexRow>
-
-          {components.label}
-        </FlexColumn>
-
-        <FlexRow grow="1" justifyBetween spaceTop>
-          <FlexRow spaceRight="20px">
-            {components.statA}
-            {components.statB}
-          </FlexRow>
-
-          <FlexColumn>
-            <Link to={props.link}>
-              <Button style={{ margin: "10px 0" }}>
-                {props.linkName || "More Info"}
-              </Button>
-            </Link>
-          </FlexColumn>
-        </FlexRow>
-      </FlexRow>
-      </Responsive>
-
+      <>
+        <Responsive as={FullResponsive} minWidth={1001}>
+          <InfoCardDesktop {...{ ...props, components }}>
+            {props.children}
+          </InfoCardDesktop>
+        </Responsive>
+        <Responsive as={FullResponsive} minWidth={800} maxWidth={1000}>
+          <InfoCardTablet {...{ ...props, components }}>
+            {props.children}
+          </InfoCardTablet>
+        </Responsive>
+        <Responsive as={FullResponsive} maxWidth={799}>
+          <InfoCardMobile {...{ ...props, components }}>
+            {props.children}
+          </InfoCardMobile>
+        </Responsive>
+      </>
     );
   }
 }
 
 export default InfoCard;
-
-// eslint-disable-next-line no-lone-blocks
-{/* <Icon className="space-left-20" name="user circle" size="massive" /> */}

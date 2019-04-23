@@ -53,7 +53,7 @@ class Dashboard extends Component {
             <Route
               exact
               path="/dashboard/checkout/:id"
-              render={(props) => <CheckoutCart {...props} />}
+              render={props => <CheckoutCart {...props} />}
             />
             <Route
               exact
@@ -107,7 +107,10 @@ class Dashboard extends Component {
               render={() => <PropertyAdd />}
             />
             {/*<Route path="/dashboard/tasks" render={() => <Tasks/>}/>*/}
-            <Route path="/dashboard/settings" render={(props) => <Settings {...props} />} />
+            <Route
+              path="/dashboard/settings"
+              render={props => <Settings {...props} />}
+            />
           </Segment>
         </Sidebar>
       </Container>
