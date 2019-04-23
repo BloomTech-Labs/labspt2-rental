@@ -20,7 +20,7 @@ export class BaseController {
   getOne = async (req, res, next) => {
     let userId;
 
-    userId = req.user.createdBy ? req.user.createdBy : req.user._id
+    userId = req.user.createdBy ? req.user.createdBy : req.user._id;
 
     try {
       const doc = await this.mongooseModel
@@ -43,7 +43,7 @@ export class BaseController {
   getMany = async (req, res, next, query = null) => {
     let filter, sort, skip, limit, userId;
 
-    userId = req.user.createdBy ? req.user.createdBy : req.user._id
+    userId = req.user.createdBy ? req.user.createdBy : req.user._id;
 
     if (req.query.filter) {
       filter = JSON.parse(req.query.filter);
@@ -89,7 +89,7 @@ export class BaseController {
     const { lookup, search, filter } = opts;
     let userId;
 
-    userId = req.user.createdBy ? req.user.createdBy : req.user._id
+    userId = req.user.createdBy ? req.user.createdBy : req.user._id;
 
     let pipeline = [];
 
@@ -163,7 +163,7 @@ export class BaseController {
   updateOne = async (req, res, next) => {
     let userId;
 
-    userId = req.user.createdBy ? req.user.createdBy : req.user._id
+    userId = req.user.createdBy ? req.user.createdBy : req.user._id;
 
     try {
       const updatedDoc = await this.mongooseModel
@@ -192,7 +192,7 @@ export class BaseController {
   removeOne = async (req, res, next) => {
     let userId;
 
-    userId = req.user.createdBy ? req.user.createdBy : req.user._id
+    userId = req.user.createdBy ? req.user.createdBy : req.user._id;
 
     try {
       const removed = await this.mongooseModel.findOneAndRemove({
@@ -215,7 +215,7 @@ export class BaseController {
     let filter = {};
     let userId;
 
-    userId = req.user.createdBy ? req.user.createdBy : req.user._id
+    userId = req.user.createdBy ? req.user.createdBy : req.user._id;
 
     if (req.query.filter) {
       filter = JSON.parse(req.query.filter);
