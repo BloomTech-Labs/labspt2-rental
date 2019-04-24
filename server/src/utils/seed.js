@@ -6,6 +6,7 @@ import { User } from '../resources/user/user.model';
 import { Property } from '../resources/property/property.model';
 import { Task } from '../resources/task/task.model';
 import { Reservation } from '../resources/reservations/reservations.model';
+import bcrypt from 'bcrypt';
 
 export default async () => {
   if (config.isProd) {
@@ -76,6 +77,13 @@ export default async () => {
     };
 
     const seedGuest = new Promise((resolve, reject) => {
+      let hashedPass = '';
+      // bcrypt.hash('12345', 8, (err, hash) => {
+      //   if (err) {
+      //     console.log('error hashing user seed password');
+      //   }
+      //   hashedPass = hash;
+      // });
       // eslint-disable-next-line handle-callback-err
       User.findOne({ username: 'test_guest' }, (err, guest) => {
         if (!guest) {
