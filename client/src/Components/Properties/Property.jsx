@@ -176,6 +176,9 @@ class Property extends Component {
                         : "Not Assigned"}
                     </Text>
                   </FlexRow>
+                  <Link to="/dashboard/reservations/add">
+                    Create new reservation
+                  </Link>
                 </FlexColumn>
                 <FlexRow>
                   <Link to={`/dashboard/properties/edit/${property._id}`}>
