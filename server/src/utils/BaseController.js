@@ -93,7 +93,7 @@ export class BaseController {
 
     userId = req.user.createdBy ? req.user.createdBy : req.user._id;
 
-    let pipeline = [];
+    let pipeline = [{ $project: { password: false } }];
 
     if (lookup && lookup.length) {
       pipeline.push(...lookup);
