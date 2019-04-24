@@ -161,6 +161,10 @@ class Property extends Component {
                     <Text>${property.price}</Text>
                   </FlexRow>
                   <FlexRow>
+                    <Label>Cleaning Fee: </Label>
+                    <Text>${property.cleaningFee}</Text>
+                  </FlexRow>
+                  <FlexRow>
                     <Label>Max Guests:</Label>
                     <Text> {property.occupants}</Text>
                   </FlexRow>

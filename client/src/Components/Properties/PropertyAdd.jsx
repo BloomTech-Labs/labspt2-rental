@@ -207,6 +207,13 @@ class PropertyAdd extends Component {
             />
             <Form.Field
               control={Input}
+              label="Cleaning Fee"
+              style={{ margin: "5px" }}
+              placeholder="Optional"
+              onChange={e => this.handleChange("cleaningFee", e.target.value)}
+            />
+            <Form.Field
+              control={Input}
               label="Max Guests"
               style={{ margin: "5px" }}
               placeholder="Optional"

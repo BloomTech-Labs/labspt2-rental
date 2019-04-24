@@ -37,7 +37,7 @@ export default class Checkout extends Component {
       new Date(this.props.reservation.checkIn)
     );
     const totalBill =
-      nights * this.props.property.price + this.props.reservation.cleaningFee;
+      nights * this.props.property.price + this.props.property.cleaningFee;
     const stripeTotal = totalBill * 100;
     this.setState({
       total: totalBill,
@@ -215,9 +215,7 @@ export default class Checkout extends Component {
                       size="large"
                       style={{ marginRight: "2%" }}
                     />
-                    <p>
-                      Cleaning Fee: ${this.props.reservation.cleaningFee}.00
-                    </p>
+                    <p>Cleaning Fee: ${this.props.property.cleaningFee}.00</p>
                   </FlexRow>
                 </Grid.Row>
 

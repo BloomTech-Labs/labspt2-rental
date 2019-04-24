@@ -110,6 +110,16 @@ class PropertyEdit extends Component {
                 />
                 <Form.Field
                   control={Input}
+                  label="Cleaning Fee"
+                  style={{ margin: "5px" }}
+                  defaultValue={property.cleaningFee}
+                  placeholder={property.cleaningFee}
+                  onChange={e =>
+                    this.handleChange("cleaningFee", e.target.value)
+                  }
+                />
+                <Form.Field
+                  control={Input}
                   label="Max Guests"
                   style={{ margin: "5px" }}
                   defaultValue={property.occupants}
