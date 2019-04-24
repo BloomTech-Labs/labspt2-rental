@@ -20,7 +20,8 @@ const employeesReducer = (state = initialState, action) => {
         employees: action.payload.employees,
         properties: action.payload.properties,
         tasks: action.payload.tasks,
-        numPages: action.payload.numPages
+        numPages: action.payload.numPages,
+        user: action.payload.user
       };
     case actions.EMPLOYEE_FAILURE:
       return {

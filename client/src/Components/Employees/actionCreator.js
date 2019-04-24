@@ -24,22 +24,30 @@ export const getEmployees = (filterSort = {}) => dispatch => {
         )
   };
 
+  function getUser() {
+    return axios
+      .get(`${config.apiUrl}/api/users/me`)
+  };
+
+
   // gets all my information and sends it all over to the reducer
   return axios
     .all([
       getInfo("employees", filterSort),
       getInfo("properties"),
       getInfo("tasks"),
-      getCounts(filterSort)
+      getCounts(filterSort),
+      getUser()
     ])
     .then(
-      axios.spread((employees, properties, tasks, count) => {
+      axios.spread((employees, properties, tasks, count, user) => {
         const numPages = Math.ceil(count.data.count / 4);
         const result = {
           employees: employees.data.data,
           properties: properties.data.data,
           tasks: tasks.data.data,
-          numPages: numPages
+          numPages: numPages,
+          user: user.data.data
         };
         dispatch({ type: actions.EMPLOYEE_SUCCESS, payload: result });
       })
