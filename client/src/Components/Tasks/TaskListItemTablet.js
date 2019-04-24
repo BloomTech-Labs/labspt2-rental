@@ -8,10 +8,7 @@ const TaskListItemTablet = props => {
   const { task } = props;
 
   return (
-    <FlexRow
-      width="full"
-      style={{ marginTop: "5px", flexDirection: "column" }}
-    >
+    <FlexRow width="full" style={{ marginTop: "5px", flexDirection: "column" }}>
       <FlexRow>
         <Checkbox
           label={task.description}
@@ -34,7 +31,7 @@ const TaskListItemTablet = props => {
         </Link>
       </FlexRow>
 
-      <FlexRow 
+      <FlexRow
         width="full"
         style={{ alignItems: "baseline", justifyContent: "space-between" }}
       >
@@ -60,7 +57,6 @@ const TaskListItemTablet = props => {
           Due: <strong>{moment(task.endDate).format("MM/DD")}</strong>
         </p>
       </FlexRow>
-
     </FlexRow>
   );
 };
