@@ -6,7 +6,8 @@ const router = Router();
 router
   .route('/')
   .get(controllers.getMany)
-  .post(controllers.createOne);
+  .post(controllers.createOne)
+  .delete(controllers.deleteMany);
 
 router.route('/count').get(controllers.count);
 router.route('/search').get(controllers.searchAll);

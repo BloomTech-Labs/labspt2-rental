@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import { FlexColumn, FlexRow } from "custom-components";
-import { Button, Image, Dimmer, Header } from "semantic-ui-react";
+import { Button, Image, Dimmer, Header, List } from "semantic-ui-react";
 import { Link } from "react-router-dom";
 import DeleteModal from "./DeleteModal";
 import ErrorModal from "./ErrorModal";
@@ -31,6 +31,7 @@ class Property extends Component {
   };
   componentDidMount() {
     this.props.getProperties();
+    this.props.getTasks();
     this.props.getReservations();
     this.props.getUser();
   }
@@ -72,6 +73,7 @@ class Property extends Component {
         .then(response => {
           if (response.status === 201) {
             this.props.deleteProperty(this.props.match.params.id);
+            this.props.deleteTasks(this.props.match.params.id);
             this.setState({ dimmerOpen: true, deleteModalOpen: false });
           } else {
             this.setState({
@@ -104,8 +106,12 @@ class Property extends Component {
   };
 
   render() {
+    console.log(this.props);
     const property = this.props.properties.find(
       property => property._id === this.props.match.params.id
+    );
+    const tasks = this.props.tasks.filter(
+      task => task.property._id === property._id
     );
     const numOfProps = this.props.properties.length;
     const price =
@@ -116,7 +122,7 @@ class Property extends Component {
         : 0;
     return (
       <>
-        {property && (
+        {property && tasks && (
           <div>
             <Dimmer
               size="fullscreen"
@@ -192,6 +198,12 @@ class Property extends Component {
               </FlexColumn>
               <FlexColumn height="100%" justifyCenter>
                 <Image rounded src={property.image} size="medium" />
+                <List bulleted>
+                  {tasks.map(task => {
+                    return <List.Item>{task.description}</List.Item>;
+                  })}
+                  <List.Item>Is this even working?</List.Item>
+                </List>
               </FlexColumn>
             </FlexRow>
           </div>
