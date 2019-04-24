@@ -33,6 +33,17 @@ export const register = async (req, res, next) => {
   }
 
   try {
+    // check if username or email exist
+    const usernameCheck = await User.findOne({
+      username: req.body.username
+    }).exec();
+    console.log('usernameCheck', usernameCheck);
+    // comes back empty
+  } catch (err) {
+    console.log('usernameCheck err', err);
+  }
+
+  try {
     // Right now, what we have is okay, but we need to do a check
     // to see if the user already exists and throw appropriate status code
     const user = await User.create(req.body);
