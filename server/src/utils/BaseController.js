@@ -25,6 +25,7 @@ export class BaseController {
     try {
       const doc = await this.mongooseModel
         .findOne({ createdBy: userId, _id: req.params.id })
+        .select('-password')
         .exec();
 
       if (!doc) {
@@ -74,6 +75,7 @@ export class BaseController {
     try {
       const docs = await this.mongooseModel
         .find({ createdBy: userId, ...filter })
+        .select('-password')
         .sort(sort)
         .limit(limit)
         .skip(skip)
