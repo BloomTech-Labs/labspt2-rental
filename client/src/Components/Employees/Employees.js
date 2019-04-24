@@ -22,13 +22,11 @@ export default class Employees extends Component {
 
   componentDidMount() {
     this.props.getEmployees({ ...this.query });
-    this.props.getNumberEmployees({ ...this.query });
   }
 
   handleSearchChange = value => {
     this.query.search = value || "";
-    this.props.searchEmployees({ ...this.query });
-    this.props.getNumberEmployees({ ...this.query });
+    this.props.getEmployees({ ...this.query })
   };
 
   handleTabChange = e => {
@@ -38,7 +36,6 @@ export default class Employees extends Component {
       sort: "_id"
     };
     this.props.getEmployees({ ...this.query });
-    this.props.getNumberEmployees({ ...this.query });
   };
 
   handlePageChange = (e, data) => {
