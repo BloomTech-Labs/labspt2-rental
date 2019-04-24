@@ -11,6 +11,7 @@ export const registerUser = newUser => {
         `${config.apiUrl}/api/users/register`,
         newUser
       );
+
       dispatch({
         type: actions.REGISTER_USER_SUCCESS,
         payload: "Bearer " + token.data.token
@@ -18,6 +19,7 @@ export const registerUser = newUser => {
       console.log('we registered')
     } catch (err) {
       console.log('uh oh', err.response.data.err)
+      console.error(err.response.data.err);
       dispatch({
         type: actions.REGISTER_USER_FAILURE,
         payload: err.response.data.err.errmsg
@@ -25,3 +27,7 @@ export const registerUser = newUser => {
     }
   };
 };
+
+// "Error: Network Error
+//     at e.exports (https://5cc09dbbeaa265017a1d18f3--roostr.netlify.com/static/js/2.6763ebf2.chunk.js:1:321370)
+//     at XMLHttpRequest.p.onerror (https://5cc09dbbeaa265017a1d18f3--roostr.netlify.com/static/js/2.6763ebf2.chunk.js:1:320411)"
