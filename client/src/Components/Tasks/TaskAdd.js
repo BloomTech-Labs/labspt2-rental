@@ -35,7 +35,6 @@ class TaskAdd extends Component {
   }
 
   handleChange = (prop, val) => {
-    console.log(this.state);
     this.setState({ [prop]: val });
   };
 
