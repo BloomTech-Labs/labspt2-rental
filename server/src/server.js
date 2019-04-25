@@ -12,7 +12,7 @@ export const app = express();
 try {
   app.use(
     cors({
-      origin: ['https://www.roostr.tech'],
+      origin: ['https://www.roostr.tech', 'http://localhost:3000'],
       methods: ['GET', 'POST', 'DELETE', 'PUT'],
       credentials: true
     })
