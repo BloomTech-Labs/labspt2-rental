@@ -85,7 +85,7 @@ class InfoCard extends Component {
 
     let components = {};
     React.Children.forEach(props.children, child => {
-      components[child.type.name] = child;
+      components[child.type.displayName] = child;
     });
 
     return (
@@ -109,5 +109,12 @@ class InfoCard extends Component {
     );
   }
 }
+
+InfoCard.Title.displayName = "title";
+InfoCard.Image.displayName = "image";
+InfoCard.ID.displayName = "id";
+InfoCard.Label.displayName = "label";
+InfoCard.StatA.displayName = "statA";
+InfoCard.StatB.displayName = "statB";
 
 export default InfoCard;
