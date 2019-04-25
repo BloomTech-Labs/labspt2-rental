@@ -66,7 +66,7 @@ export default class Reservations extends Component {
                     status={tab}
                     loading={loading}
                     reservations={reservations}
-                    count={Math.round(reservationCount / pageSize)}
+                    count={Math.ceil(reservationCount / pageSize)}
                     handlePageChange={this.handlePageChange}
                   />
                 </Tab.Pane>
