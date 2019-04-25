@@ -1,6 +1,13 @@
 import React, { Component } from "react";
 import { FlexColumn, FlexRow } from "custom-components";
-import { Header, Input, Dropdown, Button } from "semantic-ui-react";
+import {
+  Header,
+  Input,
+  Dropdown,
+  Button,
+  Dimmer,
+  Modal
+} from "semantic-ui-react";
 import DateRangePickerWrapper from "../shared/DatePicker/DatePicker";
 
 class TaskAdd extends Component {
@@ -14,7 +21,10 @@ class TaskAdd extends Component {
       endDate: null,
       reservation: null,
       assignedTo: null,
-      status: "upcoming"
+      status: "upcoming",
+      dimmerOpen: false,
+      modalOpen: false,
+      modalMessage: ""
     };
   }
 
@@ -32,15 +42,55 @@ class TaskAdd extends Component {
     this.setState({ startDate: startDate, endDate: endDate });
   };
 
+  errorClose = () => {
+    this.setState({
+      modalOpen: false
+    });
+  };
+  successClose = () => {
+    this.setState({
+      dimmerOpen: false
+    });
+    this.props.history.push("/dashboard/tasks");
+  };
   handleSubmit = () => {
-    this.props
-      .createTask(this.state)
-      .then(data => {
-        if (data._id) {
-          this.props.history.push("/dashboard/tasks");
-        }
-      })
-      .catch(err => {});
+    const newTask = {
+      description: this.state.description,
+      property:
+        this.state.property == null ? "Not assigned" : this.state.property,
+      startDate: this.state.startDate,
+      endDate: this.state.endDate,
+      reservation:
+        this.state.reservation == null
+          ? "Not assigned"
+          : this.state.reservation,
+      assignedTo:
+        this.state.assignedTo == null ? "Not assigned" : this.state.assignedTo,
+      status: this.state.status
+    };
+    if (this.state.description && this.state.startDate && this.state.endDate) {
+      this.props
+        .createTask(newTask)
+        .then(data => {
+          if (data._id) {
+            this.setState({
+              dimmerOpen: true
+            });
+          } else {
+            this.setState({
+              modalOpen: true,
+              modalMessage: "The task could not be added. Please try again."
+            });
+          }
+        })
+        .catch(err => {});
+    } else {
+      this.setState({
+        modalOpen: true,
+        modalMessage:
+          "Description, start date, and end date are required. Please fill in required fields."
+      });
+    }
   };
 
   render() {
@@ -81,17 +131,18 @@ class TaskAdd extends Component {
               this.props.loading
                 ? [{ text: "Loading...", value: "loading" }]
                 : this.props.tasks.properties &&
-                  this.props.tasks.properties.map(p => ({
-                    key: p._id,
-                    text: p.name,
-                    value: p._id
-                  }))
+                  this.props.tasks.properties
+                    .filter(p => p.active === true)
+                    .map(p => ({
+                      key: p._id,
+                      text: p.name,
+                      value: p._id
+                    }))
             }
           />
         </FlexRow>
 
         <br />
-
         <FlexRow>
           <Dropdown
             placeholder="Reservation"
@@ -112,7 +163,6 @@ class TaskAdd extends Component {
         </FlexRow>
 
         <br />
-
         <FlexRow>
           <Dropdown
             placeholder="Employee"
@@ -139,6 +189,27 @@ class TaskAdd extends Component {
             Submit Task
           </Button>
         </FlexRow>
+        <Dimmer
+          size="fullscreen"
+          active={this.state.dimmerOpen}
+          page
+          onClickOutside={this.successClose}
+        >
+          <Header as="h1" inverted>
+            Task successfully added!
+          </Header>
+          <Header.Subheader>Click to return to the task list.</Header.Subheader>
+        </Dimmer>
+        <Modal open={this.state.modalOpen} size="small">
+          <Modal.Content>
+            <p>{this.state.modalMessage}</p>
+          </Modal.Content>
+          <Modal.Actions>
+            <Button onClick={this.errorClose} color="blue">
+              Return to Form
+            </Button>
+          </Modal.Actions>
+        </Modal>
       </FlexColumn>
     );
   }

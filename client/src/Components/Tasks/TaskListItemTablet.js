@@ -8,10 +8,7 @@ const TaskListItemTablet = props => {
   const { task } = props;
 
   return (
-    <FlexRow
-      width="full"
-      style={{ marginTop: "5px", flexDirection: "column" }}
-    >
+    <FlexRow width="full" style={{ marginTop: "5px", flexDirection: "column" }}>
       <FlexRow>
         <Checkbox
           label={task.description}
@@ -34,7 +31,7 @@ const TaskListItemTablet = props => {
         </Link>
       </FlexRow>
 
-      <FlexRow 
+      <FlexRow
         width="full"
         style={{ alignItems: "baseline", justifyContent: "space-between" }}
       >
@@ -43,24 +40,31 @@ const TaskListItemTablet = props => {
             <Label
               as="a"
               color="blue"
-              content={task.property.name}
+              content={
+                task.property != null ? task.property.name : "Not assigned"
+              }
               icon="home"
               style={{ marginTop: "10px" }}
             />
           }
-          content={`${task.property.address1} ${task.property.city} ${
-            task.property.state
-          } ${task.property.zip}`}
+          content={
+            task.property != null
+              ? `${task.property.address1} ${task.property.city} ${
+                  task.property.state
+                } ${task.property.zip}`
+              : "Not assigned"
+          }
         />
         <p>
           <strong>Assignee: </strong>
-          {task.assignedTo.firstName} {task.assignedTo.lastName}
+          {task.assignedTo
+            ? `${task.assignedTo.firstName} ${task.assignedTo.lastName}`
+            : "Not assigned"}
         </p>
         <p>
           Due: <strong>{moment(task.endDate).format("MM/DD")}</strong>
         </p>
       </FlexRow>
-
     </FlexRow>
   );
 };

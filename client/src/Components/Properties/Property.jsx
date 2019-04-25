@@ -4,8 +4,6 @@ import { Button, Image, Dimmer, Header } from "semantic-ui-react";
 import { Link } from "react-router-dom";
 import DeleteModal from "./DeleteModal";
 import ErrorModal from "./ErrorModal";
-import axios from "axios";
-import config from "config";
 import styled from "styled-components";
 
 const Label = styled.span`
@@ -32,7 +30,6 @@ class Property extends Component {
   componentDidMount() {
     this.props.getProperties();
     this.props.getReservations();
-    this.props.getUser();
   }
 
   openModal = () => {
@@ -59,43 +56,9 @@ class Property extends Component {
     this.setState({ errorModalOpen: false });
   };
   handleDelete = () => {
-    if (this.props.properties.length > 1) {
-      const newQuantity = this.props.properties.length - 1;
-      const updatedUsage = {
-        _id: this.props.user._id,
-        quantity: newQuantity,
-        subscriptionItemID: this.props.user.subscriptionItemID
-      };
-      console.log(updatedUsage);
-      axios
-        .post(`${config.apiUrl}/api/stripe/updateUsage`, updatedUsage)
-        .then(response => {
-          if (response.status === 201) {
-            this.props.deleteProperty(this.props.match.params.id);
-            this.setState({ dimmerOpen: true, deleteModalOpen: false });
-          } else {
-            this.setState({
-              errorModalOpen: true,
-              modalMessage:
-                "An error occurred while updated your billing plan. Please try again.",
-              deleteModalOpen: false
-            });
-          }
-        })
-        .catch(err => {
-          this.setState({
-            errorModalOpen: true,
-            modalMessage:
-              "An error occurred while updated your billing plan. Please try again.",
-            deleteModalOpen: false
-          });
-        });
-    } else {
-      this.props.deleteProperty(this.props.match.params.id);
-      this.setState({ dimmerOpen: true, deleteModalOpen: false });
-    }
+    this.props.deleteProperty(this.props.match.params.id);
+    this.setState({ dimmerOpen: true, deleteModalOpen: false });
   };
-
   successClose = () => {
     this.setState({
       dimmerOpen: false
@@ -107,13 +70,6 @@ class Property extends Component {
     const property = this.props.properties.find(
       property => property._id === this.props.match.params.id
     );
-    const numOfProps = this.props.properties.length;
-    const price =
-      numOfProps >= 9
-        ? (numOfProps - 1) * 5
-        : numOfProps >= 1
-        ? (numOfProps - 1) * 8
-        : 0;
     return (
       <>
         {property && (
@@ -125,7 +81,7 @@ class Property extends Component {
               onClickOutside={this.successClose}
             >
               <Header as="h1" inverted>
-                Property Deleted! Your monthly cost is now ${price}.
+                Property Deleted!
                 <Header.Subheader>
                   Click to return to Property List
                 </Header.Subheader>
@@ -193,5 +149,4 @@ class Property extends Component {
     );
   }
 }
-
 export default Property;

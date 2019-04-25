@@ -7,7 +7,8 @@ const initialState = {
   property: {},
   employees: [],
   user: {},
-  reservations: []
+  reservations: [],
+  tasks: []
 };
 
 const propertyReducer = (state = initialState, action) => {
@@ -34,6 +35,12 @@ const propertyReducer = (state = initialState, action) => {
         ...state,
         loading: false,
         property: action.payload.data
+      };
+    case actions.TASK_SUCCESS:
+      return {
+        ...state,
+        loading: false,
+        tasks: action.payload.data
       };
     case actions.PROPERTY_FAILURE:
       return {
@@ -64,6 +71,11 @@ const propertyReducer = (state = initialState, action) => {
         ...state,
         loading: false
       };
+    case actions.TASK_DELETE_SUCCESS:
+      return {
+        ...state,
+        loading: false
+      };
     case actions.USER_STARTED:
       return {
         ...state,
@@ -81,6 +93,7 @@ const propertyReducer = (state = initialState, action) => {
         loading: false,
         error: action.error
       };
+
     default:
       return { ...state };
   }

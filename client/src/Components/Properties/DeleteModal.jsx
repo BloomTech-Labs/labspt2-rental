@@ -7,8 +7,8 @@ const DeleteModal = props => {
     <Modal open={props.open} size={props.size}>
       <Modal.Content>
         <p>
-          Are you sure you wish to delete this property? This action cannot be
-          undone.
+          Are you sure you wish to delete this property and all associated
+          tasks? This action cannot be undone.
         </p>
       </Modal.Content>
       <Modal.Actions>
