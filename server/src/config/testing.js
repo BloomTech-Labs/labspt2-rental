@@ -3,5 +3,5 @@ export const config = {
     jwt: 'learneverything'
   },
   dbUrl: 'mongodb://localhost:27017/mentorlabs-api-testing',
-  origin: 'localhost:3000'
+  origin: 'http://localhost:3000'
 };

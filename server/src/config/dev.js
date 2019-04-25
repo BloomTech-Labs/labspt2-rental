@@ -8,5 +8,5 @@ export const config = {
     stripePlan: 'plan_EpLtM3j2EMurWg'
   },
   dbUrl: 'mongodb://localhost:27017/mentorlabs-dev',
-  origin: 'localhost:3000'
+  origin: 'http://localhost:3000'
 };
