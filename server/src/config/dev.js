@@ -7,5 +7,6 @@ export const config = {
     stripeSecret: 'sk_test_DNgeIDV0yXsWhahC6Wq4ZKg9',
     stripePlan: 'plan_EpLtM3j2EMurWg'
   },
-  dbUrl: 'mongodb://localhost:27017/mentorlabs-dev'
+  dbUrl: 'mongodb://localhost:27017/mentorlabs-dev',
+  origin: 'http://localhost:3000'
 };
