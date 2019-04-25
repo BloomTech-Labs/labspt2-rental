@@ -10,7 +10,13 @@ import seed from './utils/seed';
 
 export const app = express();
 try {
-  app.use(cors());
+  app.use(
+    cors({
+      origin: ['https://www.roostr.tech'],
+      methods: ['GET', 'POST', 'DELETE', 'PUT'],
+      credentials: true
+    })
+  );
   app.use(morgan('dev'));
   app.use(express.json());
   app.set('view engine', 'pug');
