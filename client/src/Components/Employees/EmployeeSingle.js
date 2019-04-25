@@ -51,12 +51,13 @@ class EmployeeSingle extends Component {
   };
 
   permissionChange = body => {
-    this.props.updateEmployee(this.props.match.params.id, body);
+    this.props.updateEmployee(this.props.match.params.id, body)
+    .then(this.props.getEmployees({ ...this.query }));
   };
 
   // this is a reusable component for the permission selections with logic that removes the options if an employee is viewing it.
   PermissionDropdown = (options = {}) => {
-    return options.employee.role === "owner" ? (
+    return options.user.role === "owner" ? (
       <Dropdown
         className="space-left-20"
         inline
@@ -87,6 +88,9 @@ class EmployeeSingle extends Component {
       this.loading = false;
       permissions = employee.permissions;
     }
+    const { user } = this.props;
+    const propPermissions = user ? (user.role === "owner" || user.permissions.property ? true : false) : false;
+    console.log(propPermissions)
 
     return (
       <Container>
@@ -136,7 +140,8 @@ class EmployeeSingle extends Component {
                   {this.PermissionDropdown({
                     default: permissions.task,
                     type: "task",
-                    employee
+                    employee,
+                    user
                   })}
                 </Header>
                 <Header as="h3">
@@ -144,7 +149,8 @@ class EmployeeSingle extends Component {
                   {this.PermissionDropdown({
                     default: permissions.property,
                     type: "property",
-                    employee
+                    employee,
+                    user
                   })}
                 </Header>
                 <Header as="h3">
@@ -152,7 +158,8 @@ class EmployeeSingle extends Component {
                   {this.PermissionDropdown({
                     default: permissions.checkout,
                     type: "checkout",
-                    employee
+                    employee,
+                    user
                   })}
                 </Header>
               </FlexColumn>
@@ -165,6 +172,7 @@ class EmployeeSingle extends Component {
                       key={property._id}
                       property={property}
                       removeEmplFromProperty={this.removeEmplFromProperty}
+                      propPermissions={propPermissions}
                     />
                   ))
                 ) : (

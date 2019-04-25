@@ -15,6 +15,7 @@ const EmployeePropertyCard = props => {
       <Button
         className="space-left-20 space-top"
         circular
+        disabled={!props.propPermissions}
         icon="x"
         color="red"
         size="mini"
