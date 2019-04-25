@@ -6,13 +6,28 @@ import { Button, Segment, Modal } from "semantic-ui-react";
 import { Link } from "react-router-dom";
 
 class Properties extends Component {
-  state = {
-    modalOpen: false
-  };
+  constructor(props) {
+    super(props);
+    this.state = {
+      modalOpen: false
+    };
+    this.query = {
+      page: 1,
+      pageSize: 4,
+      sort: "_id",
+      filter: { active: true },
+      search: ""
+    };
+  }
+
+  //ADD ACTIVE AND INACTIVE TABS, ADD PAGINATION, CHANGE GET PROPERTIES METHOD TO USE THE QUERY.
   componentDidMount() {
     this.props.getProperties();
   }
-
+  handleSearchChange = value => {
+    this.query.search = value || "";
+    this.props.searchProperties({ ...this.query });
+  };
   closeModal = () => {
     this.setState({ modalOpen: false });
   };
@@ -48,7 +63,10 @@ class Properties extends Component {
           width="100%"
           style={{ padding: "5px" }}
         >
-          <Search style={{ flexGrow: "1", marginRight: "10px" }} />
+          <Search
+            style={{ flexGrow: "1", marginRight: "10px" }}
+            onChange={this.handleSearchChange}
+          />
           <Button
             className="space-left-20 space-right-20"
             circular

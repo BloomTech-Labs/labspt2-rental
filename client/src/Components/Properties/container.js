@@ -9,7 +9,8 @@ import {
   deleteProperty,
   getUser,
   getTasks,
-  deleteTasks
+  deleteTasks,
+  searchProperties
 } from "./actionCreator";
 import _Properties from "./Properties";
 import _Property from "./Property";
@@ -40,7 +41,8 @@ const connector = connect(
     getEmployees,
     getReservations,
     deleteProperty,
-    getUser
+    getUser,
+    searchProperties
   }
 );
 

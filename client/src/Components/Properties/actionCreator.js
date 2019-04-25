@@ -65,7 +65,27 @@ export const getProperty = id => {
       });
   };
 };
+export const searchProperties = (filterSort = {}) => dispatch => {
+  const { sort, search, filter, pageSize, page } = filterSort;
 
+  dispatch({ type: actions.PROPERTY_STARTED });
+
+  return axios
+    .get(
+      `${config.apiUrl}/api/properties/search?search=${search ||
+        ""}&filter=${JSON.stringify(filter) ||
+        ""}&sort=${sort}&limit=${pageSize}&skip=${(page - 1) * pageSize}`
+    )
+    .then(({ data }) => {
+      dispatch({
+        type: actions.FETCH_PROPERTIES_SUCCESS,
+        payload: { reservations: data.data }
+      });
+    })
+    .catch(err => {
+      dispatch({ type: actions.PROPERTY_FAILURE, payload: err });
+    });
+};
 export const updateProperty = (body = {}) => dispatch => {
   dispatch({ type: actions.PROPERTY_STARTED });
 
