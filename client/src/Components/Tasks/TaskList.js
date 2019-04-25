@@ -32,7 +32,6 @@ class TaskList extends Component {
 
         {this.props.tasks.map((task, ind) => (
           <div style={{ width: "100%" }}>
-
             <Responsive maxWidth={475}>
               <TaskListItemMobile
                 task={task}
@@ -56,7 +55,6 @@ class TaskList extends Component {
             </Responsive>
 
             <Divider />
-            
           </div>
         ))}
       </FlexColumn>
