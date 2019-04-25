@@ -11,9 +11,7 @@ const taskPropertyAssign = opts => {
       } else if (Date.parse(item.startDate) < currentTime) {
         newTaskData.todayTask = true;
       }
-      newTaskData.employee = item.assignedTo
-        ? item.assignedTo._id
-        : "Not Assigned";
+      newTaskData.employee = item.assignedTo ? item.assignedTo._id : null;
       newTasks.push(newTaskData);
     });
     employees.forEach(employee => {

@@ -86,7 +86,7 @@ export const fetchProperties = () => dispatch => {
     .get(`${config.apiUrl}/api/properties`)
     .then(({ data }) => {
       dispatch({
-        type: actions.PROPERTIES_SUCCESS,
+        type: actions.TASKS_PROPERTIES_SUCCESS,
         payload: { properties: data.data }
       });
     })
@@ -102,7 +102,7 @@ export const fetchEmployees = () => dispatch => {
     .get(`${config.apiUrl}/api/employees`)
     .then(({ data }) => {
       dispatch({
-        type: actions.EMPLOYEES_SUCCESS,
+        type: actions.TASKS_EMPLOYEES_SUCCESS,
         payload: { employees: data.data }
       });
     })
@@ -118,7 +118,7 @@ export const fetchReservations = () => dispatch => {
     .get(`${config.apiUrl}/api/reservations`)
     .then(({ data }) => {
       dispatch({
-        type: actions.RESERVATIONS_SUCCESS,
+        type: actions.TASKS_RESERVATIONS_SUCCESS,
         payload: { reservations: data.data }
       });
     })

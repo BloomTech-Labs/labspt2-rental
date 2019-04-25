@@ -114,13 +114,6 @@ class TaskAdd extends Component {
 
         <br />
 
-        <FlexRow width="full">
-          <DateRangePickerWrapper onChange={this.handleDateChange} />
-        </FlexRow>
-
-        <br />
-        <br />
-
         <FlexRow>
           <Dropdown
             placeholder="Property"
@@ -161,7 +154,7 @@ class TaskAdd extends Component {
                       text: r._id,
                       value: r._id
                     }))
-                : [{ text: "Choose Property first", value: "loading" }]
+                : [{ text: "Choose Property First", value: "loading" }]
             }
           />
         </FlexRow>
@@ -176,14 +169,20 @@ class TaskAdd extends Component {
             options={
               this.props.loading
                 ? [{ text: "Loading...", value: "loading" }]
-                : this.props.properties.employees &&
-                  this.props.properties.employees.map(e => ({
+                : this.props.tasks.employees &&
+                  this.props.tasks.employees.map(e => ({
                     key: e._id,
                     text: e.firstName + " " + e.lastName,
                     value: e._id
                   }))
             }
           />
+        </FlexRow>
+
+        <br />
+
+        <FlexRow width="full">
+          <DateRangePickerWrapper onChange={this.handleDateChange} />
         </FlexRow>
 
         <br />

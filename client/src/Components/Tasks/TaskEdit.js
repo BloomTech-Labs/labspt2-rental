@@ -1,13 +1,15 @@
 import React, { Component } from "react";
 import { FlexColumn, FlexRow } from "custom-components";
-import { Header, Input, Dropdown, Button } from "semantic-ui-react";
+import { Header, Input, Dropdown, Button, Modal } from "semantic-ui-react";
 import DateRangePickerWrapper from "../shared/DatePicker/DatePicker";
 
 class TaskEdit extends Component {
   constructor(props) {
     super(props);
 
-    this.state = {};
+    this.state = {
+      modalOpen: false
+    };
   }
 
   // methods here
@@ -45,12 +47,19 @@ class TaskEdit extends Component {
   };
 
   handleDelete = () => {
-    window.alert("This task has been deleted.");
     this.props
       .deleteTask(this.props.match.params.id)
       .then(data => this.props.history.push(`/dashboard/tasks/`))
       .catch(err => {});
   };
+
+  openModal = () => {
+    this.setState({ modalOpen: true })
+  }
+
+  errorClose = () => {
+    this.setState({ modalOpen: false })
+  }
 
   render() {
     const {
@@ -81,21 +90,6 @@ class TaskEdit extends Component {
               </FlexRow>
             </FlexColumn>
 
-            <br />
-
-            <FlexRow width="full">
-              <DateRangePickerWrapper
-                onChange={this.handleDateChange}
-                initialStartDate={
-                  new Date(this.state.startDate ? this.state.startDate : null)
-                }
-                initialEndDate={
-                  new Date(this.state.endDate ? this.state.endDate : null)
-                }
-              />
-            </FlexRow>
-
-            <br />
             <br />
 
             <FlexRow>
@@ -144,12 +138,15 @@ class TaskEdit extends Component {
                 options={
                   this.props.loading
                     ? [{ text: "Loading...", value: "loading" }]
-                    : this.props.tasks.employees &&
-                      this.props.tasks.employees.map(r => ({
-                        key: r._id,
-                        text: r._id,
-                        value: r._id
-                      }))
+                    : this.state.property
+                    ? this.props.tasks.reservations 
+                        .filter(r => r.property._id === this.state.property._id)
+                        .map(r => ({
+                          key: r._id,
+                          text: r._id,
+                          value: r._id
+                        }))
+                    : [{ text: "Choose Property First", value: "loading" }]
                 }
               />
             </FlexRow>
@@ -171,12 +168,27 @@ class TaskEdit extends Component {
                 options={
                   this.props.loading
                     ? [{ text: "Loading...", value: "loading" }]
-                    : this.props.properties.employees &&
-                      this.props.properties.employees.map(e => ({
-                        key: e._id,
-                        text: e.firstName + " " + e.lastName,
-                        value: e._id
-                      }))
+                    : this.props.tasks.employees &&
+                      this.props.tasks.employees
+                        .map(e => ({
+                          key: e._id,
+                          text: e.firstName + " " + e.lastName,
+                          value: e._id
+                        }))
+                }
+              />
+            </FlexRow>
+
+            <br />
+
+            <FlexRow width="full">
+              <DateRangePickerWrapper
+                onChange={this.handleDateChange}
+                initialStartDate={
+                  new Date(this.state.startDate ? this.state.startDate : null)
+                }
+                initialEndDate={
+                  new Date(this.state.endDate ? this.state.endDate : null)
                 }
               />
             </FlexRow>
@@ -184,7 +196,7 @@ class TaskEdit extends Component {
             <br />
 
             <FlexRow width="full" justifyCenter>
-              <Button basic color="red" onClick={this.handleDelete}>
+              <Button basic color="red" onClick={this.openModal}>
                 Delete Task
               </Button>
               <Button basic onClick={this.handleCancel}>
@@ -194,6 +206,23 @@ class TaskEdit extends Component {
                 Update Task
               </Button>
             </FlexRow>
+
+
+
+            <Modal open={this.state.modalOpen} size="small">
+              <Modal.Content>
+                <p>Are you sure you want to delete this task?</p>
+              </Modal.Content>
+              <Modal.Actions>
+                <Button basic color="red" onClick={this.errorClose}>
+                  No, do not delete!
+                </Button>
+                <Button color="blue" onClick={this.handleDelete}>
+                  Yes, delete!
+                </Button>
+
+              </Modal.Actions>
+            </Modal>
           </FlexColumn>
         )}
       </>
