@@ -24,7 +24,7 @@ export class Desktop extends Component {
         >
           {this.props.links.map((link, ind) => (
             <Link key={ind} to={link.url} onClick={this.props.handleClick}>
-              <Menu.Item as="a">
+              <Menu.Item>
                 <Icon name={link.icon} />
                 {link.name}
               </Menu.Item>
