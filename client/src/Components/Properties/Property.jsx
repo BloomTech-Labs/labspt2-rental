@@ -1,11 +1,9 @@
 import React, { Component } from "react";
 import { FlexColumn, FlexRow } from "custom-components";
-import { Button, Image, Dimmer, Header, List } from "semantic-ui-react";
+import { Button, Image, Dimmer, Header } from "semantic-ui-react";
 import { Link } from "react-router-dom";
 import DeleteModal from "./DeleteModal";
 import ErrorModal from "./ErrorModal";
-import axios from "axios";
-import config from "config";
 import styled from "styled-components";
 
 const Label = styled.span`
@@ -31,9 +29,7 @@ class Property extends Component {
   };
   componentDidMount() {
     this.props.getProperties();
-    this.props.getTasks();
     this.props.getReservations();
-    this.props.getUser();
   }
 
   openModal = () => {
@@ -60,44 +56,9 @@ class Property extends Component {
     this.setState({ errorModalOpen: false });
   };
   handleDelete = () => {
-    if (this.props.properties.length > 1) {
-      const newQuantity = this.props.properties.length - 1;
-      const updatedUsage = {
-        _id: this.props.user._id,
-        quantity: newQuantity,
-        subscriptionItemID: this.props.user.subscriptionItemID
-      };
-      console.log(updatedUsage);
-      axios
-        .post(`${config.apiUrl}/api/stripe/updateUsage`, updatedUsage)
-        .then(response => {
-          if (response.status === 201) {
-            this.props.deleteProperty(this.props.match.params.id);
-            this.props.deleteTasks(this.props.match.params.id);
-            this.setState({ dimmerOpen: true, deleteModalOpen: false });
-          } else {
-            this.setState({
-              errorModalOpen: true,
-              modalMessage:
-                "An error occurred while updated your billing plan. Please try again.",
-              deleteModalOpen: false
-            });
-          }
-        })
-        .catch(err => {
-          this.setState({
-            errorModalOpen: true,
-            modalMessage:
-              "An error occurred while updated your billing plan. Please try again.",
-            deleteModalOpen: false
-          });
-        });
-    } else {
-      this.props.deleteProperty(this.props.match.params.id);
-      this.setState({ dimmerOpen: true, deleteModalOpen: false });
-    }
+    this.props.deleteProperty(this.props.match.params.id);
+    this.setState({ dimmerOpen: true, deleteModalOpen: false });
   };
-
   successClose = () => {
     this.setState({
       dimmerOpen: false
@@ -106,23 +67,12 @@ class Property extends Component {
   };
 
   render() {
-    console.log(this.props);
     const property = this.props.properties.find(
       property => property._id === this.props.match.params.id
     );
-    const tasks = this.props.tasks.filter(
-      task => task.property._id === property._id
-    );
-    const numOfProps = this.props.properties.length;
-    const price =
-      numOfProps >= 9
-        ? (numOfProps - 1) * 5
-        : numOfProps >= 1
-        ? (numOfProps - 1) * 8
-        : 0;
     return (
       <>
-        {property && tasks && (
+        {property && (
           <div>
             <Dimmer
               size="fullscreen"
@@ -131,7 +81,7 @@ class Property extends Component {
               onClickOutside={this.successClose}
             >
               <Header as="h1" inverted>
-                Property Deleted! Your monthly cost is now ${price}.
+                Property Deleted!
                 <Header.Subheader>
                   Click to return to Property List
                 </Header.Subheader>
@@ -167,10 +117,6 @@ class Property extends Component {
                     <Text>${property.price}</Text>
                   </FlexRow>
                   <FlexRow>
-                    <Label>Cleaning Fee: </Label>
-                    <Text>${property.cleaningFee}</Text>
-                  </FlexRow>
-                  <FlexRow>
                     <Label>Max Guests:</Label>
                     <Text> {property.occupants}</Text>
                   </FlexRow>
@@ -182,9 +128,6 @@ class Property extends Component {
                         : "Not Assigned"}
                     </Text>
                   </FlexRow>
-                  <Link to="/dashboard/reservations/add">
-                    Create new reservation
-                  </Link>
                 </FlexColumn>
                 <FlexRow>
                   <Link to={`/dashboard/properties/edit/${property._id}`}>
@@ -198,12 +141,6 @@ class Property extends Component {
               </FlexColumn>
               <FlexColumn height="100%" justifyCenter>
                 <Image rounded src={property.image} size="medium" />
-                <List bulleted>
-                  {tasks.map(task => {
-                    return <List.Item>{task.description}</List.Item>;
-                  })}
-                  <List.Item>Is this even working?</List.Item>
-                </List>
               </FlexColumn>
             </FlexRow>
           </div>
@@ -212,5 +149,4 @@ class Property extends Component {
     );
   }
 }
-
 export default Property;

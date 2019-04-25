@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import { FlexColumn, FlexRow } from "custom-components";
-import { Header, Input, Dropdown, Button } from "semantic-ui-react";
+import { Header, Input, Dropdown, Button, Dimmer } from "semantic-ui-react";
 import DateRangePickerWrapper from "../shared/DatePicker/DatePicker";
 
 class TaskAdd extends Component {
@@ -12,9 +12,9 @@ class TaskAdd extends Component {
       property: null,
       startDate: null,
       endDate: null,
-      reservation: null,
       assignedTo: null,
-      status: "upcoming"
+      status: "upcoming",
+      dimmerOpen: false
     };
   }
 
@@ -33,8 +33,18 @@ class TaskAdd extends Component {
   };
 
   handleSubmit = () => {
+    const newTask = {
+      description: this.state.description,
+      property:
+        this.state.property == null ? "Not assigned" : this.state.property,
+      startDate: this.state.startDate,
+      endDate: this.state.endDate,
+      assignedTo:
+        this.state.assignedTo == null ? "Not assigned" : this.state.assignedTo,
+      status: this.state.status
+    };
     this.props
-      .createTask(this.state)
+      .createTask(newTask)
       .then(data => {
         if (data._id) {
           this.props.history.push("/dashboard/tasks");
@@ -81,32 +91,13 @@ class TaskAdd extends Component {
               this.props.loading
                 ? [{ text: "Loading...", value: "loading" }]
                 : this.props.tasks.properties &&
-                  this.props.tasks.properties.map(p => ({
-                    key: p._id,
-                    text: p.name,
-                    value: p._id
-                  }))
-            }
-          />
-        </FlexRow>
-
-        <br />
-
-        <FlexRow>
-          <Dropdown
-            placeholder="Reservation"
-            style={{ marginRight: "10px" }}
-            selection
-            onChange={(e, val) => this.handleChange("reservation", val.value)}
-            options={
-              this.props.loading
-                ? [{ text: "Loading...", value: "loading" }]
-                : this.props.tasks.employees &&
-                  this.props.tasks.employees.map(r => ({
-                    key: r._id,
-                    text: r._id,
-                    value: r._id
-                  }))
+                  this.props.tasks.properties
+                    .filter(property => property.active === true)
+                    .map(p => ({
+                      key: p._id,
+                      text: p.name,
+                      value: p._id
+                    }))
             }
           />
         </FlexRow>

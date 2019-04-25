@@ -48,13 +48,19 @@ const TaskListItemDesktop = props => {
             <Label
               as="a"
               color="blue"
-              content={task.property.name}
+              content={
+                task.property != null ? task.property.name : "Not assigned"
+              }
               icon="home"
             />
           }
-          content={`${task.property.address1} ${task.property.city} ${
-            task.property.state
-          } ${task.property.zip}`}
+          content={
+            task.property != null
+              ? `${task.property.address1} ${task.property.city} ${
+                  task.property.state
+                } ${task.property.zip}`
+              : "Not assigned"
+          }
         />
         <p style={{ paddingTop: "5px" }}>
           Due: <strong>{moment(task.endDate).format("MM/DD")}</strong>
