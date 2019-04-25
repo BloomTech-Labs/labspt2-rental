@@ -5,12 +5,13 @@ import config from "../../config/index";
 export const getEmployees = (filterSort = {}) => dispatch => {
   dispatch({ type: actions.EMPLOYEE_STARTED });
 
-  // function that takes in a string (database) and the filterSort and returns the axios call
+  // function that takes in a string (database) and the filterSort and returns the axios call (from search, if exists)
   function getInfo(database, filterSort = {}) {
     const { filter, sort, page, pageSize, search } = filterSort;
-    database = search ? `${database}/search` : database
+    database = search ? `${database}/search` : database;
     return axios.get(
-      `${config.apiUrl}/api/${database}?search=${search || ""}&filter=${JSON.stringify(filter) ||
+      `${config.apiUrl}/api/${database}?search=${search ||
+        ""}&filter=${JSON.stringify(filter) ||
         ""}&sort=${sort}&limit=${pageSize}&skip=${(page - 1) * pageSize}`
     );
   }
@@ -18,17 +19,15 @@ export const getEmployees = (filterSort = {}) => dispatch => {
   // function that takes in the filterSort and returns the count of employees
   function getCounts(filterSort = {}) {
     const { filter, search } = filterSort;
-    return axios
-        .get(
-          `${config.apiUrl}/api/employees/count?search=${search || ""}&filter=${JSON.stringify(filter) || ""}`
-        )
-  };
+    return axios.get(
+      `${config.apiUrl}/api/employees/count?search=${search ||
+        ""}&filter=${JSON.stringify(filter) || ""}`
+    );
+  }
 
   function getUser() {
-    return axios
-      .get(`${config.apiUrl}/api/users/me`)
-  };
-
+    return axios.get(`${config.apiUrl}/api/users/me`);
+  }
 
   // gets all my information and sends it all over to the reducer
   return axios
@@ -73,10 +72,28 @@ export const updateEmployee = (id, body) => dispatch => {
   return axios
     .put(`${config.apiUrl}/api/employees/${id}`, body)
     .then(({ data }) => {
-      console.log(data);
       dispatch(getEmployees());
     })
     .catch(err => {
       dispatch({ type: actions.EMPLOYEE_FAILURE, error: err });
+    });
+};
+
+export const updateProperty = (body = {}) => dispatch => {
+  dispatch({ type: actions.EMPLOYEE_PROPERTY_STARTED });
+
+  return axios
+    .put(`${config.apiUrl}/api/properties/${body._id}`, body)
+    .then(data => {
+      dispatch({
+        type: actions.EMPLOYEE_UPDATE_PROPERTY_SUCCESS,
+        payload: data.data
+      });
+    })
+    .catch(err => {
+      dispatch({
+        type: actions.EMPLOYEE_PROPERTY_FAILURE,
+        payload: err
+      });
     });
 };

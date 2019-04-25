@@ -1,44 +1,77 @@
 import React, { Component } from "react";
-import { Link } from "react-router-dom";
-import { Button, Icon, Image, Header, Dropdown } from "semantic-ui-react";
+import { Icon, Image, Header, Dropdown } from "semantic-ui-react";
 import { FlexRow, Container, FlexColumn } from "custom-components";
 
 import EmployeePropertyCard from "./EmployeePropertyCard";
 import taskPropertyAssign from "./taskPropertyHelper";
 
+const permissionValues = [
+  {
+    key: "yes",
+    text: "Yes",
+    value: true
+  },
+  {
+    key: "no",
+    text: "No",
+    value: false
+  }
+];
+
 class EmployeeSingle extends Component {
   constructor(props) {
     super(props);
     this.loading = true;
+    this.query = {
+      page: 1,
+      pageSize: 10000,
+      sort: "_id",
+      search: ""
+    };
   }
 
   componentDidMount() {
     if (!this.props.employees.length) {
-      const query = {
-        page: 1,
-        pageSize: 10000,
-        sort: "_id",
-        search: ""
-      };
-      this.props.getEmployees({ ...query });
+      this.props.getEmployees({ ...this.query });
     }
   }
 
-  removeEmplFromProperty = id => {
+  removeEmplFromProperty = (e, id) => {
     // this removes an employee from a property's assigned employee list
+    e.preventDefault();
     const property = this.props.properties.find(item => item._id === id);
     const { assistants } = property;
-    console.log(property);
     const newAssistants = assistants.filter(
       item => item._id !== this.props.match.params.id
     );
-    console.log(newAssistants);
-    console.log({ ...property, assistants: newAssistants });
-    // this.props.updateProperty({...property, assistants: newAssistants})
+    const newProperty = { _id: id, assistants: newAssistants };
+    this.props
+      .updateProperty(newProperty)
+      .then(this.props.getEmployees({ ...this.query }));
   };
 
   permissionChange = body => {
     this.props.updateEmployee(this.props.match.params.id, body);
+  };
+
+  // this is a reusable component for the permission selections with logic that removes the options if an employee is viewing it.
+  PermissionDropdown = (options = {}) => {
+    return options.employee.role === "owner" ? (
+      <Dropdown
+        className="space-left-20"
+        inline
+        options={permissionValues}
+        defaultValue={options.default}
+        onChange={(e, val) =>
+          this.permissionChange({
+            ...options.employee,
+            permissions: { ...options.employee.permissions, task: val.value }
+          })
+        }
+      />
+    ) : (
+      <span className="space-left">{options.default ? "Yes" : "No"}</span>
+    );
   };
 
   render() {
@@ -54,18 +87,6 @@ class EmployeeSingle extends Component {
       this.loading = false;
       permissions = employee.permissions;
     }
-    const permissionValues = [
-      {
-        key: "yes",
-        text: "Yes",
-        value: true
-      },
-      {
-        key: "no",
-        text: "No",
-        value: false
-      }
-    ];
 
     return (
       <Container>
@@ -112,48 +133,27 @@ class EmployeeSingle extends Component {
                 <Header as="h2">Employee Permissions</Header>
                 <Header as="h3">
                   Can re-assign tasks
-                  <Dropdown
-                    className="space-left-20"
-                    inline
-                    options={permissionValues}
-                    defaultValue={permissions.task}
-                    onChange={(e, val) =>
-                      this.permissionChange({
-                        ...employee,
-                        permissions: { ...permissions, task: val.value }
-                      })
-                    }
-                  />
+                  {this.PermissionDropdown({
+                    default: permissions.task,
+                    type: "task",
+                    employee
+                  })}
                 </Header>
                 <Header as="h3">
                   Can re-assign properties
-                  <Dropdown
-                    className="space-left-20"
-                    inline
-                    options={permissionValues}
-                    defaultValue={permissions.property}
-                    onChange={(e, val) =>
-                      this.permissionChange({
-                        ...employee,
-                        permissions: { ...permissions, property: val.value }
-                      })
-                    }
-                  />
+                  {this.PermissionDropdown({
+                    default: permissions.property,
+                    type: "property",
+                    employee
+                  })}
                 </Header>
                 <Header as="h3">
-                  Can bill guests{"   "}
-                  <Dropdown
-                    className="space-left-20"
-                    inline
-                    options={permissionValues}
-                    defaultValue={permissions.checkout}
-                    onChange={(e, val) =>
-                      this.permissionChange({
-                        ...employee,
-                        permissions: { ...permissions, checkout: val.value }
-                      })
-                    }
-                  />
+                  Can bill guests
+                  {this.PermissionDropdown({
+                    default: permissions.checkout,
+                    type: "checkout",
+                    employee
+                  })}
                 </Header>
               </FlexColumn>
               <FlexColumn alignCenter width="30%">

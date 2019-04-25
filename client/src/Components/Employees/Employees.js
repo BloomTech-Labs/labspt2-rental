@@ -26,7 +26,7 @@ export default class Employees extends Component {
 
   handleSearchChange = value => {
     this.query.search = value || "";
-    this.props.getEmployees({ ...this.query })
+    this.props.getEmployees({ ...this.query });
   };
 
   handleTabChange = e => {
@@ -46,9 +46,16 @@ export default class Employees extends Component {
   render() {
     const { tabs } = this.state;
     const { page, pageSize } = this.query;
-    const { employees, loading, numPages, tasks, properties } = this.props;
+    const {
+      employees,
+      loading,
+      numPages,
+      tasks,
+      properties,
+      user
+    } = this.props;
 
-    return (
+    return !loading ? (
       <FlexColumn>
         <Header as="h1">Employees</Header>
         <Tab
@@ -62,6 +69,7 @@ export default class Employees extends Component {
                   <EmployeeList
                     key={tab + index}
                     status={tab}
+                    user={user}
                     employees={employees}
                     tasks={tasks}
                     properties={properties}
@@ -79,6 +87,8 @@ export default class Employees extends Component {
           ]}
         />
       </FlexColumn>
+    ) : (
+      <div>Please wait...</div>
     );
   }
 }

@@ -29,6 +29,20 @@ const employeesReducer = (state = initialState, action) => {
         loading: false,
         error: action.error
       };
+    case actions.EMPLOYEE_PROPERTY_STARTED:
+      return {
+        ...state,
+        loading: true
+      };
+    case actions.EMPLOYEE_UPDATE_PROPERTY_SUCCESS:
+      return {
+        ...state
+      };
+    case actions.EMPLOYEE_PROPERTY_FAILURE:
+      return {
+        ...state,
+        error: action.error
+      };
     default:
       return { ...state };
   }
