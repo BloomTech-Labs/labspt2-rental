@@ -10,7 +10,6 @@ export const loginUser = credentials => {
     dispatch({ type: LOGIN_USER_LOADING });
 
     try {
-      console.log('loginUser action creator testing the config variable', config.apiUrl)
       const token = await axios.post(
         `${config.apiUrl}/api/users/login`,
         credentials
