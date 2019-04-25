@@ -38,7 +38,9 @@ const TaskListItemDesktop = props => {
         </FlexRow>
         <p style={{ paddingTop: "10px", paddingLeft: "25px" }}>
           <strong>Assignee: </strong>
-          {task.assignedTo.firstName} {task.assignedTo.lastName}
+          {task.assignedTo
+            ? `${task.assignedTo.firstName} ${task.assignedTo.lastName}`
+            : "Not assigned"}
         </p>
       </FlexColumn>
 

@@ -57,7 +57,9 @@ const TaskListItemTablet = props => {
         />
         <p>
           <strong>Assignee: </strong>
-          {task.assignedTo.firstName} {task.assignedTo.lastName}
+          {task.assignedTo
+            ? `${task.assignedTo.firstName} ${task.assignedTo.lastName}`
+            : "Not assigned"}
         </p>
         <p>
           Due: <strong>{moment(task.endDate).format("MM/DD")}</strong>
