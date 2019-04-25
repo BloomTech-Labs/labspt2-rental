@@ -29,23 +29,23 @@ const taskReducer = (state = initialState, { type, payload }) => {
         loading: false
         // tasks: payload.data
       };
-    case actions.PROPERTIES_SUCCESS:
+    case actions.TASKS_PROPERTIES_SUCCESS:
       return {
         ...state,
         loading: false,
         properties: payload.properties
       };
-    case actions.EMPLOYEES_SUCCESS:
+    case actions.TASKS_EMPLOYEES_SUCCESS:
       return {
         ...state,
         loading: false,
         employees: payload.employees
       };
-    case actions.RESERVATIONS_SUCCESS:
+    case actions.TASKS_RESERVATIONS_SUCCESS:
       return {
         ...state,
         loading: false,
-        employees: payload.reservations
+        reservations: payload.reservations
       };
     case actions.TASK_COUNT_SUCCESS:
       return {
