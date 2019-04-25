@@ -152,12 +152,16 @@ class TaskAdd extends Component {
             options={
               this.props.loading
                 ? [{ text: "Loading...", value: "loading" }]
-                : this.props.tasks.employees &&
-                  this.props.tasks.employees.map(r => ({
-                    key: r._id,
-                    text: r._id,
-                    value: r._id
-                  }))
+                : this.state.property
+                ? this.props.tasks.reservations &&
+                  this.props.tasks.reservations
+                    .filter(r => r.property._id === this.state.property)
+                    .map(r => ({
+                      key: r._id,
+                      text: r._id,
+                      value: r._id
+                    }))
+                : [{ text: "Choose Property first", value: "loading" }]
             }
           />
         </FlexRow>
