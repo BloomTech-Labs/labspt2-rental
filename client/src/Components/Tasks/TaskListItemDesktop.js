@@ -38,7 +38,9 @@ const TaskListItemDesktop = props => {
         </FlexRow>
         <p style={{ paddingTop: "10px", paddingLeft: "25px" }}>
           <strong>Assignee: </strong>
-          {task.assignedTo.firstName} {task.assignedTo.lastName}
+          {task.assignedTo
+            ? `${task.assignedTo.firstName} ${task.assignedTo.lastName}`
+            : "Not assigned"}
         </p>
       </FlexColumn>
 
@@ -48,13 +50,19 @@ const TaskListItemDesktop = props => {
             <Label
               as="a"
               color="blue"
-              content={task.property.name}
+              content={
+                task.property != null ? task.property.name : "Not assigned"
+              }
               icon="home"
             />
           }
-          content={`${task.property.address1} ${task.property.city} ${
-            task.property.state
-          } ${task.property.zip}`}
+          content={
+            task.property != null
+              ? `${task.property.address1} ${task.property.city} ${
+                  task.property.state
+                } ${task.property.zip}`
+              : "Not assigned"
+          }
         />
         <p style={{ paddingTop: "5px" }}>
           Due: <strong>{moment(task.endDate).format("MM/DD")}</strong>

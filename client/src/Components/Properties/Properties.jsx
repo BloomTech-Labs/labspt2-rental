@@ -64,6 +64,7 @@ class Properties extends Component {
             return (
               <>
                 <PropertyCard
+                  key={property._id}
                   id={property._id}
                   image={property.image}
                   name={property.name}

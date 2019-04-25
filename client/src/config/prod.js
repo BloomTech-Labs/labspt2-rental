@@ -1,3 +1,3 @@
 export const config = {
-  apiUrl: "https://138.197.202.158"
+  apiUrl: "https://api.roostr.tech"
 };

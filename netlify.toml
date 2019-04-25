@@ -2,5 +2,4 @@
 
 base = "client/"
 publish = "client/build"
-command = "npm run build"
-
+command = "npm run start"

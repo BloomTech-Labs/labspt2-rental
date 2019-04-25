@@ -154,3 +154,27 @@ export const getUser = user => {
     }
   };
 };
+
+export const getTasks = () => dispatch => {
+  dispatch({ type: actions.PROPERTY_STARTED });
+  return axios
+    .get(`${config.apiUrl}/api/tasks/`)
+    .then(response => {
+      dispatch({ type: actions.TASK_SUCCESS, payload: response.data });
+    })
+    .catch(err => {
+      dispatch({ type: actions.PROPERTY_FAILURE, payload: err });
+    });
+};
+
+export const deleteTasks = id => dispatch => {
+  dispatch({ type: actions.PROPERTY_STARTED });
+  return axios.delete(`${config.apiUrl}/api/tasks/`, id).then(response => {
+    dispatch({
+      type: actions.TASK_DELETE_SUCCESS,
+      payload: response.data
+    }).catch(err => {
+      dispatch({ type: actions.PROPERTY_FAILURE, payload: err });
+    });
+  });
+};

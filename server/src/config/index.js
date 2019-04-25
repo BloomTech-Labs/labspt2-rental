@@ -10,7 +10,8 @@ const baseConfig = {
   secrets: {
     jwt: process.env.JWT_SECRET || 'local secrets are no fun',
     jwtExp: '100d'
-  }
+  },
+  origin: 'https://www.roostr.tech'
 };
 
 let envConfig = {};

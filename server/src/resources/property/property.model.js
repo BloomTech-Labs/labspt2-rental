@@ -48,6 +48,10 @@ const propertySchema = new Schema(
       type: Number,
       required: true
     },
+    cleaningFee: {
+      type: Number,
+      default: 30
+    },
     occupants: {
       type: Number
     },

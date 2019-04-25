@@ -27,7 +27,3 @@ export const registerUser = newUser => {
     }
   };
 };
-
-// "Error: Network Error
-//     at e.exports (https://5cc09dbbeaa265017a1d18f3--roostr.netlify.com/static/js/2.6763ebf2.chunk.js:1:321370)
-//     at XMLHttpRequest.p.onerror (https://5cc09dbbeaa265017a1d18f3--roostr.netlify.com/static/js/2.6763ebf2.chunk.js:1:320411)"
