@@ -45,7 +45,7 @@ const taskReducer = (state = initialState, { type, payload }) => {
       return {
         ...state,
         loading: false,
-        employees: payload.reservations
+        reservations: payload.reservations
       };
     case actions.TASK_COUNT_SUCCESS:
       return {
