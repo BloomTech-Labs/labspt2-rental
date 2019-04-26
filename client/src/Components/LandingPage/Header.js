@@ -1,6 +1,6 @@
 import PropTypes from "prop-types";
 import React from "react";
-import { Button, Container, Header, Icon } from "semantic-ui-react";
+import { Button, Container, Header, Icon, Transition } from "semantic-ui-react";
 import { Link } from "react-router-dom";
 
 /* eslint-disable react/no-multi-comp */
@@ -38,6 +38,10 @@ export const HomePageHeader = ({ mobile }) => (
         <Icon name="right arrow" />
       </Button>
     </Link>
+
+    {/* <Transition animation='bounce' duration='1000' visible='true' >
+            <Icon centered size='large' name='arrow down' />
+    </Transition> */}
   </Container>
 );
 

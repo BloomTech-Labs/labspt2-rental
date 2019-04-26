@@ -4,6 +4,7 @@ import { Registration } from "./Components/Registration";
 import { LoginPage } from "./Components/LoginPage";
 import { Dashboard } from "./Components/Dashboard";
 import { Home } from "./Components/LandingPage";
+import { NotFound } from './Components/shared/404';
 
 import axios from "axios";
 
@@ -33,7 +34,8 @@ const Router = () => {
         <ProtectedRoute path='/dashboard' component={Dashboard} />
         <Route path="/register" component={Registration} />
         <Route path="/login" component={LoginPage} />
-        <Route path="/" component={Home} />
+        <Route exact path="/" component={Home} />
+        <Route component={NotFound} />
       </Switch>
     </Fragment>
   )
