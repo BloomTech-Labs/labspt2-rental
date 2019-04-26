@@ -3,12 +3,6 @@ import { User } from '../resources/user/user.model';
 import jwt from 'jsonwebtoken';
 
 export const newToken = user => {
-  console.log(
-    'Login newToken generator checking config URL',
-    config.dbUrl,
-    'also checking the stripe publishable:',
-    config.keys.stripePublishable
-  );
   return jwt.sign({ id: user.id }, config.secrets.jwt, {
     expiresIn: config.secrets.jwtExp
   });
