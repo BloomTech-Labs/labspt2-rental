@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { Header, Tab, Icon, Segment } from "semantic-ui-react";
+import { Header, Tab, Icon, Segment, Label, Menu } from "semantic-ui-react";
 import { FlexColumn, FlexRow } from "custom-components";
 import { Link } from "react-router-dom";
 import Search from "../shared/Search/Search";
@@ -18,7 +18,11 @@ class Tasks extends Component {
     };
 
     this.state = {
-      tabs: ["Overdue", "Due Today", "Upcoming"]
+      tabs: [
+        {name: "Overdue", color: "red", label: "!"}, 
+        {name: "Due Today", color: "yellow", label: "!"}, 
+        {name: "Upcoming", color: "green", label: "!"}
+      ]
     };
   }
 
@@ -35,7 +39,7 @@ class Tasks extends Component {
 
   handleTabChange = (e, data) => {
     const { tabs } = this.state;
-    const activeTab = tabs[data.activeIndex].toLowerCase();
+    const activeTab = tabs[data.activeIndex].name.toLowerCase();
     this.query.page = 1;
     this.query.filter = { status: activeTab };
     this.props.getTasks({ ...this.query });
@@ -71,11 +75,23 @@ class Tasks extends Component {
         </FlexRow>
 
         <Tab
+          style={{ width: "75vw"}}
           onTabChange={this.handleTabChange}
           menu={{ attached: false }}
           panes={[
             ...tabs.map(tab => ({
-              menuItem: tab,
+              menuItem: (
+                <Menu.Item>
+                  {tab.name}
+                  <Label 
+                    floating 
+                    circular 
+                    color={tab.color}
+                  >
+                    {tab.label}
+                  </Label>
+                </Menu.Item>
+              ),
               render: () => (
                 <Tab.Pane attached={false}>
                   {!tasks ? (
