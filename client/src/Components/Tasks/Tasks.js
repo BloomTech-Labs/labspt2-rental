@@ -90,7 +90,7 @@ class Tasks extends Component {
           ) : null}
         </FlexRow>
 
-        <FlexRow style={{ alignItems: "baseline", marginTop: "-10px", marginBottom: "10px" }}>
+        <FlexRow style={{ alignItems: "baseline", marginTop: "10px", marginBottom: "10px" }}>
           <Segment style={{ marginRight: "15px" }}>
             <Checkbox 
               toggle 
