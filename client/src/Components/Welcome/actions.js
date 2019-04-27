@@ -47,3 +47,56 @@ export const getUser = () => {
     }
   };
 };
+
+export const updatePassword = password => {
+  return async dispatch => {
+    dispatch({ type: USER_STARTED });
+    try {
+      const updatedPassword = await axios.put(
+        `${config.apiUrl}/api/users/me/pass`,
+        password
+      );
+      dispatch({
+        type: USER_SUCCESS,
+        payload: updatedPassword.data.data
+      });
+    } catch (err) {
+      console.error(err);
+      dispatch({ type: USER_ERROR, payload: err });
+    }
+  };
+};
+
+export const updateUser = user => {
+  return async dispatch => {
+    dispatch({ type: USER_STARTED });
+    try {
+      const updatedUser = await axios.put(
+        `${config.apiUrl}/api/users/me`,
+        user
+      );
+      dispatch({
+        type: USER_SUCCESS,
+        payload: updatedUser.data.data
+      });
+    } catch (err) {
+      console.error(err);
+      dispatch({ type: USER_ERROR, payload: err });
+    }
+  };
+};
+
+export const sendEmail = msg => {
+  axios
+    .post(`${config.apiUrl}/api/sendgrid/mail/send`, msg)
+    .then(response => {
+      if (response.status === 202) {
+        window.alert("message went through");
+      } else {
+        window.alert(`failed with status code ${response.status}`);
+      }
+    })
+    .catch(err => {
+      console.log(err);
+    });
+};

@@ -1,6 +1,12 @@
 import { connect } from "react-redux";
 import { withRouter } from "react-router-dom";
-import { firstLogin, getUser } from "./actions";
+import {
+  firstLogin,
+  getUser,
+  updatePassword,
+  updateUser,
+  sendEmail
+} from "./actions";
 import _FirstLogin from "./FirstLogin";
 import _newUserUpdate from "./newUserUpdate";
 
@@ -14,7 +20,10 @@ const connector = connect(
   mapStateToProps,
   {
     firstLogin,
-    getUser
+    getUser,
+    updatePassword,
+    updateUser,
+    sendEmail
   }
 );
 
