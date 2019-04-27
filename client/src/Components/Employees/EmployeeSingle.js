@@ -118,8 +118,8 @@ class EmployeeSingle extends Component {
                 </Header>
                 <Header as="h3">Overdue Tasks: {employee.overdue}</Header>
               </FlexColumn>
-              {employee.imageLoc ? (
-                <Image src={employee.imageLoc} size="medium" />
+              {employee.image ? (
+                <Image src={`https://res.cloudinary.com/roostr-labpt2/image/upload/c_lfill,g_center,h_500,w_400/v1556336341/${employee.image}.jpg`} />
               ) : (
                 <Icon
                   className="space-left-20"

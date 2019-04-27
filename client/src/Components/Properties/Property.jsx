@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import { FlexColumn, FlexRow } from "custom-components";
-import { Button, Image, Dimmer, Header } from "semantic-ui-react";
+import { Button, Dimmer, Header, Image } from "semantic-ui-react";
 import { Link } from "react-router-dom";
 import DeleteModal from "./DeleteModal";
 import ErrorModal from "./ErrorModal";
@@ -140,7 +140,7 @@ class Property extends Component {
                 </FlexRow>
               </FlexColumn>
               <FlexColumn height="100%" justifyCenter>
-                <Image rounded src={property.image} size="medium" />
+                <Image src={`http://res.cloudinary.com/roostr-labpt2/image/upload/c_scale,q_80,r_0,w_640/v1556327124/${property.image}.jpg`} rounded />
               </FlexColumn>
             </FlexRow>
           </div>

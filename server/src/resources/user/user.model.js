@@ -86,6 +86,7 @@ const userSchema = new Schema(
     phone: {
       type: String
     },
+    image: String,
     createdBy: {
       type: mongoose.SchemaTypes.ObjectId,
       ref: 'user'
