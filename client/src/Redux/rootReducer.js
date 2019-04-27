@@ -9,6 +9,7 @@ import loginReducer from "../Components/LoginPage/reducer";
 import settingsReducer from "../Components/Settings/reducer";
 import dashboardReducer from "../Components/Dashboard/reducers";
 import checkoutReducer from "../Components/Checkout/reducers";
+import newLoginReducer from "../Components/Welcome/reducer";
 
 export default combineReducers({
   properties: propertyReducer,
@@ -20,5 +21,6 @@ export default combineReducers({
   tasks: taskReducer,
   settings: settingsReducer,
   dashboard: dashboardReducer,
-  checkout: checkoutReducer
+  checkout: checkoutReducer,
+  welcome: newLoginReducer
 });

@@ -60,7 +60,7 @@ class LoginPage extends Component {
     this.props
       .firstLogin(credentials)
       .then(success => {
-        if (this.props.auth.token) {
+        if (this.props.token) {
           this.setState({
             active: true
           });

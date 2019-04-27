@@ -7,10 +7,11 @@ import {
 const initialState = {
   loading: false,
   error: null,
-  token: null
+  token: null,
+  user: {}
 };
 
-const loginReducer = (state = initialState, action) => {
+const newLoginReducer = (state = initialState, action) => {
   switch (action.type) {
     case LOGIN_USER_LOADING:
       return {
@@ -37,4 +38,4 @@ const loginReducer = (state = initialState, action) => {
   }
 };
 
-export default loginReducer;
+export default newLoginReducer;

@@ -4,8 +4,10 @@ import { firstLogin } from "./actions";
 import _FirstLogin from "./FirstLogin";
 import _newUserUpdate from "./newUserUpdate";
 
-const mapStateToProps = ({ auth }) => ({
-  auth
+const mapStateToProps = data => ({
+  token: data.welcome.token,
+  user: data.welcome.user,
+  loading: data.welcome.loading
 });
 
 const connector = connect(
