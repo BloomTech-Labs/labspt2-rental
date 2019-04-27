@@ -10,6 +10,14 @@ class PropertyControllers extends BaseController {
   count = (req, res, next) => {
     return this.countMine(req, res, next);
   };
+  searchAll = (req, res, next) => {
+    // Other collections to join
+
+    // Properties to search
+    const search = ['name', 'address1', 'address2', 'city', 'state', '_id'];
+
+    return this.search(req, res, next, { search });
+  };
 }
 
 const controllers = new PropertyControllers(Property);

@@ -5,15 +5,12 @@ import {
   Label,
   Popup,
   Responsive,
-  Button,
   Image,
   Statistic
 } from "semantic-ui-react";
 import InfoCardDesktop from "./InfoCardDesktop";
 import InfoCardTablet from "./InfoCardTablet";
 import InfoCardMobile from "./InfoCardMobile";
-import { FlexRow, FlexColumn } from "custom-components";
-import { Link } from "react-router-dom";
 import styled from "styled-components";
 
 const FullResponsive = styled.div`

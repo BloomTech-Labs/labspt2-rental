@@ -6,10 +6,6 @@ const mapStateToProps = ({ registration }) => ({
   registration
 });
 
-const mapDispatchToProps = () => ({
-  registerUser
-});
-
 export default connect(
   mapStateToProps,
   { registerUser }

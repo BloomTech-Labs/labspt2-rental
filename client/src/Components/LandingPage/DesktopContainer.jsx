@@ -72,7 +72,6 @@ class DesktopContainer extends Component {
 
                   <Link to="/register">
                     <Button
-                      as="a"
                       inverted={!fixed}
                       primary={fixed}
                       style={{ marginLeft: "0.5em" }}
@@ -89,7 +88,7 @@ class DesktopContainer extends Component {
             <Responsive
               getWidth={getWidth}
               minWidth={Responsive.onlyTablet.minWidth}
-              style={{ backgroundColor: "#f6f9fc" }}
+              style={{ backgroundColor: "#f6f9fc", marginTop: '100px' }}
             >
               <Testimonials />
               <GetStarted />

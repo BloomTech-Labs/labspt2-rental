@@ -2,27 +2,27 @@ import axios from "axios";
 import * as actions from "./actions";
 import config from "config";
 
-export const getProperties = () => {
-  return dispatch => {
-    dispatch({
-      type: actions.PROPERTY_STARTED
-    });
-    axios
-      .get(`${config.apiUrl}/api/properties`)
-      .then(response => {
-        dispatch({
-          type: actions.FETCH_PROPERTIES_SUCCESS,
-          payload: response.data
-        });
-      })
-      .catch(err => {
-        dispatch({
-          type: actions.PROPERTY_FAILURE,
-          error: err
-        });
+export const getProperties = (filterSort = {}) => dispatch => {
+  const { filter, sort, page, pageSize } = filterSort;
+
+  dispatch({ type: actions.PROPERTY_STARTED });
+
+  return axios
+    .get(
+      `${config.apiUrl}/api/properties?filter=${JSON.stringify(filter) ||
+        ""}&sort=${sort}&limit=${pageSize}&skip=${(page - 1) * pageSize}`
+    )
+    .then(response => {
+      dispatch({
+        type: actions.FETCH_PROPERTIES_SUCCESS,
+        payload: response.data
       });
-  };
+    })
+    .catch(err => {
+      dispatch({ type: actions.PROPERTY_FAILURE, payload: err });
+    });
 };
+
 export const getReservations = () => {
   return dispatch => {
     dispatch({
@@ -64,6 +64,45 @@ export const getProperty = id => {
         });
       });
   };
+};
+export const searchProperties = (filterSort = {}) => dispatch => {
+  const { filter, sort, page, pageSize, search } = filterSort;
+
+  dispatch({ type: actions.PROPERTY_STARTED });
+
+  return axios
+    .get(
+      `${config.apiUrl}/api/properties/search?search=${search ||
+        ""}&filter=${JSON.stringify(filter) ||
+        ""}&sort=${sort}&limit=${pageSize}&skip=${(page - 1) * pageSize}`
+    )
+    .then(response => {
+      dispatch({
+        type: actions.FETCH_PROPERTIES_SUCCESS,
+        payload: response.data
+      });
+    })
+    .catch(err => {
+      dispatch({ type: actions.PROPERTY_FAILURE, payload: err });
+    });
+};
+
+export const fetchPropertyCount = active => dispatch => {
+  dispatch({ type: actions.PROPERTY_STARTED });
+
+  return axios
+    .get(
+      `${config.apiUrl}/api/properties/count?filter=${JSON.stringify(active)}`
+    )
+    .then(response => {
+      dispatch({
+        type: actions.PROPERTY_COUNT_SUCCESS,
+        payload: response.data.count
+      });
+    })
+    .catch(err => {
+      dispatch({ type: actions.PROPERTY_FAILURE, payload: err });
+    });
 };
 
 export const updateProperty = (body = {}) => dispatch => {

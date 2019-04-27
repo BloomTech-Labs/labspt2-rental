@@ -1,4 +1,4 @@
-import styled from "styled-components";
+import styled, { keyframes } from "styled-components";
 
 export const FlexRow = styled.div`
   display: flex;
@@ -99,4 +99,27 @@ export const Divider = styled.div`
   width: ${props => (props.width ? props.width : "100%")};
   background: ${props => (props.color ? props.color : "#e6e6e6")};
   margin: ${props => (props.margin ? props.margin : "10px 0")};
+`;
+
+export const keyFramesBounce = keyframes`
+  0%, 20%, 50%, 80%, 100% {
+    transform: translateY(0);
+  }
+  40% {
+    transform: translateY(-30px);
+  }
+  60% {
+    transform: translateY(-15px);
+  }
+`;
+
+export const BouncingArrow = styled.div`
+  text-align: center;
+  margin: 8% 0;
+
+  animation: ${keyFramesBounce};
+  -moz-animation: bounce 2s infinite;
+  -webkit-animation: bounce 2s infinite;
+  animation: bounce 2s infinite;
+
 `;

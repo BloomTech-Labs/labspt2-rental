@@ -8,7 +8,6 @@ export const payment = ({ mobile }) => (
     xmlns="http://www.w3.org/2000/svg"
     xmlnsXlink="http://www.w3.org/1999/xlink"
     width={mobile ? "175px" : "200px"}
-    height="auto"
     viewBox="0 0 974 714.52"
   >
     <defs>
@@ -20,9 +19,9 @@ export const payment = ({ mobile }) => (
         y2="358.2"
         gradientUnits="userSpaceOnUse"
       >
-        <stop offset="0" stop-color="gray" stop-opacity="0.25" />
-        <stop offset="0.54" stop-color="gray" stop-opacity="0.12" />
-        <stop offset="1" stop-color="gray" stop-opacity="0.1" />
+        <stop offset="0" stopColor="gray" stopOpacity="0.25" />
+        <stop offset="0.54" stopColor="gray" stopOpacity="0.12" />
+        <stop offset="1" stopColor="gray" stopOpacity="0.1" />
       </linearGradient>
       <linearGradient
         id="246fdb29-47ea-4475-84d7-0cdffd1436cc"
@@ -46,8 +45,8 @@ export const payment = ({ mobile }) => (
       transform="translate(-113 -92.74)"
       fill="none"
       stroke="#535461"
-      stroke-miterlimit="10"
-      stroke-width="2"
+      strokeMiterlimit="10"
+      strokeWidth="2"
     />
     <path
       d="M442.21,119.67c-3.07,13.21-17.76,21.08-17.76,21.08s-9.7-13.55-6.63-26.76,11-22.65,17.76-21.08S445.28,106.46,442.21,119.67Z"

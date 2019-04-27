@@ -4,10 +4,6 @@ import { FlexColumn, Container } from "custom-components";
 import DashboardCards from "./DashboardCards";
 
 export default class DashboardContent extends Component {
-  constructor(props) {
-    super(props);
-  }
-
   componentDidMount() {
     this.props.getEverything();
     this.props.getUserRole();
