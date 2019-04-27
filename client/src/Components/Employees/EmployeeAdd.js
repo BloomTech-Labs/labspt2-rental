@@ -59,9 +59,9 @@ class EmployeeAdd extends Component {
             }`,
             html: `<h2>Hello ${
               this.state.employee.firstName
-            }!</h2><br/><p>Welcome to the team! You're receiving this email because your employer would like to invite you to create a user account where you can see upcoming tasks, manage reservations, and more.</p><br /><p>Please follow the link below and sign in with the provided credentials. Once you've signed in, you can update your personal information and change your password.</p><br/><h4>Welcome to the Roostr team!</h4><br/><p><strong>Temporary Password:</strong> changeme</p><br/><p><strong>Login Link:</strong><a href="https://www.roostr.tech/welcome/${
+            }!</h2><p>Welcome to the team! You're receiving this email because your employer would like to invite you to create a user account where you can see upcoming tasks, manage reservations, and more.</p><p>Please follow the link below and sign in with the provided credentials. Once you've signed in, you can update your personal information and change your password.</p><h4>Welcome to the Roostr team!</h4><p><strong>Temporary Password:</strong> changeme</p><p><strong>Login Link:</strong><a href="https://www.roostr.tech/welcome/${
               this.state.id
-            }">https://www.roostr.tech/welcome/${data._id}</a></p>`
+            }">https://www.roostr.tech/welcome</a></p>`
           };
           this.props.sendEmail(welcomeEmail);
           this.props.history.push("/dashboard/employees");
@@ -269,7 +269,7 @@ class EmployeeAdd extends Component {
 
         <FlexRow width="full" justifyCenter>
           <Button color="green" onClick={this.handleSubmit}>
-            Add Employee
+            Send Welcome Email
           </Button>
         </FlexRow>
       </FlexColumn>
