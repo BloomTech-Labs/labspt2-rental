@@ -2,6 +2,7 @@ import PropTypes from "prop-types";
 import React from "react";
 import { Button, Container, Header, Icon } from "semantic-ui-react";
 import { Link } from "react-router-dom";
+import { FlexColumn, BouncingArrow } from '../../custom-components/index';
 
 /* eslint-disable react/no-multi-comp */
 /* Heads up! HomepageHeading uses inline styling, however it's not the best practice. Use CSS or styled components for
@@ -9,7 +10,9 @@ import { Link } from "react-router-dom";
  */
 
 export const HomePageHeader = ({ mobile }) => (
-  <Container text>
+  <Container text >
+  {/* <FlexColumn style={{ height: '700px', border: '2px solid green'}}> */}
+  <FlexColumn alignCenter >
     <Header
       as="h1"
       content="Roostr"
@@ -38,10 +41,12 @@ export const HomePageHeader = ({ mobile }) => (
         <Icon name="right arrow" />
       </Button>
     </Link>
+    </FlexColumn>
 
-    {/* <Transition animation='bounce' duration='1000' visible='true' >
-            <Icon centered size='large' name='arrow down' />
-    </Transition> */}
+    <BouncingArrow>
+      <Icon size='large' name='down arrow' style={{ marginTop: '3em', opacity: '0.8'}} />
+    </BouncingArrow>
+    {/* </FlexColumn> */}
   </Container>
 );
 

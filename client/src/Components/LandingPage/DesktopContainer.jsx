@@ -72,7 +72,6 @@ class DesktopContainer extends Component {
 
                   <Link to="/register">
                     <Button
-                      as="a"
                       inverted={!fixed}
                       primary={fixed}
                       style={{ marginLeft: "0.5em" }}
