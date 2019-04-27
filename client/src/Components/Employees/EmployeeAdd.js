@@ -26,7 +26,8 @@ class EmployeeAdd extends Component {
         checkout: false
       },
       username: null,
-      password: null
+      password: null,
+      id: null
     };
   }
 
@@ -47,6 +48,22 @@ class EmployeeAdd extends Component {
       .createEmployee(request)
       .then(data => {
         if (data._id) {
+          const welcomeEmail = {
+            to: this.state.employee.email,
+            from: "welcome@roostr.io",
+            subject: "Welcome To Roostr!",
+            text: `Hello ${
+              this.state.employee.firstName
+            }! Welcome to the team! You're receiving this email because your employer would like to invite you to create a user account where you can see upcoming tasks, manage reservations, and more. Please follow the link below and sign in with your email address and the provided password. Once you've signed in, you can update your personal information and change your password. Thank you for being a part of the Roostr team! Temporary Password: changeme Login Link: https://www.roostr.tech/welcome/${
+              data._id
+            }`,
+            html: `<h2>Hello ${
+              this.state.employee.firstName
+            }!</h2><br/><p>Welcome to the team! You're receiving this email because your employer would like to invite you to create a user account where you can see upcoming tasks, manage reservations, and more.</p><br /><p>Please follow the link below and sign in with the provided credentials. Once you've signed in, you can update your personal information and change your password.</p><br/><h4>Welcome to the Roostr team!</h4><br/><p><strong>Temporary Password:</strong> changeme</p><br/><p><strong>Login Link:</strong><a href="https://www.roostr.tech/welcome/${
+              this.state.id
+            }">https://www.roostr.tech/welcome/${data._id}</a></p>`
+          };
+          this.props.sendEmail(welcomeEmail);
           this.props.history.push("/dashboard/employees");
         }
       })
