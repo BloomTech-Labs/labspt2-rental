@@ -60,6 +60,12 @@ const taskReducer = (state = initialState, { type, payload }) => {
         loading: false,
         taskCount: payload.data
       };
+    case actions.TASK_INCOMPLETED_COUNT_SUCCESS:
+      return {
+        ...state,
+        loading: false,
+        incompletedTaskCount: payload.incompletedTaskCount
+      };
     case actions.FETCH_TASK_FAILURE:
       return {
         ...state,

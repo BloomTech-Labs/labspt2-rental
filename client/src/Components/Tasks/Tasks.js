@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { Header, Tab, Icon, Segment, Label, Menu } from "semantic-ui-react";
+import { Header, Tab, Icon, Segment, Label, Menu , Checkbox} from "semantic-ui-react";
 import { FlexColumn, FlexRow } from "custom-components";
 import { Link } from "react-router-dom";
 import Search from "../shared/Search/Search";
@@ -14,15 +14,16 @@ class Tasks extends Component {
       pageSize: 5,
       search: "",
       filter: { status: "overdue" },
-      sort: "_id"
+      sort: "_id",
     };
 
     this.state = {
       tabs: [
         {name: "Overdue", color: "red", label: "!"}, 
-        {name: "Due Today", color: "yellow", label: "!"}, 
-        {name: "Upcoming", color: "green", label: "!"}
-      ]
+        {name: "Due Today", color: "orange", label: "!"}, 
+        {name: "Upcoming", color: "yellow", label: "!"}
+      ],
+      filterByCompleted: false
     };
   }
 
@@ -30,6 +31,7 @@ class Tasks extends Component {
     const { page, pageSize, sort, filter } = this.query;
     this.props.getTasks({ page, pageSize, sort, filter });
     this.props.fetchTaskCount("overdue");
+    this.props.fetchIncompletedTaskCount("overdue");
   }
 
   handleSearchChange = value => {
@@ -56,10 +58,14 @@ class Tasks extends Component {
     this.props.toggleTask(task);
   };
 
+  filterTasksByCompleted = () => {
+    this.setState({ filterByCompleted: true })
+  }
+
   render() {
-    const { tabs } = this.state;
+    const { tabs, filterByCompleted } = this.state;
     const {
-      tasks: { tasks, loading, taskCount }
+      tasks: { tasks, loading, taskCount, incompletedTaskCount }
     } = this.props;
     const { pageSize, page } = this.query;
 
@@ -73,6 +79,20 @@ class Tasks extends Component {
             </Segment>
           </Link>
         </FlexRow>
+
+        <FlexRow style={{ alignItems: "baseline", marginTop: "-10px", marginBottom: "10px" }}>
+          <Segment style={{ marginRight: "15px" }}>
+            <Checkbox 
+              toggle 
+              onChange={this.filterTasksByCompleted}
+            />
+          </Segment>
+          <Header as="h5">Filter by Completed</Header>
+        </FlexRow>
+
+        {incompletedTaskCount}
+        <br/>
+        {taskCount}
 
         <Tab
           style={{ width: "75vw"}}

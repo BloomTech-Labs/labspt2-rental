@@ -203,3 +203,28 @@ export const deleteTask = id => dispatch => {
       });
     });
 };
+
+// Needed for labels
+export const fetchIncompletedTaskCount = (status = null) => dispatch => {
+  dispatch({ type: actions.FETCH_TASK_ATTEMPT });
+
+  return axios
+    .get(
+      `${config.apiUrl}/api/tasks/count?filter=${JSON.stringify({
+        status
+      })}`
+      // &completedfilter=${JSON.stringify({
+      //   completedtasks
+      // })}
+      
+    )
+    .then(({ data }) => {
+      dispatch({
+        type: actions.TASK_INCOMPLETED_COUNT_SUCCESS,
+        payload: { incompletedTaskCount: data.count }
+      });
+    })
+    .catch(err => {
+      dispatch({ type: actions.FETCH_TASK_FAILURE, payload: err });
+    });
+};
