@@ -1,6 +1,6 @@
 import React, { Component } from "react";
-import { Menu, Sidebar, Icon, Segment } from "semantic-ui-react";
-import { FlexRow } from "custom-components";
+import { Menu, Sidebar, Icon, Segment, Header } from "semantic-ui-react";
+import { FlexRow, FlexColumn } from "custom-components";
 import { Link } from "react-router-dom";
 
 export class Desktop extends Component {
@@ -10,6 +10,10 @@ export class Desktop extends Component {
 
   render() {
     const { visible } = this.state;
+
+    const logout = (e) => {
+      localStorage.removeItem('authToken');
+    }
 
     return (
       <Sidebar.Pushable style={{ width: "100%", minHeight: "100vh" }}>
@@ -21,7 +25,9 @@ export class Desktop extends Component {
           inverted
           vertical
           width="thin"
+          style={{ display: 'flex', justifyContent: 'space-between', paddingTop: '3em'}}
         >
+        <div>
           {this.props.links.map((link, ind) => (
             <Link key={ind} to={link.url} onClick={this.props.handleClick}>
               <Menu.Item>
@@ -30,13 +36,22 @@ export class Desktop extends Component {
               </Menu.Item>
             </Link>
           ))}
+        </div>
+
+        <FlexColumn alignCenter justifyCenter>
+          <Link to='/' onClick={logout} >
+                <Icon inverted size='large' name='right arrow' />
+                <p style={{ fontWeight: 'bold', color: 'white'}}>Logout</p>
+          </Link>
+        </FlexColumn>
+
+
         </Sidebar>
 
         <Sidebar.Pusher
           as={Segment}
           style={{ marginLeft: "130px", minHeight: "calc(100vh - 20px)" }}
         >
-          {/*style={{ marginLeft: visible && "140px" }}*/}
           <FlexRow width="full" justifyCenter>
             {this.props.pusher}
           </FlexRow>
