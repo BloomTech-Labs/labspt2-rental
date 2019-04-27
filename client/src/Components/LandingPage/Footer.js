@@ -13,7 +13,7 @@ export const Footer = ({ mobile }) => (
         <Grid.Row>
           <Grid.Column width={3}>
             <Header inverted as="h4" content="About" />
-            <List link inverted>
+            <List inverted>
               <List.Item as="a">Sitemap</List.Item>
               <List.Item as="a">Contact Us</List.Item>
             </List>
@@ -31,7 +31,7 @@ export const Footer = ({ mobile }) => (
             <Header inverted as="h4" content="Services" />
             <List inverted>
               <List.Item as="a">Contact Us</List.Item>
-              <List.Item link as="a">
+              <List.Item as="a">
                 Roostr.tech@gmail.com
               </List.Item>
             </List>

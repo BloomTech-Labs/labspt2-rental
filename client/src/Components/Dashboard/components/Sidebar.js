@@ -1,7 +1,6 @@
 import React from "react";
 import { Container } from "custom-components";
-import { Responsive, Segment } from "semantic-ui-react";
-import { Menu } from "semantic-ui-react/dist/commonjs/collections/Menu";
+import { Responsive } from "semantic-ui-react";
 import { Mobile } from "./Mobile";
 import { Desktop } from "./Desktop";
 

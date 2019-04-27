@@ -1,5 +1,5 @@
 import React from "react";
-import { FlexRow, FlexColumn } from "custom-components";
+import { FlexRow } from "custom-components";
 import moment from "moment";
 import { Checkbox, Label, Popup, Icon } from "semantic-ui-react";
 import { Link } from "react-router-dom";

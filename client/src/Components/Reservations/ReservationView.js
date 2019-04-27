@@ -7,7 +7,7 @@ import {
   Popup,
   Icon
 } from "semantic-ui-react";
-import { FlexRow, FlexColumn, Text } from "custom-components";
+import { FlexRow, FlexColumn } from "custom-components";
 import { Link } from "react-router-dom";
 import styled from "styled-components";
 import moment from "moment";

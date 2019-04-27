@@ -1,5 +1,5 @@
 import React from "react";
-import { Button, Header, Tab, Pagination } from "semantic-ui-react";
+import { Button, Pagination } from "semantic-ui-react";
 import { FlexColumn, Divider } from "custom-components";
 import ReservationListItem from "./ReservationListItem";
 import { Link } from "react-router-dom";

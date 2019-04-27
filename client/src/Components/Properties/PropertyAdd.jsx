@@ -5,11 +5,10 @@ import {
   Dropdown,
   Form,
   Dimmer,
-  Icon,
   Header
 } from "semantic-ui-react";
 import { Link } from "react-router-dom";
-import { FlexColumn, FlexRow } from "custom-components";
+import { FlexColumn } from "custom-components";
 import MonthlyFeeModal from "./MonthlyFeeModal";
 import ErrorModal from "./ErrorModal";
 
