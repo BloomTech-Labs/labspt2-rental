@@ -1,5 +1,4 @@
 import React from "react";
-import { FlexRow, FlexColumn, Text } from "custom-components";
 import moment from "moment";
 import InfoCard from "../shared/Card/InfoCard";
 

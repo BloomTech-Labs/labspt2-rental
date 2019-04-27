@@ -1,13 +1,5 @@
 import React, { Component } from "react";
-import {
-  Header,
-  Image,
-  Button,
-  Icon,
-  Popup,
-  Label,
-  Statistic
-} from "semantic-ui-react";
+import { Button } from "semantic-ui-react";
 import { FlexRow, FlexColumn } from "custom-components";
 import { Link } from "react-router-dom";
 

@@ -1,13 +1,8 @@
 import React, { Component } from "react";
-import _ from "lodash";
 import { Debounce } from "react-throttle";
 import { Search } from "semantic-ui-react";
 
 export default class extends Component {
-  constructor(props) {
-    super(props);
-  }
-
   handleSearchChange = (e, { value }) => {
     this.props.onChange(value);
   };

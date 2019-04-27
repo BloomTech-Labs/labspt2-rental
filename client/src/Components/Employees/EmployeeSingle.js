@@ -1,6 +1,5 @@
 import React, { Component } from "react";
-import { Link } from "react-router-dom";
-import { Button, Icon, Image, Header, Dropdown } from "semantic-ui-react";
+import { Icon, Image, Header, Dropdown } from "semantic-ui-react";
 import { FlexRow, Container, FlexColumn } from "custom-components";
 
 import EmployeePropertyCard from "./EmployeePropertyCard";

@@ -1,6 +1,6 @@
 import PropTypes from "prop-types";
 import React from "react";
-import { Button, Container, Header, Icon, Transition } from "semantic-ui-react";
+import { Button, Container, Header, Icon } from "semantic-ui-react";
 import { Link } from "react-router-dom";
 
 /* eslint-disable react/no-multi-comp */

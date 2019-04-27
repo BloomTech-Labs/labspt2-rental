@@ -1,6 +1,6 @@
-import React, { Component } from "react";
+import React from "react";
 import { Header, Icon, Label, List, Popup } from "semantic-ui-react";
-import { FlexColumn, FlexRow } from "custom-components";
+import { FlexRow } from "custom-components";
 
 const DashboardCards = props => {
   // Takes in a title, icon, and up to two values, labels, and colors

@@ -4,7 +4,7 @@ import { Registration } from "./Components/Registration";
 import { LoginPage } from "./Components/LoginPage";
 import { Dashboard } from "./Components/Dashboard";
 import { Home } from "./Components/LandingPage";
-import { NotFound } from './Components/shared/404';
+import { NotFound } from './Components/shared/404 Not Found/404';
 
 import axios from "axios";
 

@@ -1,9 +1,8 @@
 import React, { Component } from "react";
-import { Header, Tab, Button } from "semantic-ui-react";
-import { FlexColumn, FlexRow } from "custom-components";
+import { Header, Tab } from "semantic-ui-react";
+import { FlexColumn } from "custom-components";
 import ReservationList from "./ReservationList";
 import Search from "../shared/Search/Search";
-import ReservationAdd from "./ReservationAdd";
 
 export default class Reservations extends Component {
   constructor(props) {
