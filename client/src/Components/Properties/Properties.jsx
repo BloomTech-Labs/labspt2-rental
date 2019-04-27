@@ -51,7 +51,7 @@ class Properties extends Component {
     this.query.filter =
       activeTab === "active" ? { active: true } : { active: false };
     this.props.getProperties({ ...this.query });
-    this.props.fetchPropertyCount(activeTab);
+    this.props.fetchPropertyCount(this.query.filter);
   };
 
   handlePageChange = (event, data) => {
@@ -63,7 +63,7 @@ class Properties extends Component {
     const { pageSize } = this.query;
     const { tabs } = this.state;
     const { properties, loading, propertyCount } = this.props;
-    console.log(properties);
+
     return (
       <FlexColumn width="800px" alignCenter style={{ position: "relative" }}>
         <Modal size="small" open={this.state.modalOpen}>
@@ -88,12 +88,14 @@ class Properties extends Component {
             ...tabs.map(tab => ({
               menuItem: tab,
               render: () => (
-                <Tab.Pane attached={false}>
+                <Tab.Pane attached={false} key={tab.menuItem}>
                   <PropertyList
                     status={tab}
                     loading={loading}
                     properties={properties}
-                    count={Math.ceil(propertyCount / pageSize)}
+                    count={
+                      !propertyCount ? 2 : Math.ceil(propertyCount / pageSize)
+                    }
                     handlePageChange={this.handlePageChange}
                   />
                 </Tab.Pane>

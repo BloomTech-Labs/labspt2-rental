@@ -13,6 +13,7 @@ export default props => {
         onPageChange={handlePageChange}
         boundaryRange={1}
         defaultActivePage={1}
+        ellipsisItem={null}
         firstItem={null}
         lastItem={null}
         siblingRange={1}

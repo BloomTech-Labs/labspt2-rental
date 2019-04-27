@@ -29,7 +29,7 @@ const propertyReducer = (state = initialState, action) => {
       return {
         ...state,
         loading: false,
-        propertyCount: action.payload.data
+        propertyCount: action.payload
       };
     case actions.FETCH_RESERVATIONS_SUCCESS:
       return {
