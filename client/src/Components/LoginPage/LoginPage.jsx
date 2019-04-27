@@ -91,7 +91,7 @@ class LoginPage extends Component {
     if (disabled) {
       submitButton = (
         <Button basic color="green" type="submit" disabled>
-          Update
+          Submit
         </Button>
       );
     } else {
@@ -106,10 +106,13 @@ class LoginPage extends Component {
     if (active) {
       success = (
         <Dimmer active onClickOutside={this.dimmerClose} page>
-          <Header as="h2" icon inverted>
-            <Icon name="check circle outline" />
+          <FlexColumn alignCenter>
+          <Header as="h2" icon inverted >
+            <Icon name="check circle outline" style={{ marginBottom: '0.5em'}}/>
             Login Successful!
           </Header>
+          <Button onClick={this.dimmerClose} inverted style={{marginTop: '1em'}}>Continue</Button>
+          </FlexColumn>
         </Dimmer>
       );
     } else {
@@ -117,12 +120,19 @@ class LoginPage extends Component {
     }
 
     return (
+      <div style={{backgroundColor: "#f6f9fc"}}>
+
+
       <FlexColumn
         width="full"
         alignCenter
-        justifyCenter
-        style={{ backgroundColor: "#1a1b1c", height: "100vh" }}
+        justifyBetween
+        style={{ backgroundColor: "#1a1b1c", paddingBottom: '50vh', paddingTop: '2%' }}
       >
+        <Link to='/' style={{alignSelf: 'flex-start', marginLeft: '2%', marginBottom: '8em'}}>
+          <Button inverted>Back</Button>
+        </Link>
+
         <Segment className="sm-container">
           <Header size="large" style={{ color: "#4ca34b" }}>
             Login
@@ -171,6 +181,7 @@ class LoginPage extends Component {
           </Form>
         </Segment>
       </FlexColumn>
+      </div>
     );
   }
 }

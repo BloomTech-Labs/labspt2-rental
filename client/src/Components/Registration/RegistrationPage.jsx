@@ -117,7 +117,7 @@ class RegistrationPage extends Component {
     if (disabled) {
       submitButton = (
         <Button basic color="green" type="submit" disabled>
-          Update
+          Submit
         </Button>
       );
     } else {
@@ -132,10 +132,13 @@ class RegistrationPage extends Component {
     if (active) {
       success = (
         <Dimmer active onClickOutside={this.dimmerClose} page>
-          <Header as="h2" icon inverted>
-            <Icon name="check circle outline" />
-            Account created!
+          <FlexColumn alignCenter>
+          <Header as="h2" icon inverted >
+            <Icon name="check circle outline" style={{ marginBottom: '0.5em'}}/>
+              Account Created!
           </Header>
+          <Button onClick={this.dimmerClose} inverted style={{marginTop: '1em'}}>Continue</Button>
+          </FlexColumn>
         </Dimmer>
       );
     } else {
@@ -146,9 +149,14 @@ class RegistrationPage extends Component {
       <FlexColumn
         width="full"
         alignCenter
-        justifyCenter
-        style={{ backgroundColor: "#1a1b1c", height: "100vh" }}
+        justifyBetween
+        style={{ backgroundColor: "#1a1b1c", paddingBottom: '10vh', paddingTop: '2%' }}
       >
+
+        <Link to='/' style={{alignSelf: 'flex-start', marginLeft: '2%', marginBottom: '2em'}}>
+          <Button inverted>Back</Button>
+        </Link>
+
         <Segment className="sm-container">
           <Header size="large" style={{ color: "#4ca34b" }}>
             Registration

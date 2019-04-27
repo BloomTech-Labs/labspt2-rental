@@ -11,7 +11,6 @@ import { FlexColumn, BouncingArrow } from '../../custom-components/index';
 
 export const HomePageHeader = ({ mobile }) => (
   <Container text >
-  {/* <FlexColumn style={{ height: '700px', border: '2px solid green'}}> */}
   <FlexColumn alignCenter >
     <Header
       as="h1"
@@ -20,8 +19,8 @@ export const HomePageHeader = ({ mobile }) => (
       style={{
         fontSize: mobile ? "3em" : "4em",
         fontWeight: "normal",
-        marginBottom: mobile ? "0.5em" : 0,
-        marginTop: mobile ? "2em" : "3em"
+        marginBottom: mobile ? "1em" : 0,
+        marginTop: mobile ? "3em" : "1.5em"
       }}
     />
     <Header
@@ -31,8 +30,8 @@ export const HomePageHeader = ({ mobile }) => (
       style={{
         fontSize: mobile ? "1.5em" : "1.7em",
         fontWeight: "normal",
-        marginTop: mobile ? "0.5em" : "1.5em",
-        marginBottom: mobile ? "1.5em" : "1.5em"
+        marginTop: mobile ? 0 : "1.5em",
+        marginBottom: mobile ? "2.5em" : "1.5em"
       }}
     />
     <Link to="/register">
@@ -44,9 +43,8 @@ export const HomePageHeader = ({ mobile }) => (
     </FlexColumn>
 
     <BouncingArrow>
-      <Icon size='large' name='down arrow' style={{ marginTop: mobile ? '5em' : '3em', opacity: '0.8', marginBottom: mobile ? '2em' : null}} />
+      <Icon size='large' name='down arrow' style={{ marginTop: mobile ? '5em' : '8em', opacity: '0.8', marginBottom: mobile ? '2em' : null}} />
     </BouncingArrow>
-    {/* </FlexColumn> */}
   </Container>
 );
 
