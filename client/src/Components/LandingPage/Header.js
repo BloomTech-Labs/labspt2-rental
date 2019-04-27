@@ -44,7 +44,7 @@ export const HomePageHeader = ({ mobile }) => (
     </FlexColumn>
 
     <BouncingArrow>
-      <Icon size='large' name='down arrow' style={{ marginTop: '3em', opacity: '0.8'}} />
+      <Icon size='large' name='down arrow' style={{ marginTop: mobile ? '5em' : '3em', opacity: '0.8', marginBottom: mobile ? '2em' : null}} />
     </BouncingArrow>
     {/* </FlexColumn> */}
   </Container>
