@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import { FlexColumn, FlexRow } from "custom-components";
-import { Header, Input, Dropdown, Button, Modal } from "semantic-ui-react";
+import { Header, Input, Dropdown, Button, Modal, Label } from "semantic-ui-react";
 import DateRangePickerWrapper from "../shared/DatePicker/DatePicker";
 
 class TaskEdit extends Component {
@@ -18,6 +18,7 @@ class TaskEdit extends Component {
     this.props.fetchProperties();
     this.props.fetchReservations();
     this.props.getTasks();
+    this.props.fetchUserLog();
   }
 
   static getDerivedStateFromProps(props, state) {
@@ -63,8 +64,10 @@ class TaskEdit extends Component {
 
   render() {
     const {
-      tasks: { loading }
+      tasks: { loading, user }
     } = this.props;
+    const role = user ? user.role : null;
+    const permissions = user ? user.permissions : null;
 
     return loading ? (
       "Loading"
@@ -153,31 +156,63 @@ class TaskEdit extends Component {
 
             <br />
 
-            <FlexRow>
-              <Dropdown
-                placeholder="Employee"
-                style={{ marginRight: "10px" }}
-                selection
-                value={this.state.assignedTo ? this.state.assignedTo._id : null}
-                onChange={(e, val) =>
-                  this.handleChange("assignedTo", {
-                    ...this.state.assignedTo,
-                    _id: val.value
-                  })
-                }
-                options={
-                  this.props.loading
-                    ? [{ text: "Loading...", value: "loading" }]
-                    : this.props.tasks.employees &&
-                      this.props.tasks.employees
-                        .map(e => ({
-                          key: e._id,
-                          text: e.firstName + " " + e.lastName,
-                          value: e._id
-                        }))
-                }
-              />
-            </FlexRow>
+            {role === "employee" && permissions.task === false ? (
+              <FlexColumn> 
+                <Dropdown
+                  disabled
+                  placeholder="Employee"
+                  style={{ marginRight: "10px" }}
+                  selection
+                  value={this.state.assignedTo ? this.state.assignedTo._id : null}
+                  onChange={(e, val) =>
+                    this.handleChange("assignedTo", {
+                      ...this.state.assignedTo,
+                      _id: val.value
+                    })
+                  }
+                  options={
+                    this.props.loading
+                      ? [{ text: "Loading...", value: "loading" }]
+                      : this.props.tasks.employees &&
+                        this.props.tasks.employees
+                          .map(e => ({
+                            key: e._id,
+                            text: e.firstName + " " + e.lastName,
+                            value: e._id
+                          }))
+                  }
+                />
+                <Label basic color="grey" pointing>
+                  You need permissions to reassign tasks!
+                </Label>
+              </FlexColumn>
+            ) : (
+              <FlexRow>
+                <Dropdown
+                  placeholder="Employee"
+                  style={{ marginRight: "10px" }}
+                  selection
+                  value={this.state.assignedTo ? this.state.assignedTo._id : null}
+                  onChange={(e, val) =>
+                    this.handleChange("assignedTo", {
+                      ...this.state.assignedTo,
+                      _id: val.value
+                    })
+                  }
+                  options={
+                    this.props.loading
+                      ? [{ text: "Loading...", value: "loading" }]
+                      : this.props.tasks.employees &&
+                        this.props.tasks.employees
+                          .map(e => ({
+                            key: e._id,
+                            text: e.firstName + " " + e.lastName,
+                            value: e._id
+                          }))
+                  }
+                />
+              </FlexRow>
+            )}
 
             <br />
 
