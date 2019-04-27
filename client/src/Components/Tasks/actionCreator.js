@@ -228,3 +228,18 @@ export const fetchIncompletedTaskCount = (status = null) => dispatch => {
       dispatch({ type: actions.FETCH_TASK_FAILURE, payload: err });
     });
 };
+
+export const fetchUserLog = () => dispatch => {
+  dispatch({ type: actions.FETCH_TASK_ATTEMPT });
+  return axios
+    .get(`${config.apiUrl}/api/users/me`)
+    .then(({ data }) => {
+      dispatch({
+        type: actions.TASKS_USER_SUCCESS,
+        payload: { user: data.data }
+      });
+    })
+    .catch(err => {
+      dispatch({ type: actions.FETCH_TASK_FAILURE, payload: err });
+    });
+};

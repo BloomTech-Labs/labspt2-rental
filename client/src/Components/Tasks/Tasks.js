@@ -31,6 +31,7 @@ class Tasks extends Component {
     const { page, pageSize, sort, filter } = this.query;
     this.props.getTasks({ page, pageSize, sort, filter });
     this.props.fetchTaskCount("overdue");
+    this.props.fetchUserLog();
     this.props.fetchIncompletedTaskCount("overdue");
   }
 
@@ -65,19 +66,28 @@ class Tasks extends Component {
   render() {
     const { tabs, filterByCompleted } = this.state;
     const {
-      tasks: { tasks, loading, taskCount, incompletedTaskCount }
-    } = this.props;
+        tasks: { 
+          tasks, 
+          loading, 
+          taskCount, 
+          incompletedTaskCount, 
+          user 
+        }
+      } = this.props;
     const { pageSize, page } = this.query;
+    const role = user ? user.role : null;
 
     return (
       <FlexColumn>
         <FlexRow width="100%" justifyBetween style={{ alignItems: "baseline" }}>
           <Header as="h1">Tasks</Header>
-          <Link to="/dashboard/tasks/add">
+          {role === "owner" ? (
+            <Link to="/dashboard/tasks/add">
             <Segment style={{ marginBottom: "14px" }}>
               <Icon name="add" />
             </Segment>
           </Link>
+          ) : null}
         </FlexRow>
 
         <FlexRow style={{ alignItems: "baseline", marginTop: "-10px", marginBottom: "10px" }}>
@@ -93,7 +103,7 @@ class Tasks extends Component {
         {incompletedTaskCount}
         <br/>
         {taskCount}
-
+        <br/>
         <Tab
           style={{ width: "75vw"}}
           onTabChange={this.handleTabChange}

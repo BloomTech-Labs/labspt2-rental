@@ -66,6 +66,12 @@ const taskReducer = (state = initialState, { type, payload }) => {
         loading: false,
         incompletedTaskCount: payload.incompletedTaskCount
       };
+    case actions.TASKS_USER_SUCCESS:
+      return {
+        ...state,
+        loading: false,
+        user: payload.user
+      };
     case actions.FETCH_TASK_FAILURE:
       return {
         ...state,

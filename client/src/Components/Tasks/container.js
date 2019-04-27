@@ -10,7 +10,8 @@ import {
   updateTask,
   toggleTask,
   deleteTask,
-  fetchIncompletedTaskCount
+  fetchIncompletedTaskCount,
+  fetchUserLog
 } from "./actionCreator";
 import _Tasks from "./Tasks";
 import _TaskAdd from "./TaskAdd";
@@ -25,6 +26,7 @@ const mapStateToProps = state => ({
   loading: state.loading,
   taskCount: state.taskCount,
   incompletedTaskCount: state.incompletedTaskCount,
+  user: state.user,
   error: state.error,
 });
 
@@ -41,7 +43,8 @@ const connector = connect(
     updateTask,
     toggleTask,
     deleteTask,
-    fetchIncompletedTaskCount
+    fetchIncompletedTaskCount,
+    fetchUserLog
   }
 );
 
