@@ -61,6 +61,7 @@ export default class Employees extends Component {
         <Tab
           onTabChange={this.handleTabChange}
           menu={{ attached: false }}
+          style={{width: "75vw"}}
           panes={[
             ...tabs.map((tab, index) => ({
               menuItem: tab,

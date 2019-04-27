@@ -2,10 +2,10 @@ import React, { Component } from "react";
 import {
   Header,
   Icon,
-  Image,
   Label,
   Popup,
   Responsive,
+  Image,
   Statistic
 } from "semantic-ui-react";
 import InfoCardDesktop from "./InfoCardDesktop";
@@ -24,7 +24,7 @@ const title = ({ children }) => (
 );
 const image = ({ children }) =>
   children ? (
-    <Image rounded src={children} size="small" />
+    <Image rounded src={`https://res.cloudinary.com/roostr-labpt2/image/upload/c_fill,g_face,h_150,w_200/v1556336341/${children}.jpg`} />
   ) : (
     <Icon className="space-left-20" name="user circle" size="massive" />
   );
