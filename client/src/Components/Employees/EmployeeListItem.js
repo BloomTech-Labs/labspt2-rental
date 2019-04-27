@@ -1,5 +1,4 @@
 import React from "react";
-import { Image } from 'cloudinary-react'
 import InfoCard from "../shared/Card/InfoCard";
 
 const EmployeeListItem = props => {
