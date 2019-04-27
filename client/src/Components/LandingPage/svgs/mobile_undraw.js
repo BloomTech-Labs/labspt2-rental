@@ -7,7 +7,6 @@ export const mobileLogo = ({ mobile }) => (
     data-name="Layer 1"
     xmlns="http://www.w3.org/2000/svg"
     width={mobile ? "175px" : "200px"}
-    height="auto"
     viewBox="0 0 924.18 818.88"
   >
     <title>mobile testing</title>
@@ -67,35 +66,35 @@ export const mobileLogo = ({ mobile }) => (
       transform="translate(-137.91 -40.56)"
       fill="none"
       stroke="#565987"
-      stroke-miterlimit="10"
+      strokeMiterlimit="10"
     />
     <path
       d="M905,393.44s-13.16,8.87-9,22.19"
       transform="translate(-137.91 -40.56)"
       fill="none"
       stroke="#565987"
-      stroke-miterlimit="10"
+      strokeMiterlimit="10"
     />
     <path
       d="M858.79,401.33s8-8.18,17.83-3.67"
       transform="translate(-137.91 -40.56)"
       fill="none"
       stroke="#565987"
-      stroke-miterlimit="10"
+      strokeMiterlimit="10"
     />
     <path
       d="M896.56,442.48s14.12-7.16,17.77,1.81"
       transform="translate(-137.91 -40.56)"
       fill="none"
       stroke="#565987"
-      stroke-miterlimit="10"
+      strokeMiterlimit="10"
     />
     <path
       d="M931.51,457.42s-10.61-.84-10.8,4.23"
       transform="translate(-137.91 -40.56)"
       fill="none"
       stroke="#565987"
-      stroke-miterlimit="10"
+      strokeMiterlimit="10"
     />
     <path
       d="M924.64,541.42s-38-77.23-48.39-75.54c-5,.8-7.24,5.68-8.27,10.57a31.08,31.08,0,0,0,2.07,18.8C875.44,507.61,889.91,531.08,924.64,541.42Z"
@@ -107,7 +106,7 @@ export const mobileLogo = ({ mobile }) => (
       transform="translate(-137.91 -40.56)"
       fill="none"
       stroke="#565987"
-      stroke-miterlimit="10"
+      strokeMiterlimit="10"
     />
     <line
       x1="734.96"
@@ -116,7 +115,7 @@ export const mobileLogo = ({ mobile }) => (
       y2="449"
       fill="none"
       stroke="#565987"
-      stroke-miterlimit="10"
+      strokeMiterlimit="10"
     />
     <line
       x1="746.1"
@@ -125,7 +124,7 @@ export const mobileLogo = ({ mobile }) => (
       y2="470.76"
       fill="none"
       stroke="#565987"
-      stroke-miterlimit="10"
+      strokeMiterlimit="10"
     />
     <line
       x1="754.97"
@@ -134,7 +133,7 @@ export const mobileLogo = ({ mobile }) => (
       y2="460.82"
       fill="none"
       stroke="#565987"
-      stroke-miterlimit="10"
+      strokeMiterlimit="10"
     />
     <line
       x1="770.47"
@@ -143,7 +142,7 @@ export const mobileLogo = ({ mobile }) => (
       y2="483.24"
       fill="none"
       stroke="#565987"
-      stroke-miterlimit="10"
+      strokeMiterlimit="10"
     />
     <path
       d="M923.52,541.42s38-77.23,48.39-75.54c5,.8,7.24,5.68,8.27,10.57a31.08,31.08,0,0,1-2.07,18.8C972.72,507.61,958.25,531.08,923.52,541.42Z"
@@ -155,7 +154,7 @@ export const mobileLogo = ({ mobile }) => (
       transform="translate(-137.91 -40.56)"
       fill="none"
       stroke="#565987"
-      stroke-miterlimit="10"
+      strokeMiterlimit="10"
     />
     <line
       x1="837.38"
@@ -164,7 +163,7 @@ export const mobileLogo = ({ mobile }) => (
       y2="449"
       fill="none"
       stroke="#565987"
-      stroke-miterlimit="10"
+      strokeMiterlimit="10"
     />
     <line
       x1="826.24"
@@ -173,7 +172,7 @@ export const mobileLogo = ({ mobile }) => (
       y2="470.76"
       fill="none"
       stroke="#565987"
-      stroke-miterlimit="10"
+      strokeMiterlimit="10"
     />
     <line
       x1="817.37"
@@ -182,7 +181,7 @@ export const mobileLogo = ({ mobile }) => (
       y2="460.82"
       fill="none"
       stroke="#565987"
-      stroke-miterlimit="10"
+      strokeMiterlimit="10"
     />
     <line
       x1="801.86"
@@ -191,7 +190,7 @@ export const mobileLogo = ({ mobile }) => (
       y2="483.24"
       fill="none"
       stroke="#565987"
-      stroke-miterlimit="10"
+      strokeMiterlimit="10"
     />
     <path
       d="M858.33,559.46a6.64,6.64,0,0,1-2.16-3.26,2.91,2.91,0,0,1,1.51-3.33c1.39-.53,2.87.43,4,1.41s2.41,2.07,3.88,1.87a5.91,5.91,0,0,1-1.82-5.53,2.32,2.32,0,0,1,.5-1.13c.77-.82,2.17-.46,3.09.18,2.93,2.07,3.75,6.05,3.77,9.63a18.7,18.7,0,0,0,0-4,4.07,4.07,0,0,1,1.49-3.51,4.41,4.41,0,0,1,2.27-.54,4.72,4.72,0,0,1,3.69,1.05c1.11,1.2.82,3.21-.15,4.53a14.38,14.38,0,0,1-3.81,3,8.38,8.38,0,0,0-2.73,2.6,3.19,3.19,0,0,0-.2.46h-8.26A22.78,22.78,0,0,1,858.33,559.46Z"
@@ -564,7 +563,7 @@ export const mobileLogo = ({ mobile }) => (
       y2="451.24"
       fill="none"
       stroke="#3f3d56"
-      stroke-miterlimit="10"
+      strokeMiterlimit="10"
     />
     <rect
       x="553.47"
