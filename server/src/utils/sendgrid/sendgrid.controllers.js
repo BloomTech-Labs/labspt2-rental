@@ -1,23 +1,20 @@
-const config = require('../../config');
+import config from '../../config';
 const sgMail = require('@sendgrid/mail');
 
-const sendgridKey = config.keys.sendgridKey;
+const sendgridKey = config.keys.sendgrid;
 
-export const sendMail = (req, res, next) => {
+const sendMail = async (req, res, next) => {
   sgMail.setApiKey(sendgridKey);
   const msg = req.body;
-  sgMail
-    .send(msg)
-    .then(response => {
-      if (response.status === 202) {
-        res.status(202).json({ message: 'Email sent successfully' });
-      } else {
-        res.status(400).json({
-          message: 'Email did not send. Please check message and try again.'
-        });
-      }
-    })
-    .catch(err => {
-      res.status(err.status).send(err);
-    });
+  try {
+    const sendMail = await sgMail.send(msg);
+    console.log(sendMail);
+    if (sendMail) {
+      return res.status(202).json({ message: 'Email sent successfully' });
+    }
+  } catch {
+    return res.status(400).send({ message: 'Not successful' });
+  }
 };
+
+export default sendMail;

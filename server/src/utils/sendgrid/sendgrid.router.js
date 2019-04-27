@@ -1,5 +1,5 @@
 import { Router } from 'express';
-import { sendMail } from './sendgrid.controllers';
+import sendMail from './sendgrid.controllers';
 
 const router = Router();
 
