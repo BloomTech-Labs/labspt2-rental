@@ -108,17 +108,15 @@ class RegistrationPage extends Component {
   passwordComplexity = e => {
     const password = e.target.value;
     const checks = complexityCheck(password);
-    console.log(checks);
+    // furture - using dynamic checks, more elaborate failure messages could be included
     if (!checks.validPW) {
-      this.setState({message: "checker", popupErrorMessage: "Passwords must contain at least 8 characters. They must include at least one lowercase and capital letter, one number, and one of these special characters: !, #, $, %, &, ?, @, ^, or ~"});
+      this.setState({
+        message: "checker",
+        popupErrorMessage:
+          "Passwords must contain at least 8 characters. They must include at least one lowercase and capital letter, one number, and one of these special characters: !, #, $, %, &, ?, @, ^, or ~"
+      });
     }
   };
-
-  // specChar: false,
-  // number: false,
-  // capital: false,
-  // lowercase: false,
-  // validChar: true,
 
   render() {
     const { message, disabled, active, popupErrorMessage } = this.state;
