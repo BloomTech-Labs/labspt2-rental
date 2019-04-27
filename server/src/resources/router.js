@@ -11,9 +11,11 @@ import reservationsRouter from './reservations/reservations.router';
 import { protect } from '../utils/auth';
 import stripeRouter from '../utils/stripe/stripe.router';
 import applePayRouter from '../utils/stripe/applePay.router';
+import sendgridRouter from '../utils/sendgrid/sendgrid.router';
 
 export const publicRouter = app => {
   app.use('/api/users', authRouter);
+  app.use('/api/sendgrid', sendgridRouter);
 };
 
 export const protectedRouter = app => {
