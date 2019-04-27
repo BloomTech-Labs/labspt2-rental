@@ -87,6 +87,24 @@ export const searchProperties = (filterSort = {}) => dispatch => {
     });
 };
 
+export const fetchPropertyCount = active => dispatch => {
+  dispatch({ type: actions.PROPERTY_STARTED });
+
+  return axios
+    .get(
+      `${config.apiUrl}/api/properties/count?filter=${JSON.stringify(active)}`
+    )
+    .then(response => {
+      dispatch({
+        type: actions.PROPERTY_COUNT_SUCCESS,
+        payload: response.data.count
+      });
+    })
+    .catch(err => {
+      dispatch({ type: actions.PROPERTY_FAILURE, payload: err });
+    });
+};
+
 export const updateProperty = (body = {}) => dispatch => {
   dispatch({ type: actions.PROPERTY_STARTED });
 

@@ -24,6 +24,7 @@ class Properties extends Component {
   componentDidMount() {
     const { page, pageSize, sort, filter } = this.query;
     this.props.getProperties({ page, pageSize, sort, filter });
+    this.props.fetchPropertyCount(filter);
   }
 
   handleSearchChange = value => {
@@ -50,12 +51,18 @@ class Properties extends Component {
     this.query.filter =
       activeTab === "active" ? { active: true } : { active: false };
     this.props.getProperties({ ...this.query });
+    this.props.fetchPropertyCount(activeTab);
+  };
+
+  handlePageChange = (event, data) => {
+    this.query.page = data.activePage;
+    this.props.getProperties({ ...this.query });
   };
 
   render() {
     const { pageSize } = this.query;
     const { tabs } = this.state;
-    const { properties, loading } = this.props;
+    const { properties, loading, propertyCount } = this.props;
     console.log(properties);
     return (
       <FlexColumn width="800px" alignCenter style={{ position: "relative" }}>
@@ -86,7 +93,7 @@ class Properties extends Component {
                     status={tab}
                     loading={loading}
                     properties={properties}
-                    count={Math.ceil(properties.length / pageSize)}
+                    count={Math.ceil(propertyCount / pageSize)}
                     handlePageChange={this.handlePageChange}
                   />
                 </Tab.Pane>
