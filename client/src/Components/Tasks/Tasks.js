@@ -19,20 +19,25 @@ class Tasks extends Component {
 
     this.state = {
       tabs: [
-        {name: "Overdue", color: "red", label: "!"}, 
-        {name: "Due Today", color: "orange", label: "!"}, 
-        {name: "Upcoming", color: "yellow", label: "!"}
+        {name: "Overdue", color: "red"}, 
+        {name: "Due Today", color: "orange"}, 
+        {name: "Upcoming", color: "green"}
       ],
-      filterByCompleted: false
+      filterByCompleted: false,
     };
   }
 
   componentDidMount() {
-    const { page, pageSize, sort, filter } = this.query;
+    const { page, pageSize, sort, filter, cfilter, overdueIncompletedFilter } = this.query;
     this.props.getTasks({ page, pageSize, sort, filter });
     this.props.fetchTaskCount("overdue");
     this.props.fetchUserLog();
     this.props.fetchIncompletedTaskCount("overdue");
+  }
+
+  static getDerivedStateFromProps(props, state) {
+      return props.tasks.tasks.incompletedTaskCount;
+
   }
 
   handleSearchChange = value => {
@@ -57,10 +62,15 @@ class Tasks extends Component {
   toggleComplete = task => {
     task.completed = task.completed ? false : true;
     this.props.toggleTask(task);
+    this.props.fetchIncompletedTaskCount("overdue");
   };
 
   filterTasksByCompleted = () => {
-    this.setState({ filterByCompleted: true })
+    if (this.state.filterByCompleted === true) {
+      this.setState({ filterByCompleted: false })
+    } else {
+      this.setState({ filterByCompleted: true })
+    }
   }
 
   render() {
@@ -74,6 +84,7 @@ class Tasks extends Component {
           user 
         }
       } = this.props;
+    const counts = [incompletedTaskCount, 0, 0]
     const { pageSize, page } = this.query;
     const role = user ? user.role : null;
 
@@ -83,7 +94,7 @@ class Tasks extends Component {
           <Header as="h1">Tasks</Header>
           {role === "owner" ? (
             <Link to="/dashboard/tasks/add">
-            <Segment style={{ marginBottom: "14px" }}>
+            <Segment>
               <Icon name="add" />
             </Segment>
           </Link>
@@ -100,25 +111,21 @@ class Tasks extends Component {
           <Header as="h5">Filter by Completed</Header>
         </FlexRow>
 
-        {incompletedTaskCount}
-        <br/>
-        {taskCount}
-        <br/>
         <Tab
           style={{ width: "75vw"}}
           onTabChange={this.handleTabChange}
           menu={{ attached: false }}
           panes={[
-            ...tabs.map(tab => ({
+            ...tabs.map((tab, index) => ({
               menuItem: (
                 <Menu.Item>
                   {tab.name}
                   <Label 
                     floating 
-                    circular 
+                    circular
                     color={tab.color}
                   >
-                    {tab.label}
+                    {counts[index]}
                   </Label>
                 </Menu.Item>
               ),
