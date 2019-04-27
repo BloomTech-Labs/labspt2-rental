@@ -7,10 +7,13 @@ import {
   Header,
   Message,
   Dimmer,
+  Popup,
   Icon
 } from "semantic-ui-react";
 import { FlexColumn, FlexRow } from "custom-components";
 import { Link } from "react-router-dom";
+
+import { complexityCheck } from "./complexityCheck";
 
 class RegistrationPage extends Component {
   constructor(props) {
@@ -23,6 +26,7 @@ class RegistrationPage extends Component {
       firstName: "",
       lastName: "",
       message: "",
+      popupErrorMessage: "",
       disabled: true,
       active: false
     };
@@ -101,12 +105,32 @@ class RegistrationPage extends Component {
       });
   };
 
+  passwordComplexity = e => {
+    const password = e.target.value;
+    const checks = complexityCheck(password);
+    // furture - using dynamic checks, more elaborate failure messages could be included
+    if (!checks.validPW) {
+      this.setState({
+        message: "checker",
+        popupErrorMessage:
+          "Passwords must contain at least 8 characters. They must include at least one lowercase and capital letter, one number, and one of these special characters: !, #, $, %, &, ?, @, ^, or ~"
+      });
+    }
+  };
+
   render() {
-    const { message, disabled, active } = this.state;
+    const { message, disabled, active, popupErrorMessage } = this.state;
 
     let messageAlert;
     if (message === "mismatch") {
       messageAlert = <Message size="tiny">Passwords must match!</Message>;
+    } else if (message === "checker") {
+      messageAlert = (
+        <Message size="tiny">
+          Please fix password errors{" "}
+          <Popup trigger={<Icon name="info" />} content={popupErrorMessage} />
+        </Message>
+      );
     } else if (message !== "") {
       messageAlert = <Message size="tiny">{message}</Message>;
     } else {
@@ -133,11 +157,20 @@ class RegistrationPage extends Component {
       success = (
         <Dimmer active onClickOutside={this.dimmerClose} page>
           <FlexColumn alignCenter>
-          <Header as="h2" icon inverted >
-            <Icon name="check circle outline" style={{ marginBottom: '0.5em'}}/>
+            <Header as="h2" icon inverted>
+              <Icon
+                name="check circle outline"
+                style={{ marginBottom: "0.5em" }}
+              />
               Account Created!
-          </Header>
-          <Button onClick={this.dimmerClose} inverted style={{marginTop: '1em'}}>Continue</Button>
+            </Header>
+            <Button
+              onClick={this.dimmerClose}
+              inverted
+              style={{ marginTop: "1em" }}
+            >
+              Continue
+            </Button>
           </FlexColumn>
         </Dimmer>
       );
@@ -150,10 +183,20 @@ class RegistrationPage extends Component {
         width="full"
         alignCenter
         justifyBetween
-        style={{ backgroundColor: "#1a1b1c", paddingBottom: '10vh', paddingTop: '2%' }}
+        style={{
+          backgroundColor: "#1a1b1c",
+          paddingBottom: "10vh",
+          paddingTop: "2%"
+        }}
       >
-
-        <Link to='/' style={{alignSelf: 'flex-start', marginLeft: '2%', marginBottom: '2em'}}>
+        <Link
+          to="/"
+          style={{
+            alignSelf: "flex-start",
+            marginLeft: "2%",
+            marginBottom: "2em"
+          }}
+        >
           <Button inverted>Back</Button>
         </Link>
 
@@ -226,6 +269,7 @@ class RegistrationPage extends Component {
                 type="password"
                 value={this.state.password}
                 onChange={this.handleInputChange}
+                onBlur={this.passwordComplexity}
               />
             </Form.Field>
             <Form.Field>
