@@ -5,14 +5,14 @@ import { FlexColumn } from "../../custom-components/index";
 import { Link } from "react-router-dom";
 
 export const GetStarted = ({ mobile }) => (
-  <FlexColumn
+  <FlexColumn alignCenter
     style={{
       width: "100%",
-      height: mobile ? "84vh" : "46vh",
+      height: mobile ? "105vh" : "80vh",
       backgroundColor: "#1a1b1c",
       display: "flex",
-      alignItems: "center",
-      paddingTop: "4em"
+      paddingTop: mobile ? "10em" : "12em",
+      paddingBottom: "15em"
     }}
   >
     <Header inverted as="h2" content="Get started in three simple steps:" />
@@ -22,8 +22,8 @@ export const GetStarted = ({ mobile }) => (
         display: "flex",
         justifyContent: "center",
         alignItems: "center",
-        marginTop: mobile ? "2em" : "1em",
-        paddingBottom: "2em"
+        marginTop: mobile ? "3em" : "4em",
+        paddingBottom: mobile ? "5em" : "5em"
       }}
     >
       <Step.Group>

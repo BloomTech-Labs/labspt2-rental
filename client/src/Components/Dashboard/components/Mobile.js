@@ -1,12 +1,16 @@
 import React, { Component } from "react";
 import { Menu, Sidebar, Button, Icon, Segment } from "semantic-ui-react";
 import { Link } from "react-router-dom";
-import { FlexRow } from "custom-components";
+import { FlexRow, FlexColumn } from "custom-components";
 
 export class Mobile extends Component {
   state = {
     visible: false
   };
+
+  logout = (e) => {
+    localStorage.removeItem('authToken');
+  }
 
   render() {
     const { visible } = this.state;
@@ -21,8 +25,10 @@ export class Mobile extends Component {
           inverted
           vertical
           width="thin"
+          style={{ display: 'flex', justifyContent: 'space-between', paddingTop: '1em'}}
         >
-          <Menu.Item as="a" onClick={() => this.setState({ visible: false })}>
+          <div>
+          <Menu.Item as="a" style={{marginBottom: '2em'}} onClick={() => this.setState({ visible: false })}>
             <Icon name="close" />
             Hide Sidebar
           </Menu.Item>
@@ -34,6 +40,15 @@ export class Mobile extends Component {
               </Menu.Item>
             </Link>
           ))}
+          </div>
+
+          <FlexColumn alignCenter justifyCenter>
+          <Link to='/' onClick={this.logout} >
+                <Icon inverted size='large' name='right arrow' />
+                <p style={{ fontWeight: 'bold', color: 'white'}}>Logout</p>
+          </Link>
+        </FlexColumn>
+
         </Sidebar>
 
         <Button

@@ -101,7 +101,7 @@ class MobileContainer extends Component {
             <Responsive
               getWidth={getWidth}
               minWidth={Responsive.onlyMobile.minWidth}
-              style={{ backgroundColor: "#f6f9fc", border: "1px solid green" }}
+              style={{ backgroundColor: "#f6f9fc" }}
             >
               <Features mobile />
             </Responsive>
