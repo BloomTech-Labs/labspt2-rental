@@ -93,9 +93,7 @@ class Properties extends Component {
                     status={tab}
                     loading={loading}
                     properties={properties}
-                    count={
-                      !propertyCount ? 2 : Math.ceil(propertyCount / pageSize)
-                    }
+                    count={Math.ceil(propertyCount / pageSize)}
                     handlePageChange={this.handlePageChange}
                   />
                 </Tab.Pane>
