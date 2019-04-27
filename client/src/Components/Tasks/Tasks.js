@@ -28,7 +28,7 @@ class Tasks extends Component {
   }
 
   componentDidMount() {
-    const { page, pageSize, sort, filter, cfilter, overdueIncompletedFilter } = this.query;
+    const { page, pageSize, sort, filter } = this.query;
     this.props.getTasks({ page, pageSize, sort, filter });
     this.props.fetchTaskCount("overdue");
     this.props.fetchUserLog();
@@ -70,7 +70,8 @@ class Tasks extends Component {
       this.setState({ filterByCompleted: false })
     } else {
       this.setState({ filterByCompleted: true })
-    }
+    };
+    window.alert("This does nothing yet besides toggle state. It will toggle tasks by completed.")
   }
 
   render() {
