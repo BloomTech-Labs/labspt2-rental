@@ -3,7 +3,8 @@ import * as actions from "./actions";
 const initialState = {
   loading: false,
   error: false,
-  employees: []
+  employees: [],
+  sendgridStatus: null
 };
 
 const employeesReducer = (state = initialState, action) => {
@@ -42,6 +43,21 @@ const employeesReducer = (state = initialState, action) => {
       return {
         ...state,
         error: action.error
+      };
+    case actions.SENDGRID_FAILURE:
+      return {
+        ...state,
+        error: action.payload
+      };
+    case actions.SENDGRID_SUCCESS:
+      return {
+        ...state,
+        sendgridStatus: action.payload
+      };
+    case actions.SENDGRID_STARTED:
+      return {
+        ...state,
+        loading: true
       };
     default:
       return { ...state };

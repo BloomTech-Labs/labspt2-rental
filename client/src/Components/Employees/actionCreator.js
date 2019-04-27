@@ -97,17 +97,21 @@ export const updateProperty = (body = {}) => dispatch => {
     });
 };
 
-export const sendEmail = msg => {
+// YOU WERE HERE. HOOK THIS TO REDUX.
+export const sendEmail = msg => dispatch => {
+  dispatch({ type: actions.SENDGRID_STARTED });
   axios
     .post(`${config.apiUrl}/api/sendgrid/mail/send`, msg)
-    .then(response => {
-      if (response.status === 202) {
-        window.alert("message went through");
-      } else {
-        window.alert(`failed with status code ${response.status}`);
-      }
+    .then(data => {
+      dispatch({
+        type: actions.SENDGRID_SUCCESS,
+        payload: data.status
+      });
     })
     .catch(err => {
-      console.log(err);
+      dispatch({
+        type: actions.SENDGRID_FAILURE,
+        payload: err
+      });
     });
 };

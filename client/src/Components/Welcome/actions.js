@@ -7,6 +7,9 @@ export const LOGIN_USER_LOADING = "LOGIN_USER_LOADING";
 export const USER_STARTED = "USER_STARTED";
 export const USER_SUCCESS = "USER_SUCCESS";
 export const USER_ERROR = "USER_ERROR";
+export const SENDGRID_STARTED = "SENDGRID_STARTED";
+export const SENDGRID_SUCCESS = "SENDGRID_SUCCESS";
+export const SENDGRID_FAILURE = "SENDGRID_FAILURE";
 
 export const firstLogin = credentials => {
   return async dispatch => {
@@ -86,17 +89,20 @@ export const updateUser = user => {
   };
 };
 
-export const sendEmail = msg => {
+export const sendEmail = msg => dispatch => {
+  dispatch({ type: SENDGRID_STARTED });
   axios
     .post(`${config.apiUrl}/api/sendgrid/mail/send`, msg)
-    .then(response => {
-      if (response.status === 202) {
-        window.alert("message went through");
-      } else {
-        window.alert(`failed with status code ${response.status}`);
-      }
+    .then(data => {
+      dispatch({
+        type: SENDGRID_SUCCESS,
+        payload: data.status
+      });
     })
     .catch(err => {
-      console.log(err);
+      dispatch({
+        type: SENDGRID_FAILURE,
+        payload: err
+      });
     });
 };

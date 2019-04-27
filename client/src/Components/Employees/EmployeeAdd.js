@@ -1,5 +1,12 @@
 import React, { Component } from "react";
-import { Header, Input, Button, Divider, Dropdown } from "semantic-ui-react";
+import {
+  Header,
+  Input,
+  Button,
+  Divider,
+  Dropdown,
+  Dimmer
+} from "semantic-ui-react";
 import { FlexRow, FlexColumn } from "custom-components";
 
 class EmployeeAdd extends Component {
@@ -19,12 +26,20 @@ class EmployeeAdd extends Component {
       },
       username: null,
       password: null,
-      id: null
+      id: null,
+      dimmerOpen: false
     };
   }
 
   handleChange = (prop, val) => {
     this.setState({ [prop]: val });
+  };
+
+  successClose = () => {
+    this.setState({
+      dimmerOpen: false
+    });
+    this.props.history.push("/dashboard/employees");
   };
 
   handleSubmit = () => {
@@ -38,6 +53,7 @@ class EmployeeAdd extends Component {
     this.props
       .createEmployee(request)
       .then(data => {
+        console.log(data);
         if (data._id) {
           const welcomeEmail = {
             to: this.state.employee.email,
@@ -55,11 +71,13 @@ class EmployeeAdd extends Component {
             }">https://www.roostr.tech/welcome</a></p>`
           };
           this.props.sendEmail(welcomeEmail);
-          this.props.history.push("/dashboard/employees");
+          this.setState({
+            dimmerOpen: true
+          });
         }
       })
       .catch(err => {
-        console.log("blah");
+        console.log(err);
       });
   };
 
@@ -85,6 +103,20 @@ class EmployeeAdd extends Component {
         width="80%"
         style={{ marginLeft: "10%" }}
       >
+        <Dimmer
+          active={this.state.dimmerOpen}
+          size="fullscreen"
+          page
+          onClickOutside={this.successClose}
+        >
+          {" "}
+          <Header as="h1" inverted>
+            Your employee has been created and a welcome email has been sent.
+            <Header.Subheader>
+              Click to continue to your employee list.
+            </Header.Subheader>
+          </Header>
+        </Dimmer>
         <FlexRow width="full">
           <Header as="h1">Add New Employee</Header>
         </FlexRow>
