@@ -15,7 +15,6 @@ export const getEmployees = (filterSort = {}) => dispatch => {
         ""}&sort=${sort}&limit=${pageSize}&skip=${(page - 1) * pageSize}`
     );
   }
-
   // function that takes in the filterSort and returns the count of employees
   function getCounts(filterSort = {}) {
     const { filter, search } = filterSort;
@@ -95,5 +94,20 @@ export const updateProperty = (body = {}) => dispatch => {
         type: actions.EMPLOYEE_PROPERTY_FAILURE,
         payload: err
       });
+    });
+};
+
+export const sendEmail = msg => {
+  axios
+    .post(`${config.apiUrl}/api/sendgrid/mail/send`, msg)
+    .then(response => {
+      if (response.status === 202) {
+        window.alert("message went through");
+      } else {
+        window.alert(`failed with status code ${response.status}`);
+      }
+    })
+    .catch(err => {
+      console.log(err);
     });
 };

@@ -5,7 +5,8 @@ import {
   getEmployees,
   createEmployee,
   updateEmployee,
-  updateProperty
+  updateProperty,
+  sendEmail
 } from "./actionCreator";
 import _Employees from "./Employees";
 import _EmployeeAdd from "./EmployeeAdd";
@@ -21,7 +22,8 @@ const connector = connect(
     getEmployees,
     createEmployee,
     updateEmployee,
-    updateProperty
+    updateProperty,
+    sendEmail
   }
 );
 
