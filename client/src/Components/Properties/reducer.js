@@ -8,7 +8,8 @@ const initialState = {
   employees: [],
   user: {},
   reservations: [],
-  tasks: []
+  tasks: [],
+  propertyCount: null
 };
 
 const propertyReducer = (state = initialState, action) => {
@@ -23,6 +24,12 @@ const propertyReducer = (state = initialState, action) => {
         ...state,
         loading: false,
         properties: action.payload.data
+      };
+    case actions.PROPERTY_COUNT_SUCCESS:
+      return {
+        ...state,
+        loading: false,
+        propertyCount: action.payload
       };
     case actions.FETCH_RESERVATIONS_SUCCESS:
       return {
