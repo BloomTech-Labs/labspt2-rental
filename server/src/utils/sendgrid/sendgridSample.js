@@ -6,9 +6,8 @@ const msg = {
   to: 'test@example.com',
   from: 'test@example.com',
   subject: 'Sending with SendGrid is fun',
-  text: 'and easy to do anywhere, even with this stupid back end architecture',
-  html:
-    '<strong>and easy to do anywhere, even with this stupid back end architecture</strong>'
+  text: 'and easy to do anywhere.',
+  html: '<strong>and easy to do anywhere.</strong>'
 };
 
 sgMail.send(msg);
