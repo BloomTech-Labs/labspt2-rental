@@ -9,7 +9,9 @@ import {
   deleteProperty,
   getUser,
   getTasks,
-  deleteTasks
+  deleteTasks,
+  searchProperties,
+  fetchPropertyCount
 } from "./actionCreator";
 import _Properties from "./Properties";
 import _Property from "./Property";
@@ -25,7 +27,8 @@ const mapStateToProps = data => ({
   employees: data.properties.employees,
   reservations: data.properties.reservations,
   user: data.properties.user,
-  tasks: data.properties.tasks
+  tasks: data.properties.tasks,
+  propertyCount: data.properties.propertyCount
 });
 
 const connector = connect(
@@ -40,7 +43,9 @@ const connector = connect(
     getEmployees,
     getReservations,
     deleteProperty,
-    getUser
+    getUser,
+    searchProperties,
+    fetchPropertyCount
   }
 );
 

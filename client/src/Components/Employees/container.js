@@ -3,13 +3,10 @@ import { withRouter } from "react-router-dom";
 
 import {
   getEmployees,
-  searchEmployees,
-  getNumberEmployees,
-  getTaskList,
   createEmployee,
-  updateEmployee
+  updateEmployee,
+  updateProperty
 } from "./actionCreator";
-import { updateProperty } from "../Properties/actionCreator";
 import _Employees from "./Employees";
 import _EmployeeAdd from "./EmployeeAdd";
 import _EmployeeSingle from "./EmployeeSingle";
@@ -22,9 +19,6 @@ const connector = connect(
   mapStateToProps,
   {
     getEmployees,
-    searchEmployees,
-    getNumberEmployees,
-    getTaskList,
     createEmployee,
     updateEmployee,
     updateProperty

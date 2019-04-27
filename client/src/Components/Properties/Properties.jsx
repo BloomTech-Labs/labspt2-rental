@@ -1,21 +1,41 @@
 import React, { Component } from "react";
-import PropertyCard from "./PropertyCard";
-import { FlexColumn, FlexRow, Divider } from "custom-components";
+import PropertyList from "./PropertyList";
+import { FlexColumn } from "custom-components";
 import Search from "../shared/Search/Search";
-import { Button, Segment, Modal } from "semantic-ui-react";
+import { Button, Modal, Tab, Header } from "semantic-ui-react";
 import { Link } from "react-router-dom";
 
 class Properties extends Component {
-  state = {
-    modalOpen: false
-  };
-  componentDidMount() {
-    this.props.getProperties();
+  constructor(props) {
+    super(props);
+    this.state = {
+      modalOpen: false,
+      tabs: ["Active", "Inactive"]
+    };
+    this.query = {
+      page: 1,
+      pageSize: 4,
+      sort: "_id",
+      filter: { active: true },
+      search: ""
+    };
   }
+
+  componentDidMount() {
+    const { page, pageSize, sort, filter } = this.query;
+    this.props.getProperties({ page, pageSize, sort, filter });
+    this.props.fetchPropertyCount(filter);
+  }
+
+  handleSearchChange = value => {
+    this.query.search = value || "";
+    this.props.searchProperties({ ...this.query });
+  };
 
   closeModal = () => {
     this.setState({ modalOpen: false });
   };
+
   addClickHandle = () => {
     const numOfProps = this.props.properties.length;
     if (numOfProps === 1) {
@@ -25,7 +45,25 @@ class Properties extends Component {
     }
   };
 
+  handleTabChange = (e, data) => {
+    const { tabs } = this.state;
+    const activeTab = tabs[data.activeIndex].toLowerCase();
+    this.query.filter =
+      activeTab === "active" ? { active: true } : { active: false };
+    this.props.getProperties({ ...this.query });
+    this.props.fetchPropertyCount(this.query.filter);
+  };
+
+  handlePageChange = (event, data) => {
+    this.query.page = data.activePage;
+    this.props.getProperties({ ...this.query });
+  };
+
   render() {
+    const { pageSize } = this.query;
+    const { tabs } = this.state;
+    const { properties, loading, propertyCount } = this.props;
+
     return (
       <FlexColumn width="800px" alignCenter style={{ position: "relative" }}>
         <Modal size="small" open={this.state.modalOpen}>
@@ -42,55 +80,44 @@ class Properties extends Component {
             <Button onClick={this.closeModal}>Cancel</Button>
           </Modal.Actions>
         </Modal>
-        <Segment
-          as={FlexRow}
-          alignCenter
-          width="100%"
-          style={{ padding: "5px" }}
-        >
-          <Search style={{ flexGrow: "1", marginRight: "10px" }} />
-          <Button
-            className="space-left-20 space-right-20"
-            circular
-            icon="plus"
-            color="orange"
-            onClick={this.addClickHandle}
-          />
-        </Segment>
-
-        {!this.props.loading &&
-          this.props.properties &&
-          this.props.properties.map(property => {
-            return (
-              <>
-                <PropertyCard
-                  key={property._id}
-                  id={property._id}
-                  image={property.image}
-                  name={property.name}
-                  address={property.address1}
-                  addressFull={
-                    property.address1 +
-                    " " +
-                    property.city +
-                    " " +
-                    property.state +
-                    " " +
-                    property.zip
-                  }
-                  assistants={
-                    property.assistants != null && property.assistants.length
-                      ? `${property.assistants[0].firstName}`
-                      : "Not Assigned"
-                  }
-                  occupants={property.occupants}
-                  buttonFunction={() => this.cardHandleClick(property._id)}
-                  linkto={`/dashboard/properties/view/${property._id}`}
-                />
-                <Divider />
-              </>
-            );
-          })}
+        <Header as="h1">Properties</Header>
+        <Tab
+          onTabChange={this.handleTabChange}
+          menu={{ attached: false }}
+          panes={[
+            ...tabs.map(tab => ({
+              menuItem: tab,
+              render: () => (
+                <Tab.Pane attached={false} key={tab.menuItem}>
+                  <PropertyList
+                    status={tab}
+                    loading={loading}
+                    properties={properties}
+                    count={Math.ceil(propertyCount / pageSize)}
+                    handlePageChange={this.handlePageChange}
+                  />
+                </Tab.Pane>
+              )
+            })),
+            {
+              menuItem: (
+                <>
+                  <Search
+                    onChange={this.handleSearchChange}
+                    style={{ minWidth: "300px", flexGrow: "1" }}
+                  />
+                  <Button
+                    className="space-left-20 space-right-20"
+                    circular
+                    icon="plus"
+                    color="orange"
+                    onClick={this.addClickHandle}
+                  />
+                </>
+              )
+            }
+          ]}
+        />
       </FlexColumn>
     );
   }

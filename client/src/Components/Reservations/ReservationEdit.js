@@ -6,7 +6,7 @@ import {
   Button,
   Statistic
 } from "semantic-ui-react";
-import { FlexRow, FlexColumn, Text } from "custom-components";
+import { FlexRow, FlexColumn } from "custom-components";
 import { Link } from "react-router-dom";
 import DateRangePickerWrapper from "../shared/DatePicker/DatePicker.jsx";
 
