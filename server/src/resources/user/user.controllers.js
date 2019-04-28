@@ -69,11 +69,9 @@ export const updatePassword = async (req, res, next) => {
 
 export const verifyToken = (req, res, next) => {
   User.findOne({
-    where: {
-      resetPasswordToken: req.body.resetPasswordToken,
-      resetPasswordExpires: {
-        $gt: Date.now()
-      }
+    resetPasswordToken: req.body.resetPasswordToken,
+    resetPasswordExpires: {
+      $gt: Date.now()
     }
   })
     .then(user => {
@@ -91,19 +89,24 @@ export const verifyToken = (req, res, next) => {
 
 export const sendResetEmail = (req, res, next) => {
   const resetEmail = req.body.email;
-  User.findOne({ where: { email: resetEmail } })
+  User.findOne({ email: resetEmail })
     .then(user => {
       if (!user) {
         res.json({ message: 'Email does not exist' });
       } else {
         const token = randtoken.generate(16);
+
         const updatedInfo = {
           resetPasswordToken: token,
           resetPasswordExpires: Math.ceil(Date.now() + 360000)
         };
-        User.findOneAndUpdate({ where: { email: resetEmail } }, updatedInfo)
+
+        const options = {
+          returnNewDocument: true
+        };
+        User.findOneAndUpdate({ email: resetEmail }, updatedInfo, options)
           .then(user => {
-            if (user) {
+            if (user != null) {
               const sendgridKey = config.keys.sendgrid;
               sgMail.setApiKey(sendgridKey);
               const msg = {
