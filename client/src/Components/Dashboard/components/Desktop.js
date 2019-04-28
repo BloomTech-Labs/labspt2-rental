@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { Menu, Sidebar, Icon, Segment, Header } from "semantic-ui-react";
+import { Menu, Sidebar, Icon, Segment } from "semantic-ui-react";
 import { FlexRow, FlexColumn } from "custom-components";
 import { Link } from "react-router-dom";
 

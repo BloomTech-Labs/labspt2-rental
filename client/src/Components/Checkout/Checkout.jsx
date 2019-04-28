@@ -36,9 +36,19 @@ export default class Checkout extends Component {
       new Date(this.props.reservation.checkOut),
       new Date(this.props.reservation.checkIn)
     );
+    let cleaningFee = 0;
+
+    console.log('this.props.cleaning: ', this.props.property.cleaningFee);
+    if(!this.props.property.cleaningFee){
+      cleaningFee = 30
+    } else {
+      cleaningFee = this.props.property.cleaningFee
+    }
+    console.log('cleaningFee', cleaningFee);
     const totalBill =
-      nights * this.props.property.price + this.props.property.cleaningFee;
+      nights * this.props.property.price + cleaningFee;
     const stripeTotal = totalBill * 100;
+    console.log('totalBill and stripeTotal: ', totalBill, stripeTotal);
     this.setState({
       total: totalBill,
       stripeTotal: stripeTotal

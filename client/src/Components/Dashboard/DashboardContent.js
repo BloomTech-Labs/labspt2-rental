@@ -1,6 +1,6 @@
 import React, { Component } from "react";
-import { FlexColumn, Container } from "custom-components";
-
+import { FlexColumn, Container, FlexRow } from "custom-components";
+import { Divider, Header, Icon } from 'semantic-ui-react';
 import DashboardCards from "./DashboardCards";
 
 export default class DashboardContent extends Component {
@@ -46,6 +46,50 @@ export default class DashboardContent extends Component {
     return (
       <Container>
         <FlexColumn alignCenter width="full">
+
+        <FlexRow style={{width: '100%'}}>
+
+          <div style={{width: '30%', display: 'flex', flexDirection: 'column', justifyContent: 'center', margin: '2%', padding: '2%', backgroundColor: '#f6f9fc'}}>
+            <p style={{alignSelf: 'center', fontSize: '2.5em', marginBottom: 0}} >{reservTotals}</p>
+
+            <Divider horizontal>
+              <Header as='h4'>
+                Reservations
+              </Header>
+            </Divider>
+
+            <Icon name='bar chart' size='big' style={{alignSelf: 'center', color: '#0080D6'}} />
+          </div>
+
+          <div style={{width: '30%', display: 'flex', flexDirection: 'column', justifyContent: 'center', margin: '2%', padding: '2%', backgroundColor: '#f6f9fc'}}>
+            <p style={{alignSelf: 'center', fontSize: '2.5em', marginBottom: 0}} >{tasksOverdue}</p>
+
+            <Divider horizontal>
+              <Header as='h4'>
+                Overdue Tasks
+              </Header>
+            </Divider>
+
+            <Icon name='alarm' size='big' style={{alignSelf: 'center', color: '#ec0000'}} />
+          </div>
+
+          <div style={{width: '30%', display: 'flex', flexDirection: 'column', justifyContent: 'center', margin: '2%', padding: '2%', backgroundColor: '#f6f9fc'}}>
+            <p style={{alignSelf: 'center', fontSize: '2.5em', marginBottom: 0}} >{tasksToday}</p>
+
+            <Divider horizontal>
+              <Header as='h4'>
+                Today's Tasks
+              </Header>
+            </Divider>
+
+            <Icon name='clipboard list' color='green' size='big' style={{alignSelf: 'center'}} />
+          </div>
+        </FlexRow>
+
+
+
+
+
           <DashboardCards
             title="Reservations"
             iconName="book"
@@ -95,3 +139,40 @@ export default class DashboardContent extends Component {
     );
   }
 }
+
+// Mobile view of cards
+{/* <div style={{width: '70%', display: 'flex', flexDirection: 'column', justifyContent: 'center', margin: '2%', padding: '2%', backgroundColor: '#f6f9fc'}}>
+<p style={{alignSelf: 'center', fontSize: '2.5em', marginBottom: 0}} >{reservTotals}</p>
+
+<Divider horizontal>
+  <Header as='h4'>
+    Reservations
+  </Header>
+</Divider>
+
+<Icon name='bar chart' size='big' style={{alignSelf: 'center', color: '#0080D6'}} />
+</div>
+
+<div style={{width: '70%', display: 'flex', flexDirection: 'column', justifyContent: 'center', margin: '2%', padding: '2%', backgroundColor: '#f6f9fc'}}>
+<p style={{alignSelf: 'center', fontSize: '2.5em', marginBottom: 0}} >{tasksOverdue}</p>
+
+<Divider horizontal>
+  <Header as='h4'>
+    Overdue Tasks
+  </Header>
+</Divider>
+
+<Icon name='alarm' size='big' style={{alignSelf: 'center', color: '#ec0000'}} />
+</div>
+
+<div style={{width: '70%', display: 'flex', flexDirection: 'column', justifyContent: 'center', margin: '2%', padding: '2%', backgroundColor: '#f6f9fc'}}>
+<p style={{alignSelf: 'center', fontSize: '2.5em', marginBottom: 0}} >{tasksToday}</p>
+
+<Divider horizontal>
+  <Header as='h4'>
+    Today's Tasks
+  </Header>
+</Divider>
+
+<Icon name='clipboard list' color='green' size='big' style={{alignSelf: 'center'}} />
+</div> */}
