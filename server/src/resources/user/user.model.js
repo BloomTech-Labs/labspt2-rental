@@ -90,6 +90,12 @@ const userSchema = new Schema(
     createdBy: {
       type: mongoose.SchemaTypes.ObjectId,
       ref: 'user'
+    },
+    resetPasswordToken: {
+      type: String
+    },
+    resetPasswordExpires: {
+      type: Number
     }
   },
   { timestamps: true }
