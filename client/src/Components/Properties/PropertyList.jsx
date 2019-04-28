@@ -24,7 +24,7 @@ export default props => {
         properties.map(property => (
           <>
             <PropertyCard
-              key={property._id}
+              key={property._id + 1}
               id={property._id}
               image={property.image}
               name={property.name}
