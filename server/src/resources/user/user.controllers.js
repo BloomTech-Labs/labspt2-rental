@@ -70,7 +70,7 @@ export const updatePassword = async (req, res, next) => {
 export const verifyToken = (req, res, next) => {
   User.findOne({
     where: {
-      resetPasswordToken: req.query.resetPasswordToken,
+      resetPasswordToken: req.body.resetPasswordToken,
       resetPasswordExpires: {
         $gt: Date.now()
       }
@@ -134,7 +134,7 @@ export const updateByEmail = async (req, res, next) => {
     req.body.newPassword = hash;
 
     const updatedPassword = await User.findByIdAndUpdate(
-      req.user._id,
+      req.body._id,
       req.body.newPassword
     )
       .select('-password')
