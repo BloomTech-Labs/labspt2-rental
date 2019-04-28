@@ -74,11 +74,12 @@ export const verifyToken = (req, res, next) => {
       $gt: Date.now()
     }
   })
+    .select('-password')
     .then(user => {
       if (user == null) {
         res.json({ message: 'Password reset link is invalid or has expired.' });
       } else {
-        res.status(200).json({ message: 'Reset link is valid' });
+        res.status(200).json({ message: 'Reset link is valid', id: user._id });
         next();
       }
     })
@@ -90,6 +91,7 @@ export const verifyToken = (req, res, next) => {
 export const sendResetEmail = (req, res, next) => {
   const resetEmail = req.body.email;
   User.findOne({ email: resetEmail })
+    .select('-password')
     .then(user => {
       if (!user) {
         res.json({ message: 'Email does not exist' });
