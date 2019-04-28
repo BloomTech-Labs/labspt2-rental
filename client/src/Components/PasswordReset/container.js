@@ -4,7 +4,7 @@ import { withRouter } from "react-router-dom";
 import _ForgotPass from "./ForgotPass";
 import _ResetPass from "./ResetPass";
 
-const mapStateToProps = data => ({ user: data.user.user });
+const mapStateToProps = data => ({});
 
 const connector = connect(
   mapStateToProps,
