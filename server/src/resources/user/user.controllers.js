@@ -110,21 +110,34 @@ export const sendResetEmail = (req, res, next) => {
                 to: `${resetEmail}`,
                 from: 'reset@roostr.io',
                 subject: 'Your Password Reset',
-                text: `Hello, Here is the password reset link you requested. If you did not make this request, please contact us. Your link will expire in 1 hour. Link: https://www.roostr.tech/emailreset/${token} Thank you for choosing Roostr!`,
-                html: `<h2>Hello!</h2><p>Here is the password reset link you requested. If you did not make this request, please contact us at help@roostr.io.</p><p>Your reset link will expire in <strong>1 hour</strong>.</p><p><a href="https://www.roostr.tech/emailreset/${token}"></a>https://www.roostr.tech/emailreset/${token}</p><h4>Thank you for choosing Roostr!</h4>`
+                text: `Hello, Here is the password reset link you requested. If you did not make this request, please contact us. Your link will expire in 1 hour. Link: https://www.roostr.tech/forgot/${token} Thank you for choosing Roostr!`,
+                html: `<h2>Hello!</h2><p>Here is the password reset link you requested. If you did not make this request, please contact us at help@roostr.io.</p><p>Your reset link will expire in <strong>1 hour</strong>.</p><p><a href="https://www.roostr.tech/forgot/${token}"></a>https://www.roostr.tech/forgot/${token}</p><h4>Thank you for choosing Roostr!</h4>`
               };
-              sgMail.send(msg);
+              sgMail
+                .send(msg)
+                .then(response => {
+                  if (response) {
+                    res
+                      .status(202)
+                      .json({ message: 'email sent successfully.' });
+                  }
+                })
+                .catch(err => {
+                  res.status(400).send(err);
+                });
             } else {
-              res.json({ message: 'unable to send reset link at this time.' });
+              res
+                .status(400)
+                .json({ message: 'unable to send reset link at this time.' });
             }
           })
           .catch(err => {
-            res.send(err);
+            res.status(400).send(err);
           });
       }
     })
     .catch(err => {
-      res.send(err);
+      res.status(400).send(err);
     });
 };
 
