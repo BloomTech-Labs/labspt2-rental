@@ -8,6 +8,7 @@ const mapStateToProps = data => ({
   loading: data.reset.loading,
   error: data.reset.error,
   emailSent: data.reset.emailSent,
+  emailStatus: data.reset.emailStatus,
   user: data.reset.user
 });
 

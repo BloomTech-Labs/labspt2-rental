@@ -10,6 +10,7 @@ const initialState = {
   loading: false,
   error: null,
   emailSent: false,
+  emailStatus: null,
   user: {}
 };
 
@@ -24,7 +25,8 @@ const resetReducer = (state = initialState, action) => {
       return {
         ...state,
         loading: false,
-        emailSent: true
+        emailSent: true,
+        emailStatus: action.payload
       };
     case RESET_SEND_FAILURE:
       return {
