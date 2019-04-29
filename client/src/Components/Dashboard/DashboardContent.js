@@ -24,7 +24,8 @@ export default class DashboardContent extends Component {
       propertiesWithoutReservations,
       employeeTasks,
       employees,
-      loading
+      loading,
+      user
     } = this.props;
 
     // this sets the color of the overdue label to red if any exist

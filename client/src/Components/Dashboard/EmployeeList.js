@@ -7,7 +7,7 @@ import config from '../../config/index';
 // Pass props for if mobile or not, and how many employees
 
 export const EmployeeList = (props) => {
-    let count = 0;
+    let employeeTaskObject = {}
     if(props.employeeTasks){
         const {
             employee0,
@@ -15,15 +15,14 @@ export const EmployeeList = (props) => {
             employee2
         } = props.employeeTasks
 
-        const employeeTaskObject = createEmployeeTaskObject(employee0, employee1, employee2);
-        console.log(employeeTaskObject)
+        employeeTaskObject = createEmployeeTaskObject(employee0, employee1, employee2);
     }
 
     let container;
     if (getWidth() < Responsive.onlyTablet.minWidth) {
         container = <p>MOBILE</p>
     } else {
-        container = <Employees employees={props.employees} mobile={false}/>
+        container = <Employees user={props.user} employeeTaskObject={employeeTaskObject} employees={props.employees} mobile={false}/>
     }
 
     return (
@@ -34,17 +33,18 @@ export const EmployeeList = (props) => {
   }
 
 const Employees = (props) => {
-    console.log(props)
+    const { render, count } = props.employeeTaskObject;
+    console.log('render: ', render, 'count: ', count)
+
       let employees;
-      const number = 1;
       // instead, pass a prop of something that won't be null to test in case no employees
-      if (props.employees.length === 0){
-          employees = null;
-      }
-      else if( number === 0 ){
-          employees = <ZeroEmployees />
-      } else if ( number === 1 ) {
-          employees = <OneEmployee employees={props.employees} />
+      if (!render){
+          return null
+        }
+      else if(render.employee0 === false){
+        employees = <ZeroEmployees />
+      } else if ( render.employee2 === false ) {
+          employees = <OneEmployee employees={props.employees} count={count} />
       }
   
       return (
@@ -66,21 +66,26 @@ const ZeroEmployees = () => {
 }
 
 const OneEmployee = (props) => {
-    console.log(props)
+    console.log('props: ', 'overdue: ', props.count.employee0.overdue, 'today: ', props.count.employee0.today)
     return (
-        <List relaxed>
-            <List.Item>
-            <Image avatar src={`https://res.cloudinary.com/roostr-labpt2/image/upload/c_lfill,g_center,h_500,w_400/v1556336341/${props.employees[0].image}.jpg`} />
+        <List relaxed style={{ width: '100%' }}>
+            <List.Item style={{ display: 'flex', justifyContent: 'space-around', width: '50%'}}>
+            <Image style={{ width: '3em', height: '3em' }} avatar src={`https://res.cloudinary.com/roostr-labpt2/image/upload/c_lfill,g_center,h_500,w_400/v1556336341/${props.employees[0].image}.jpg`} />
             <List.Content>
                 <Link to={`/dashboard/employees/${props.employees[0]._id}`}>
                 <List.Header>{props.employees[0].firstName} {props.employees[0].lastName}</List.Header>
                 </Link>
                 <List.Description>
-                Last seen watching{' '}
+                Overdue tasks:{' '}
                 <a>
-                    <b>Arrested Development</b>
+                    <b>{props.count.employee0.overdue}</b>
                 </a>{' '}
-                just now.
+                </List.Description>
+                <List.Description>
+                Today's tasks:{' '}
+                <a>
+                    <b>{props.count.employee0.today}</b>
+                </a>{' '}
                 </List.Description>
             </List.Content>
             </List.Item>
