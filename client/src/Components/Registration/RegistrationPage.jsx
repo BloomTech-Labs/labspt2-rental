@@ -108,13 +108,56 @@ class RegistrationPage extends Component {
   passwordComplexity = e => {
     const password = e.target.value;
     const checks = complexityCheck(password);
-    // furture - using dynamic checks, more elaborate failure messages could be included
-    if (!checks.validPW) {
+    const {
+      length,
+      validChar,
+      capital,
+      lowercase,
+      number,
+      specChar,
+      validPW
+    } = checks;
+    let lengthErr,
+      validCharErr,
+      capitalErr,
+      lowercaseErr,
+      numberErr,
+      specCharErr;
+    // --Error message builder--
+    if (!validPW) {
+      // First define all relevant error messages
+      if (!length) lengthErr = <div> - contain at least 8 chars</div>;
+      if (!validChar)
+        validCharErr = <div> - contain only valid characters</div>;
+      if (!lowercase)
+        lowercaseErr = <div> - contain at least one lowercase letter</div>;
+      if (!capital)
+        capitalErr = <div> - contain at least one capital letter</div>;
+      if (!specChar)
+        specCharErr = <div>{` - contain one of !,#,$,%,&,?,@,^,~`}</div>;
+      if (!number) numberErr = <div> - contain at least one number</div>;
+      // Use the relevant error messages to to build the message
+      const popup = (
+        <>
+          <div>Please correct the following:</div>
+          {lengthErr}
+          {validCharErr}
+          {capitalErr}
+          {lowercaseErr}
+          {numberErr}
+          {specCharErr}
+        </>
+      );
+      // send the message to render
       this.setState({
         message: "checker",
-        popupErrorMessage:
-          "Passwords must contain at least 8 characters. They must include at least one lowercase and capital letter, one number, and one of these special characters: !, #, $, %, &, ?, @, ^, or ~"
+        popupErrorMessage: popup
       });
+      // prevent someone from changing focus
+      this.password.focus();
+    } else {
+      // resets the message on successful password
+      this.setState({ message: "" });
     }
   };
 
@@ -127,7 +170,7 @@ class RegistrationPage extends Component {
     } else if (message === "checker") {
       messageAlert = (
         <Message size="tiny">
-          Please fix password errors{" "}
+          Please enter a valid password
           <Popup trigger={<Icon name="info" />} content={popupErrorMessage} />
         </Message>
       );
@@ -270,6 +313,9 @@ class RegistrationPage extends Component {
                 value={this.state.password}
                 onChange={this.handleInputChange}
                 onBlur={this.passwordComplexity}
+                ref={input => {
+                  this.password = input;
+                }}
               />
             </Form.Field>
             <Form.Field>
