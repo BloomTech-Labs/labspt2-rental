@@ -10,6 +10,7 @@ import settingsReducer from "../Components/Settings/reducer";
 import dashboardReducer from "../Components/Dashboard/reducers";
 import checkoutReducer from "../Components/Checkout/reducers";
 import newLoginReducer from "../Components/Welcome/reducer";
+import resetReducer from "../Components/PasswordReset/reducer";
 
 export default combineReducers({
   properties: propertyReducer,
@@ -22,5 +23,6 @@ export default combineReducers({
   settings: settingsReducer,
   dashboard: dashboardReducer,
   checkout: checkoutReducer,
-  welcome: newLoginReducer
+  welcome: newLoginReducer,
+  reset: resetReducer
 });

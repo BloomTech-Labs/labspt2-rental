@@ -107,11 +107,20 @@ class LoginPage extends Component {
       success = (
         <Dimmer active onClickOutside={this.dimmerClose} page>
           <FlexColumn alignCenter>
-          <Header as="h2" icon inverted >
-            <Icon name="check circle outline" style={{ marginBottom: '0.5em'}}/>
-            Login Successful!
-          </Header>
-          <Button onClick={this.dimmerClose} inverted style={{marginTop: '1em'}}>Continue</Button>
+            <Header as="h2" icon inverted>
+              <Icon
+                name="check circle outline"
+                style={{ marginBottom: "0.5em" }}
+              />
+              Login Successful!
+            </Header>
+            <Button
+              onClick={this.dimmerClose}
+              inverted
+              style={{ marginTop: "1em" }}
+            >
+              Continue
+            </Button>
           </FlexColumn>
         </Dimmer>
       );
@@ -120,67 +129,76 @@ class LoginPage extends Component {
     }
 
     return (
-      <div style={{backgroundColor: "#f6f9fc"}}>
+      <div style={{ backgroundColor: "#f6f9fc" }}>
+        <FlexColumn
+          width="full"
+          alignCenter
+          justifyBetween
+          style={{
+            backgroundColor: "#1a1b1c",
+            paddingBottom: "50vh",
+            paddingTop: "2%"
+          }}
+        >
+          <Link
+            to="/"
+            style={{
+              alignSelf: "flex-start",
+              marginLeft: "2%",
+              marginBottom: "8em"
+            }}
+          >
+            <Button inverted>Back</Button>
+          </Link>
 
+          <Segment className="sm-container">
+            <Header size="large" style={{ color: "#4ca34b" }}>
+              Login
+            </Header>
+            {success}
+            <Divider />
 
-      <FlexColumn
-        width="full"
-        alignCenter
-        justifyBetween
-        style={{ backgroundColor: "#1a1b1c", paddingBottom: '50vh', paddingTop: '2%' }}
-      >
-        <Link to='/' style={{alignSelf: 'flex-start', marginLeft: '2%', marginBottom: '8em'}}>
-          <Button inverted>Back</Button>
-        </Link>
+            <Form onSubmit={this.handleSubmit}>
+              <Form.Field>
+                <label htmlFor="email-input">Email</label>
+                <input
+                  id="email-input"
+                  placeholder="Email"
+                  name="email"
+                  value={this.state.email}
+                  onChange={this.handleInputChange}
+                />
+              </Form.Field>
 
-        <Segment className="sm-container">
-          <Header size="large" style={{ color: "#4ca34b" }}>
-            Login
-          </Header>
-          {success}
-          <Divider />
+              <Form.Field>
+                <label htmlFor="password-input">Password</label>
+                <input
+                  id="password-input"
+                  placeholder="Password"
+                  name="password"
+                  type="password"
+                  value={this.state.password}
+                  onChange={this.handleInputChange}
+                />
+              </Form.Field>
+              <Link to="/forgot">Forgot Password?</Link>
+              {messageAlert}
 
-          <Form onSubmit={this.handleSubmit}>
-            <Form.Field>
-              <label htmlFor="email-input">Email</label>
-              <input
-                id="email-input"
-                placeholder="Email"
-                name="email"
-                value={this.state.email}
-                onChange={this.handleInputChange}
-              />
-            </Form.Field>
+              <FlexRow width="full" alignEnd justifyBetween>
+                <FlexColumn alignStart justifyBetween>
+                  <p style={{ color: "#1a1b1c", marginLeft: "5px" }}>
+                    Not yet registered?
+                  </p>
+                  <Link to="/register">
+                    <Button type="button">Register</Button>
+                  </Link>
+                </FlexColumn>
 
-            <Form.Field>
-              <label htmlFor="password-input">Password</label>
-              <input
-                id="password-input"
-                placeholder="Password"
-                name="password"
-                type="password"
-                value={this.state.password}
-                onChange={this.handleInputChange}
-              />
-            </Form.Field>
-
-            {messageAlert}
-
-            <FlexRow width="full" alignEnd justifyBetween>
-              <FlexColumn alignStart justifyBetween>
-                <p style={{ color: "#1a1b1c", marginLeft: "5px" }}>
-                  Not yet registered?
-                </p>
-                <Link to="/register">
-                  <Button type="button">Register</Button>
-                </Link>
-              </FlexColumn>
-
-              {submitButton}
-            </FlexRow>
-          </Form>
-        </Segment>
-      </FlexColumn>
+                {submitButton}
+              </FlexRow>
+            </Form>
+          </Segment>
+        </FlexColumn>
       </div>
     );
   }
