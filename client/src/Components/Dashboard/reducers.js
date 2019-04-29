@@ -8,7 +8,9 @@ const initialState = {
   emplTotal: 0,
   tasksToday: 0,
   tasksOverdue: 0,
-  user: null
+  propertiesWithoutReservations: 0,
+  user: null,
+  employees: []
 };
 
 const dashboardReducer = (state = initialState, action) => {
@@ -24,6 +26,21 @@ const dashboardReducer = (state = initialState, action) => {
       return {
         ...state,
         user: action.payload
+      };
+
+    case actions.DASHBOARD_FETCH_EMPLOYEES_STARTED:
+      return {...state, 
+        loading: true
+      };
+    case actions.DASHBOARD_FETCH_EMPLOYEES_FAILURE:
+      return {
+        ...state,
+        error: action.payload.error
+      };
+    case actions.DASHBOARD_FETCH_EMPLOYEES_SUCCESS:
+      return {
+        ...state,
+        employees: action.payload
       };
     default:
       return { ...state };

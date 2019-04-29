@@ -1,12 +1,14 @@
 import React, { Component } from "react";
 import { FlexColumn, Container, FlexRow } from "custom-components";
-import { Divider, Header, Icon } from 'semantic-ui-react';
+import { Divider, Header, Icon, List, Image } from 'semantic-ui-react';
 import DashboardCards from "./DashboardCards";
+import { DashboardStats } from './DashboardStats';
 
 export default class DashboardContent extends Component {
   componentDidMount() {
     this.props.getEverything();
     this.props.getUserRole();
+    this.props.dashboardGetEmployees();
   }
 
   render() {
@@ -17,8 +19,12 @@ export default class DashboardContent extends Component {
       propInactive,
       emplTotal,
       tasksToday,
-      tasksOverdue
+      tasksOverdue,
+      propertiesWithoutReservations,
+      employees
     } = this.props;
+
+    console.log(employees)
 
     // this sets the color of the overdue label to red if any exist
     let overdueColor = "blue";
@@ -42,49 +48,76 @@ export default class DashboardContent extends Component {
     let reservActiveColor = "blue";
     if (!reservTotals) reservTotalsColor = "red";
     if (!reservActive) reservActiveColor = "red";
+    console.log(this.props.propertiesWithoutReservations)
 
     return (
       <Container>
         <FlexColumn alignCenter width="full">
 
-        <FlexRow style={{width: '100%'}}>
+        <DashboardStats reservTotals={reservTotals} tasksOverdue={tasksOverdue} tasksToday={tasksToday} />
 
-          <div style={{width: '30%', display: 'flex', flexDirection: 'column', justifyContent: 'center', margin: '2%', padding: '2%', backgroundColor: '#f6f9fc'}}>
-            <p style={{alignSelf: 'center', fontSize: '2.5em', marginBottom: 0}} >{reservTotals}</p>
+{/* if 1 employee return 
+if 2 return
+if 3+ return */}
 
-            <Divider horizontal>
-              <Header as='h4'>
-                Reservations
-              </Header>
-            </Divider>
+<List relaxed>
+    <List.Item>
+      {/* <Image avatar src={} /> */}
+      <List.Content>
+        <List.Header as='a'>Daniel Louise</List.Header>
+        <List.Description>
+          Last seen watching{' '}
+          <a>
+            <b>Arrested Development</b>
+          </a>{' '}
+          just now.
+        </List.Description>
+      </List.Content>
+    </List.Item>
+    </List>
 
-            <Icon name='bar chart' size='big' style={{alignSelf: 'center', color: '#0080D6'}} />
-          </div>
+        <List relaxed>
+    <List.Item>
+      <Image avatar src='https://react.semantic-ui.com/images/avatar/small/daniel.jpg' />
+      <List.Content>
+        <List.Header as='a'>Daniel Louise</List.Header>
+        <List.Description>
+          Last seen watching{' '}
+          <a>
+            <b>Arrested Development</b>
+          </a>{' '}
+          just now.
+        </List.Description>
+      </List.Content>
+    </List.Item>
 
-          <div style={{width: '30%', display: 'flex', flexDirection: 'column', justifyContent: 'center', margin: '2%', padding: '2%', backgroundColor: '#f6f9fc'}}>
-            <p style={{alignSelf: 'center', fontSize: '2.5em', marginBottom: 0}} >{tasksOverdue}</p>
-
-            <Divider horizontal>
-              <Header as='h4'>
-                Overdue Tasks
-              </Header>
-            </Divider>
-
-            <Icon name='alarm' size='big' style={{alignSelf: 'center', color: '#ec0000'}} />
-          </div>
-
-          <div style={{width: '30%', display: 'flex', flexDirection: 'column', justifyContent: 'center', margin: '2%', padding: '2%', backgroundColor: '#f6f9fc'}}>
-            <p style={{alignSelf: 'center', fontSize: '2.5em', marginBottom: 0}} >{tasksToday}</p>
-
-            <Divider horizontal>
-              <Header as='h4'>
-                Today's Tasks
-              </Header>
-            </Divider>
-
-            <Icon name='clipboard list' color='green' size='big' style={{alignSelf: 'center'}} />
-          </div>
-        </FlexRow>
+    <List.Item>
+      <Image avatar src='https://react.semantic-ui.com/images/avatar/small/stevie.jpg' />
+      <List.Content>
+        <List.Header as='a'>Stevie Feliciano</List.Header>
+        <List.Description>
+          Last seen watching{' '}
+          <a>
+            <b>Bob's Burgers</b>
+          </a>{' '}
+          10 hours ago.
+        </List.Description>
+      </List.Content>
+    </List.Item>
+    <List.Item>
+      <Image avatar src='https://react.semantic-ui.com/images/avatar/small/elliot.jpg' />
+      <List.Content>
+        <List.Header as='a'>Elliot Fu</List.Header>
+        <List.Description>
+          Last seen watching{' '}
+          <a>
+            <b>The Godfather Part 2</b>
+          </a>{' '}
+          yesterday.
+        </List.Description>
+      </List.Content>
+    </List.Item>
+  </List>
 
 
 
