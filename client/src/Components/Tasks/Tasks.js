@@ -35,11 +35,6 @@ class Tasks extends Component {
     this.props.fetchIncompletedTaskCount("overdue");
   }
 
-  static getDerivedStateFromProps(props, state) {
-      return props.tasks.tasks.incompletedTaskCount;
-
-  }
-
   handleSearchChange = value => {
     this.query.search = value || "";
     this.props.searchTasks({ ...this.query });
@@ -75,7 +70,7 @@ class Tasks extends Component {
   }
 
   render() {
-    const { tabs, filterByCompleted } = this.state;
+    const { tabs } = this.state;
     const {
         tasks: { 
           tasks, 
