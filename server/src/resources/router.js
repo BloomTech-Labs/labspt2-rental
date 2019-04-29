@@ -14,10 +14,13 @@ import applePayRouter from '../utils/stripe/applePay.router';
 import sendgridRouter from '../utils/sendgrid/sendgrid.router';
 import resetRouter from '../utils/Reset/reset.router';
 
-export const publicRouter = app => {
-  app.use('/api/users', authRouter);
+export const sendGridRouter = app => {
   app.use('/api/sendgrid', sendgridRouter);
   app.use('/api/reset', resetRouter);
+};
+
+export const publicRouter = app => {
+  app.use('/api/users', authRouter);
 };
 
 export const protectedRouter = app => {

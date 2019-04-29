@@ -1,4 +1,5 @@
 import { User } from '../../resources/user/user.model';
+import { newToken } from '../auth';
 import bcrypt from 'bcrypt';
 import randtoken from 'rand-token';
 import config from '../../config';
@@ -17,7 +18,13 @@ const verifyResetToken = (req, res, next) => {
           .status(401)
           .json({ message: 'Password reset link is invalid or has expired.' });
       } else {
-        res.status(200).json({ message: 'Reset link is valid', id: user._id });
+        const token = newToken(user);
+        console.log(token);
+        res.status(200).json({
+          message: 'Reset link is valid',
+          id: user._id,
+          token: token
+        });
         next();
       }
     })
@@ -97,10 +104,12 @@ const updateByEmail = async (req, res, next) => {
       .select('-password')
       .lean()
       .exec();
-
-    res.status(200).json({ data: updatedPassword });
+    console.log('updatedPasswordUser', updatedPassword);
+    if (updatedPassword) {
+      res.status(200).json({ data: updatedPassword });
+    }
   } catch (err) {
-    err.statusCode = 400;
+    console.log(err);
     next(err);
   }
 };

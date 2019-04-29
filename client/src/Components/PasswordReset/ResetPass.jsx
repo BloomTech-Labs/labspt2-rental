@@ -5,7 +5,9 @@ import {
   Input,
   Header,
   Dimmer,
-  Loader
+  Loader,
+  Message,
+  Divider
 } from "semantic-ui-react";
 import { Link } from "react-router-dom";
 import { FlexRow, FlexColumn } from "custom-components";
@@ -18,8 +20,12 @@ class ResetPass extends Component {
     this.state = {
       id: null,
       newPassword: null,
+      passwordCheck: null,
       loading: true,
-      open: false
+      open: false,
+      dimmerOpen: false,
+      modalMessage: "",
+      message: ""
     };
   }
   componentDidMount() {
@@ -28,6 +34,8 @@ class ResetPass extends Component {
         resetPasswordToken: this.props.match.params.token
       })
       .then(response => {
+        localStorage.setItem("authorization", "Bearer " + response.data.token);
+
         this.setState({
           loading: false,
           id: response.data.id
@@ -37,15 +45,81 @@ class ResetPass extends Component {
       .catch(err => {
         this.setState({
           open: true,
-          modalMessage: "Your link has expired. Please request a new reset."
+          modalMessage:
+            "Your link has expired. Please request a new reset email."
         });
       });
   }
+  updatePassword = () => {
+    const update = { _id: this.state.id, newPassword: this.state.newPassword };
+    if (this.state.newPassword === this.state.passwordCheck) {
+      axios
+        .put(`${config.apiUrl}/api/reset/updateByEmail`, update)
+        .then(response => {
+          if (response.status === 200) {
+            this.setState({ dimmerOpen: true });
+          }
+        })
+        .catch(err => {
+          console.log(err);
+          this.setState({
+            open: true,
+            modalMessage: "Password could not be updated. Please try again."
+          });
+        });
+    } else {
+      this.setState({
+        message: "Passwords must match"
+      });
+    }
+  };
+  successClose = () => {
+    this.setState({
+      dimmerOpen: false
+    });
+    this.props.history.push("/");
+  };
+
+  handleChange = e => {
+    this.setState({
+      [e.target.name]: e.target.value
+    });
+  };
   render() {
+    let messageAlert;
+    if (this.state.message !== "") {
+      messageAlert = (
+        <Message size="tiny" color="black">
+          {this.state.message}
+        </Message>
+      );
+    } else {
+      messageAlert = null;
+    }
     return (
-      <FlexColumn>
+      <FlexColumn
+        width="full"
+        alignCenter
+        justifyBetween
+        style={{
+          backgroundColor: "#1a1b1c",
+          paddingBottom: "30vh",
+          paddingTop: "30vh"
+        }}
+      >
         <Dimmer active={this.state.loading} page>
           <Loader size="large">Verifying</Loader>
+        </Dimmer>
+        <Dimmer
+          size="fullscreen"
+          active={this.state.dimmerOpen}
+          page
+          onClickOutside={this.successClose}
+        >
+          <Header as="h1" inverted>
+            Password Updated! Please log in with your new password.
+            <Header.Subheader>Click to return to Homepage.</Header.Subheader>
+          </Header>
         </Dimmer>
         <Modal open={this.state.open} size="large">
           <Modal.Content>
@@ -53,10 +127,57 @@ class ResetPass extends Component {
           </Modal.Content>
           <Modal.Actions>
             <Link to="/forgot">
-              <Button color="blue">Request New Reset Link</Button>
+              <Button color="blue">Request new link</Button>
             </Link>
           </Modal.Actions>
         </Modal>
+        <Header as="h2" inverted alignCenter style={{ padding: "1%" }}>
+          Please choose a new password:
+        </Header>
+        <Input
+          placeholder="New Password"
+          name="newPassword"
+          type="text"
+          onChange={this.handleChange}
+          style={{ margin: "1%" }}
+        />
+        <Input
+          placeholder="Reenter Password"
+          name="passwordCheck"
+          type="text"
+          onChange={this.handleChange}
+          style={{ margin: "1%" }}
+        />
+        {messageAlert}
+        <FlexRow
+          alignCenter
+          style={{
+            backgroundColor: "#1a1b1c",
+            paddingBottom: "10vh",
+            paddingTop: "2%"
+          }}
+        >
+          <Button
+            color="blue"
+            alignCenter
+            style={{
+              margin: "1%"
+            }}
+            onClick={this.updatePassword}
+          >
+            Update
+          </Button>
+          <Link to="/">
+            <Button
+              alignCenter
+              style={{
+                margin: "1%"
+              }}
+            >
+              Cancel
+            </Button>
+          </Link>
+        </FlexRow>
       </FlexColumn>
     );
   }

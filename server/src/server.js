@@ -5,7 +5,11 @@ import bodyParser from 'body-parser';
 import config from './config';
 import { connect } from './utils/db';
 import { statusHandler } from './utils/errorHandler';
-import { publicRouter, protectedRouter } from './resources/router';
+import {
+  publicRouter,
+  protectedRouter,
+  sendGridRouter
+} from './resources/router';
 import seed from './utils/seed';
 
 export const app = express();
@@ -22,6 +26,7 @@ try {
   app.set('view engine', 'pug');
   app.use(bodyParser.urlencoded({ extended: false }));
 
+  sendGridRouter(app);
   publicRouter(app);
   protectedRouter(app);
   app.use(statusHandler);
