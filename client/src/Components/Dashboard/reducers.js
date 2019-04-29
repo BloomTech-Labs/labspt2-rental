@@ -10,16 +10,22 @@ const initialState = {
   tasksOverdue: 0,
   propertiesWithoutReservations: 0,
   user: null,
-  employees: []
+  employees: [],
+  loading: false
 };
 
 const dashboardReducer = (state = initialState, action) => {
   switch (action.type) {
+      case actions.COUNTS_STARTED:
+      return {...state, 
+        loading: true
+      };
     case actions.COUNTS_SUCCESS:
       return Object.assign({}, state, action.payload);
     case actions.COUNTS_FAILURE:
       return {
         ...state,
+        loading: false,
         error: action.payload.error
       };
     case actions.USER_ROLE_SUCCESS:
@@ -35,11 +41,13 @@ const dashboardReducer = (state = initialState, action) => {
     case actions.DASHBOARD_FETCH_EMPLOYEES_FAILURE:
       return {
         ...state,
+        loading: false,
         error: action.payload.error
       };
     case actions.DASHBOARD_FETCH_EMPLOYEES_SUCCESS:
       return {
         ...state,
+        loading: false,
         employees: action.payload
       };
     default:

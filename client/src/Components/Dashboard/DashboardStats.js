@@ -8,7 +8,6 @@ const getWidth = () => {
   };
 
 export const DashboardStats = (props) => {
-    console.log('dashboard stats passed props', props)
     return (
         <Fragment>
             <DesktopStats reservTotals={props.reservTotals} tasksOverdue={props.tasksOverdue} tasksToday={props.tasksToday} />
@@ -25,7 +24,7 @@ const DesktopStats = (props) => {
       } = props;
   
       return (
-          <Responsive getWidth={getWidth} minWidth={Responsive.onlyTablet.minWidth}>
+          <Responsive getWidth={getWidth} minWidth={Responsive.onlyTablet.minWidth} style={{width: '100%'}}>
           <FlexRow style={{width: '100%'}}>
   
             <div style={{width: '30%', display: 'flex', flexDirection: 'column', justifyContent: 'center', margin: '2%', padding: '2%', backgroundColor: '#f6f9fc'}}>

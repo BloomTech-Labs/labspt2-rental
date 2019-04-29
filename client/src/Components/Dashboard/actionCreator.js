@@ -3,6 +3,7 @@ import * as actions from "./actions";
 import config from "config";
 
 export const getEverything = () => dispatch => {
+  dispatch({ type: actions.COUNTS_STARTED });
   function getCounts(database, filter) {
     return axios.get(
       `${config.apiUrl}/api/${database}/count?filter=${JSON.stringify(filter) ||
