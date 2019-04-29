@@ -242,8 +242,6 @@ class TaskEdit extends Component {
               </Button>
             </FlexRow>
 
-
-
             <Modal open={this.state.modalOpen} size="small">
               <Modal.Content>
                 <p>Are you sure you want to delete this task?</p>
