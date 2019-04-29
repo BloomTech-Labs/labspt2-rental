@@ -22,6 +22,7 @@ export default class DashboardContent extends Component {
       tasksToday,
       tasksOverdue,
       propertiesWithoutReservations,
+      employeeTasks,
       employees,
       loading
     } = this.props;
@@ -69,8 +70,8 @@ export default class DashboardContent extends Component {
       <DashboardStats reservTotals={reservTotals} tasksOverdue={tasksOverdue} tasksToday={tasksToday} />
 
       <FlexRow justifyAround style={{ width: '100%', marginTop: '2em', marginBottom: '2em'}}>
-        <EmployeeList employees={employees}/>
-        <EmployeeList employees={employees}/>
+        <EmployeeList employeeTasks={employeeTasks} employees={employees}/>
+        <EmployeeList employeeTasks={employeeTasks} employees={employees}/>
       </FlexRow>
       </FlexColumn>
     </Container>)
