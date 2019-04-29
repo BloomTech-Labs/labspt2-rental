@@ -26,7 +26,7 @@ class ForgotPass extends Component {
 
   sendEmail = async () => {
     const reset = { email: this.state.email };
-    axios.post(`${config.apiUrl}/api/users/forgot`, reset).then(response => {
+    axios.post(`${config.apiUrl}/api/reset/forgot`, reset).then(response => {
       if (response.status === 202) {
         this.setState({
           modalOpen: true,
