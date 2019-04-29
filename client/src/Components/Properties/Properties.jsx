@@ -101,7 +101,7 @@ class Properties extends Component {
             })),
             {
               menuItem: (
-                <>
+                <div key={1}>
                   <Search
                     onChange={this.handleSearchChange}
                     style={{ minWidth: "300px", flexGrow: "1" }}
@@ -113,7 +113,7 @@ class Properties extends Component {
                     color="orange"
                     onClick={this.addClickHandle}
                   />
-                </>
+                </div>
               )
             }
           ]}

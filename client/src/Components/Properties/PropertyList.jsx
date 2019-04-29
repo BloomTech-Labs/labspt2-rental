@@ -22,9 +22,8 @@ export default props => {
       {!loading &&
         properties.length &&
         properties.map(property => (
-          <>
+          <div key={property._id}>
             <PropertyCard
-              key={property._id + 1}
               id={property._id}
               image={property.image}
               name={property.name}
@@ -48,7 +47,7 @@ export default props => {
               linkto={`/dashboard/properties/view/${property._id}`}
             />
             <Divider />
-          </>
+          </div>
         ))}
     </FlexColumn>
   );
