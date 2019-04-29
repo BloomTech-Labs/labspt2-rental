@@ -19,7 +19,7 @@ const verifyResetToken = (req, res, next) => {
           .json({ message: 'Password reset link is invalid or has expired.' });
       } else {
         const token = newToken(user);
-        console.log(token);
+
         res.status(200).json({
           message: 'Reset link is valid',
           id: user._id,
@@ -29,7 +29,6 @@ const verifyResetToken = (req, res, next) => {
       }
     })
     .catch(err => {
-      console.log(err, 'this is in the catch');
       res.send(err);
     });
 };
@@ -104,12 +103,10 @@ const updateByEmail = async (req, res, next) => {
       .select('-password')
       .lean()
       .exec();
-    console.log('updatedPasswordUser', updatedPassword);
     if (updatedPassword) {
       res.status(200).json({ data: updatedPassword });
     }
   } catch (err) {
-    console.log(err);
     next(err);
   }
 };

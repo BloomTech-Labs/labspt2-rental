@@ -4,8 +4,6 @@ import config from "config";
 export const RESET_STARTED = "RESET_STARTED";
 export const RESET_SEND_SUCCESS = "RESET_SEND_SUCCESS";
 export const RESET_SEND_FAILURE = "RESET_SEND_FAILURE";
-export const RESET_SUCCESS = "RESET_SUCCESS";
-export const RESET_FAILURE = "RESET_FAILURE";
 
 export const sendResetEmail = email => {
   return dispatch => {

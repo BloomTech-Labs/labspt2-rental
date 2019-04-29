@@ -6,8 +6,7 @@ import {
   Header,
   Dimmer,
   Loader,
-  Message,
-  Divider
+  Message
 } from "semantic-ui-react";
 import { Link } from "react-router-dom";
 import { FlexRow, FlexColumn } from "custom-components";
@@ -118,7 +117,9 @@ class ResetPass extends Component {
         >
           <Header as="h1" inverted>
             Password Updated! Please log in with your new password.
-            <Header.Subheader>Click to return to Homepage.</Header.Subheader>
+            <Header.Subheader style={{ marginTop: "1%" }}>
+              Click to return to Homepage.
+            </Header.Subheader>
           </Header>
         </Dimmer>
         <Modal open={this.state.open} size="large">

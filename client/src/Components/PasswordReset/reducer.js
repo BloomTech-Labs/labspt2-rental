@@ -1,9 +1,7 @@
 import {
   RESET_STARTED,
   RESET_SEND_SUCCESS,
-  RESET_SEND_FAILURE,
-  RESET_SUCCESS,
-  RESET_FAILURE
+  RESET_SEND_FAILURE
 } from "./actions";
 
 const initialState = {

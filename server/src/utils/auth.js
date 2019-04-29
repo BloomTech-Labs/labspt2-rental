@@ -90,7 +90,6 @@ export const login = async (req, res, next) => {
 };
 
 export const protect = async (req, res, next) => {
-  console.log(req);
   const bearer = req.headers.authorization;
 
   if (!bearer || !bearer.startsWith('Bearer ')) {
