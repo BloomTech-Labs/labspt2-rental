@@ -134,7 +134,7 @@ class RegistrationPage extends Component {
       if (!capital)
         capitalErr = <div> - contain at least one capital letter</div>;
       if (!specChar)
-        specCharErr = <div> - contain one of !,#,$,%,&,?,@,^,~</div>;
+        specCharErr = <div>{` - contain one of !,#,$,%,&,?,@,^,~`}</div>;
       if (!number) numberErr = <div> - contain at least one number</div>;
       // Use the relevant error messages to to build the message
       const popup = (
