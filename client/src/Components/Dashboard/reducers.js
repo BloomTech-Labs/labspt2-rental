@@ -9,8 +9,9 @@ const initialState = {
   tasksToday: 0,
   tasksOverdue: 0,
   propertiesWithoutReservations: 0,
-  user: null,
   employees: [],
+  user: null,
+  employeesTasks: [],
   loading: false
 };
 
@@ -48,7 +49,7 @@ const dashboardReducer = (state = initialState, action) => {
       return {
         ...state,
         loading: false,
-        employees: action.payload
+        employeesTasks: action.payload
       };
     default:
       return { ...state };

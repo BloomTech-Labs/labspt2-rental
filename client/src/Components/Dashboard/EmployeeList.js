@@ -2,6 +2,7 @@ import React, { Fragment } from "react";
 import { FlexColumn } from "custom-components";
 import { Divider, Header, Icon, Responsive, List, Button, Image } from 'semantic-ui-react';
 import { Link } from 'react-router-dom';
+import config from '../../config/index';
 
 const getWidth = () => {
     const isSSR = typeof window === "undefined";  
@@ -16,7 +17,7 @@ export const EmployeeList = (props) => {
     if (getWidth() < Responsive.onlyTablet.minWidth) {
         container = <p>MOBILE</p>
     } else {
-        container = <Employees employees={props.employees}/>
+        container = <Employees employees={props.employees} mobile={false}/>
     }
 
     return (
@@ -41,7 +42,7 @@ const Employees = (props) => {
       }
   
       return (
-          <Responsive getWidth={getWidth} minWidth={Responsive.onlyTablet.minWidth} style={{width: '45%', height: '20vh', border: '1px solid pink', display: 'flex', flexDirection: 'column', alignItems: 'center', padding: '2%'}}>
+          <Responsive style={{width: '45%', height: '20vh', border: '1px solid pink', display: 'flex', flexDirection: 'column', alignItems: 'center', padding: '2%'}}>
             {employees}
           </Responsive>
       );
@@ -65,7 +66,9 @@ const OneEmployee = (props) => {
             <List.Item>
             <Image avatar src={`https://res.cloudinary.com/roostr-labpt2/image/upload/c_lfill,g_center,h_500,w_400/v1556336341/${props.employees[0].image}.jpg`} />
             <List.Content>
-                <List.Header as='a'>{props.employees[0].firstName} {props.employees[0].lastName}</List.Header>
+                <Link to={`/dashboard/employees/${props.employees[0]._id}`}>
+                <List.Header>{props.employees[0].firstName} {props.employees[0].lastName}</List.Header>
+                </Link>
                 <List.Description>
                 Last seen watching{' '}
                 <a>

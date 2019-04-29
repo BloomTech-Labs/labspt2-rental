@@ -2,6 +2,8 @@ import axios from "axios";
 import * as actions from "./actions";
 import config from "config";
 
+const dashboardEmployees = [];
+
 export const getEverything = () => dispatch => {
   dispatch({ type: actions.COUNTS_STARTED });
   function getCounts(database, filter) {
@@ -58,6 +60,11 @@ export const getEverything = () => dispatch => {
     )
   }
 
+  function getEmployees() {
+    return axios
+      .get(`${config.apiUrl}/api/employees/`)
+  }
+
   function getProperties (){
     return axios.get(
       `${config.apiUrl}/api/properties`
@@ -85,6 +92,7 @@ export const getEverything = () => dispatch => {
       getActiveReservations(),
       getProperties(),
       getAllReservations(),
+      getEmployees()
     ])
     .then(
       axios.spread(
@@ -95,12 +103,20 @@ export const getEverything = () => dispatch => {
           tasksOverdue,
           activeReservations,
           properties,
-          allReservations
+          allReservations,
+          employees
         ) => {
           const activeReservArr = activeReservations.data.data;
           const propertiesTotal = properties.data.data.length;
           const uniqueIds = [];
           let propertiesWithoutFutureGuests = [];
+
+          for(let i=0; i<3; i++){
+            if(employees.data.data[i]){
+              dashboardEmployees.push(employees.data.data[i]._id)
+            }
+          }
+          console.log('dashboardEmployees: ', dashboardEmployees);
 
           properties.data.data.forEach(item => propertiesWithoutFutureGuests.push(item._id));
 
@@ -128,7 +144,8 @@ export const getEverything = () => dispatch => {
             emplTotal: emplTotal.data.count,
             tasksToday: tasksToday.data.count,
             tasksOverdue: tasksOverdue.data.count,
-            propertiesWithoutReservations: propertiesWithoutReservations
+            propertiesWithoutReservations: propertiesWithoutReservations,
+            employees: employees.data.data
           };
           dispatch({ type: actions.COUNTS_SUCCESS, payload: result });
         }
@@ -153,10 +170,15 @@ export const getUserRole = () => dispatch => {
     });
 };
 
+// search for overdue tasks and today tasks using employee id
 export const dashboardGetEmployees = () => dispatch => {
   dispatch({ type: actions.DASHBOARD_FETCH_EMPLOYEES_STARTED });
   return axios
-    .get(`${config.apiUrl}/api/employees/`)
+    .all([
+      // get tasks by employee id
+    ])
+  // return axios
+  //   .get(`${config.apiUrl}/api/employees/`)
     .then(response => {
       dispatch({ type: actions.DASHBOARD_FETCH_EMPLOYEES_SUCCESS, payload: response.data.data });
     })
