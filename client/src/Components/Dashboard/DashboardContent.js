@@ -64,6 +64,8 @@ export default class DashboardContent extends Component {
       loadingSpinner = (<Container>
       <FlexColumn alignCenter width="full">
 
+      {/* Welcome NAME and SVG */}
+
       <DashboardStats reservTotals={reservTotals} tasksOverdue={tasksOverdue} tasksToday={tasksToday} />
 
       <FlexRow justifyAround style={{ width: '100%', marginTop: '2em', marginBottom: '2em'}}>
