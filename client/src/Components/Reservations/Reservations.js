@@ -74,7 +74,7 @@ export default class Reservations extends Component {
             {
               menuItem: (
                 <Search
-                  onChange={this.handleSearchChange}
+                  onChange={this.handleSearchChange} key = "1"
                   style={{ minWidth: "300px", flexGrow: "1" }}
                 />
               )

@@ -7,7 +7,8 @@ import { Link } from "react-router-dom";
 import taskPropertyAssign from "./taskPropertyHelper";
 
 const EmployeeList = props => {
-  const { numPages, page, handlePageChange, user } = props;
+  const { page, handlePageChange, user } = props;
+  const numPages = props.numPages ? props.numPages : 0
 
   const role = user ? user.role : null;
 
@@ -39,10 +40,10 @@ const EmployeeList = props => {
         ) : null}
       </FlexRow>
       {modEmployees.map(item => (
-        <>
-          <EmployeeListItem key={item._id} employee={item} />
+        <div key={item._id}>
+          <EmployeeListItem employee={item} />
           <Divider />
-        </>
+        </div>
       ))}
     </FlexColumn>
   );

@@ -13,37 +13,6 @@ export const getEverything = () => dispatch => {
     );
   }
 
-
-// createdAt: "2019-04-27T07:00:17.238Z"
-// createdBy: "5cc3fe009b6f68266b721621"
-// email: "employee@roostr.io"
-// firstName: "Fredy"
-// image: "jidkfcrf00eivzefi8ot"
-// lastName: "Denesik"
-// permissions: {_id: "5cc3fe019b6f68266b721624", task: true, property: true, checkout: true}
-// role: "employee"
-// updatedAt: "2019-04-27T07:00:17.238Z"
-// username: "test_employee"
-// __v: 0
-// _id: "5cc3fe019b6f68266b721623"
-
-// active: true
-// address1: "929 Vicente Coves"
-// assistants: [{…}]
-// city: "Port Ronstad"
-// cleaningFee: 94
-// createdAt: "2019-04-27T07:00:17.273Z"
-// createdBy: {billingAddress: {…}, _id: "5cc3fe009b6f68266b721621", role: "owner", username: "test_owner", password: "$2b$08$oCVj.4Pf9QOn3GNlo/VmKuiNzXAOM2dTYqT1xppPXO7OWMYF/xGWi", …}
-// image: "u2xnww5ptxrsr2qqfiz3"
-// name: "House 1"
-// occupants: 5
-// price: 206
-// state: "New York"
-// updatedAt: "2019-04-27T07:00:17.273Z"
-// zip: "86680-1174"
-// __v: 0
-// _id: "5cc3fe019b6f68266b721625"
-
   function getActiveReservations() {
     return axios.get(
       `${config.apiUrl}/api/reservations?filter=${JSON.stringify({
@@ -70,6 +39,16 @@ export const getEverything = () => dispatch => {
       `${config.apiUrl}/api/properties`
     )
   };
+
+  
+  // fetches the tasks of an employee by their id
+    function getEmployeeTasks(id) {
+      return axios.get(
+        `${config.apiUrl}/api/tasks?filter=${JSON.stringify({
+          assignedTo: { $in: [id]}
+        })}`
+      )
+    }
 
   const rightNow = new Date();
   const today = new Date(
@@ -116,7 +95,6 @@ export const getEverything = () => dispatch => {
               dashboardEmployees.push(employees.data.data[i]._id)
             }
           }
-          console.log('dashboardEmployees: ', dashboardEmployees);
 
           properties.data.data.forEach(item => propertiesWithoutFutureGuests.push(item._id));
 
@@ -136,7 +114,7 @@ export const getEverything = () => dispatch => {
             return propertiesWithoutFutureGuests.includes(item._id)
           })
 
-          const result = {
+          let result = {
             reservTotals: reservTotals.data.count,
             reservActive: activeReservArr.length,
             propTotal: propertiesTotal,
@@ -147,7 +125,70 @@ export const getEverything = () => dispatch => {
             propertiesWithoutReservations: propertiesWithoutReservations,
             employees: employees.data.data
           };
-          dispatch({ type: actions.COUNTS_SUCCESS, payload: result });
+
+          // checks for how many dashboard employees in array
+          // based on number, fetches tasks and sends to redux store an object with their tasks for rending on employee list in dashboard
+          if(dashboardEmployees.length === 0){
+            result = { ...result, employeeTasks: 0}
+          } else if (dashboardEmployees.length === 1) {
+            axios.all(
+              [getEmployeeTasks(dashboardEmployees[0])]
+            )
+              .then(response => {
+                let employeeTasksObject = {
+                  employee0: response[0].data.data
+                }
+                result = { ...result, employeeTasks: employeeTasksObject}
+                dispatch({ type: actions.COUNTS_SUCCESS, payload: result });
+              })
+          } else if (dashboardEmployees.length === 2) {
+            axios.all(
+              [
+                getEmployeeTasks(dashboardEmployees[0]),
+                getEmployeeTasks(dashboardEmployees[1])
+              ]
+            )
+            .then(
+              axios.spread(
+                (
+                  employee0,
+                  employee1
+                ) => {
+                  let employeeTasksObject = {
+                    employee0: employee0.data.data,
+                    employee1: employee1.data.data
+                  }
+                  result = { ...result, employeeTasks: employeeTasksObject}
+                  dispatch({ type: actions.COUNTS_SUCCESS, payload: result });
+                }
+              )
+            )
+          } else {
+            axios.all(
+              [
+                getEmployeeTasks(dashboardEmployees[0]),
+                getEmployeeTasks(dashboardEmployees[1]),
+                getEmployeeTasks(dashboardEmployees[2])
+              ]
+            )
+            .then(
+              axios.spread(
+                (
+                  employee0,
+                  employee1,
+                  employee2
+                ) => {
+                  let employeeTasksObject = {
+                    employee0: employee0.data.data,
+                    employee1: employee1.data.data,
+                    employee2: employee2.data.data
+                  }
+                  result = { ...result, employeeTasks: employeeTasksObject}
+                  dispatch({ type: actions.COUNTS_SUCCESS, payload: result });
+                }
+              )
+            )
+          }
         }
       )
     )
@@ -173,12 +214,13 @@ export const getUserRole = () => dispatch => {
 // search for overdue tasks and today tasks using employee id
 export const dashboardGetEmployees = () => dispatch => {
   dispatch({ type: actions.DASHBOARD_FETCH_EMPLOYEES_STARTED });
-  return axios
-    .all([
-      // get tasks by employee id
-    ])
   // return axios
-  //   .get(`${config.apiUrl}/api/employees/`)
+  //   .all([
+  //     // get tasks by employee id
+  //     // getEmployeeTasks(dashboardEmployees[0])
+  //   ])
+  return axios
+    .get(`${config.apiUrl}/api/employees/`)
     .then(response => {
       dispatch({ type: actions.DASHBOARD_FETCH_EMPLOYEES_SUCCESS, payload: response.data.data });
     })

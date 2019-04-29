@@ -11,7 +11,7 @@ const initialState = {
   propertiesWithoutReservations: 0,
   employees: [],
   user: null,
-  employeesTasks: [],
+  employeesTasks: {},
   loading: false
 };
 

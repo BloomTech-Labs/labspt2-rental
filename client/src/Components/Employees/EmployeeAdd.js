@@ -1,5 +1,12 @@
 import React, { Component } from "react";
-import { Header, Input, Button, Divider, Dropdown } from "semantic-ui-react";
+import {
+  Header,
+  Input,
+  Button,
+  Divider,
+  Dropdown,
+  Dimmer
+} from "semantic-ui-react";
 import { FlexRow, FlexColumn } from "custom-components";
 
 class EmployeeAdd extends Component {
@@ -10,15 +17,7 @@ class EmployeeAdd extends Component {
       employee: {
         firstName: null,
         lastName: null,
-        email: null,
-        phone: null
-      },
-      address: {
-        address1: null,
-        address2: null,
-        city: null,
-        state: null,
-        zip: null
+        email: null
       },
       permissions: {
         task: false,
@@ -27,7 +26,8 @@ class EmployeeAdd extends Component {
       },
       username: null,
       password: null,
-      id: null
+      id: null,
+      dimmerOpen: false
     };
   }
 
@@ -35,9 +35,15 @@ class EmployeeAdd extends Component {
     this.setState({ [prop]: val });
   };
 
+  successClose = () => {
+    this.setState({
+      dimmerOpen: false
+    });
+    this.props.history.push("/dashboard/employees");
+  };
+
   handleSubmit = () => {
     const request = this.state.employee;
-    request.address = this.state.address;
     request.permissions = this.state.permissions;
     request.username = `${request.lastName
       .slice(0, 4)
@@ -47,6 +53,7 @@ class EmployeeAdd extends Component {
     this.props
       .createEmployee(request)
       .then(data => {
+        console.log(data);
         if (data._id) {
           const welcomeEmail = {
             to: this.state.employee.email,
@@ -64,16 +71,18 @@ class EmployeeAdd extends Component {
             }">https://www.roostr.tech/welcome</a></p>`
           };
           this.props.sendEmail(welcomeEmail);
-          this.props.history.push("/dashboard/employees");
+          this.setState({
+            dimmerOpen: true
+          });
         }
       })
       .catch(err => {
-        console.log("blah");
+        console.log(err);
       });
   };
 
   render() {
-    const { employee, address, permissions } = this.state;
+    const { employee, permissions } = this.state;
     const permissionValues = [
       {
         key: "yes",
@@ -94,6 +103,20 @@ class EmployeeAdd extends Component {
         width="80%"
         style={{ marginLeft: "10%" }}
       >
+        <Dimmer
+          active={this.state.dimmerOpen}
+          size="fullscreen"
+          page
+          onClickOutside={this.successClose}
+        >
+          {" "}
+          <Header as="h1" inverted>
+            Your employee has been created and a welcome email has been sent.
+            <Header.Subheader>
+              Click to continue to your employee list.
+            </Header.Subheader>
+          </Header>
+        </Dimmer>
         <FlexRow width="full">
           <Header as="h1">Add New Employee</Header>
         </FlexRow>
@@ -127,17 +150,6 @@ class EmployeeAdd extends Component {
 
         <FlexRow width="full">
           <Input
-            style={{ marginRight: "10px", flexGrow: "1" }}
-            placeholder="Phone Number"
-            onChange={e =>
-              this.handleChange("employee", {
-                ...employee,
-                phone: e.target.value
-              })
-            }
-          />
-
-          <Input
             style={{ flexGrow: "1" }}
             placeholder="Email"
             onChange={e =>
@@ -150,66 +162,6 @@ class EmployeeAdd extends Component {
         </FlexRow>
 
         <Divider style={{ width: "100%" }} />
-
-        <FlexColumn width="full">
-          <Input
-            style={{ width: "100%" }}
-            className="space-bottom"
-            placeholder="Address 1"
-            onChange={e =>
-              this.handleChange("address", {
-                ...address,
-                address1: e.target.value
-              })
-            }
-          />
-          <Input
-            style={{ width: "100%" }}
-            className="space-bottom"
-            placeholder="Address 2"
-            onChange={e =>
-              this.handleChange("address", {
-                ...address,
-                address2: e.target.value
-              })
-            }
-          />
-          <FlexRow width="full">
-            <Input
-              style={{ flexGrow: 6 }}
-              className="space-bottom space-right"
-              placeholder="City"
-              onChange={e =>
-                this.handleChange("address", {
-                  ...address,
-                  city: e.target.value
-                })
-              }
-            />
-            <Input
-              style={{ flexGrow: 1 }}
-              className="space-bottom space-right"
-              placeholder="State"
-              onChange={e =>
-                this.handleChange("address", {
-                  ...address,
-                  state: e.target.value
-                })
-              }
-            />
-            <Input
-              style={{ flexGrow: 3 }}
-              className="space-bottom"
-              placeholder="Zip Code"
-              onChange={e =>
-                this.handleChange("address", {
-                  ...address,
-                  zip: e.target.value
-                })
-              }
-            />
-          </FlexRow>
-        </FlexColumn>
 
         <br />
         <br />

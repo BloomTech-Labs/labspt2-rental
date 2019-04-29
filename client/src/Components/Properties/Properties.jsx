@@ -88,7 +88,7 @@ class Properties extends Component {
             ...tabs.map(tab => ({
               menuItem: tab,
               render: () => (
-                <Tab.Pane attached={false} key={tab.menuItem}>
+                <Tab.Pane attached={false}>
                   <PropertyList
                     status={tab}
                     loading={loading}

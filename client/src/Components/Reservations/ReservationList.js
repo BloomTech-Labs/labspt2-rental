@@ -22,10 +22,10 @@ export default props => {
       {!loading &&
         reservations.length &&
         reservations.map((reservation, ind) => (
-          <>
+          <div key={ind}>
             <ReservationListItem reservation={reservation} />
             <Divider />
-          </>
+          </div>
         ))}
 
       <Link to="/dashboard/reservations/add" style={{ width: "100%" }}>
