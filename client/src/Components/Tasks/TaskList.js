@@ -3,7 +3,7 @@ import { FlexColumn, Divider } from "custom-components";
 import { Pagination, Responsive } from "semantic-ui-react";
 import TaskListItemDesktop from "./TaskListItemDesktop";
 import TaskListItemMobile from "./TaskListItemMobile";
-import TaskListItemTablet from "./TaskListItemTablet";
+// import TaskListItemTablet from "./TaskListItemTablet";
 
 class TaskList extends Component {
   constructor(props) {
@@ -23,33 +23,32 @@ class TaskList extends Component {
           boundaryRange={0}
           firstItem={null}
           lastItem={null}
-          ellipsisItem={true}
-          siblingRange={1}
+          siblingRange={0}
           totalPages={count}
-          showEllipsis={true}
           activePage={page}
         />
 
-        {this.props.tasks.map((task, ind) => (
-          <div style={{ width: "100%" }}>
-            <Responsive maxWidth={475}>
+        {this.props.tasks.map((task) => (
+          <div style={{ width: "100%" }} key={task._id}>
+            {/* <Responsive maxWidth={475}> */}
+            <Responsive maxWidth={779}>
               <TaskListItemMobile
                 task={task}
-                key={ind}
+                key={task._id}
                 toggleComplete={this.props.toggleComplete}
               />
             </Responsive>
-            <Responsive minWidth={476} maxWidth={779}>
+            {/* <Responsive minWidth={476} maxWidth={779}>
               <TaskListItemTablet
                 task={task}
-                key={ind}
+                key={task._id}
                 toggleComplete={this.props.toggleComplete}
               />
-            </Responsive>
+            </Responsive> */}
             <Responsive minWidth={780}>
               <TaskListItemDesktop
                 task={task}
-                key={ind}
+                key={task._id}
                 toggleComplete={this.props.toggleComplete}
               />
             </Responsive>

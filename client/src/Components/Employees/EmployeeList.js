@@ -7,7 +7,8 @@ import { Link } from "react-router-dom";
 import taskPropertyAssign from "./taskPropertyHelper";
 
 const EmployeeList = props => {
-  const { numPages, page, handlePageChange, user, loading } = props;
+  const { page, handlePageChange, user, loading } = props;
+  const numPages = props.numPages ? props.numPages : 0
 
   const role = user ? user.role : null;
 
@@ -39,11 +40,11 @@ const EmployeeList = props => {
         ) : null}
       </FlexRow>
       {!loading ?
-      modEmployees.map(item => (
-        <>
-          <EmployeeListItem key={item._id} employee={item} />
+       modEmployees.map(item => (
+        <div key={item._id}>
+          <EmployeeListItem employee={item} />
           <Divider />
-        </>
+        </div>
       )) : (
         <div>Please wait...</div>
       )

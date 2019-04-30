@@ -80,7 +80,7 @@ export default class DashboardContent extends Component {
           />
           <DashboardCards
             title="Tasks"
-            iconName="clipboard list"
+            iconName="tasks"
             value1={tasksToday}
             label1="Today"
             color1="blue"

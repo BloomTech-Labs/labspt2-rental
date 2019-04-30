@@ -68,7 +68,6 @@ export default class Employees extends Component {
               render: () => (
                 <Tab.Pane attached={false}>
                   <EmployeeList
-                    key={tab + index}
                     status={tab}
                     user={user}
                     employees={employees}
