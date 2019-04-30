@@ -95,7 +95,6 @@ class EmployeeSingle extends Component {
         ? true
         : false
       : false;
-    console.log(propPermissions);
 
     return (
       <Container>

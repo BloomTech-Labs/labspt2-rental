@@ -27,7 +27,7 @@ const DesktopStats = (props) => {
           <Responsive getWidth={getWidth} minWidth={Responsive.onlyTablet.minWidth} style={{width: '100%'}}>
           <FlexRow style={{width: '100%'}}>
   
-            <div style={{width: '30%', display: 'flex', flexDirection: 'column', justifyContent: 'center', margin: '2%', padding: '2%', backgroundColor: '#f6f9fc', boxShadow: '3px 8px 10px 1px rgba(0, 0, 255, .1)'}}>
+            <div style={{width: '30%', display: 'flex', flexDirection: 'column', justifyContent: 'center', margin: '2%', padding: '1%', backgroundColor: '#f6f9fc', boxShadow: '3px 8px 10px 1px rgba(0, 0, 255, .1)'}}>
               <Icon name='bar chart' size='big' style={{alignSelf: 'center', color: '#0080D6'}} />
   
               <Divider horizontal>
@@ -36,27 +36,27 @@ const DesktopStats = (props) => {
                 </Header>
               </Divider>
   
-              <p style={{alignSelf: 'center', fontSize: '2em', marginBottom: 0}} > {reservTotals}</p>
+              <p style={{alignSelf: 'center', fontSize: '1.5em', marginBottom: 0}} > {reservTotals}</p>
             </div>
   
-            <div style={{width: '30%', display: 'flex', flexDirection: 'column', justifyContent: 'center', margin: '2%', padding: '2%', backgroundColor: '#f6f9fc', boxShadow: '3px 8px 10px 1px rgba(0, 0, 255, .1)'}}>
+            <div style={{width: '30%', display: 'flex', flexDirection: 'column', justifyContent: 'center', margin: '2%', padding: '1%', backgroundColor: '#f6f9fc', boxShadow: '3px 8px 10px 1px rgba(0, 0, 255, .1)'}}>
               <Icon name='alarm' size='big' style={{alignSelf: 'center', color: '#ec0000'}} />
               <Divider horizontal>
                 <Header as='h4'>
                   Overdue Tasks
                 </Header>
               </Divider>
-              <p style={{alignSelf: 'center', fontSize: '2em', marginBottom: 0}} >{tasksOverdue}</p>
+              <p style={{alignSelf: 'center', fontSize: '1.5em', marginBottom: 0}} >{tasksOverdue}</p>
             </div>
   
-            <div style={{width: '30%', display: 'flex', flexDirection: 'column', justifyContent: 'center', margin: '2%', padding: '2%', backgroundColor: '#f6f9fc', boxShadow: '3px 8px 10px 1px rgba(0, 0, 255, .1)'}}>
+            <div style={{width: '30%', display: 'flex', flexDirection: 'column', justifyContent: 'center', margin: '2%', padding: '1%', backgroundColor: '#f6f9fc', boxShadow: '3px 8px 10px 1px rgba(0, 0, 255, .1)'}}>
               <Icon name='clipboard list' color='green' size='big' style={{alignSelf: 'center'}} />
               <Divider horizontal>
                 <Header as='h4'>
                   Today's Tasks
                 </Header>
               </Divider>
-              <p style={{alignSelf: 'center', fontSize: '2em', marginBottom: 0}} >{tasksToday}</p>
+              <p style={{alignSelf: 'center', fontSize: '1.5em', marginBottom: 0}} >{tasksToday}</p>
             </div>
           </FlexRow>
           </Responsive>

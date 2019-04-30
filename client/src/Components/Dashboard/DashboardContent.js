@@ -28,7 +28,7 @@ export default class DashboardContent extends Component {
     getWidth();
     let container;
     if (getWidth() < Responsive.onlyTablet.minWidth) {
-        container = ( <FlexColumn alignCenter style={{ width: '100%', marginTop: '2em', marginBottom: '2em'}}>
+        container = ( <FlexColumn alignCenter style={{ width: '100%', marginTop: '1em'}}>
         <EmployeeList mobile={true} employeeTasks={employeeTasks} employees={employees}/>
         <PropertyStats mobile={true} propTotal={propTotal} noReservations={propertiesWithoutReservations}/>
       </FlexColumn>)

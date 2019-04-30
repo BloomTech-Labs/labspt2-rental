@@ -13,28 +13,33 @@ class TaskList extends Component {
   }
 
   render() {
-    const { handlePageChange, count, page } = this.props;
+    const { handlePageChange, count, page, tasks } = this.props;
 
     return (
       <FlexColumn alignCenter style={{ position: "relative" }}>
+      {!tasks ? (
+          <h2>Loading...</h2>
+        ) : (
         <Pagination
           className="space-bottom"
           onPageChange={handlePageChange}
           boundaryRange={0}
           firstItem={null}
           lastItem={null}
-          siblingRange={0}
+          siblingRange={1}
           totalPages={count}
           activePage={page}
+          ellipsisItem={null}
         />
+        )}
+        {this.props.tasks.map((task, index) => (
+          <div style={{ width: "100%" }} key={index}>
 
-        {this.props.tasks.map(task => (
-          <div style={{ width: "100%" }} key={task._id}>
             {/* <Responsive maxWidth={475}> */}
             <Responsive maxWidth={779}>
               <TaskListItemMobile
                 task={task}
-                key={task._id}
+                // key={task._id}
                 toggleComplete={this.props.toggleComplete}
               />
             </Responsive>
@@ -48,7 +53,7 @@ class TaskList extends Component {
             <Responsive minWidth={780}>
               <TaskListItemDesktop
                 task={task}
-                key={task._id}
+                // key={task._id}
                 toggleComplete={this.props.toggleComplete}
               />
             </Responsive>

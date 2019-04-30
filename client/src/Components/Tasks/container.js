@@ -10,8 +10,8 @@ import {
   updateTask,
   toggleTask,
   deleteTask,
-  fetchIncompletedTaskCount,
-  fetchUserLog
+  fetchUserLog,
+  fetchIncompletedTaskCount
 } from "./actionCreator";
 import _Tasks from "./Tasks";
 import _TaskAdd from "./TaskAdd";
@@ -25,9 +25,11 @@ const mapStateToProps = state => ({
   reservations: state.reservations,
   loading: state.loading,
   taskCount: state.taskCount,
-  incompletedTaskCount: state.incompletedTaskCount,
   user: state.user,
-  error: state.error
+  error: state.error,
+  overdueIncompleted: state.overdueIncompleted,
+  duetodayIncompleted: state.duetodayIncompleted,
+  upcomingIncompleted: state.upcomingIncompleted
 });
 
 const connector = connect(
@@ -43,8 +45,8 @@ const connector = connect(
     updateTask,
     toggleTask,
     deleteTask,
-    fetchIncompletedTaskCount,
-    fetchUserLog
+    fetchUserLog,
+    fetchIncompletedTaskCount
   }
 );
 

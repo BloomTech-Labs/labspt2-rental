@@ -42,7 +42,7 @@ export class Mobile extends Component {
             </Menu.Item>
             {this.props.links.map((link, ind) => (
               <Link key={ind} to={link.url} onClick={this.props.handleClick}>
-                <Menu.Item as="a">
+                <Menu.Item>
                   <Icon name={link.icon} />
                   {link.name}
                 </Menu.Item>
@@ -52,7 +52,7 @@ export class Mobile extends Component {
 
           <FlexColumn alignCenter justifyCenter>
             <Link to="/" onClick={this.logout}>
-              <Icon inverted size="large" name="right arrow" />
+              <Icon inverted size="large" name="sign-out" />
               <p style={{ fontWeight: "bold", color: "white" }}>Logout</p>
             </Link>
           </FlexColumn>
@@ -65,7 +65,7 @@ export class Mobile extends Component {
           style={{ margin: "10px 0 0 10px" }}
         />
 
-        <Sidebar.Pusher as={Segment}>
+        <Sidebar.Pusher as={Segment} style={{ marginTop: 0 }}>
           {/*style={{ marginLeft: visible && "140px" }}*/}
           <FlexRow width="full" justifyCenter>
             {this.props.pusher}

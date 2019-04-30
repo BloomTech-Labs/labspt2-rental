@@ -38,7 +38,7 @@ const Employees = (props) => {
       }
   
       return (
-          <Responsive style={{width: props.mobile ? '90%' : '45%', backgroundColor: '#f6f9fc', display: 'flex', flexDirection: 'column', alignItems: 'center', padding: '2%', boxShadow: '3px 8px 10px 1px rgba(0, 0, 255, .2)', marginBottom: props.mobile ? '10%' : null }}>
+          <Responsive style={{width: props.mobile ? '90%' : '50%', backgroundColor: '#f6f9fc', display: 'flex', flexDirection: 'column', alignItems: 'center', padding: '2%', boxShadow: '3px 8px 10px 1px rgba(0, 0, 255, .2)', marginBottom: props.mobile ? '10%' : null }}>
             {employees}
           </Responsive>
       );
