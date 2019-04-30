@@ -58,8 +58,6 @@ export class Mobile extends Component {
           </FlexColumn>
         </Sidebar>
 
-
-
         <Sidebar.Pusher as={Segment} style={{ marginTop: 0 }}>
           {/*style={{ marginLeft: visible && "140px" }}*/}
           <FlexColumn width="full" justifyCenter>
