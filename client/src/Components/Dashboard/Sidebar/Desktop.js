@@ -52,7 +52,7 @@ export class Desktop extends Component {
 
         <Sidebar.Pusher
           as={Segment}
-          style={{ marginLeft: "130px", minHeight: "calc(100vh - 20px)" }}
+          style={{ marginLeft: "150px", minHeight: "calc(100vh - 20px)" }}
         >
           <FlexRow width="full" justifyCenter>
             {this.props.pusher}

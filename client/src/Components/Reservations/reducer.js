@@ -7,7 +7,8 @@ const initialState = {
   reservation: {},
   properties: [],
   employees: [],
-  reservationCount: 0
+  reservationCount: 0,
+  property: {}
 };
 
 const reservationsReducer = (state = initialState, { type, payload }) => {
@@ -52,6 +53,12 @@ const reservationsReducer = (state = initialState, { type, payload }) => {
         ...state,
         loading: false,
         reservation: payload.reservation
+      };
+    case actions.PROPERTY_SUCCESS:
+      return {
+        ...state,
+        loading: false,
+        property: payload.data
       };
     default:
       return { ...state };

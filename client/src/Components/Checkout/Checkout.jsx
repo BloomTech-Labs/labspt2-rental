@@ -107,7 +107,11 @@ export default class Checkout extends Component {
               <Header as="h3" style={{ alignSelf: "flex-end" }}>
                 {nights} nights in {this.props.property.city}
               </Header>
-              <Image src={`https://res.cloudinary.com/roostr-labpt2/image/upload/c_scale,w_180/v1556327124/${this.props.property.image}.jpg`} />
+              <Image
+                src={`https://res.cloudinary.com/roostr-labpt2/image/upload/c_scale,w_180/v1556327124/${
+                  this.props.property.image
+                }.jpg`}
+              />
             </FlexRow>
 
             {/* Check In and Check Out View */}

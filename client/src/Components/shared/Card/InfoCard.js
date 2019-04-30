@@ -18,13 +18,19 @@ const FullResponsive = styled.div`
 `;
 
 const title = ({ children }) => (
-  <Header size="medium" style={{ margin: "0" }}>
+  <Header
+    size="medium"
+    style={{ margin: "0", maxWidth: "32vw", overflowWrap: "break-word" }}
+  >
     {children}&nbsp;
   </Header>
 );
 const image = ({ children }) =>
   children ? (
-    <Image rounded src={`https://res.cloudinary.com/roostr-labpt2/image/upload/c_fill,g_face,h_150,w_200/v1556336341/${children}.jpg`} />
+    <Image
+      rounded
+      src={`https://res.cloudinary.com/roostr-labpt2/image/upload/c_fill,g_face,h_150,w_200/v1556336341/${children}.jpg`}
+    />
   ) : (
     <Icon className="space-left-20" name="user circle" size="massive" />
   );
@@ -92,12 +98,12 @@ class InfoCard extends Component {
             {props.children}
           </InfoCardDesktop>
         </Responsive>
-        <Responsive as={FullResponsive} minWidth={800} maxWidth={1000}>
+        <Responsive as={FullResponsive} minWidth={851} maxWidth={1000}>
           <InfoCardTablet {...{ ...props, components }}>
             {props.children}
           </InfoCardTablet>
         </Responsive>
-        <Responsive as={FullResponsive} maxWidth={799}>
+        <Responsive as={FullResponsive} maxWidth={850}>
           <InfoCardMobile {...{ ...props, components }}>
             {props.children}
           </InfoCardMobile>

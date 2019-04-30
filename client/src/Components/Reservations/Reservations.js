@@ -1,8 +1,28 @@
 import React, { Component } from "react";
-import { Header, Tab } from "semantic-ui-react";
-import { FlexColumn } from "custom-components";
+import { Button, Header, Tab } from "semantic-ui-react";
+import { FlexColumn, FlexRow } from "custom-components";
 import ReservationList from "./ReservationList";
 import Search from "../shared/Search/Search";
+import { Link } from "react-router-dom";
+import styled from "styled-components";
+
+const DesktopButton = styled.button`
+  &&& {
+    margin: 0;
+    @media (max-width: 420px) {
+      display: none;
+    }
+  }
+`;
+
+const MobileButton = styled.button`
+  &&& {
+    margin: 0;
+    @media (min-width: 421px) {
+      display: none;
+    }
+  }
+`;
 
 export default class Reservations extends Component {
   constructor(props) {
@@ -52,7 +72,29 @@ export default class Reservations extends Component {
 
     return (
       <FlexColumn>
-        <Header as="h1">Reservations</Header>
+        <FlexRow width="full" justifyBetween alignCenter spaceBottom>
+          <Header as="h1" style={{ margin: 0 }}>
+            Reservations
+          </Header>
+          <Button
+            as={DesktopButton}
+            color="orange"
+            onClick={() =>
+              this.props.history.push("/dashboard/reservations/add")
+            }
+          >
+            Create Reservation
+          </Button>
+          <Button
+            as={MobileButton}
+            color="orange"
+            onClick={() =>
+              this.props.history.push("/dashboard/reservations/add")
+            }
+          >
+            Create
+          </Button>
+        </FlexRow>
         <Tab
           onTabChange={this.handleTabChange}
           menu={{ attached: false }}
@@ -74,7 +116,8 @@ export default class Reservations extends Component {
             {
               menuItem: (
                 <Search
-                  onChange={this.handleSearchChange} key = "1"
+                  onChange={this.handleSearchChange}
+                  key="1"
                   style={{ minWidth: "300px", flexGrow: "1" }}
                 />
               )

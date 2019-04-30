@@ -1,6 +1,13 @@
 import React, { Component } from "react";
 import { FlexColumn, FlexRow } from "custom-components";
-import { Header, Input, Dropdown, Button, Modal, Label } from "semantic-ui-react";
+import {
+  Header,
+  Input,
+  Dropdown,
+  Button,
+  Modal,
+  Label
+} from "semantic-ui-react";
 import DateRangePickerWrapper from "../shared/DatePicker/DatePicker";
 
 class TaskEdit extends Component {
@@ -55,12 +62,12 @@ class TaskEdit extends Component {
   };
 
   openModal = () => {
-    this.setState({ modalOpen: true })
-  }
+    this.setState({ modalOpen: true });
+  };
 
   errorClose = () => {
-    this.setState({ modalOpen: false })
-  }
+    this.setState({ modalOpen: false });
+  };
 
   render() {
     const {
@@ -142,7 +149,7 @@ class TaskEdit extends Component {
                   this.props.loading
                     ? [{ text: "Loading...", value: "loading" }]
                     : this.state.property
-                    ? this.props.tasks.reservations 
+                    ? this.props.tasks.reservations
                         .filter(r => r.property._id === this.state.property._id)
                         .map(r => ({
                           key: r._id,
@@ -157,13 +164,15 @@ class TaskEdit extends Component {
             <br />
 
             {role === "employee" && permissions.task === false ? (
-              <FlexColumn> 
+              <FlexColumn>
                 <Dropdown
                   disabled
                   placeholder="Employee"
                   style={{ marginRight: "10px" }}
                   selection
-                  value={this.state.assignedTo ? this.state.assignedTo._id : null}
+                  value={
+                    this.state.assignedTo ? this.state.assignedTo._id : null
+                  }
                   onChange={(e, val) =>
                     this.handleChange("assignedTo", {
                       ...this.state.assignedTo,
@@ -174,12 +183,11 @@ class TaskEdit extends Component {
                     this.props.loading
                       ? [{ text: "Loading...", value: "loading" }]
                       : this.props.tasks.employees &&
-                        this.props.tasks.employees
-                          .map(e => ({
-                            key: e._id,
-                            text: e.firstName + " " + e.lastName,
-                            value: e._id
-                          }))
+                        this.props.tasks.employees.map(e => ({
+                          key: e._id,
+                          text: e.firstName + " " + e.lastName,
+                          value: e._id
+                        }))
                   }
                 />
                 <Label basic color="grey" pointing>
@@ -192,7 +200,9 @@ class TaskEdit extends Component {
                   placeholder="Employee"
                   style={{ marginRight: "10px" }}
                   selection
-                  value={this.state.assignedTo ? this.state.assignedTo._id : null}
+                  value={
+                    this.state.assignedTo ? this.state.assignedTo._id : null
+                  }
                   onChange={(e, val) =>
                     this.handleChange("assignedTo", {
                       ...this.state.assignedTo,
@@ -203,12 +213,11 @@ class TaskEdit extends Component {
                     this.props.loading
                       ? [{ text: "Loading...", value: "loading" }]
                       : this.props.tasks.employees &&
-                        this.props.tasks.employees
-                          .map(e => ({
-                            key: e._id,
-                            text: e.firstName + " " + e.lastName,
-                            value: e._id
-                          }))
+                        this.props.tasks.employees.map(e => ({
+                          key: e._id,
+                          text: e.firstName + " " + e.lastName,
+                          value: e._id
+                        }))
                   }
                 />
               </FlexRow>
@@ -253,7 +262,6 @@ class TaskEdit extends Component {
                 <Button color="blue" onClick={this.handleDelete}>
                   Yes, delete!
                 </Button>
-
               </Modal.Actions>
             </Modal>
           </FlexColumn>

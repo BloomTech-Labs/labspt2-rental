@@ -1,5 +1,13 @@
 import React, { Component } from "react";
-import { Header, Tab, Icon, Segment, Label, Menu , Checkbox} from "semantic-ui-react";
+import {
+  Header,
+  Tab,
+  Icon,
+  Segment,
+  Label,
+  Menu,
+  Checkbox
+} from "semantic-ui-react";
 import { FlexColumn, FlexRow } from "custom-components";
 import { Link } from "react-router-dom";
 import Search from "../shared/Search/Search";
@@ -14,16 +22,16 @@ class Tasks extends Component {
       pageSize: 5,
       search: "",
       filter: { status: "overdue" },
-      sort: "_id",
+      sort: "_id"
     };
 
     this.state = {
       tabs: [
-        {name: "Overdue", color: "red"}, 
-        {name: "Due Today", color: "orange"}, 
-        {name: "Upcoming", color: "green"}
+        { name: "Overdue", color: "red" },
+        { name: "Due Today", color: "orange" },
+        { name: "Upcoming", color: "green" }
       ],
-      filterByCompleted: false,
+      filterByCompleted: false
     };
   }
 
@@ -62,25 +70,21 @@ class Tasks extends Component {
 
   filterTasksByCompleted = () => {
     if (this.state.filterByCompleted === true) {
-      this.setState({ filterByCompleted: false })
+      this.setState({ filterByCompleted: false });
     } else {
-      this.setState({ filterByCompleted: true })
-    };
-    window.alert("This does nothing yet besides toggle state. It will toggle tasks by completed.")
-  }
+      this.setState({ filterByCompleted: true });
+    }
+    window.alert(
+      "This does nothing yet besides toggle state. It will toggle tasks by completed."
+    );
+  };
 
   render() {
     const { tabs } = this.state;
     const {
-        tasks: { 
-          tasks, 
-          loading, 
-          taskCount, 
-          incompletedTaskCount, 
-          user 
-        }
-      } = this.props;
-    const counts = [incompletedTaskCount, 0, 0]
+      tasks: { tasks, loading, taskCount, incompletedTaskCount, user }
+    } = this.props;
+    const counts = [incompletedTaskCount, 0, 0];
     const { pageSize, page } = this.query;
     const role = user ? user.role : null;
 
@@ -90,25 +94,28 @@ class Tasks extends Component {
           <Header as="h1">Tasks</Header>
           {role === "owner" ? (
             <Link to="/dashboard/tasks/add">
-            <Segment>
-              <Icon name="add" />
-            </Segment>
-          </Link>
+              <Segment>
+                <Icon name="add" />
+              </Segment>
+            </Link>
           ) : null}
         </FlexRow>
 
-        <FlexRow style={{ alignItems: "baseline", marginTop: "10px", marginBottom: "10px" }}>
+        <FlexRow
+          style={{
+            alignItems: "baseline",
+            marginTop: "10px",
+            marginBottom: "10px"
+          }}
+        >
           <Segment style={{ marginRight: "15px" }}>
-            <Checkbox 
-              toggle 
-              onChange={this.filterTasksByCompleted}
-            />
+            <Checkbox toggle onChange={this.filterTasksByCompleted} />
           </Segment>
           <Header as="h5">Filter by Completed</Header>
         </FlexRow>
 
         <Tab
-          style={{ width: "75vw"}}
+          style={{ width: "75vw" }}
           onTabChange={this.handleTabChange}
           menu={{ attached: false }}
           panes={[
@@ -116,11 +123,7 @@ class Tasks extends Component {
               menuItem: (
                 <Menu.Item>
                   {tab.name}
-                  <Label 
-                    floating 
-                    circular
-                    color={tab.color}
-                  >
+                  <Label floating circular color={tab.color}>
                     {counts[index]}
                   </Label>
                 </Menu.Item>
