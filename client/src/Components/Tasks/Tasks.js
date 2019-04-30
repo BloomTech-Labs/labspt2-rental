@@ -32,7 +32,7 @@ class Tasks extends Component {
     this.props.getTasks({ page, pageSize, sort, filter });
     this.props.fetchTaskCount(filter);
     this.props.fetchUserLog();
-    this.props.fetchOverdueIncompletedTaskCount();
+    this.props.fetchIncompletedTaskCount();
   }
 
   handleSearchChange = value => {
@@ -57,11 +57,10 @@ class Tasks extends Component {
   toggleComplete = task => {
     task.completed = task.completed ? false : true;
     this.props.toggleTask(task);
-    this.props.fetchOverdueIncompletedTaskCount();
+    this.props.fetchIncompletedTaskCount();
   };
 
   filterTasksByCompleted = () => {
-    
     if (this.state.filterByCompleted === false ) {
       this.setState({ filterByCompleted: true })
       this.query.filter.completed = false
@@ -69,25 +68,25 @@ class Tasks extends Component {
       this.setState({ filterByCompleted: false })
       delete this.query.filter.completed
     }
-
     const { page, pageSize, sort, filter } = this.query;
-
     this.props.getTasks({ page, pageSize, sort, filter });
     this.props.fetchTaskCount(this.query.filter);
   }
 
   render() {
-    const { tabs, filterByCompleted } = this.state;
+    const { tabs } = this.state;
     const {
         tasks: { 
           tasks, 
           loading, 
           taskCount, 
-          overdueIncompletedTaskCount, 
+          overdueIncompleted,
+          duetodayIncompleted,
+          upcomingIncompleted,
           user 
         }
       } = this.props;
-    const counts = [overdueIncompletedTaskCount, 0, 0]
+    const counts = [overdueIncompleted, duetodayIncompleted, upcomingIncompleted]
     const { pageSize, page } = this.query;
     const role = user ? user.role : null;
 
@@ -123,13 +122,18 @@ class Tasks extends Component {
               menuItem: (
                 <Menu.Item key={index}>
                   {tab.name}
-                  <Label 
+                  { counts[index] === 0 ? (
+                    null
+                  ) : (
+                    <Label 
                     floating 
                     circular
                     color={tab.color}
                   >
                     {counts[index]}
                   </Label>
+                  )}
+              
                 </Menu.Item>
               ),
               render: () => (

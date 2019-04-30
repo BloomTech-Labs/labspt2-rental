@@ -240,3 +240,40 @@ export const fetchUserLog = () => dispatch => {
       dispatch({ type: actions.FETCH_TASK_FAILURE, payload: err });
     });
 };
+
+// Needed for labels
+export const fetchIncompletedTaskCount = (status = null, completed = false) => dispatch => {
+  dispatch({ type: actions.FETCH_TASK_ATTEMPT });
+
+  function getIncompletedTaskCounts(status = null, completed = false) {
+    return axios
+      .get(
+        `${config.apiUrl}/api/tasks/count?filter=${JSON.stringify({
+          status, completed
+        })}`
+      )
+  }
+    
+    return axios 
+      .all([
+        getIncompletedTaskCounts("overdue"),
+        getIncompletedTaskCounts("due today"),
+        getIncompletedTaskCounts("upcoming")
+      ])
+      .then(
+        axios.spread((overdueIncompleted, duetodayIncompleted, upcomingIncompleted) => {
+          const taskResult = {
+            overdueIncompleted: overdueIncompleted.data.count,
+            duetodayIncompleted: duetodayIncompleted.data.count,
+            upcomingIncompleted: upcomingIncompleted.data.count
+          };
+          dispatch({
+            type: actions.TASK_INCOMPLETED_SECOND_TRY_COUNT_SUCCESS,
+            payload: taskResult
+          });
+        })
+      )
+      .catch(err => {
+        dispatch({ type: actions.FETCH_TASK_FAILURE, payload: err });
+      });
+};

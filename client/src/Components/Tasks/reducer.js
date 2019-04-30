@@ -72,6 +72,14 @@ const taskReducer = (state = initialState, { type, payload }) => {
         loading: false,
         user: payload.user
       };
+    case actions.TASK_INCOMPLETED_SECOND_TRY_COUNT_SUCCESS:
+      return {
+        ...state,
+        loading: false,
+        overdueIncompleted: payload.overdueIncompleted,
+        duetodayIncompleted: payload.duetodayIncompleted,
+        upcomingIncompleted: payload.upcomingIncompleted
+      };
     case actions.FETCH_TASK_FAILURE:
       return {
         ...state,
