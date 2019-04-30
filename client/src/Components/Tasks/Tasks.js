@@ -1,5 +1,13 @@
 import React, { Component } from "react";
-import { Header, Tab, Icon, Segment, Label, Menu , Checkbox} from "semantic-ui-react";
+import {
+  Header,
+  Tab,
+  Icon,
+  Segment,
+  Label,
+  Menu,
+  Checkbox
+} from "semantic-ui-react";
 import { FlexColumn, FlexRow } from "custom-components";
 import { Link } from "react-router-dom";
 import Search from "../shared/Search/Search";
@@ -19,11 +27,11 @@ class Tasks extends Component {
 
     this.state = {
       tabs: [
-        {name: "Overdue", color: "red"}, 
-        {name: "Due Today", color: "orange"}, 
-        {name: "Upcoming", color: "green"}
+        { name: "Overdue", color: "red" },
+        { name: "Due Today", color: "orange" },
+        { name: "Upcoming", color: "green" }
       ],
-      filterByCompleted: false,
+      filterByCompleted: false
     };
   }
 
@@ -61,6 +69,7 @@ class Tasks extends Component {
   };
 
   filterTasksByCompleted = () => {
+
     if (this.state.filterByCompleted === false ) {
       this.setState({ filterByCompleted: true })
       this.query.filter.completed = false
@@ -72,6 +81,7 @@ class Tasks extends Component {
     this.props.getTasks({ page, pageSize, sort, filter });
     this.props.fetchTaskCount(this.query.filter);
   }
+
 
   render() {
     const { tabs } = this.state;
@@ -96,25 +106,28 @@ class Tasks extends Component {
           <Header as="h1">Tasks</Header>
           {role === "owner" ? (
             <Link to="/dashboard/tasks/add">
-            <Segment>
-              <Icon name="add" />
-            </Segment>
-          </Link>
+              <Segment>
+                <Icon name="add" />
+              </Segment>
+            </Link>
           ) : null}
         </FlexRow>
 
-        <FlexRow style={{ alignItems: "baseline", marginTop: "10px", marginBottom: "10px" }}>
+        <FlexRow
+          style={{
+            alignItems: "baseline",
+            marginTop: "10px",
+            marginBottom: "10px"
+          }}
+        >
           <Segment style={{ marginRight: "15px" }}>
-            <Checkbox 
-              toggle 
-              onChange={this.filterTasksByCompleted}
-            />
+            <Checkbox toggle onChange={this.filterTasksByCompleted} />
           </Segment>
           <Header as="h5">Hide Completed</Header>
         </FlexRow>
 
         <Tab
-          style={{ width: "75vw"}}
+          style={{ width: "75vw" }}
           onTabChange={this.handleTabChange}
           menu={{ attached: false }}
           panes={[

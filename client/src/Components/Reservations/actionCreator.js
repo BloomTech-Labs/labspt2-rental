@@ -97,6 +97,19 @@ export const fetchProperties = () => dispatch => {
     });
 };
 
+export const fetchProperty = id => dispatch => {
+  dispatch({ type: actions.RESERVATION_STARTED });
+
+  return axios
+    .get(`${config.apiUrl}/api/properties/${id}`)
+    .then(data => {
+      dispatch({ type: actions.PROPERTY_SUCCESS, payload: data.data });
+    })
+    .catch(err => {
+      dispatch({ type: actions.RESERVATION_FAILURE, payload: err });
+    });
+};
+
 export const fetchEmployees = () => dispatch => {
   dispatch({ type: actions.RESERVATION_STARTED });
 

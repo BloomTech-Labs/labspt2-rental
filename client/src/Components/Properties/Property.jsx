@@ -140,7 +140,12 @@ class Property extends Component {
                 </FlexRow>
               </FlexColumn>
               <FlexColumn height="100%" justifyCenter>
-                <Image src={`http://res.cloudinary.com/roostr-labpt2/image/upload/c_scale,q_80,r_0,w_640/v1556327124/${property.image}.jpg`} rounded />
+                <Image
+                  src={`http://res.cloudinary.com/roostr-labpt2/image/upload/c_scale,q_80,r_0,w_640/v1556327124/${
+                    property.image
+                  }.jpg`}
+                  rounded
+                />
               </FlexColumn>
             </FlexRow>
           </div>

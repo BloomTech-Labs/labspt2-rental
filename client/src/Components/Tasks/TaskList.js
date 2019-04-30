@@ -34,6 +34,7 @@ class TaskList extends Component {
         )}
         {this.props.tasks.map((task, index) => (
           <div style={{ width: "100%" }} key={index}>
+
             {/* <Responsive maxWidth={475}> */}
             <Responsive maxWidth={779}>
               <TaskListItemMobile

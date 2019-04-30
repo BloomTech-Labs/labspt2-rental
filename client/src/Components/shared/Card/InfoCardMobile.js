@@ -15,6 +15,14 @@ const LabelContainer = styled.div`
   bottom: 0;
 `;
 
+const HideId = styled.div`
+  &&& {
+    @media (max-width: 400px) {
+      display: none;
+    }
+  }
+`;
+
 class InfoCardMobile extends Component {
   render() {
     const { components, link, linkName } = this.props;
@@ -36,7 +44,7 @@ class InfoCardMobile extends Component {
           >
             <FlexRow alignCenter spaceRight>
               {components.title}
-              {components.id}
+              <HideId>{components.id}</HideId>
             </FlexRow>
 
             <Link to={link}>

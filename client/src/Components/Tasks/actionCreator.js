@@ -204,7 +204,9 @@ export const deleteTask = id => dispatch => {
     });
 };
 
+
 // Needed for permissions
+
 export const fetchUserLog = () => dispatch => {
   dispatch({ type: actions.FETCH_TASK_ATTEMPT });
   return axios

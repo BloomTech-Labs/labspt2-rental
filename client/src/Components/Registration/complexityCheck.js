@@ -21,16 +21,16 @@ export const complexityCheck = password => {
     // is this character capital
     if (character > 64 && character < 91) {
       result.capital = true;
-    // is this character lowercase
+      // is this character lowercase
     } else if (character > 96 && character < 123) {
       result.lowercase = true;
-    // is this character special
+      // is this character special
     } else if (specialCharCodes.includes(character)) {
       result.specChar = true;
-    // is this character a number
+      // is this character a number
     } else if (!isNaN(password.charAt(i))) {
       result.number = true;
-    // does this character not belong in any of the categories
+      // does this character not belong in any of the categories
     } else {
       result.validChar = false;
     }
