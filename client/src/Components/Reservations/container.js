@@ -13,7 +13,8 @@ const mapStateToProps = ({ reservations }) => ({
   employees: reservations.employees,
   loading: reservations.loading,
   error: reservations.error,
-  reservationCount: reservations.reservationCount
+  reservationCount: reservations.reservationCount,
+  property: reservations.property
 });
 
 const connector = connect(

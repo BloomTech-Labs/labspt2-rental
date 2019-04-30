@@ -140,12 +140,12 @@ class Properties extends Component {
             })),
             {
               menuItem: (
-                <>
+                <div key={1}>
                   <Search
                     onChange={this.handleSearchChange}
                     style={{ minWidth: "300px", flexGrow: "1" }}
                   />
-                </>
+                </div>
               )
             }
           ]}
