@@ -14,7 +14,7 @@ import { EmployeeSingle, EmployeeAdd, Employees } from "../Employees";
 import { CheckoutCart } from "../Checkout";
 import { Tasks, TaskAdd, TaskEdit } from "../Tasks";
 import { Settings } from "../Settings";
-import { Sidebar } from "./components";
+import { Sidebar } from "./Sidebar";
 
 class Dashboard extends Component {
   render() {

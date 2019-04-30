@@ -1,16 +1,15 @@
 import { connect } from "react-redux";
 import { withRouter } from "react-router-dom";
 
-import { registerUser, getEverything, getUserRole } from "./actionCreator";
+import { getEverything, getUserRole } from "./actionCreator";
 import _Dashboard from "./Dashboard";
 import _DashboardContent from "./DashboardContent";
 
-// registration is never used from the Dashboard and so mapStateToProps has been rewritten to utilize state for the Dashboard components
 const mapStateToProps = ({ dashboard }) => dashboard;
 
 const connector = connect(
   mapStateToProps,
-  { registerUser, getEverything, getUserRole }
+  { getEverything, getUserRole }
 );
 
 export const Dashboard = connector(withRouter(_Dashboard));

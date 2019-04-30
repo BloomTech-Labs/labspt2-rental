@@ -295,5 +295,5 @@ export const NotFoundImage = ({ width }) => (
 );
 
 NotFoundImage.propTypes = {
-  mobile: PropTypes.bool
+    width: PropTypes.string
 };
