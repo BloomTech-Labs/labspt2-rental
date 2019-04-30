@@ -58,18 +58,19 @@ export class Mobile extends Component {
           </FlexColumn>
         </Sidebar>
 
-        <Button
-          circular
-          icon="bars"
-          onClick={() => this.setState({ visible: !visible })}
-          style={{ margin: "10px 0 0 10px" }}
-        />
+
 
         <Sidebar.Pusher as={Segment} style={{ marginTop: 0 }}>
           {/*style={{ marginLeft: visible && "140px" }}*/}
-          <FlexRow width="full" justifyCenter>
+          <FlexColumn width="full" justifyCenter>
+            <Button
+              circular
+              icon="bars"
+              onClick={() => this.setState({ visible: !visible })}
+              style={{ margin: "10px 0 0 10px" }}
+            />
             {this.props.pusher}
-          </FlexRow>
+          </FlexColumn>
         </Sidebar.Pusher>
       </Sidebar.Pushable>
     );
