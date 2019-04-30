@@ -204,27 +204,6 @@ export const deleteTask = id => dispatch => {
     });
 };
 
-// Needed for labels
-export const fetchOverdueIncompletedTaskCount = (status = "overdue", completed = false) => dispatch => {
-  dispatch({ type: actions.FETCH_TASK_ATTEMPT });
-
-  return axios
-    .get(
-      `${config.apiUrl}/api/tasks/count?filter=${JSON.stringify({
-        status, completed
-      })}`
-    )
-    .then(({ data }) => {
-      dispatch({
-        type: actions.TASK_INCOMPLETED_COUNT_SUCCESS,
-        payload: { overdueIncompletedTaskCount: data.count }
-      });
-    })
-    .catch(err => {
-      dispatch({ type: actions.FETCH_TASK_FAILURE, payload: err });
-    });
-};
-
 // Needed for permissions
 export const fetchUserLog = () => dispatch => {
   dispatch({ type: actions.FETCH_TASK_ATTEMPT });
@@ -268,7 +247,7 @@ export const fetchIncompletedTaskCount = (status = null, completed = false) => d
             upcomingIncompleted: upcomingIncompleted.data.count
           };
           dispatch({
-            type: actions.TASK_INCOMPLETED_SECOND_TRY_COUNT_SUCCESS,
+            type: actions.TASK_INCOMPLETED_COUNT_SUCCESS,
             payload: taskResult
           });
         })

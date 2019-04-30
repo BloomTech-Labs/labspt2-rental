@@ -26,7 +26,7 @@ const taskReducer = (state = initialState, { type, payload }) => {
     case actions.TASK_TOGGLE_SUCCESS:
       return {
         ...state,
-        loading: false
+        loading: false,
         // tasks: payload.data
       };
     case actions.TASKS_PROPERTIES_SUCCESS:
@@ -60,19 +60,13 @@ const taskReducer = (state = initialState, { type, payload }) => {
         loading: false,
         taskCount: payload.data
       };
-    case actions.TASK_INCOMPLETED_COUNT_SUCCESS:
-      return {
-        ...state,
-        loading: false,
-        overdueIncompletedTaskCount: payload.overdueIncompletedTaskCount
-      };
     case actions.TASKS_USER_SUCCESS:
       return {
         ...state,
         loading: false,
         user: payload.user
       };
-    case actions.TASK_INCOMPLETED_SECOND_TRY_COUNT_SUCCESS:
+    case actions.TASK_INCOMPLETED_COUNT_SUCCESS:
       return {
         ...state,
         loading: false,
