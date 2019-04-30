@@ -28,7 +28,7 @@ class TaskList extends Component {
           activePage={page}
         />
 
-        {this.props.tasks.map((task) => (
+        {this.props.tasks.map(task => (
           <div style={{ width: "100%" }} key={task._id}>
             {/* <Responsive maxWidth={475}> */}
             <Responsive maxWidth={779}>

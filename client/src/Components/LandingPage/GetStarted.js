@@ -5,7 +5,8 @@ import { FlexColumn } from "../../custom-components/index";
 import { Link } from "react-router-dom";
 
 export const GetStarted = ({ mobile }) => (
-  <FlexColumn alignCenter
+  <FlexColumn
+    alignCenter
     style={{
       width: "100%",
       height: mobile ? "105vh" : "80vh",

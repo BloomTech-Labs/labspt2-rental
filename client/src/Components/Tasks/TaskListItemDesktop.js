@@ -8,62 +8,54 @@ const TaskListItemDesktop = props => {
   const { task } = props;
 
   return (
-      <FlexColumn>
-        <FlexRow style={{ alignItems: "baseline" }}>
-          <Checkbox
-            label={task.description}
-            onChange={() => props.toggleComplete(task)}
-            checked={task.completed}
-          />
-        </FlexRow>
+    <FlexColumn>
+      <FlexRow style={{ alignItems: "baseline" }}>
+        <Checkbox
+          label={task.description}
+          onChange={() => props.toggleComplete(task)}
+          checked={task.completed}
+        />
+      </FlexRow>
 
-        <FlexRow
-          alignCenter
-          justifyBetween
-          width="full"
-          style={{ marginTop: "5px", justifyContent: "space-between" }}
-        >
-          <Popup
-            trigger={
-              <Label
-                as="a"
-                color="blue"
-                content={
-                  task.property != null ? task.property.name : "Not assigned"
-                }
-                icon="home"
-              />
-            }
-            content={
-              task.property != null
-                ? `${task.property.address1} ${task.property.city} ${
-                    task.property.state
-                  } ${task.property.zip}`
-                : "Not assigned"
-            }
-          />
-          <p style={{ paddingTop: "10px", paddingLeft: "25px" }}>
-            <strong>Assignee: </strong>
-            {task.assignedTo
-              ? `${task.assignedTo.firstName} ${task.assignedTo.lastName}`
-              : "Not assigned"}
-          </p>
-          <p style={{ paddingTop: "5px" }}>
-            Due: <strong>{moment(task.endDate).format("MM/DD")}</strong>
-          </p>
-          <Link to={`/dashboard/tasks/edit/${task._id}`}>
-            <Button size="mini">
-              Edit
-            </Button>
-          </Link>
-        </FlexRow>
-
-      </FlexColumn>
-
-
-
-
-
+      <FlexRow
+        alignCenter
+        justifyBetween
+        width="full"
+        style={{ marginTop: "5px", justifyContent: "space-between" }}
+      >
+        <Popup
+          trigger={
+            <Label
+              as="a"
+              color="blue"
+              content={
+                task.property != null ? task.property.name : "Not assigned"
+              }
+              icon="home"
+            />
+          }
+          content={
+            task.property != null
+              ? `${task.property.address1} ${task.property.city} ${
+                  task.property.state
+                } ${task.property.zip}`
+              : "Not assigned"
+          }
+        />
+        <p style={{ paddingTop: "10px", paddingLeft: "25px" }}>
+          <strong>Assignee: </strong>
+          {task.assignedTo
+            ? `${task.assignedTo.firstName} ${task.assignedTo.lastName}`
+            : "Not assigned"}
+        </p>
+        <p style={{ paddingTop: "5px" }}>
+          Due: <strong>{moment(task.endDate).format("MM/DD")}</strong>
+        </p>
+        <Link to={`/dashboard/tasks/edit/${task._id}`}>
+          <Button size="mini">Edit</Button>
+        </Link>
+      </FlexRow>
+    </FlexColumn>
 
     // <FlexRow
     //   alignCenter

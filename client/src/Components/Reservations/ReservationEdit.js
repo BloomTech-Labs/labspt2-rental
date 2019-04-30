@@ -1,11 +1,5 @@
 import React, { Component } from "react";
-import {
-  Dropdown,
-  Header,
-  Input,
-  Button,
-  Statistic
-} from "semantic-ui-react";
+import { Dropdown, Header, Input, Button, Statistic } from "semantic-ui-react";
 import { FlexRow, FlexColumn } from "custom-components";
 import { Link } from "react-router-dom";
 import DateRangePickerWrapper from "../shared/DatePicker/DatePicker.jsx";
