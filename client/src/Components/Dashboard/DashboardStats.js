@@ -27,7 +27,7 @@ const DesktopStats = (props) => {
           <Responsive getWidth={getWidth} minWidth={Responsive.onlyTablet.minWidth} style={{width: '100%'}}>
           <FlexRow style={{width: '100%'}}>
   
-            <div style={{width: '30%', display: 'flex', flexDirection: 'column', justifyContent: 'center', margin: '2%', padding: '2%', backgroundColor: '#f6f9fc'}}>
+            <div style={{width: '30%', display: 'flex', flexDirection: 'column', justifyContent: 'center', margin: '2%', padding: '2%', backgroundColor: '#f6f9fc', boxShadow: '3px 8px 10px 1px rgba(0, 0, 255, .1)'}}>
               <Icon name='bar chart' size='big' style={{alignSelf: 'center', color: '#0080D6'}} />
   
               <Divider horizontal>
@@ -39,7 +39,7 @@ const DesktopStats = (props) => {
               <p style={{alignSelf: 'center', fontSize: '2em', marginBottom: 0}} > {reservTotals}</p>
             </div>
   
-            <div style={{width: '30%', display: 'flex', flexDirection: 'column', justifyContent: 'center', margin: '2%', padding: '2%', backgroundColor: '#f6f9fc'}}>
+            <div style={{width: '30%', display: 'flex', flexDirection: 'column', justifyContent: 'center', margin: '2%', padding: '2%', backgroundColor: '#f6f9fc', boxShadow: '3px 8px 10px 1px rgba(0, 0, 255, .1)'}}>
               <Icon name='alarm' size='big' style={{alignSelf: 'center', color: '#ec0000'}} />
               <Divider horizontal>
                 <Header as='h4'>
@@ -49,7 +49,7 @@ const DesktopStats = (props) => {
               <p style={{alignSelf: 'center', fontSize: '2em', marginBottom: 0}} >{tasksOverdue}</p>
             </div>
   
-            <div style={{width: '30%', display: 'flex', flexDirection: 'column', justifyContent: 'center', margin: '2%', padding: '2%', backgroundColor: '#f6f9fc'}}>
+            <div style={{width: '30%', display: 'flex', flexDirection: 'column', justifyContent: 'center', margin: '2%', padding: '2%', backgroundColor: '#f6f9fc', boxShadow: '3px 8px 10px 1px rgba(0, 0, 255, .1)'}}>
               <Icon name='clipboard list' color='green' size='big' style={{alignSelf: 'center'}} />
               <Divider horizontal>
                 <Header as='h4'>
@@ -72,7 +72,7 @@ const MobileStats = (props) => {
   
       return (
           <Responsive getWidth={getWidth} maxWidth={Responsive.onlyMobile.maxWidth} style={{display: 'flex', flexDirection: 'column', width: '100%', alignItems: 'center'}}>  
-            <div style={{width: '70%', display: 'flex', flexDirection: 'column', justifyContent: 'center', margin: '2%', padding: '2%', backgroundColor: '#f6f9fc'}}>
+            <div style={{width: '70%', display: 'flex', flexDirection: 'column', justifyContent: 'center', margin: '2%', padding: '2%', backgroundColor: '#f6f9fc', boxShadow: 'rgba(0, 0, 255, 0.1) 3px 5px 8px 1px'}}>
             <p style={{alignSelf: 'center', fontSize: '2.5em', marginBottom: 0}} >{reservTotals}</p>
 
             <Divider horizontal>
@@ -84,7 +84,7 @@ const MobileStats = (props) => {
             <Icon name='bar chart' size='big' style={{alignSelf: 'center', color: '#0080D6'}} />
             </div>
 
-            <div style={{width: '70%', display: 'flex', flexDirection: 'column', justifyContent: 'center', margin: '2%', padding: '2%', backgroundColor: '#f6f9fc'}}>
+            <div style={{width: '70%', display: 'flex', flexDirection: 'column', justifyContent: 'center', margin: '2%', padding: '2%', backgroundColor: '#f6f9fc', boxShadow: 'rgba(0, 0, 255, 0.1) 3px 5px 8px 1px'}}>
             <p style={{alignSelf: 'center', fontSize: '2.5em', marginBottom: 0}} >{tasksOverdue}</p>
 
             <Divider horizontal>
@@ -96,7 +96,7 @@ const MobileStats = (props) => {
             <Icon name='alarm' size='big' style={{alignSelf: 'center', color: '#ec0000'}} />
             </div>
 
-            <div style={{width: '70%', display: 'flex', flexDirection: 'column', justifyContent: 'center', margin: '2%', padding: '2%', backgroundColor: '#f6f9fc'}}>
+            <div style={{width: '70%', display: 'flex', flexDirection: 'column', justifyContent: 'center', margin: '2%', padding: '2%', backgroundColor: '#f6f9fc', boxShadow: 'rgba(0, 0, 255, 0.1) 3px 5px 8px 1px'}}>
             <p style={{alignSelf: 'center', fontSize: '2.5em', marginBottom: 0}} >{tasksToday}</p>
 
             <Divider horizontal>

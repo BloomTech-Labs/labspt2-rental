@@ -3,6 +3,7 @@ import { FlexColumn, Container, FlexRow } from "custom-components";
 import { Responsive, Segment, Dimmer, Tab, Loader } from 'semantic-ui-react';
 import { DashboardStats } from './DashboardStats';
 import { EmployeeList } from './EmployeeList';
+import { WelcomeMessage } from './WelcomeMessage';
 
 export default class DashboardContent extends Component {
   componentDidMount() {
@@ -25,6 +26,8 @@ export default class DashboardContent extends Component {
       loading,
       user
     } = this.props;
+
+    console.log(user)
 
     // this sets the color of the overdue label to red if any exist
     let overdueColor = "blue";
@@ -63,6 +66,13 @@ export default class DashboardContent extends Component {
       </FlexRow> )
     }
 
+    let welcomeMobile;
+    if (getWidth() < Responsive.onlyTablet.minWidth){
+      welcomeMobile = true;
+    } else if (getWidth() > Responsive.onlyMobile.maxWidth){
+      welcomeMobile = false;
+    }
+
     let loadingSpinner;
     if (loading) {
       loadingSpinner = (
@@ -77,7 +87,7 @@ export default class DashboardContent extends Component {
       loadingSpinner = (<Container>
       <FlexColumn alignCenter width="full">
 
-      {/* Welcome NAME and SVG */}
+      <WelcomeMessage user={user} mobile={welcomeMobile} />
 
       <DashboardStats reservTotals={reservTotals} tasksOverdue={tasksOverdue} tasksToday={tasksToday} />
 
