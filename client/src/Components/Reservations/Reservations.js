@@ -30,7 +30,7 @@ export default class Reservations extends Component {
 
     this.query = {
       page: 1,
-      pageSize: 4,
+      pageSize: 3,
       sort: "_id",
       filter: { status: "upcoming" },
       search: ""
