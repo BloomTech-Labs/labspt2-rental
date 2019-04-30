@@ -24,7 +24,6 @@ export const EmployeeList = (props) => {
 const Employees = (props) => {
     const { render, count } = props.employeeTaskObject;
       let employees;
-      // test if no employees or tasks, pass a prop of something that won't be null to test in case no employees
       if (!render){
           return null
         }
@@ -233,11 +232,6 @@ const ThreeEmployees = (props) => {
         </FlexColumn>
     )
 }
-
-const getWidth = () => {
-    const isSSR = typeof window === "undefined";  
-    return isSSR ? Responsive.onlyTablet.minWidth : window.innerWidth;
-  };
 
 const countEmployees = (array) => {
     let overdueCount = 0;
