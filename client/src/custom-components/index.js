@@ -121,5 +121,4 @@ export const BouncingArrow = styled.div`
   -moz-animation: bounce 2s infinite;
   -webkit-animation: bounce 2s infinite;
   animation: bounce 2s infinite;
-
 `;

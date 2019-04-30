@@ -1,9 +1,28 @@
 import React, { Component } from "react";
 import PropertyList from "./PropertyList";
-import { FlexColumn } from "custom-components";
+import { FlexColumn, FlexRow } from "custom-components";
 import Search from "../shared/Search/Search";
 import { Button, Modal, Tab, Header } from "semantic-ui-react";
 import { Link } from "react-router-dom";
+import styled from "styled-components";
+
+const DesktopButton = styled.button`
+  &&& {
+    margin: 0;
+    @media (max-width: 420px) {
+      display: none;
+    }
+  }
+`;
+
+const MobileButton = styled.button`
+  &&& {
+    margin: 0;
+    @media (min-width: 421px) {
+      display: none;
+    }
+  }
+`;
 
 class Properties extends Component {
   constructor(props) {
@@ -80,7 +99,27 @@ class Properties extends Component {
             <Button onClick={this.closeModal}>Cancel</Button>
           </Modal.Actions>
         </Modal>
-        <Header as="h1">Properties</Header>
+        <FlexRow width="full" justifyBetween alignCenter spaceBottom>
+          <Header as="h1" style={{ margin: 0 }}>
+            Properties
+          </Header>
+
+          <Button
+            as={DesktopButton}
+            color="orange"
+            onClick={this.addClickHandle}
+          >
+            Create Property
+          </Button>
+          <Button
+            as={MobileButton}
+            color="orange"
+            onClick={this.addClickHandle}
+          >
+            Create
+          </Button>
+        </FlexRow>
+
         <Tab
           onTabChange={this.handleTabChange}
           menu={{ attached: false }}
@@ -105,13 +144,6 @@ class Properties extends Component {
                   <Search
                     onChange={this.handleSearchChange}
                     style={{ minWidth: "300px", flexGrow: "1" }}
-                  />
-                  <Button
-                    className="space-left-20 space-right-20"
-                    circular
-                    icon="plus"
-                    color="orange"
-                    onClick={this.addClickHandle}
                   />
                 </>
               )

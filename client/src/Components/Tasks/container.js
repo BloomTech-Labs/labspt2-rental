@@ -27,7 +27,7 @@ const mapStateToProps = state => ({
   taskCount: state.taskCount,
   incompletedTaskCount: state.incompletedTaskCount,
   user: state.user,
-  error: state.error,
+  error: state.error
 });
 
 const connector = connect(

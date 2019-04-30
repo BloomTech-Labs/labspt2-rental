@@ -1,8 +1,28 @@
 import React, { Component } from "react";
-import { Header, Tab } from "semantic-ui-react";
-import { FlexColumn } from "custom-components";
+import { Button, Header, Tab } from "semantic-ui-react";
+import { FlexColumn, FlexRow } from "custom-components";
 import EmployeeList from "./EmployeeList";
 import Search from "../shared/Search/Search";
+import styled from "styled-components";
+import { Link } from "react-router-dom";
+
+const DesktopButton = styled.button`
+  &&& {
+    margin: 0;
+    @media (max-width: 420px) {
+      display: none;
+    }
+  }
+`;
+
+const MobileButton = styled.button`
+  &&& {
+    margin: 0;
+    @media (min-width: 421px) {
+      display: none;
+    }
+  }
+`;
 
 export default class Employees extends Component {
   constructor(props) {
@@ -57,11 +77,37 @@ export default class Employees extends Component {
 
     return (
       <FlexColumn>
-        <Header as="h1">Employees</Header>
+        <FlexRow width="full" justifyBetween alignCenter spaceBottom>
+          <Header as="h1" style={{ margin: 0 }}>
+            Employees
+          </Header>
+
+          {user && user.role === "owner" && (
+            <>
+              <Button
+                as={DesktopButton}
+                color="orange"
+                onClick={() =>
+                  this.props.history.push("/dashboard/employees/add")
+                }
+              >
+                Create Employee
+              </Button>
+              <Button
+                as={MobileButton}
+                color="orange"
+                onClick={() =>
+                  this.props.history.push("/dashboard/employees/add")
+                }
+              >
+                Create
+              </Button>
+            </>
+          )}
+        </FlexRow>
         <Tab
           onTabChange={this.handleTabChange}
           menu={{ attached: false }}
-          style={{width: "75vw"}}
           panes={[
             ...tabs.map((tab, index) => ({
               menuItem: tab,

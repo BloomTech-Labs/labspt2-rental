@@ -24,7 +24,7 @@ export const Testimonials = ({ mobile }) => (
       marginTop: mobile ? "3em" : "14em",
       marginBottom: mobile ? "3em" : "4em",
       paddingBottom: mobile ? "2em" : "3em",
-      paddingTop: mobile ? null : '4em'
+      paddingTop: mobile ? null : "4em"
     }}
     text
   >

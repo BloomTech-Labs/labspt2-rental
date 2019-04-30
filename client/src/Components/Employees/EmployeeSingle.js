@@ -51,8 +51,9 @@ class EmployeeSingle extends Component {
   };
 
   permissionChange = body => {
-    this.props.updateEmployee(this.props.match.params.id, body)
-    .then(this.props.getEmployees({ ...this.query }));
+    this.props
+      .updateEmployee(this.props.match.params.id, body)
+      .then(this.props.getEmployees({ ...this.query }));
   };
 
   // this is a reusable component for the permission selections with logic that removes the options if an employee is viewing it.
@@ -89,7 +90,11 @@ class EmployeeSingle extends Component {
       permissions = employee.permissions;
     }
     const { user } = this.props;
-    const propPermissions = user ? (user.role === "owner" || user.permissions.property ? true : false) : false;
+    const propPermissions = user
+      ? user.role === "owner" || user.permissions.property
+        ? true
+        : false
+      : false;
 
     return (
       <Container>
@@ -118,7 +123,11 @@ class EmployeeSingle extends Component {
                 <Header as="h3">Overdue Tasks: {employee.overdue}</Header>
               </FlexColumn>
               {employee.image ? (
-                <Image src={`https://res.cloudinary.com/roostr-labpt2/image/upload/c_lfill,g_center,h_500,w_400/v1556336341/${employee.image}.jpg`} />
+                <Image
+                  src={`https://res.cloudinary.com/roostr-labpt2/image/upload/c_lfill,g_center,h_500,w_400/v1556336341/${
+                    employee.image
+                  }.jpg`}
+                />
               ) : (
                 <Icon
                   className="space-left-20"
