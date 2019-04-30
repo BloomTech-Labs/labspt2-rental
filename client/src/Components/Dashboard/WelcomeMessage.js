@@ -13,7 +13,7 @@ export const WelcomeMessage = (props) => {
         <WelcomeImage width={'200px'}/>
     </FlexColumn>)    
     } else {
-        welcome = (<FlexRow justifyAround alignCenter style={{ width: '90%', marginTop: '2em', marginBottom: '3em' }}>
+        welcome = (<FlexRow justifyAround alignCenter style={{ width: '90%', marginTop: '0.5em', marginBottom: '0.5em' }}>
         <Header as='h1' style={{ fontSize: '3.5em', marginTop: '5%' }}>Welcome {props.user.firstName}!</Header>
         <WelcomeImage width={'200px'}/>
     </FlexRow>)

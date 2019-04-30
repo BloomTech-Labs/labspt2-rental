@@ -44,7 +44,7 @@ export class Desktop extends Component {
 
           <FlexColumn alignCenter justifyCenter>
             <Link to="/" onClick={logout}>
-              <Icon inverted size="large" name="right arrow" />
+              <Icon inverted size="large" name="sign-out" />
               <p style={{ fontWeight: "bold", color: "white" }}>Logout</p>
             </Link>
           </FlexColumn>
@@ -52,7 +52,7 @@ export class Desktop extends Component {
 
         <Sidebar.Pusher
           as={Segment}
-          style={{ marginLeft: "150px", minHeight: "calc(100vh - 20px)" }}
+          style={{ marginLeft: "150px", minHeight: "calc(100vh - 20px)", marginTop: 0 }}
         >
           <FlexRow width="full" justifyCenter>
             {this.props.pusher}

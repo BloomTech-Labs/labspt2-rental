@@ -28,7 +28,7 @@ const Properties = (props) => {
       }
   
       return (
-          <Responsive style={{width: props.mobile ? '90%' : '45%', backgroundColor: '#f6f9fc', display: 'flex', flexDirection: 'column', alignItems: 'center', padding: '2%', boxShadow: '3px 8px 10px 1px rgba(0, 0, 255, .2)', marginBottom: props.mobile ? '10%' : null }}>
+          <Responsive style={{width: props.mobile ? '90%' : '40%', backgroundColor: '#f6f9fc', display: 'flex', flexDirection: 'column', alignItems: 'center', padding: '2%', boxShadow: '3px 8px 10px 1px rgba(0, 0, 255, .2)', marginBottom: props.mobile ? '10%' : null }}>
             {properties}
           </Responsive>
       );
@@ -129,7 +129,7 @@ const OneProperty = (props) => {
 
             <FlexRow style={{ width: '110%', alignItems: 'baseline', justifyContent: 'flex-start', marginLeft: '1%', marginTop: '1em'}}>
                 <Icon name='chart line' size='large' />
-                <p style={{fontSize: '1.2em', paddingLeft: '3%', width: '50%'}}><strong>Promote a property:</strong></p>
+                <p style={{fontSize: '1.2em', paddingLeft: '3%', width: '100%'}}><strong>Promote a property:</strong></p>
             </FlexRow>
 
             {buttons}
