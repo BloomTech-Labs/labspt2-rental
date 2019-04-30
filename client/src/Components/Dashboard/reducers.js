@@ -32,24 +32,8 @@ const dashboardReducer = (state = initialState, action) => {
     case actions.USER_ROLE_SUCCESS:
       return {
         ...state,
+        loading: false,
         user: action.payload
-      };
-
-    case actions.DASHBOARD_FETCH_EMPLOYEES_STARTED:
-      return {...state, 
-        loading: true
-      };
-    case actions.DASHBOARD_FETCH_EMPLOYEES_FAILURE:
-      return {
-        ...state,
-        loading: false,
-        error: action.payload.error
-      };
-    case actions.DASHBOARD_FETCH_EMPLOYEES_SUCCESS:
-      return {
-        ...state,
-        loading: false,
-        employeesTasks: action.payload
       };
     default:
       return { ...state };

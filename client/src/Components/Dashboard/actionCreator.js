@@ -210,21 +210,3 @@ export const getUserRole = () => dispatch => {
       console.log(err);
     });
 };
-
-// search for overdue tasks and today tasks using employee id
-export const dashboardGetEmployees = () => dispatch => {
-  dispatch({ type: actions.DASHBOARD_FETCH_EMPLOYEES_STARTED });
-  // return axios
-  //   .all([
-  //     // get tasks by employee id
-  //     // getEmployeeTasks(dashboardEmployees[0])
-  //   ])
-  return axios
-    .get(`${config.apiUrl}/api/employees/`)
-    .then(response => {
-      dispatch({ type: actions.DASHBOARD_FETCH_EMPLOYEES_SUCCESS, payload: response.data.data });
-    })
-    .catch(err => {
-      dispatch({ type: actions.DASHBOARD_FETCH_EMPLOYEES_FAILURE, payload: err });
-    });
-};

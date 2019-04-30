@@ -1,7 +1,6 @@
 import React, { Component } from "react";
 import { FlexColumn, Container, FlexRow } from "custom-components";
-import { Divider, Header, Icon, List, Image, Segment, Dimmer, Tab, Loader } from 'semantic-ui-react';
-import DashboardCards from "./DashboardCards";
+import { Responsive, Segment, Dimmer, Tab, Loader } from 'semantic-ui-react';
 import { DashboardStats } from './DashboardStats';
 import { EmployeeList } from './EmployeeList';
 
@@ -9,7 +8,6 @@ export default class DashboardContent extends Component {
   componentDidMount() {
     this.props.getEverything();
     this.props.getUserRole();
-    this.props.dashboardGetEmployees();
   }
 
   render() {
@@ -50,17 +48,30 @@ export default class DashboardContent extends Component {
     let reservActiveColor = "blue";
     if (!reservTotals) reservTotalsColor = "red";
     if (!reservActive) reservActiveColor = "red";
-    console.log(this.props.propertiesWithoutReservations)
+
+    getWidth();
+    let container;
+    if (getWidth() < Responsive.onlyTablet.minWidth) {
+        container = ( <FlexColumn alignCenter style={{ width: '100%', marginTop: '2em', marginBottom: '2em'}}>
+        <EmployeeList mobile={true} employeeTasks={employeeTasks} employees={employees}/>
+        <EmployeeList mobile={true} employeeTasks={employeeTasks} employees={employees}/>
+      </FlexColumn>)
+    } else if (getWidth() > Responsive.onlyMobile.maxWidth) {
+        container = ( <FlexRow justifyAround style={{ width: '100%', marginTop: '2em', marginBottom: '2em'}}>
+        <EmployeeList mobile={false} employeeTasks={employeeTasks} employees={employees}/>
+        <EmployeeList mobile={false} employeeTasks={employeeTasks} employees={employees}/>
+      </FlexRow> )
+    }
 
     let loadingSpinner;
     if (loading) {
       loadingSpinner = (
-        <Segment>
+        <Container width="full" style={{display: 'flex' }}>
           <Dimmer active inverted>
             <Loader inverted>Loading</Loader>
           </Dimmer>
           <Tab menu={{ attached: false }} panes={this.panes} />
-        </Segment>
+        </Container>
       );
     } else {
       loadingSpinner = (<Container>
@@ -70,10 +81,7 @@ export default class DashboardContent extends Component {
 
       <DashboardStats reservTotals={reservTotals} tasksOverdue={tasksOverdue} tasksToday={tasksToday} />
 
-      <FlexRow justifyAround style={{ width: '100%', marginTop: '2em', marginBottom: '2em'}}>
-        <EmployeeList employeeTasks={employeeTasks} employees={employees}/>
-        <EmployeeList employeeTasks={employeeTasks} employees={employees}/>
-      </FlexRow>
+      {container}
       </FlexColumn>
     </Container>)
     }
@@ -81,3 +89,8 @@ export default class DashboardContent extends Component {
     return <React.Fragment>{loadingSpinner}</React.Fragment>;
   }
 }
+
+const getWidth = () => {
+  const isSSR = typeof window === "undefined";  
+  return isSSR ? Responsive.onlyTablet.minWidth : window.innerWidth;
+};

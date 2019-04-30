@@ -1,10 +1,7 @@
 import React, { Fragment } from "react";
-import { FlexColumn } from "custom-components";
-import { Divider, Header, Icon, Responsive, List, Button, Image } from 'semantic-ui-react';
+import { FlexColumn, FlexRow } from "custom-components";
+import { Header, Responsive, List, Button, Image } from 'semantic-ui-react';
 import { Link } from 'react-router-dom';
-import config from '../../config/index';
-
-// Pass props for if mobile or not, and how many employees
 
 export const EmployeeList = (props) => {
     let employeeTaskObject = {}
@@ -17,38 +14,32 @@ export const EmployeeList = (props) => {
 
         employeeTaskObject = createEmployeeTaskObject(employee0, employee1, employee2);
     }
-
-    let container;
-    if (getWidth() < Responsive.onlyTablet.minWidth) {
-        container = <p>MOBILE</p>
-    } else {
-        container = <Employees user={props.user} employeeTaskObject={employeeTaskObject} employees={props.employees} mobile={false}/>
-    }
-
     return (
         <Fragment>
-            {container}
+            <Employees user={props.user} employeeTaskObject={employeeTaskObject} employees={props.employees} mobile={props.mobile}/>
         </Fragment>
     );
   }
 
 const Employees = (props) => {
     const { render, count } = props.employeeTaskObject;
-    console.log('render: ', render, 'count: ', count)
-
       let employees;
-      // instead, pass a prop of something that won't be null to test in case no employees
+      // test if no employees or tasks, pass a prop of something that won't be null to test in case no employees
       if (!render){
           return null
         }
       else if(render.employee0 === false){
         employees = <ZeroEmployees />
+      } else if ( render.employee1 === false ) {
+        employees = <OneEmployee employees={props.employees} count={count} />
       } else if ( render.employee2 === false ) {
-          employees = <OneEmployee employees={props.employees} count={count} />
+          employees = <TwoEmployees employees={props.employees} count={count} />
+      } else {
+          employees = <ThreeEmployees employees={props.employees} count={count} />
       }
   
       return (
-          <Responsive style={{width: '45%', height: '20vh', border: '1px solid pink', display: 'flex', flexDirection: 'column', alignItems: 'center', padding: '2%'}}>
+          <Responsive style={{width: props.mobile ? '90%' : '45%', backgroundColor: '#f6f9fc', display: 'flex', flexDirection: 'column', alignItems: 'center', padding: '2%', boxShadow: '3px 8px 10px 1px rgba(0, 0, 255, .2)', marginBottom: props.mobile ? '10%' : null }}>
             {employees}
           </Responsive>
       );
@@ -56,9 +47,10 @@ const Employees = (props) => {
 
 const ZeroEmployees = () => {
     return (
-        <FlexColumn alignCenter >
-            <Header as='h2'>You currently have no employees</Header>
-            <Link to='/employees/add' style={{ marginTop: '2em'}}>
+        <FlexColumn alignCenter>
+            <Header as='h2'>Uh oh!</Header>
+            <Header as='h4' style={{marginTop: '0.5em', marginBottom: 0}}>No employees to show.</Header>
+            <Link to='/dashboard/employees/add' style={{ marginTop: '2em'}}>
                 <Button basic color='blue'>Add New Employees</Button>
             </Link>
         </FlexColumn>
@@ -66,64 +58,179 @@ const ZeroEmployees = () => {
 }
 
 const OneEmployee = (props) => {
-    console.log('props: ', 'overdue: ', props.count.employee0.overdue, 'today: ', props.count.employee0.today)
     return (
+        <FlexColumn style={{ width: '100%', marginTop: '1em', marginLeft: '2%', marginBottom: '1em'}}>
+            <Header as='h2'>Employee Overview</Header>
         <List relaxed style={{ width: '100%' }}>
-            <List.Item style={{ display: 'flex', justifyContent: 'space-around', width: '50%'}}>
+            <List.Item style={{ display: 'flex', justifyContent: 'space-around', width: '80%'}}>
             <Image style={{ width: '3em', height: '3em' }} avatar src={`https://res.cloudinary.com/roostr-labpt2/image/upload/c_lfill,g_center,h_500,w_400/v1556336341/${props.employees[0].image}.jpg`} />
             <List.Content>
                 <Link to={`/dashboard/employees/${props.employees[0]._id}`}>
                 <List.Header>{props.employees[0].firstName} {props.employees[0].lastName}</List.Header>
                 </Link>
-                <List.Description>
+                <FlexRow style={{marginTop: '3%'}}>
+                <List.Description style={{marginRight: '1.5em'}}>
                 Overdue tasks:{' '}
-                <a>
+                <strong>
                     <b>{props.count.employee0.overdue}</b>
-                </a>{' '}
+                </strong>{' '}
                 </List.Description>
                 <List.Description>
                 Today's tasks:{' '}
-                <a>
+                <strong>
                     <b>{props.count.employee0.today}</b>
-                </a>{' '}
+                </strong>{' '}
                 </List.Description>
+                </FlexRow>
             </List.Content>
             </List.Item>
         </List>
+
+        <Link to='/dashboard/employees/add' style={{ marginTop: '2em'}}>
+                <Button basic color='blue'>Add New Employees</Button>
+         </Link>
+        </FlexColumn>
     )
 }
 
-const TwoEmployees = () => {
+const TwoEmployees = (props) => {
     return (
-        <Fragment>
-            <List.Item>
-            {/* <Image avatar src={} /> */}
+        <FlexColumn style={{ width: '100%', marginTop: '1em', marginLeft: '2%', marginBottom: '1em'}}>
+        <Header as='h2'>Employee Overview</Header>
+        <List relaxed style={{ width: '100%' }}>
+        <List.Item style={{ display: 'flex', justifyContent: 'space-around', width: '80%'}}>
+            <Image style={{ width: '3em', height: '3em' }} avatar src={`https://res.cloudinary.com/roostr-labpt2/image/upload/c_lfill,g_center,h_500,w_400/v1556336341/${props.employees[0].image}.jpg`} />
             <List.Content>
-                <List.Header as='a'>Daniel Louise</List.Header>
-                <List.Description>
-                Last seen watching{' '}
-                <a>
-                    <b>Arrested Development</b>
-                </a>{' '}
-                just now.
+                <Link to={`/dashboard/employees/${props.employees[0]._id}`}>
+                <List.Header>{props.employees[0].firstName} {props.employees[0].lastName}</List.Header>
+                </Link>
+                <FlexRow style={{marginTop: '3%'}}>
+                <List.Description style={{marginRight: '1.5em'}}>
+                Overdue tasks:{' '}
+                <strong>
+                    <b>{props.count.employee0.overdue}</b>
+                </strong>{' '}
                 </List.Description>
+                <List.Description>
+                Today's tasks:{' '}
+                <strong>
+                    <b>{props.count.employee0.today}</b>
+                </strong>{' '}
+                </List.Description>
+                </FlexRow>
             </List.Content>
             </List.Item>
 
-            <List.Item>
-            {/* <Image avatar src={} /> */}
+            <List.Item style={{ display: 'flex', justifyContent: 'space-around', width: '80%', marginTop: '0.5em'}}>
+            <Image style={{ width: '3em', height: '3em' }} avatar src={`https://res.cloudinary.com/roostr-labpt2/image/upload/c_lfill,g_center,h_500,w_400/v1556336341/${props.employees[1].image}.jpg`} />
             <List.Content>
-                <List.Header as='a'>Daniel Louise</List.Header>
-                <List.Description>
-                Last seen watching{' '}
-                <a>
-                    <b>Arrested Development</b>
-                </a>{' '}
-                just now.
+                <Link to={`/dashboard/employees/${props.employees[1]._id}`}>
+                <List.Header>{props.employees[1].firstName} {props.employees[1].lastName}</List.Header>
+                </Link>
+                <FlexRow style={{marginTop: '3%'}}>
+                <List.Description style={{marginRight: '1.5em'}}>
+                Overdue tasks:{' '}
+                <strong>
+                    <b>{props.count.employee1.overdue}</b>
+                </strong>{' '}
                 </List.Description>
+                <List.Description>
+                Today's tasks:{' '}
+                <strong>
+                    <b>{props.count.employee1.today}</b>
+                </strong>{' '}
+                </List.Description>
+                </FlexRow>
             </List.Content>
             </List.Item>
-        </Fragment>
+        </List>
+
+        <Link to='/dashboard/employees' style={{ marginTop: '1em'}}>
+                <Button basic color='blue'>View Employees</Button>
+         </Link>
+        </FlexColumn>
+    )
+}
+
+const ThreeEmployees = (props) => {
+    return (
+        <FlexColumn style={{ width: '100%', marginTop: '1em', marginLeft: '2%', marginBottom: '1em'}}>
+            <Header as='h2'>Employee Overview</Header>
+            <List relaxed style={{ width: '100%' }}>
+            <List.Item style={{ display: 'flex', justifyContent: 'space-around', width: '80%'}}>
+            <Image style={{ width: '3em', height: '3em' }} avatar src={`https://res.cloudinary.com/roostr-labpt2/image/upload/c_lfill,g_center,h_500,w_400/v1556336341/${props.employees[0].image}.jpg`} />
+            <List.Content>
+                <Link to={`/dashboard/employees/${props.employees[0]._id}`}>
+                <List.Header>{props.employees[0].firstName} {props.employees[0].lastName}</List.Header>
+                </Link>
+                <FlexRow style={{marginTop: '3%'}}>
+                <List.Description style={{marginRight: '1.5em'}}>
+                Overdue tasks:{' '}
+                <strong>
+                    <b>{props.count.employee0.overdue}</b>
+                </strong>{' '}
+                </List.Description>
+                <List.Description>
+                Today's tasks:{' '}
+                <strong>
+                    <b>{props.count.employee0.today}</b>
+                </strong>{' '}
+                </List.Description>
+                </FlexRow>
+            </List.Content>
+            </List.Item>
+
+            <List.Item style={{ display: 'flex', justifyContent: 'space-around', width: '80%', marginTop: '0.5em'}}>
+            <Image style={{ width: '3em', height: '3em' }} avatar src={`https://res.cloudinary.com/roostr-labpt2/image/upload/c_lfill,g_center,h_500,w_400/v1556336341/${props.employees[1].image}.jpg`} />
+            <List.Content>
+                <Link to={`/dashboard/employees/${props.employees[1]._id}`}>
+                <List.Header>{props.employees[1].firstName} {props.employees[1].lastName}</List.Header>
+                </Link>
+                <FlexRow style={{marginTop: '3%'}}>
+                <List.Description style={{marginRight: '1.5em'}}>
+                Overdue tasks:{' '}
+                <strong>
+                    <b>{props.count.employee1.overdue}</b>
+                </strong>{' '}
+                </List.Description>
+                <List.Description>
+                Today's tasks:{' '}
+                <strong>
+                    <b>{props.count.employee1.today}</b>
+                </strong>{' '}
+                </List.Description>
+                </FlexRow>
+            </List.Content>
+            </List.Item>
+
+            <List.Item style={{ display: 'flex', justifyContent: 'space-around', width: '80%', marginTop: '0.5em'}}>
+            <Image style={{ width: '3em', height: '3em' }} avatar src={`https://res.cloudinary.com/roostr-labpt2/image/upload/c_lfill,g_center,h_500,w_400/v1556336341/${props.employees[2].image}.jpg`} />
+            <List.Content>
+                <Link to={`/dashboard/employees/${props.employees[2]._id}`}>
+                <List.Header>{props.employees[2].firstName} {props.employees[2].lastName}</List.Header>
+                </Link>
+                <FlexRow style={{marginTop: '3%'}}>
+                <List.Description style={{marginRight: '1.5em'}}>
+                Overdue tasks:{' '}
+                <strong>
+                    <b>{props.count.employee2.overdue}</b>
+                </strong>{' '}
+                </List.Description>
+                <List.Description>
+                Today's tasks:{' '}
+                <strong>
+                    <b>{props.count.employee2.today}</b>
+                </strong>{' '}
+                </List.Description>
+                </FlexRow>
+            </List.Content>
+            </List.Item>
+        </List>
+
+        <Link to='/dashboard/employees' style={{ marginTop: '1.5em'}}>
+                <Button basic color='blue'>View All Employees</Button>
+         </Link>
+        </FlexColumn>
     )
 }
 
@@ -131,8 +238,6 @@ const getWidth = () => {
     const isSSR = typeof window === "undefined";  
     return isSSR ? Responsive.onlyTablet.minWidth : window.innerWidth;
   };
-
-let employeeTaskCount = {};
 
 const countEmployees = (array) => {
     let overdueCount = 0;
