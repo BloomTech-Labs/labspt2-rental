@@ -13,10 +13,13 @@ class TaskList extends Component {
   }
 
   render() {
-    const { handlePageChange, count, page } = this.props;
+    const { handlePageChange, count, page, tasks } = this.props;
 
     return (
       <FlexColumn alignCenter style={{ position: "relative" }}>
+      {!tasks ? (
+          <h2>Loading...</h2>
+        ) : (
         <Pagination
           className="space-bottom"
           onPageChange={handlePageChange}
@@ -26,8 +29,11 @@ class TaskList extends Component {
           siblingRange={0}
           totalPages={count}
           activePage={page}
+          // I removed these since they are causing red console.log errors, but then that causes a bug within the pagination after I delete a task...
+          ellipsisItem={true}
+          showEllipsis={true}
         />
-
+        )}
         {this.props.tasks.map((task) => (
           <div style={{ width: "100%" }} key={task._id}>
             {/* <Responsive maxWidth={475}> */}

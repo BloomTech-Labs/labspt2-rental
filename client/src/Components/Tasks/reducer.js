@@ -64,7 +64,7 @@ const taskReducer = (state = initialState, { type, payload }) => {
       return {
         ...state,
         loading: false,
-        incompletedTaskCount: payload.incompletedTaskCount
+        overdueIncompletedTaskCount: payload.overdueIncompletedTaskCount
       };
     case actions.TASKS_USER_SUCCESS:
       return {

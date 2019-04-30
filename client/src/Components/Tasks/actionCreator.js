@@ -205,7 +205,7 @@ export const deleteTask = id => dispatch => {
 };
 
 // Needed for labels
-export const fetchIncompletedTaskCount = (status = null) => dispatch => {
+export const fetchOverdueIncompletedTaskCount = (status = null) => dispatch => {
   dispatch({ type: actions.FETCH_TASK_ATTEMPT });
 
   return axios
@@ -213,15 +213,11 @@ export const fetchIncompletedTaskCount = (status = null) => dispatch => {
       `${config.apiUrl}/api/tasks/count?filter=${JSON.stringify({
         status
       })}`
-      // &completedfilter=${JSON.stringify({
-      //   completedtasks
-      // })}
-      
     )
     .then(({ data }) => {
       dispatch({
         type: actions.TASK_INCOMPLETED_COUNT_SUCCESS,
-        payload: { incompletedTaskCount: data.count }
+        payload: { overdueIncompletedTaskCount: data.count }
       });
     })
     .catch(err => {
@@ -229,6 +225,7 @@ export const fetchIncompletedTaskCount = (status = null) => dispatch => {
     });
 };
 
+// Needed for permissions
 export const fetchUserLog = () => dispatch => {
   dispatch({ type: actions.FETCH_TASK_ATTEMPT });
   return axios

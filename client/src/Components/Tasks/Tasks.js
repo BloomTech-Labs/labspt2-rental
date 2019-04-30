@@ -14,7 +14,7 @@ class Tasks extends Component {
       pageSize: 5,
       search: "",
       filter: { status: "overdue" },
-      sort: "_id",
+      sort: "_id"
     };
 
     this.state = {
@@ -32,7 +32,7 @@ class Tasks extends Component {
     this.props.getTasks({ page, pageSize, sort, filter });
     this.props.fetchTaskCount("overdue");
     this.props.fetchUserLog();
-    this.props.fetchIncompletedTaskCount("overdue");
+    this.props.fetchOverdueIncompletedTaskCount("overdue");
   }
 
   handleSearchChange = value => {
@@ -57,7 +57,7 @@ class Tasks extends Component {
   toggleComplete = task => {
     task.completed = task.completed ? false : true;
     this.props.toggleTask(task);
-    this.props.fetchIncompletedTaskCount("overdue");
+    this.props.fetchOverdueIncompletedTaskCount("overdue");
   };
 
   filterTasksByCompleted = () => {
@@ -65,7 +65,7 @@ class Tasks extends Component {
       this.setState({ filterByCompleted: false })
     } else {
       this.setState({ filterByCompleted: true })
-    };
+    }
     window.alert("This does nothing yet besides toggle state. It will toggle tasks by completed.")
   }
 
@@ -76,11 +76,11 @@ class Tasks extends Component {
           tasks, 
           loading, 
           taskCount, 
-          incompletedTaskCount, 
+          overdueIncompletedTaskCount, 
           user 
         }
       } = this.props;
-    const counts = [incompletedTaskCount, 0, 0]
+    const counts = [overdueIncompletedTaskCount, 0, 0]
     const { pageSize, page } = this.query;
     const role = user ? user.role : null;
 
