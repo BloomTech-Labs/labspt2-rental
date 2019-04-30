@@ -8,9 +8,9 @@ export class Mobile extends Component {
     visible: false
   };
 
-  logout = (e) => {
-    localStorage.removeItem('authToken');
-  }
+  logout = e => {
+    localStorage.removeItem("authToken");
+  };
 
   render() {
     const { visible } = this.state;
@@ -25,30 +25,37 @@ export class Mobile extends Component {
           inverted
           vertical
           width="thin"
-          style={{ display: 'flex', justifyContent: 'space-between', paddingTop: '1em'}}
+          style={{
+            display: "flex",
+            justifyContent: "space-between",
+            paddingTop: "1em"
+          }}
         >
           <div>
-          <Menu.Item as="a" style={{marginBottom: '2em'}} onClick={() => this.setState({ visible: false })}>
-            <Icon name="close" />
-            Hide Sidebar
-          </Menu.Item>
-          {this.props.links.map((link, ind) => (
-            <Link key={ind} to={link.url} onClick={this.props.handleClick}>
-              <Menu.Item as="a">
-                <Icon name={link.icon} />
-                {link.name}
-              </Menu.Item>
-            </Link>
-          ))}
+            <Menu.Item
+              as="a"
+              style={{ marginBottom: "2em" }}
+              onClick={() => this.setState({ visible: false })}
+            >
+              <Icon name="close" />
+              Hide Sidebar
+            </Menu.Item>
+            {this.props.links.map((link, ind) => (
+              <Link key={ind} to={link.url} onClick={this.props.handleClick}>
+                <Menu.Item as="a">
+                  <Icon name={link.icon} />
+                  {link.name}
+                </Menu.Item>
+              </Link>
+            ))}
           </div>
 
           <FlexColumn alignCenter justifyCenter>
-          <Link to='/' onClick={this.logout} >
-                <Icon inverted size='large' name='right arrow' />
-                <p style={{ fontWeight: 'bold', color: 'white'}}>Logout</p>
-          </Link>
-        </FlexColumn>
-
+            <Link to="/" onClick={this.logout}>
+              <Icon inverted size="large" name="right arrow" />
+              <p style={{ fontWeight: "bold", color: "white" }}>Logout</p>
+            </Link>
+          </FlexColumn>
         </Sidebar>
 
         <Button
