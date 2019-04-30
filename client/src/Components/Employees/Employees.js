@@ -75,7 +75,7 @@ export default class Employees extends Component {
       user
     } = this.props;
 
-    return !loading ? (
+    return (
       <FlexColumn>
         <FlexRow width="full" justifyBetween alignCenter spaceBottom>
           <Header as="h1" style={{ margin: 0 }}>
@@ -121,6 +121,7 @@ export default class Employees extends Component {
                     properties={properties}
                     page={page}
                     pageSize={pageSize}
+                    loading={loading}
                     numPages={numPages}
                     handlePageChange={this.handlePageChange}
                   />
@@ -133,8 +134,6 @@ export default class Employees extends Component {
           ]}
         />
       </FlexColumn>
-    ) : (
-      <div>Please wait...</div>
     );
   }
 }

@@ -53,7 +53,6 @@ class EmployeeAdd extends Component {
     this.props
       .createEmployee(request)
       .then(data => {
-        console.log(data);
         if (data._id) {
           const welcomeEmail = {
             to: this.state.employee.email,
