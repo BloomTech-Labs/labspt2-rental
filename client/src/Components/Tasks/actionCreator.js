@@ -63,9 +63,9 @@ export const fetchTaskCount = (status = null) => dispatch => {
 
   return axios
     .get(
-      `${config.apiUrl}/api/tasks/count?filter=${JSON.stringify({
+      `${config.apiUrl}/api/tasks/count?filter=${JSON.stringify(
         status
-      })}`
+      )}`
     )
     .then(({ data }) => {
       dispatch({
@@ -204,29 +204,8 @@ export const deleteTask = id => dispatch => {
     });
 };
 
-// Needed for labels
-export const fetchIncompletedTaskCount = (status = null) => dispatch => {
-  dispatch({ type: actions.FETCH_TASK_ATTEMPT });
 
-  return axios
-    .get(
-      `${config.apiUrl}/api/tasks/count?filter=${JSON.stringify({
-        status
-      })}`
-      // &completedfilter=${JSON.stringify({
-      //   completedtasks
-      // })}
-    )
-    .then(({ data }) => {
-      dispatch({
-        type: actions.TASK_INCOMPLETED_COUNT_SUCCESS,
-        payload: { incompletedTaskCount: data.count }
-      });
-    })
-    .catch(err => {
-      dispatch({ type: actions.FETCH_TASK_FAILURE, payload: err });
-    });
-};
+// Needed for permissions
 
 export const fetchUserLog = () => dispatch => {
   dispatch({ type: actions.FETCH_TASK_ATTEMPT });
@@ -241,4 +220,41 @@ export const fetchUserLog = () => dispatch => {
     .catch(err => {
       dispatch({ type: actions.FETCH_TASK_FAILURE, payload: err });
     });
+};
+
+// Needed for labels
+export const fetchIncompletedTaskCount = (status = null, completed = false) => dispatch => {
+  dispatch({ type: actions.FETCH_TASK_ATTEMPT });
+
+  function getIncompletedTaskCounts(status = null, completed = false) {
+    return axios
+      .get(
+        `${config.apiUrl}/api/tasks/count?filter=${JSON.stringify({
+          status, completed
+        })}`
+      )
+  }
+    
+    return axios 
+      .all([
+        getIncompletedTaskCounts("overdue"),
+        getIncompletedTaskCounts("due today"),
+        getIncompletedTaskCounts("upcoming")
+      ])
+      .then(
+        axios.spread((overdueIncompleted, duetodayIncompleted, upcomingIncompleted) => {
+          const taskResult = {
+            overdueIncompleted: overdueIncompleted.data.count,
+            duetodayIncompleted: duetodayIncompleted.data.count,
+            upcomingIncompleted: upcomingIncompleted.data.count
+          };
+          dispatch({
+            type: actions.TASK_INCOMPLETED_COUNT_SUCCESS,
+            payload: taskResult
+          });
+        })
+      )
+      .catch(err => {
+        dispatch({ type: actions.FETCH_TASK_FAILURE, payload: err });
+      });
 };

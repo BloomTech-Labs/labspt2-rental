@@ -38,9 +38,9 @@ class Tasks extends Component {
   componentDidMount() {
     const { page, pageSize, sort, filter } = this.query;
     this.props.getTasks({ page, pageSize, sort, filter });
-    this.props.fetchTaskCount("overdue");
+    this.props.fetchTaskCount(filter);
     this.props.fetchUserLog();
-    this.props.fetchIncompletedTaskCount("overdue");
+    this.props.fetchIncompletedTaskCount();
   }
 
   handleSearchChange = value => {
@@ -52,9 +52,9 @@ class Tasks extends Component {
     const { tabs } = this.state;
     const activeTab = tabs[data.activeIndex].name.toLowerCase();
     this.query.page = 1;
-    this.query.filter = { status: activeTab };
+    this.query.filter.status = activeTab;
     this.props.getTasks({ ...this.query });
-    this.props.fetchTaskCount(activeTab);
+    this.props.fetchTaskCount(this.query.filter);
   };
 
   handlePageChange = (event, data) => {
@@ -65,31 +65,43 @@ class Tasks extends Component {
   toggleComplete = task => {
     task.completed = task.completed ? false : true;
     this.props.toggleTask(task);
-    this.props.fetchIncompletedTaskCount("overdue");
+    this.props.fetchIncompletedTaskCount();
   };
 
   filterTasksByCompleted = () => {
-    if (this.state.filterByCompleted === true) {
-      this.setState({ filterByCompleted: false });
+
+    if (this.state.filterByCompleted === false ) {
+      this.setState({ filterByCompleted: true })
+      this.query.filter.completed = false
     } else {
-      this.setState({ filterByCompleted: true });
+      this.setState({ filterByCompleted: false })
+      delete this.query.filter.completed
     }
-    window.alert(
-      "This does nothing yet besides toggle state. It will toggle tasks by completed."
-    );
-  };
+    const { page, pageSize, sort, filter } = this.query;
+    this.props.getTasks({ page, pageSize, sort, filter });
+    this.props.fetchTaskCount(this.query.filter);
+  }
+
 
   render() {
     const { tabs } = this.state;
     const {
-      tasks: { tasks, loading, taskCount, incompletedTaskCount, user }
-    } = this.props;
-    const counts = [incompletedTaskCount, 0, 0];
+        tasks: { 
+          tasks, 
+          loading, 
+          taskCount, 
+          overdueIncompleted,
+          duetodayIncompleted,
+          upcomingIncompleted,
+          user 
+        }
+      } = this.props;
+    const counts = [overdueIncompleted, duetodayIncompleted, upcomingIncompleted]
     const { pageSize, page } = this.query;
     const role = user ? user.role : null;
 
     return (
-      <FlexColumn>
+      <FlexColumn style={{flexWrap: "wrap"}}>
         <FlexRow width="100%" justifyBetween style={{ alignItems: "baseline" }}>
           <Header as="h1">Tasks</Header>
           {role === "owner" ? (
@@ -111,7 +123,7 @@ class Tasks extends Component {
           <Segment style={{ marginRight: "15px" }}>
             <Checkbox toggle onChange={this.filterTasksByCompleted} />
           </Segment>
-          <Header as="h5">Filter by Completed</Header>
+          <Header as="h5">Hide Completed</Header>
         </FlexRow>
 
         <Tab
@@ -121,11 +133,20 @@ class Tasks extends Component {
           panes={[
             ...tabs.map((tab, index) => ({
               menuItem: (
-                <Menu.Item>
+                <Menu.Item key={index}>
                   {tab.name}
-                  <Label floating circular color={tab.color}>
+                  { counts[index] === 0 ? (
+                    null
+                  ) : (
+                    <Label 
+                    floating 
+                    circular
+                    color={tab.color}
+                  >
                     {counts[index]}
                   </Label>
+                  )}
+              
                 </Menu.Item>
               ),
               render: () => (
@@ -149,8 +170,9 @@ class Tasks extends Component {
             {
               menuItem: (
                 <Search
+                  key="A"
                   onChange={this.handleSearchChange}
-                  style={{ minWidth: "300px", flexGrow: "1" }}
+                  style={{ minWidth: "230px", flexGrow: "1" }}
                 />
               )
             }
