@@ -216,7 +216,6 @@ export const fetchIncompletedTaskCount = (status = null) => dispatch => {
       // &completedfilter=${JSON.stringify({
       //   completedtasks
       // })}
-      
     )
     .then(({ data }) => {
       dispatch({

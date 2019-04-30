@@ -32,8 +32,11 @@ const TaskListItemMobile = props => {
       </FlexRow>
 
       <FlexRow
-      
-      style={{ width: "100%", alignItems: "baseline", justifyContent: "space-between" }}
+        style={{
+          width: "100%",
+          alignItems: "baseline",
+          justifyContent: "space-between"
+        }}
       >
         <Popup
           trigger={
@@ -56,9 +59,7 @@ const TaskListItemMobile = props => {
           }
         />
         <Link to={`/dashboard/tasks/edit/${task._id}`}>
-          <Button size="mini">
-            Edit
-          </Button>
+          <Button size="mini">Edit</Button>
         </Link>
       </FlexRow>
 

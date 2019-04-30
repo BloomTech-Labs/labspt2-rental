@@ -8,15 +8,13 @@ import taskPropertyAssign from "./taskPropertyHelper";
 
 const EmployeeList = props => {
   const { page, handlePageChange, user } = props;
-  const numPages = props.numPages ? props.numPages : 0
-
-  const role = user ? user.role : null;
+  const numPages = props.numPages ? props.numPages : 0;
 
   // modEmployees is used as a temp replacement for employees because employees is read-only at this point and cannot be directly modified
   const modEmployees = taskPropertyAssign(props);
   return (
     <FlexColumn width="full" alignCenter>
-      <FlexRow>
+      <FlexRow width="full" justifyCenter spaceBottom="20px">
         <Pagination
           onPageChange={handlePageChange}
           className="space-bottom"
@@ -28,16 +26,6 @@ const EmployeeList = props => {
           siblingRange={1}
           totalPages={numPages}
         />
-        {role === "owner" ? (
-          <Link to="/dashboard/employees/add">
-            <Button
-              className="space-left-20"
-              circular
-              icon="plus"
-              color="orange"
-            />
-          </Link>
-        ) : null}
       </FlexRow>
       {modEmployees.map(item => (
         <div key={item._id}>
