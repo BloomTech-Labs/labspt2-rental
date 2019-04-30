@@ -63,9 +63,9 @@ export const fetchTaskCount = (status = null) => dispatch => {
 
   return axios
     .get(
-      `${config.apiUrl}/api/tasks/count?filter=${JSON.stringify({
+      `${config.apiUrl}/api/tasks/count?filter=${JSON.stringify(
         status
-      })}`
+      )}`
     )
     .then(({ data }) => {
       dispatch({
@@ -205,13 +205,13 @@ export const deleteTask = id => dispatch => {
 };
 
 // Needed for labels
-export const fetchOverdueIncompletedTaskCount = (status = null) => dispatch => {
+export const fetchOverdueIncompletedTaskCount = (status = "overdue", completed = false) => dispatch => {
   dispatch({ type: actions.FETCH_TASK_ATTEMPT });
 
   return axios
     .get(
       `${config.apiUrl}/api/tasks/count?filter=${JSON.stringify({
-        status
+        status, completed
       })}`
     )
     .then(({ data }) => {

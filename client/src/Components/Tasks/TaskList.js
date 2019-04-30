@@ -26,21 +26,19 @@ class TaskList extends Component {
           boundaryRange={0}
           firstItem={null}
           lastItem={null}
-          siblingRange={0}
+          siblingRange={1}
           totalPages={count}
           activePage={page}
-          // I removed these since they are causing red console.log errors, but then that causes a bug within the pagination after I delete a task...
-          ellipsisItem={true}
-          showEllipsis={true}
+          ellipsisItem={null}
         />
         )}
-        {this.props.tasks.map((task) => (
-          <div style={{ width: "100%" }} key={task._id}>
+        {this.props.tasks.map((task, index) => (
+          <div style={{ width: "100%" }} key={index}>
             {/* <Responsive maxWidth={475}> */}
             <Responsive maxWidth={779}>
               <TaskListItemMobile
                 task={task}
-                key={task._id}
+                // key={task._id}
                 toggleComplete={this.props.toggleComplete}
               />
             </Responsive>
@@ -54,7 +52,7 @@ class TaskList extends Component {
             <Responsive minWidth={780}>
               <TaskListItemDesktop
                 task={task}
-                key={task._id}
+                // key={task._id}
                 toggleComplete={this.props.toggleComplete}
               />
             </Responsive>
