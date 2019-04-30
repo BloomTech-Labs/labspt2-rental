@@ -90,7 +90,6 @@ class EmployeeSingle extends Component {
     }
     const { user } = this.props;
     const propPermissions = user ? (user.role === "owner" || user.permissions.property ? true : false) : false;
-    console.log(propPermissions)
 
     return (
       <Container>

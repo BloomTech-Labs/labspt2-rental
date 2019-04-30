@@ -55,7 +55,7 @@ export default class Employees extends Component {
       user
     } = this.props;
 
-    return !loading ? (
+    return (
       <FlexColumn>
         <Header as="h1">Employees</Header>
         <Tab
@@ -76,6 +76,7 @@ export default class Employees extends Component {
                     properties={properties}
                     page={page}
                     pageSize={pageSize}
+                    loading={loading}
                     numPages={numPages}
                     handlePageChange={this.handlePageChange}
                   />
@@ -88,8 +89,6 @@ export default class Employees extends Component {
           ]}
         />
       </FlexColumn>
-    ) : (
-      <div>Please wait...</div>
     );
   }
 }
