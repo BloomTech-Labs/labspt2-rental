@@ -1,3 +1,4 @@
+require('dotenv').config();
 import { merge } from 'lodash';
 const env = process.env.NODE_ENV || 'development';
 
@@ -8,7 +9,7 @@ const baseConfig = {
   isTest: env === 'testing',
   port: 5000,
   secrets: {
-    jwt: process.env.JWT_SECRET,
+    jwt: 'local secrets are no fun',
     jwtExp: '100d'
   }
 };
