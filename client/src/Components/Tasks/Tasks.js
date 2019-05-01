@@ -33,6 +33,21 @@ const MobileButton = styled.button`
   }
 `;
 
+const CustomWidthTab = styled(Tab)`
+    @media (max-width: 420px) {
+      width: 85vw;
+    }
+    @media (min-width: 421px) and (max-width: 700px) {
+      width: 85vw;
+    }
+    @media (min-width: 701px) {
+      width: 65vw;
+    }
+    @media (min-width: 850px) {
+      width: 75vw;
+    }
+`;
+
 class Tasks extends Component {
   constructor(props) {
     super(props);
@@ -86,8 +101,8 @@ class Tasks extends Component {
     task.completed = task.completed ? false : true;
     this.props.toggleTask(task)
       .then(() => {
-        this.props.fetchIncompletedTaskCount()
-      }
+          this.props.fetchIncompletedTaskCount()
+        }
       );
   };
 
@@ -162,8 +177,7 @@ class Tasks extends Component {
           <Header as="h5">Hide Completed</Header>
         </FlexRow>
 
-        <Tab
-          style={{ width: "75vw", border: "1px solid red" }}
+        <CustomWidthTab
           onTabChange={this.handleTabChange}
           menu={{ attached: false }}
           panes={[
