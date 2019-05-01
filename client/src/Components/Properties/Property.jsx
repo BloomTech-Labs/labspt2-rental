@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import { FlexColumn, FlexRow } from "custom-components";
-import { Button, Dimmer, Header, Image } from "semantic-ui-react";
+import { Button, Dimmer, Header, Image, Loader } from "semantic-ui-react";
 import { Link } from "react-router-dom";
 import DeleteModal from "./DeleteModal";
 import ErrorModal from "./ErrorModal";

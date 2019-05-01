@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { Button, Header, Tab } from "semantic-ui-react";
+import { Button, Header, Tab, Loader, Dimmer } from "semantic-ui-react";
 import { FlexColumn, FlexRow } from "custom-components";
 import ReservationList from "./ReservationList";
 import Search from "../shared/Search/Search";
@@ -69,9 +69,23 @@ export default class Reservations extends Component {
     const { pageSize } = this.query;
     const { tabs } = this.state;
     const { reservations, loading, reservationCount } = this.props;
-
+    let loadingComponent;
+    if (loading) {
+      loadingComponent = (
+        <Dimmer active inverted>
+          <Loader inverted>Loading</Loader>
+        </Dimmer>
+      );
+    } else {
+      loadingComponent = (
+        <Dimmer inverted>
+          <Loader inverted>Loading</Loader>
+        </Dimmer>
+      );
+    }
     return (
       <FlexColumn style={{ height: "100vh", width: "65vw" }} alignCenter>
+        {loadingComponent}
         <FlexRow width="full" justifyBetween alignCenter spaceBottom>
           <Header as="h1" style={{ margin: 0 }}>
             Reservations
