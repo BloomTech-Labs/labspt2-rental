@@ -4,9 +4,9 @@ import stripeModule from 'stripe';
 import { User } from '../../resources/user/user.model';
 import { Reservation } from '../../resources/reservations/reservations.model';
 
-const keyPublishable = config.keys.stripePublishable;
-const keySecret = config.keys.stripeSecret;
-const planid = config.keys.stripePlan;
+const keyPublishable = config.stripe.stripe_pub;
+const keySecret = config.stripe.stripe_secret;
+const planid = config.stripe.stripe_plan;
 
 const stripe = stripeModule(keySecret);
 
@@ -58,7 +58,7 @@ const createSubscription = async (err, customer, res) => {
         userObject.subscriptionID = subscription.id;
         const subscriptionItemID = subscription.items.data[0].id;
         userObject.subscriptionItemID = subscriptionItemID;
-
+        console.log('userObject', userObject)
         const updateUser = await updateUserWithStripeInfo(err, res);
         if (updateUser) {
           return res.status(200).send(updateUser);
@@ -88,6 +88,7 @@ const updateUserWithStripeInfo = async (err, res) => {
         .exec();
 
       if (user) {
+        console.log('updated user:', user)
         return res.status(201).send(user);
       }
     } catch (err) {

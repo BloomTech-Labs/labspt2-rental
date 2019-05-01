@@ -25,7 +25,7 @@ class ReservationView extends Component {
   };
 
   render() {
-    const { reservation, loading } = this.props;
+    const { reservation } = this.props;
 
     let processPaymentButton;
 
@@ -42,7 +42,7 @@ class ReservationView extends Component {
     }
 
     let loadingComponent;
-    if (loading) {
+    if (!reservation.guest) {
       loadingComponent = (
         <Container width="full" style={{ display: "flex" }}>
           <Dimmer active inverted>

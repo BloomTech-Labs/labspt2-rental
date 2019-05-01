@@ -1,6 +1,7 @@
 import React, { Component } from "react";
-import { Header, Segment, Button, Modal, Grid } from "semantic-ui-react";
+import { Header, Segment, Button, Modal, Grid, Popup, Icon } from "semantic-ui-react";
 import { Elements, StripeProvider } from "react-stripe-elements";
+import { FlexRow } from '../../custom-components/index';
 import CheckoutForm from "./updatePlan";
 import { config } from "../../config/dev";
 
@@ -55,15 +56,40 @@ export default class PlanModal extends Component {
         </Button>
 
         <Modal open={open} onClose={this.close}>
-          <Modal.Header>Choose Your Monthly Billing Plan</Modal.Header>
+          <FlexRow style={{ marginTop: '2em', marginLeft: '3%' }}>
+          <Header as='h1'>
+            Choose Your Monthly Billing Plan
+          </Header>
+
+          <Popup
+              trigger={
+                <Icon
+                  name="info"
+                  size="small"
+                  style={{
+                    alignSelf: "flex-start",
+                    opacity: "0.8",
+                    paddingLeft: "1%"
+                  }}
+                />
+              }
+              content={`Roostr's monthly plan auto-updates each time you add or remove a property, but only runs a charge at the end of your monthly billing period. You will be notified of any new billing amount. Properties cannot be deleted until they have no upcoming reservations.`}
+              hideOnScroll
+              position="right center"
+              style={{ width: "30vw" }}
+            />
+          </FlexRow>
 
           <Modal.Content>
             <Segment>
               <Grid centered divided columns={2}>
                 <Grid.Column textAlign="center">
-                  <Header as="h4">Basic Plan</Header>
+                  <Header as="h4" style={{fontSize: '1.25em'}}>Basic Plan</Header>
                   <p>
-                    <b>1</b> free property
+                    <b>1</b> rental property
+                  </p>
+                  <p>
+                    <b>Free</b> every month
                   </p>
                   <Button
                     value="free"
@@ -76,7 +102,7 @@ export default class PlanModal extends Component {
                 </Grid.Column>
 
                 <Grid.Column textAlign="center">
-                  <Header as="h4">Upgraded Plan</Header>
+                  <Header as="h4" style={{fontSize: '1.25em'}}>Upgraded Plan</Header>
                   <p>
                     <b>2-9</b> properties, $8 per property
                   </p>

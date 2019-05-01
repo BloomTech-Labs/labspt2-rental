@@ -74,7 +74,7 @@ export default class UpdateBillingModal extends Component {
               </Header>
               <Grid divided columns={2}>
                 <Form>
-                  <Grid.Column left>
+                  <Grid.Column>
                     <Grid row={2}>
                       <Grid.Row textAlign="left">
                         <Form.Field>
