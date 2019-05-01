@@ -29,16 +29,16 @@ const EmployeeList = props => {
           totalPages={numPages}
         />
       </FlexRow>
-      {!loading ?
-       modEmployees.map(item => (
-        <div key={item._id}>
-          <EmployeeListItem employee={item} />
-          <Divider />
-        </div>
-      )) : (
+      {!loading ? (
+        modEmployees.map(item => (
+          <div key={item._id}>
+            <EmployeeListItem employee={item} />
+            <Divider />
+          </div>
+        ))
+      ) : (
         <div>Please wait...</div>
-      )
-      }
+      )}
     </FlexColumn>
   );
 };

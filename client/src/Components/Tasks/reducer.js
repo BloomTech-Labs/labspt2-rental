@@ -26,7 +26,7 @@ const taskReducer = (state = initialState, { type, payload }) => {
     case actions.TASK_TOGGLE_SUCCESS:
       return {
         ...state,
-        loading: false,
+        loading: false
         // tasks: payload.data
       };
     case actions.TASKS_PROPERTIES_SUCCESS:

@@ -69,39 +69,41 @@ class Tasks extends Component {
   };
 
   filterTasksByCompleted = () => {
-
-    if (this.state.filterByCompleted === false ) {
-      this.setState({ filterByCompleted: true })
-      this.query.filter.completed = false
+    if (this.state.filterByCompleted === false) {
+      this.setState({ filterByCompleted: true });
+      this.query.filter.completed = false;
     } else {
-      this.setState({ filterByCompleted: false })
-      delete this.query.filter.completed
+      this.setState({ filterByCompleted: false });
+      delete this.query.filter.completed;
     }
     const { page, pageSize, sort, filter } = this.query;
     this.props.getTasks({ page, pageSize, sort, filter });
     this.props.fetchTaskCount(this.query.filter);
-  }
-
+  };
 
   render() {
     const { tabs } = this.state;
     const {
-        tasks: { 
-          tasks, 
-          loading, 
-          taskCount, 
-          overdueIncompleted,
-          duetodayIncompleted,
-          upcomingIncompleted,
-          user 
-        }
-      } = this.props;
-    const counts = [overdueIncompleted, duetodayIncompleted, upcomingIncompleted]
+      tasks: {
+        tasks,
+        loading,
+        taskCount,
+        overdueIncompleted,
+        duetodayIncompleted,
+        upcomingIncompleted,
+        user
+      }
+    } = this.props;
+    const counts = [
+      overdueIncompleted,
+      duetodayIncompleted,
+      upcomingIncompleted
+    ];
     const { pageSize, page } = this.query;
     const role = user ? user.role : null;
 
     return (
-      <FlexColumn style={{flexWrap: "wrap"}}>
+      <FlexColumn style={{ flexWrap: "wrap" }}>
         <FlexRow width="100%" justifyBetween style={{ alignItems: "baseline" }}>
           <Header as="h1">Tasks</Header>
           {role === "owner" ? (
@@ -135,18 +137,11 @@ class Tasks extends Component {
               menuItem: (
                 <Menu.Item key={index}>
                   {tab.name}
-                  { counts[index] === 0 ? (
-                    null
-                  ) : (
-                    <Label 
-                    floating 
-                    circular
-                    color={tab.color}
-                  >
-                    {counts[index]}
-                  </Label>
+                  {counts[index] === 0 ? null : (
+                    <Label floating circular color={tab.color}>
+                      {counts[index]}
+                    </Label>
                   )}
-              
                 </Menu.Item>
               ),
               render: () => (

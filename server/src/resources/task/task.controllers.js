@@ -40,7 +40,7 @@ class TaskControllers extends BaseController {
 
     return this.search(req, res, next, { lookup, search });
   };
-  
+
   deleteMany = async (req, res, next) => {
     let propertyID = req.body;
     try {

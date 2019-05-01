@@ -8,15 +8,18 @@ const baseConfig = {
   isTest: env === 'testing',
   port: 5000,
   secrets: {
-    jwt: process.env.JWT_SECRET || 'local secrets are no fun',
+    jwt: process.env.JWT_SECRET,
     jwtExp: '100d'
-  },
-  origin: 'https://www.roostr.tech'
+  }
 };
 
 let envConfig = {};
 
 switch (env) {
+  case 'prod':
+  case 'production':
+    envConfig = require('./prod').config;
+    break;
   case 'dev':
   case 'development':
     envConfig = require('./dev').config;
