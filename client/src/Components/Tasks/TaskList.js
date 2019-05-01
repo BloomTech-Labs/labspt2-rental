@@ -17,24 +17,23 @@ class TaskList extends Component {
 
     return (
       <FlexColumn alignCenter style={{ position: "relative" }}>
-      {!tasks ? (
+        {!tasks ? (
           <h2>Loading...</h2>
         ) : (
-        <Pagination
-          className="space-bottom"
-          onPageChange={handlePageChange}
-          boundaryRange={0}
-          firstItem={null}
-          lastItem={null}
-          siblingRange={1}
-          totalPages={count}
-          activePage={page}
-          ellipsisItem={null}
-        />
+          <Pagination
+            className="space-bottom"
+            onPageChange={handlePageChange}
+            boundaryRange={0}
+            firstItem={null}
+            lastItem={null}
+            siblingRange={1}
+            totalPages={count}
+            activePage={page}
+            ellipsisItem={null}
+          />
         )}
         {this.props.tasks.map((task, index) => (
           <div style={{ width: "100%" }} key={index}>
-
             {/* <Responsive maxWidth={475}> */}
             <Responsive maxWidth={779}>
               <TaskListItemMobile

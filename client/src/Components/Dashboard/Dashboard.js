@@ -21,7 +21,13 @@ class Dashboard extends Component {
     return (
       <Container>
         <Sidebar location={this.props.location}>
-          <Segment style={{ width: "100%", maxWidth: "fit-content", maxHeight: '100vh' }}>
+          <Segment
+            style={{
+              width: "100%",
+              maxWidth: "fit-content",
+              maxHeight: "100vh"
+            }}
+          >
             <Route
               exact
               path="/dashboard"
