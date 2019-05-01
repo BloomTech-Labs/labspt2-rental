@@ -2,7 +2,6 @@ import React, { Component } from "react";
 import {
   Header,
   Tab,
-  Icon,
   Segment,
   Label,
   Menu,
@@ -10,7 +9,6 @@ import {
   Button
 } from "semantic-ui-react";
 import { FlexColumn, FlexRow } from "custom-components";
-import { Link } from "react-router-dom";
 import Search from "../shared/Search/Search";
 import TaskList from "./TaskList";
 import styled from "styled-components";
@@ -131,12 +129,12 @@ class Tasks extends Component {
           overdueIncompleted,
           duetodayIncompleted,
           upcomingIncompleted,
-          user 
+          // user 
         }
       } = this.props;
     const counts = [overdueIncompleted, duetodayIncompleted, upcomingIncompleted]
     const { pageSize, page } = this.query;
-    const role = user ? user.role : null;
+    // const role = user ? user.role : null;
 
     return (
       <FlexColumn style={{flexWrap: "wrap"}}>
