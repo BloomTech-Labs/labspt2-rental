@@ -2,18 +2,52 @@ import React, { Component } from "react";
 import {
   Header,
   Tab,
-  Icon,
   Segment,
   Label,
   Menu,
   Checkbox,
+  Button,
   Dimmer,
   Loader
+
 } from "semantic-ui-react";
 import { FlexColumn, FlexRow } from "custom-components";
-import { Link } from "react-router-dom";
 import Search from "../shared/Search/Search";
 import TaskList from "./TaskList";
+import styled from "styled-components";
+
+const DesktopButton = styled.button`
+  &&& {
+    margin: 0;
+    @media (max-width: 420px) {
+      display: none;
+    }
+  }
+`;
+
+const MobileButton = styled.button`
+  &&& {
+    margin: 0;
+    @media (min-width: 421px) {
+      display: none;
+    }
+  }
+`;
+
+const CustomWidthTab = styled(Tab)`
+    @media (max-width: 420px) {
+      width: 85vw;
+    }
+    @media (min-width: 421px) and (max-width: 700px) {
+      width: 85vw;
+    }
+    @media (min-width: 701px) {
+      width: 65vw;
+    }
+    @media (min-width: 850px) {
+      width: 75vw;
+    }
+`;
 
 class Tasks extends Component {
   constructor(props) {
@@ -64,45 +98,49 @@ class Tasks extends Component {
     this.props.getTasks({ ...this.query });
   };
 
-  toggleComplete = task => {
+  toggleComplete = (task) => {
     task.completed = task.completed ? false : true;
-    this.props.toggleTask(task);
-    this.props.fetchIncompletedTaskCount();
+    this.props.toggleTask(task)
+      .then(() => {
+          this.props.fetchIncompletedTaskCount()
+        }
+      );
   };
 
   filterTasksByCompleted = () => {
-    if (this.state.filterByCompleted === false) {
-      this.setState({ filterByCompleted: true });
-      this.query.filter.completed = false;
+
+    this.query.page = 1;
+    const { page, pageSize, sort, filter } = this.query;
+
+    if (this.state.filterByCompleted === false ) {
+      this.setState({ filterByCompleted: true })
+      this.query.filter.completed = false
+
     } else {
       this.setState({ filterByCompleted: false });
       delete this.query.filter.completed;
     }
-    const { page, pageSize, sort, filter } = this.query;
     this.props.getTasks({ page, pageSize, sort, filter });
     this.props.fetchTaskCount(this.query.filter);
+
   };
 
   render() {
     const { tabs } = this.state;
     const {
-      tasks: {
-        tasks,
-        loading,
-        taskCount,
-        overdueIncompleted,
-        duetodayIncompleted,
-        upcomingIncompleted,
-        user
-      }
-    } = this.props;
-    const counts = [
-      overdueIncompleted,
-      duetodayIncompleted,
-      upcomingIncompleted
-    ];
+        tasks: { 
+          tasks, 
+          loading, 
+          taskCount, 
+          overdueIncompleted,
+          duetodayIncompleted,
+          upcomingIncompleted,
+          // user 
+        }
+      } = this.props;
+    const counts = [overdueIncompleted, duetodayIncompleted, upcomingIncompleted]
     const { pageSize, page } = this.query;
-    const role = user ? user.role : null;
+    // const role = user ? user.role : null;
     let loadingComponent;
     if (loading) {
       loadingComponent = (
@@ -118,17 +156,31 @@ class Tasks extends Component {
       );
     }
     return (
-      <FlexColumn style={{ flexWrap: "wrap", height: "100vh" }}>
-        {loadingComponent}
-        <FlexRow width="100%" justifyBetween style={{ alignItems: "baseline" }}>
-          <Header as="h1">Tasks</Header>
-          {role === "owner" ? (
-            <Link to="/dashboard/tasks/add">
-              <Segment>
-                <Icon name="add" />
-              </Segment>
-            </Link>
-          ) : null}
+      <FlexColumn style={{flexWrap: "wrap"}}>
+      {loadingComponent}
+        <FlexRow width="full" justifyBetween alignCenter spaceBottom>
+          <Header as="h1" style={{ margin: 0 }}>
+            Tasks
+          </Header>
+          <Button
+            as={DesktopButton}
+            color="blue"
+            onClick={() =>
+              this.props.history.push("/dashboard/tasks/add")
+            }
+          >
+            Create Task
+          </Button>
+          <Button
+            as={MobileButton}
+            color="blue"
+            onClick={() =>
+              this.props.history.push("/dashboard/tasks/add")
+            }
+          >
+            Create
+          </Button>
+
         </FlexRow>
 
         <FlexRow
@@ -144,8 +196,7 @@ class Tasks extends Component {
           <Header as="h5">Hide Completed</Header>
         </FlexRow>
 
-        <Tab
-          style={{ width: "75vw" }}
+        <CustomWidthTab
           onTabChange={this.handleTabChange}
           menu={{ attached: false }}
           panes={[
