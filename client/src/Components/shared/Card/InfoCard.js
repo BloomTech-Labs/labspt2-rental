@@ -29,6 +29,7 @@ const image = ({ children }) =>
   children ? (
     <Image
       rounded
+      size="small"
       src={`https://res.cloudinary.com/roostr-labpt2/image/upload/c_fill,g_face,h_150,w_200/v1556336341/${children}.jpg`}
     />
   ) : (

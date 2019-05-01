@@ -19,7 +19,7 @@ class Tasks extends Component {
 
     this.query = {
       page: 1,
-      pageSize: 5,
+      pageSize: 4,
       search: "",
       filter: { status: "overdue" },
       sort: "_id"
@@ -103,7 +103,7 @@ class Tasks extends Component {
     const role = user ? user.role : null;
 
     return (
-      <FlexColumn style={{ flexWrap: "wrap" }}>
+      <FlexColumn style={{ flexWrap: "wrap", height: "100vh" }}>
         <FlexRow width="100%" justifyBetween style={{ alignItems: "baseline" }}>
           <Header as="h1">Tasks</Header>
           {role === "owner" ? (
