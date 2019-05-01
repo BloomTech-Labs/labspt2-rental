@@ -8,7 +8,12 @@ class InfoCardDesktop extends Component {
     const { components, link, linkName } = this.props;
 
     return (
-      <FlexRow alignCenter justifyBetween width="full">
+      <FlexRow
+        alignCenter
+        justifyBetween
+        width="full"
+        style={{ paddingTop: "10px", paddingBottom: "10px" }}
+      >
         {components.image}
 
         <FlexColumn grow="1" spaceLeft="20px">
