@@ -8,7 +8,7 @@ const TaskListItemDesktop = props => {
   const { task } = props;
 
   return (
-    <FlexColumn>
+    <FlexColumn style={{ padding: "10px, 0px, 10px, 0px" }}>
       <FlexRow style={{ alignItems: "baseline" }}>
         <Checkbox
           label={task.description}

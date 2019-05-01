@@ -62,11 +62,7 @@ export const fetchTaskCount = (status = null) => dispatch => {
   dispatch({ type: actions.FETCH_TASK_ATTEMPT });
 
   return axios
-    .get(
-      `${config.apiUrl}/api/tasks/count?filter=${JSON.stringify(
-        status
-      )}`
-    )
+    .get(`${config.apiUrl}/api/tasks/count?filter=${JSON.stringify(status)}`)
     .then(({ data }) => {
       dispatch({
         type: actions.TASK_COUNT_SUCCESS,
@@ -204,7 +200,6 @@ export const deleteTask = id => dispatch => {
     });
 };
 
-
 // Needed for permissions
 export const fetchUserLog = () => dispatch => {
   dispatch({ type: actions.FETCH_TASK_ATTEMPT });
@@ -222,18 +217,21 @@ export const fetchUserLog = () => dispatch => {
 };
 
 // Needed for labels
-export const fetchIncompletedTaskCount = (status = null, completed = false) => dispatch => {
+export const fetchIncompletedTaskCount = (
+  status = null,
+  completed = false
+) => dispatch => {
   dispatch({ type: actions.FETCH_TASK_ATTEMPT });
 
 
 
   function getIncompletedTaskCounts(status = null, completed = false) {
-    return axios
-      .get(
-        `${config.apiUrl}/api/tasks/count?filter=${JSON.stringify({
-          status, completed
-        })}`
-      )
+    return axios.get(
+      `${config.apiUrl}/api/tasks/count?filter=${JSON.stringify({
+        status,
+        completed
+      })}`
+    );
   }
 
     return axios 
@@ -244,6 +242,7 @@ export const fetchIncompletedTaskCount = (status = null, completed = false) => d
       ])
       .then(
         axios.spread((overdueIncompleted, duetodayIncompleted, upcomingIncompleted) => {
+
           const taskResult = {
             overdueIncompleted: overdueIncompleted.data.count,
             duetodayIncompleted: duetodayIncompleted.data.count,
@@ -253,9 +252,10 @@ export const fetchIncompletedTaskCount = (status = null, completed = false) => d
             type: actions.TASK_INCOMPLETED_COUNT_SUCCESS,
             payload: taskResult
           });
-        })
+        }
       )
-      .catch(err => {
-        dispatch({ type: actions.FETCH_TASK_FAILURE, payload: err });
-      });
+    )
+    .catch(err => {
+      dispatch({ type: actions.FETCH_TASK_FAILURE, payload: err });
+    });
 };

@@ -6,7 +6,10 @@ import {
   Label,
   Menu,
   Checkbox,
-  Button
+  Button,
+  Dimmer,
+  Loader
+
 } from "semantic-ui-react";
 import { FlexColumn, FlexRow } from "custom-components";
 import Search from "../shared/Search/Search";
@@ -52,7 +55,7 @@ class Tasks extends Component {
 
     this.query = {
       page: 1,
-      pageSize: 5,
+      pageSize: 4,
       search: "",
       filter: { status: "overdue" },
       sort: "_id"
@@ -105,19 +108,22 @@ class Tasks extends Component {
   };
 
   filterTasksByCompleted = () => {
+
     this.query.page = 1;
     const { page, pageSize, sort, filter } = this.query;
 
     if (this.state.filterByCompleted === false ) {
       this.setState({ filterByCompleted: true })
       this.query.filter.completed = false
+
     } else {
-      this.setState({ filterByCompleted: false })
-      delete this.query.filter.completed
+      this.setState({ filterByCompleted: false });
+      delete this.query.filter.completed;
     }
     this.props.getTasks({ page, pageSize, sort, filter });
     this.props.fetchTaskCount(this.query.filter);
-  }
+
+  };
 
   render() {
     const { tabs } = this.state;
@@ -135,16 +141,30 @@ class Tasks extends Component {
     const counts = [overdueIncompleted, duetodayIncompleted, upcomingIncompleted]
     const { pageSize, page } = this.query;
     // const role = user ? user.role : null;
-
+    let loadingComponent;
+    if (loading) {
+      loadingComponent = (
+        <Dimmer active inverted>
+          <Loader inverted>Loading</Loader>
+        </Dimmer>
+      );
+    } else {
+      loadingComponent = (
+        <Dimmer inverted>
+          <Loader inverted>Loading</Loader>
+        </Dimmer>
+      );
+    }
     return (
       <FlexColumn style={{flexWrap: "wrap"}}>
+      {loadingComponent}
         <FlexRow width="full" justifyBetween alignCenter spaceBottom>
           <Header as="h1" style={{ margin: 0 }}>
             Tasks
           </Header>
           <Button
             as={DesktopButton}
-            color="orange"
+            color="blue"
             onClick={() =>
               this.props.history.push("/dashboard/tasks/add")
             }
@@ -153,13 +173,14 @@ class Tasks extends Component {
           </Button>
           <Button
             as={MobileButton}
-            color="orange"
+            color="blue"
             onClick={() =>
               this.props.history.push("/dashboard/tasks/add")
             }
           >
             Create
           </Button>
+
         </FlexRow>
 
         <FlexRow
@@ -183,18 +204,11 @@ class Tasks extends Component {
               menuItem: (
                 <Menu.Item key={index}>
                   {tab.name}
-                  { counts[index] === 0 ? (
-                    null
-                  ) : (
-                    <Label 
-                    floating 
-                    circular
-                    color={tab.color}
-                  >
-                    {counts[index]}
-                  </Label>
+                  {counts[index] === 0 ? null : (
+                    <Label floating circular color={tab.color}>
+                      {counts[index]}
+                    </Label>
                   )}
-              
                 </Menu.Item>
               ),
               render: () => (

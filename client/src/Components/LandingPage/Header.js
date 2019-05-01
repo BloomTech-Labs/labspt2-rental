@@ -25,7 +25,7 @@ export const HomePageHeader = ({ mobile }) => (
       />
       <Header
         as="h2"
-        content="One app to manage your properties."
+        content="One app to manage your rental properties."
         inverted
         style={{
           fontSize: mobile ? "1.5em" : "1.7em",
