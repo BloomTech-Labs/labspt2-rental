@@ -84,7 +84,7 @@ class Properties extends Component {
     const { properties, loading, propertyCount } = this.props;
 
     return (
-      <FlexColumn width="800px" alignCenter style={{ position: "relative" }}>
+      <FlexColumn style={{ height: "100vh", width: "65vw" }} alignCenter>
         <Modal size="small" open={this.state.modalOpen}>
           <Modal.Content>
             <p>
@@ -104,23 +104,16 @@ class Properties extends Component {
             Properties
           </Header>
 
-          <Button
-            as={DesktopButton}
-            color="orange"
-            onClick={this.addClickHandle}
-          >
+          <Button as={DesktopButton} color="blue" onClick={this.addClickHandle}>
             Create Property
           </Button>
-          <Button
-            as={MobileButton}
-            color="orange"
-            onClick={this.addClickHandle}
-          >
+          <Button as={MobileButton} color="blue" onClick={this.addClickHandle}>
             Create
           </Button>
         </FlexRow>
 
         <Tab
+          style={{ width: "60vw" }}
           onTabChange={this.handleTabChange}
           menu={{ attached: false }}
           panes={[
@@ -140,12 +133,11 @@ class Properties extends Component {
             })),
             {
               menuItem: (
-                <div key={1}>
-                  <Search
-                    onChange={this.handleSearchChange}
-                    style={{ minWidth: "300px", flexGrow: "1" }}
-                  />
-                </div>
+                <Search
+                  key="a"
+                  onChange={this.handleSearchChange}
+                  style={{ minWidth: "300px", flexGrow: "1" }}
+                />
               )
             }
           ]}

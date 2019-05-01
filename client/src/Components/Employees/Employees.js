@@ -76,7 +76,7 @@ export default class Employees extends Component {
     } = this.props;
 
     return (
-      <FlexColumn>
+      <FlexColumn style={{ height: "100vh", width: "65vw" }} alignCenter>
         <FlexRow width="full" justifyBetween alignCenter spaceBottom>
           <Header as="h1" style={{ margin: 0 }}>
             Employees
@@ -86,7 +86,7 @@ export default class Employees extends Component {
             <>
               <Button
                 as={DesktopButton}
-                color="orange"
+                color="blue"
                 onClick={() =>
                   this.props.history.push("/dashboard/employees/add")
                 }
@@ -95,7 +95,7 @@ export default class Employees extends Component {
               </Button>
               <Button
                 as={MobileButton}
-                color="orange"
+                color="blue"
                 onClick={() =>
                   this.props.history.push("/dashboard/employees/add")
                 }
@@ -106,6 +106,7 @@ export default class Employees extends Component {
           )}
         </FlexRow>
         <Tab
+          style={{ width: "60vw" }}
           onTabChange={this.handleTabChange}
           menu={{ attached: false }}
           panes={[

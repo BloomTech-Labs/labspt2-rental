@@ -71,14 +71,14 @@ export default class Reservations extends Component {
     const { reservations, loading, reservationCount } = this.props;
 
     return (
-      <FlexColumn>
+      <FlexColumn style={{ height: "100vh", width: "65vw" }} alignCenter>
         <FlexRow width="full" justifyBetween alignCenter spaceBottom>
           <Header as="h1" style={{ margin: 0 }}>
             Reservations
           </Header>
           <Button
             as={DesktopButton}
-            color="orange"
+            color="blue"
             onClick={() =>
               this.props.history.push("/dashboard/reservations/add")
             }
@@ -87,7 +87,7 @@ export default class Reservations extends Component {
           </Button>
           <Button
             as={MobileButton}
-            color="orange"
+            color="blue"
             onClick={() =>
               this.props.history.push("/dashboard/reservations/add")
             }
@@ -96,6 +96,7 @@ export default class Reservations extends Component {
           </Button>
         </FlexRow>
         <Tab
+          style={{ width: "60vw", marginBottom: "5px" }}
           onTabChange={this.handleTabChange}
           menu={{ attached: false }}
           panes={[
