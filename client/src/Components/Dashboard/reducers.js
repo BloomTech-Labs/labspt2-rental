@@ -17,10 +17,8 @@ const initialState = {
 
 const dashboardReducer = (state = initialState, action) => {
   switch (action.type) {
-      case actions.COUNTS_STARTED:
-      return {...state, 
-        loading: true
-      };
+    case actions.COUNTS_STARTED:
+      return { ...state, loading: true };
     case actions.COUNTS_SUCCESS:
       return Object.assign({}, state, action.payload);
     case actions.COUNTS_FAILURE:

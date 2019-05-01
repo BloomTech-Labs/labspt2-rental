@@ -38,13 +38,12 @@ export default class Checkout extends Component {
     );
     let cleaningFee = 0;
 
-    if(!this.props.property.cleaningFee){
-      cleaningFee = 30
+    if (!this.props.property.cleaningFee) {
+      cleaningFee = 30;
     } else {
-      cleaningFee = this.props.property.cleaningFee
+      cleaningFee = this.props.property.cleaningFee;
     }
-    const totalBill =
-      nights * this.props.property.price + cleaningFee;
+    const totalBill = nights * this.props.property.price + cleaningFee;
     const stripeTotal = totalBill * 100;
     this.setState({
       total: totalBill,

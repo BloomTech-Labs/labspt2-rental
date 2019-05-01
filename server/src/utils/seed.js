@@ -24,7 +24,7 @@ export default async () => {
             lastName: faker.name.lastName(),
             billingPlan: 'free',
             phone: '994-567-4231',
-            image: "hxtgs6096v1ufbv0aulc",
+            image: 'hxtgs6096v1ufbv0aulc',
             billingAddress: {
               address1: '1234 Honey Bear Ct',
               city: 'Tempe',
@@ -56,7 +56,7 @@ export default async () => {
               username: 'test_employee',
               password: '12345',
               email: 'employee@roostr.io',
-              image: "jidkfcrf00eivzefi8ot",
+              image: 'jidkfcrf00eivzefi8ot',
               permissions: {
                 task: true,
                 property: true,
@@ -114,24 +114,25 @@ export default async () => {
           if (!properties.length) {
             let propertiesArr = [];
             const randomProps = [
-              "u2xnww5ptxrsr2qqfiz3",
-              "my37lb8zcxxtyktdjlgl",
-              "yokmxu4uabgkbrk7pggk",
-              "dxvyiutir83jaskrn1i8",
-              "ydsdrfx78qkusaxkppnr",
-              "lfuke0yxteew5aebswlq",
-              "wfw92sbvhn8zmnojxxl3",
-              "qaapqybhmj9jbaca7cwa",
-              "n5rnk23bhajconqyklrq",
-              "j7xfajetkajrcs7r2y2x",
-              "jnoal9mbvl9lhkr4ddh6",
-              "bqsixfim3eixmqbeqbei",
-              "t8wwefrk7dw7elsbta9y",
-              "ogahorlfp8c1kttpvc6x"
-            ]
+              'u2xnww5ptxrsr2qqfiz3',
+              'my37lb8zcxxtyktdjlgl',
+              'yokmxu4uabgkbrk7pggk',
+              'dxvyiutir83jaskrn1i8',
+              'ydsdrfx78qkusaxkppnr',
+              'lfuke0yxteew5aebswlq',
+              'wfw92sbvhn8zmnojxxl3',
+              'qaapqybhmj9jbaca7cwa',
+              'n5rnk23bhajconqyklrq',
+              'j7xfajetkajrcs7r2y2x',
+              'jnoal9mbvl9lhkr4ddh6',
+              'bqsixfim3eixmqbeqbei',
+              't8wwefrk7dw7elsbta9y',
+              'ogahorlfp8c1kttpvc6x'
+            ];
 
             for (let i = 0; i < 5; i++) {
-              var randomImage = randomProps[Math.floor(Math.random()*randomProps.length)];
+              var randomImage =
+                randomProps[Math.floor(Math.random() * randomProps.length)];
               propertiesArr.push({
                 name: 'House ' + (i + 1),
                 assistants: [employeeId],
@@ -333,29 +334,30 @@ export default async () => {
             if (employees.length <= 1) {
               let employeesArr = [];
               const randomEmpl = [
-                "fd4ilbduytewosd43kpw",
-                "jwzzwwzkwxh0faqpkdyl",
-                "ibarykx1xd3b0yclxmyp",
-                "jgxlsiqot2lmruxjyvqt",
-                "yse3sfyxc9nvhwkih2h2",
-                "mipbwzuskkss0derhr0m",
-                "fkfnugasyfuxdfdy7w8w",
-                "ogp468masfyaes7yf40g",
-                "fqzog3qmktxb4qwfcbmh",
-                "kfofi74jznj6xu4wnfdw",
-                "jsqm7dlwepu9uta1ni5p",
-                "lcxiaryn2b1hz39yodpm",
-                "g7gwvny96fy9fllcbpik",
-                "i1bwyrcrs3wjoibiujna",
-                "ehgmxhrvsnfbujlm7xgw",
-                "g7oezvjfw9syvxwud709",
-                "ftagy5asv5n6zleonuty",
-                "uijlxpehmgetfgsoelm5"
-              ]
+                'fd4ilbduytewosd43kpw',
+                'jwzzwwzkwxh0faqpkdyl',
+                'ibarykx1xd3b0yclxmyp',
+                'jgxlsiqot2lmruxjyvqt',
+                'yse3sfyxc9nvhwkih2h2',
+                'mipbwzuskkss0derhr0m',
+                'fkfnugasyfuxdfdy7w8w',
+                'ogp468masfyaes7yf40g',
+                'fqzog3qmktxb4qwfcbmh',
+                'kfofi74jznj6xu4wnfdw',
+                'jsqm7dlwepu9uta1ni5p',
+                'lcxiaryn2b1hz39yodpm',
+                'g7gwvny96fy9fllcbpik',
+                'i1bwyrcrs3wjoibiujna',
+                'ehgmxhrvsnfbujlm7xgw',
+                'g7oezvjfw9syvxwud709',
+                'ftagy5asv5n6zleonuty',
+                'uijlxpehmgetfgsoelm5'
+              ];
 
               for (let i = 0; i < 10; i++) {
                 const fakeName = faker.internet.userName();
-                var randomImage = randomEmpl[Math.floor(Math.random()*randomEmpl.length)];
+                var randomImage =
+                  randomEmpl[Math.floor(Math.random() * randomEmpl.length)];
                 employeesArr.push({
                   role: 'employee',
                   username: fakeName,

@@ -1,10 +1,10 @@
 import React, { Component } from "react";
 import { FlexColumn, Container, FlexRow } from "custom-components";
-import { Responsive, Dimmer, Tab, Loader } from 'semantic-ui-react';
-import { DashboardStats } from './DashboardStats';
-import { EmployeeList } from './EmployeeList';
-import { WelcomeMessage } from './WelcomeMessage';
-import { PropertyStats } from './PropertyStats';
+import { Responsive, Dimmer, Tab, Loader } from "semantic-ui-react";
+import { DashboardStats } from "./DashboardStats";
+import { EmployeeList } from "./EmployeeList";
+import { WelcomeMessage } from "./WelcomeMessage";
+import { PropertyStats } from "./PropertyStats";
 
 export default class DashboardContent extends Component {
   componentDidMount() {
@@ -28,28 +28,51 @@ export default class DashboardContent extends Component {
     getWidth();
     let container;
     if (getWidth() < Responsive.onlyTablet.minWidth) {
-        container = ( <FlexColumn alignCenter style={{ width: '100%', marginTop: '1em'}}>
-        <EmployeeList mobile={true} employeeTasks={employeeTasks} employees={employees}/>
-        <PropertyStats mobile={true} propTotal={propTotal} noReservations={propertiesWithoutReservations}/>
-      </FlexColumn>)
+      container = (
+        <FlexColumn alignCenter style={{ width: "100%", marginTop: "1em" }}>
+          <EmployeeList
+            mobile={true}
+            employeeTasks={employeeTasks}
+            employees={employees}
+          />
+          <PropertyStats
+            mobile={true}
+            propTotal={propTotal}
+            noReservations={propertiesWithoutReservations}
+          />
+        </FlexColumn>
+      );
     } else if (getWidth() > Responsive.onlyMobile.maxWidth) {
-        container = ( <FlexRow justifyAround style={{ width: '100%', marginTop: '2em', marginBottom: '2em'}}>
-        <EmployeeList mobile={false} employeeTasks={employeeTasks} employees={employees}/>
-        <PropertyStats mobile={false} propTotal={propTotal} noReservations={propertiesWithoutReservations}/>
-      </FlexRow> )
+      container = (
+        <FlexRow
+          justifyAround
+          style={{ width: "100%", marginTop: "2em", marginBottom: "2em" }}
+        >
+          <EmployeeList
+            mobile={false}
+            employeeTasks={employeeTasks}
+            employees={employees}
+          />
+          <PropertyStats
+            mobile={false}
+            propTotal={propTotal}
+            noReservations={propertiesWithoutReservations}
+          />
+        </FlexRow>
+      );
     }
 
     let welcomeMobile;
-    if (getWidth() < Responsive.onlyTablet.minWidth){
+    if (getWidth() < Responsive.onlyTablet.minWidth) {
       welcomeMobile = true;
-    } else if (getWidth() > Responsive.onlyMobile.maxWidth){
+    } else if (getWidth() > Responsive.onlyMobile.maxWidth) {
       welcomeMobile = false;
     }
 
     let loadingSpinner;
     if (loading) {
       loadingSpinner = (
-        <Container width="full" style={{display: 'flex' }}>
+        <Container width="full" style={{ display: "flex" }}>
           <Dimmer active inverted>
             <Loader inverted>Loading</Loader>
           </Dimmer>
@@ -57,16 +80,21 @@ export default class DashboardContent extends Component {
         </Container>
       );
     } else {
-      loadingSpinner = (<Container>
-      <FlexColumn alignCenter width="full">
+      loadingSpinner = (
+        <Container>
+          <FlexColumn alignCenter width="full">
+            <WelcomeMessage user={user} mobile={welcomeMobile} />
 
-      <WelcomeMessage user={user} mobile={welcomeMobile} />
+            <DashboardStats
+              reservTotals={reservTotals}
+              tasksOverdue={tasksOverdue}
+              tasksToday={tasksToday}
+            />
 
-      <DashboardStats reservTotals={reservTotals} tasksOverdue={tasksOverdue} tasksToday={tasksToday} />
-
-      {container}
-      </FlexColumn>
-    </Container>)
+            {container}
+          </FlexColumn>
+        </Container>
+      );
     }
 
     return <React.Fragment>{loadingSpinner}</React.Fragment>;
@@ -74,6 +102,6 @@ export default class DashboardContent extends Component {
 }
 
 const getWidth = () => {
-  const isSSR = typeof window === "undefined";  
+  const isSSR = typeof window === "undefined";
   return isSSR ? Responsive.onlyTablet.minWidth : window.innerWidth;
 };
