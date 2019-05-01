@@ -54,7 +54,7 @@ const sendResetEmail = (req, res, next) => {
         User.findOneAndUpdate({ email: resetEmail }, updatedInfo, options)
           .then(user => {
             if (user != null) {
-              const sendgridKey = config.keys.sendgrid;
+              const sendgridKey = config.sendgrid;
               sgMail.setApiKey(sendgridKey);
               const msg = {
                 to: `${resetEmail}`,
