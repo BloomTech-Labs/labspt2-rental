@@ -104,7 +104,7 @@ class CheckoutForm extends Component {
             positive
             content="Update"
             onClick={this.submit}
-            style={{marginRight: '1%'}}
+            style={{ marginRight: "1%" }}
           />
         </Segment>
       </div>

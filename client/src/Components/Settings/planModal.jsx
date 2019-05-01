@@ -1,7 +1,15 @@
 import React, { Component } from "react";
-import { Header, Segment, Button, Modal, Grid, Popup, Icon } from "semantic-ui-react";
+import {
+  Header,
+  Segment,
+  Button,
+  Modal,
+  Grid,
+  Popup,
+  Icon
+} from "semantic-ui-react";
 import { Elements, StripeProvider } from "react-stripe-elements";
-import { FlexRow } from '../../custom-components/index';
+import { FlexRow } from "../../custom-components/index";
 import CheckoutForm from "./updatePlan";
 import { config } from "../../config/dev";
 
@@ -56,12 +64,10 @@ export default class PlanModal extends Component {
         </Button>
 
         <Modal open={open} onClose={this.close}>
-          <FlexRow style={{ marginTop: '2em', marginLeft: '3%' }}>
-          <Header as='h1'>
-            Choose Your Monthly Billing Plan
-          </Header>
+          <FlexRow style={{ marginTop: "2em", marginLeft: "3%" }}>
+            <Header as="h1">Choose Your Monthly Billing Plan</Header>
 
-          <Popup
+            <Popup
               trigger={
                 <Icon
                   name="info"
@@ -84,7 +90,9 @@ export default class PlanModal extends Component {
             <Segment>
               <Grid centered divided columns={2}>
                 <Grid.Column textAlign="center">
-                  <Header as="h4" style={{fontSize: '1.25em'}}>Basic Plan</Header>
+                  <Header as="h4" style={{ fontSize: "1.25em" }}>
+                    Basic Plan
+                  </Header>
                   <p>
                     <b>1</b> rental property
                   </p>
@@ -102,7 +110,9 @@ export default class PlanModal extends Component {
                 </Grid.Column>
 
                 <Grid.Column textAlign="center">
-                  <Header as="h4" style={{fontSize: '1.25em'}}>Upgraded Plan</Header>
+                  <Header as="h4" style={{ fontSize: "1.25em" }}>
+                    Upgraded Plan
+                  </Header>
                   <p>
                     <b>2-9</b> properties, $8 per property
                   </p>
