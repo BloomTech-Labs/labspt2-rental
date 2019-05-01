@@ -206,7 +206,6 @@ export const deleteTask = id => dispatch => {
 
 
 // Needed for permissions
-
 export const fetchUserLog = () => dispatch => {
   dispatch({ type: actions.FETCH_TASK_ATTEMPT });
   return axios
@@ -226,6 +225,8 @@ export const fetchUserLog = () => dispatch => {
 export const fetchIncompletedTaskCount = (status = null, completed = false) => dispatch => {
   dispatch({ type: actions.FETCH_TASK_ATTEMPT });
 
+
+
   function getIncompletedTaskCounts(status = null, completed = false) {
     return axios
       .get(
@@ -234,7 +235,7 @@ export const fetchIncompletedTaskCount = (status = null, completed = false) => d
         })}`
       )
   }
-    
+
     return axios 
       .all([
         getIncompletedTaskCounts("overdue"),
