@@ -69,7 +69,7 @@ class RegistrationPage extends Component {
 
   dimmerClose = () => {
     this.setState({ active: false });
-    this.props.history.push(`/dashboard/`);
+    this.props.history.push(`/dashboard`);
   };
 
   handleSubmit = event => {
@@ -80,7 +80,8 @@ class RegistrationPage extends Component {
       password: this.state.password,
       firstName: this.state.firstName,
       lastName: this.state.lastName,
-      role: "owner"
+      role: "owner",
+      billingPlan: "free"
     };
 
     event.preventDefault();
@@ -89,6 +90,7 @@ class RegistrationPage extends Component {
       .registerUser(user)
       .then(success => {
         if (this.props.registration.token) {
+          localStorage.setItem("authorization", this.props.registration.token);
           this.setState({
             active: true
           });
@@ -212,7 +214,7 @@ class RegistrationPage extends Component {
               inverted
               style={{ marginTop: "1em" }}
             >
-              Continue
+              Login
             </Button>
           </FlexColumn>
         </Dimmer>
