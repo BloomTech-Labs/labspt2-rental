@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import PropertyList from "./PropertyList";
 import { FlexColumn, FlexRow } from "custom-components";
 import Search from "../shared/Search/Search";
-import { Button, Modal, Tab, Header } from "semantic-ui-react";
+import { Button, Modal, Tab, Header, Dimmer, Loader } from "semantic-ui-react";
 import { Link } from "react-router-dom";
 import styled from "styled-components";
 
@@ -81,69 +81,123 @@ class Properties extends Component {
   render() {
     const { pageSize } = this.query;
     const { tabs } = this.state;
-    const { properties, loading, propertyCount } = this.props;
-
-    return (
-      <FlexColumn style={{ height: "100vh", width: "65vw" }} alignCenter>
-        <Modal size="small" open={this.state.modalOpen}>
-          <Modal.Content>
-            <p>
-              We're glad you're enjoying Roostr! To add another property, please
-              visit your settings to update to our paid plan!
-            </p>
-          </Modal.Content>
-          <Modal.Actions>
-            <Link to="/dashboard/settings">
-              <Button color="blue">Continue to Settings</Button>
-            </Link>
-            <Button onClick={this.closeModal}>Cancel</Button>
-          </Modal.Actions>
-        </Modal>
-        <FlexRow width="full" justifyBetween alignCenter spaceBottom>
-          <Header as="h1" style={{ margin: 0 }}>
-            Properties
-          </Header>
-
-          <Button as={DesktopButton} color="blue" onClick={this.addClickHandle}>
-            Create Property
-          </Button>
-          <Button as={MobileButton} color="blue" onClick={this.addClickHandle}>
-            Create
-          </Button>
-        </FlexRow>
-
-        <Tab
-          style={{ width: "60vw" }}
-          onTabChange={this.handleTabChange}
-          menu={{ attached: false }}
-          panes={[
-            ...tabs.map(tab => ({
-              menuItem: tab,
-              render: () => (
-                <Tab.Pane attached={false}>
-                  <PropertyList
-                    status={tab}
-                    loading={loading}
-                    properties={properties}
-                    count={Math.ceil(propertyCount / pageSize)}
-                    handlePageChange={this.handlePageChange}
-                  />
-                </Tab.Pane>
-              )
-            })),
-            {
-              menuItem: (
-                <Search
-                  key="a"
-                  onChange={this.handleSearchChange}
-                  style={{ minWidth: "300px", flexGrow: "1" }}
-                />
-              )
-            }
-          ]}
-        />
-      </FlexColumn>
+    const { properties, propertyCount } = this.props;
+    const modal = (
+      <Modal size="small" open={this.state.modalOpen}>
+        <Modal.Content>
+          <p>
+            We're glad you're enjoying Roostr! To add another property, please
+            visit your settings to update to our paid plan!
+          </p>
+        </Modal.Content>
+        <Modal.Actions>
+          <Link to="/dashboard/settings">
+            <Button color="blue">Continue to Settings</Button>
+          </Link>
+          <Button onClick={this.closeModal}>Cancel</Button>
+        </Modal.Actions>
+      </Modal>
     );
+    const panes = [
+      ...tabs.map(tab => ({
+        menuItem: tab,
+        render: () => (
+          <Tab.Pane attached={false}>
+            <PropertyList
+              status={tab}
+              loading={this.loading}
+              properties={properties}
+              count={Math.ceil(propertyCount / pageSize)}
+              handlePageChange={this.handlePageChange}
+            />
+          </Tab.Pane>
+        )
+      })),
+      {
+        menuItem: (
+          <Search
+            key="a"
+            onChange={this.handleSearchChange}
+            style={{ minWidth: "300px", flexGrow: "1" }}
+          />
+        )
+      }
+    ];
+
+    let renderComponent;
+    if (this.props.loading) {
+      renderComponent = (
+        <FlexColumn style={{ height: "100vh", width: "65vw" }} alignCenter>
+          <Dimmer active inverted>
+            <Loader inverted>Loading</Loader>
+          </Dimmer>
+
+          <FlexRow width="full" justifyBetween alignCenter spaceBottom>
+            <Header as="h1" style={{ margin: 0 }}>
+              Properties
+            </Header>
+
+            <Button
+              as={DesktopButton}
+              color="blue"
+              onClick={this.addClickHandle}
+            >
+              Create Property
+            </Button>
+            <Button
+              as={MobileButton}
+              color="blue"
+              onClick={this.addClickHandle}
+            >
+              Create
+            </Button>
+          </FlexRow>
+
+          <Tab
+            style={{ width: "60vw" }}
+            onTabChange={this.handleTabChange}
+            menu={{ attached: false }}
+            panes={panes}
+          />
+        </FlexColumn>
+      );
+    } else {
+      renderComponent = (
+        <FlexColumn style={{ height: "100vh", width: "75vw" }} alignCenter>
+          {modal}
+
+          <FlexRow width="full" justifyBetween alignCenter spaceBottom>
+            <Header as="h1" style={{ margin: 0 }}>
+              Properties
+            </Header>
+
+            <Button
+              as={DesktopButton}
+              color="blue"
+              onClick={this.addClickHandle}
+            >
+              Create Property
+            </Button>
+            <Button
+              as={MobileButton}
+              color="blue"
+              onClick={this.addClickHandle}
+            >
+              Create
+            </Button>
+          </FlexRow>
+
+          <Tab
+            style={{ width: "60vw" }}
+            onTabChange={this.handleTabChange}
+            menu={{ attached: false }}
+            panes={panes}
+          />
+        </FlexColumn>
+      );
+    }
+
+    return <React.Fragment>{renderComponent}</React.Fragment>;
   }
 }
 
