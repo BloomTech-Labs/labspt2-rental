@@ -32,6 +32,7 @@ export default class Billing extends Component {
 
   render() {
     const { nextBilling, billingPlan } = this.state;
+    console.log('stripeCustomerID', this.state.stripeCustomerID, billingPlan)
 
     let loading;
     if (this.state.billingPlan === "") {
@@ -43,35 +44,58 @@ export default class Billing extends Component {
           </Dimmer>
         </Segment>
       );
-    } else {
+    } else if(!this.state.stripeCustomerID){
       loading = (
-        <Segment>
-          <Header as="h2">Current Plan:</Header>
-          <Segment.Inline>
-            {" "}
-            <strong>{billingPlans[billingPlan].name}</strong>:{" "}
-            {billingPlans[billingPlan].description}
-          </Segment.Inline>
-          <FlexRow style={{ marginTop: "25px" }}>
-            <PlanModal
-              customerID={this.state.stripeCustomerID}
-              user={this.props.user}
-              properties={this.props.properties}
-            />
+        <React.Fragment>
+          <Header as="h1">Billing Details</Header>
+          <Segment>
+            <Header as="h2">Current Plan:</Header>
+            <Segment.Inline>
+              {" "}
+              <strong>{billingPlans[billingPlan].name}</strong>:{" "}
+              {billingPlans[billingPlan].description}
+            </Segment.Inline>
+            <FlexRow style={{ marginTop: "25px" }}>
+              <PlanModal
+                customerID={this.state.stripeCustomerID}
+                user={this.props.user}
+                properties={this.props.properties}
+              />
+            </FlexRow>
+          </Segment>
+        </React.Fragment>
+      );
+    }else {
+      loading = (
+        <React.Fragment>
+          <Header as="h1">Billing Details</Header>
+          <CreditCard user={this.props.user} />
+
+          <FlexRow style={{ marginTop: "25px", marginBottom: "35px" }}>
+            <p>Your next bill will be sent on {nextBilling}.</p>
           </FlexRow>
-        </Segment>
+
+          <Segment>
+            <Header as="h2">Current Plan:</Header>
+            <Segment.Inline>
+              {" "}
+              <strong>{billingPlans[billingPlan].name}</strong>:{" "}
+              {billingPlans[billingPlan].description}
+            </Segment.Inline>
+            <FlexRow style={{ marginTop: "25px" }}>
+              <PlanModal
+                customerID={this.state.stripeCustomerID}
+                user={this.props.user}
+                properties={this.props.properties}
+              />
+            </FlexRow>
+          </Segment>
+        </React.Fragment>
       );
     }
 
     return (
       <div>
-        <Header as="h1">Billing Details</Header>
-        <CreditCard user={this.props.user} />
-
-        <FlexRow style={{ marginTop: "25px", marginBottom: "35px" }}>
-          <p>Your next bill will be sent on {nextBilling}.</p>
-        </FlexRow>
-
         {loading}
       </div>
     );
