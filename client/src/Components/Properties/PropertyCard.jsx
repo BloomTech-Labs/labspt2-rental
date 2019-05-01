@@ -9,7 +9,7 @@ const PropertyCard = props => {
       <InfoCard.Label hover={props.addressFull}>{props.name}</InfoCard.Label>
       <InfoCard.ID>{props.id}</InfoCard.ID>
       <InfoCard.StatA label="Assistants">{props.assistants}</InfoCard.StatA>
-      <InfoCard.StatB label="Max Occupants">{props.occupants}</InfoCard.StatB>
+      <InfoCard.StatB label="Occupants">{props.occupants}</InfoCard.StatB>
     </InfoCard>
   );
 };
