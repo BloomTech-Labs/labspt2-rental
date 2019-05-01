@@ -61,7 +61,7 @@ const label = ({ children, hover }) => (
   />
 );
 const statA = ({ children, label }) => (
-  <Statistic size="tiny" style={{ margin: "10px 15px", width: "125px" }}>
+  <Statistic size="tiny" style={{ margin: "10px 15px", width: "70%" }}>
     <Statistic.Label>{label}</Statistic.Label>
     <Statistic.Value className="ellipsis" style={{ maxWidth: "125px" }}>
       {children}
@@ -69,7 +69,10 @@ const statA = ({ children, label }) => (
   </Statistic>
 );
 const statB = ({ children, label }) => (
-  <Statistic size="tiny" style={{ margin: "10px 15px", width: "125px" }}>
+  <Statistic
+    size="tiny"
+    style={{ margin: "10px 15px", width: "70%", whiteSpace: "nowrap" }}
+  >
     <Statistic.Label>{label}</Statistic.Label>
     <Statistic.Value className="ellipsis" style={{ maxWidth: "125px" }}>
       {children}

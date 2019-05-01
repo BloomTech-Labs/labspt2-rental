@@ -163,7 +163,7 @@ class Properties extends Component {
       );
     } else {
       renderComponent = (
-        <FlexColumn style={{ height: "100vh", width: "75vw" }} alignCenter>
+        <FlexColumn style={{ height: "100vh", width: "65vw" }} alignCenter>
           {modal}
 
           <FlexRow width="full" justifyBetween alignCenter spaceBottom>

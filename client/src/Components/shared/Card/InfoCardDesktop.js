@@ -12,11 +12,11 @@ class InfoCardDesktop extends Component {
         alignCenter
         justifyBetween
         width="full"
-        style={{ paddingTop: "10px", paddingBottom: "10px" }}
+        style={{ paddingTop: "10px", paddingBottom: "10px", width: "100%" }}
       >
         {components.image}
 
-        <FlexColumn grow="1" spaceLeft="20px">
+        <FlexColumn grow="1" spaceLeft="20px" width="full">
           <FlexRow alignCenter spaceBottom="10px">
             {components.title}
             {components.id}
@@ -32,7 +32,7 @@ class InfoCardDesktop extends Component {
 
             <FlexColumn>
               <Link to={link}>
-                <Button style={{ margin: "10px 0", minWidth: "110px" }}>
+                <Button style={{ margin: "10px 0", minWidth: "30%" }}>
                   {linkName || "More Info"}
                 </Button>
               </Link>
