@@ -6,7 +6,9 @@ import {
   Segment,
   Label,
   Menu,
-  Checkbox
+  Checkbox,
+  Dimmer,
+  Loader
 } from "semantic-ui-react";
 import { FlexColumn, FlexRow } from "custom-components";
 import { Link } from "react-router-dom";
@@ -101,9 +103,23 @@ class Tasks extends Component {
     ];
     const { pageSize, page } = this.query;
     const role = user ? user.role : null;
-
+    let loadingComponent;
+    if (loading) {
+      loadingComponent = (
+        <Dimmer active inverted>
+          <Loader inverted>Loading</Loader>
+        </Dimmer>
+      );
+    } else {
+      loadingComponent = (
+        <Dimmer inverted>
+          <Loader inverted>Loading</Loader>
+        </Dimmer>
+      );
+    }
     return (
       <FlexColumn style={{ flexWrap: "wrap", height: "100vh" }}>
+        {loadingComponent}
         <FlexRow width="100%" justifyBetween style={{ alignItems: "baseline" }}>
           <Header as="h1">Tasks</Header>
           {role === "owner" ? (
