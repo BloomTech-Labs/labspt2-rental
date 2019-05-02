@@ -76,7 +76,7 @@ export default class PlanModal extends Component {
 
     let plan;
 
-    if(this.props.user.billingAddress){
+    if(!this.props.user.billingAddress){
       plan = (
         <div>
         <Button basic color="blue" onClick={this.show}>
