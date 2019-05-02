@@ -7,6 +7,7 @@ export const getUser = user => {
     dispatch({ type: actions.STRIPE_USER_STARTED });
     try {
       const user = await axios.get(`${config.apiUrl}/api/users/me`);
+      console.log('is there a billing plan?', user.data.data);
       dispatch({
         type: actions.STRIPE_USER_SUCCESS,
         payload: user.data.data

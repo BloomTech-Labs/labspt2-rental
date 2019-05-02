@@ -4,14 +4,15 @@ import stripeModule from 'stripe';
 import { User } from '../../resources/user/user.model';
 import { Reservation } from '../../resources/reservations/reservations.model';
 
-const keyPublishable = config.stripePublishable;
-const keySecret = config.stripeSecret;
-const planid = config.stripePlan;
+const keyPublishable = config.keys.stripePublishable;
+const keySecret = config.keys.stripeSecret;
+const planid = config.keys.stripePlan;
 
 const stripe = stripeModule(keySecret);
 
 let userID = '';
-const userObject = {
+
+let userObject = {
   stripeCustomerID: '',
   subscriptionID: '',
   subscriptionItemID: '',
@@ -19,7 +20,12 @@ const userObject = {
   last4: '',
   cardType: '',
   cardExpiration: '',
-  billingPlan: ''
+  billingPlan: '',
+  billingAddress: {
+    address1: '',
+    city: '',
+    state: ''
+  }
 };
 
 export const render = async (req, res, next) => {
@@ -109,25 +115,19 @@ export const subscribe = async (req, res) => {
   try {
     userID = req.user._id;
 
-    const {
-      id,
-      email,
-      address_line1,
-      address_city,
-      address_state,
-      address_zip,
-      name
-    } = req.body.token;
+    const { id, email, name } = req.body.token;
+
+    const { address } = req.body;
+
+    userObject.billingAddress.address1 = address.address_line1;
+    userObject.billingAddress.city = address.address_city;
+    userObject.billingAddress.state = address.address_state;
 
     userObject.billingPlan = req.body.updatedPlan;
 
     stripe.customers.create(
       {
         email: email,
-        address_line1: address_line1,
-        address_city: address_city,
-        address_state: address_state,
-        address_zip: address_zip,
         name: name,
         source: id
       },
@@ -160,7 +160,6 @@ export const getSubscription = async (req, res) => {
           err
         });
       } else {
-        console.log('User subscription: ', subscription);
         return res.status(201);
       }
     }
@@ -201,7 +200,6 @@ const createUsageRecord = async (user, res) => {
           err
         });
       } else {
-        console.log('Updated usage record from Stripe', usageRecord);
         return res.status(201);
       }
     }

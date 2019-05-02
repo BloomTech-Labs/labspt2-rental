@@ -17,7 +17,7 @@ export default class Billing extends Component {
 
   componentDidMount = () => {
     this.setState({
-      nextBilling: "April 21, 2019",
+      nextBilling: "May 30, 2019",
       billingPlan: this.props.user.billingPlan,
       stripeCustomerID: this.props.user.stripeCustomerID,
       subscriptionID: this.props.user.subscriptionID
@@ -60,6 +60,7 @@ export default class Billing extends Component {
               <PlanModal
                 customerID={this.state.stripeCustomerID}
                 user={this.props.user}
+                getUser={this.props.getUser}
                 properties={this.props.properties}
               />
             </FlexRow>
@@ -79,6 +80,7 @@ export default class Billing extends Component {
             </Segment.Inline>
             <FlexRow style={{ marginTop: "25px" }}>
               <PlanModal
+                getUser={this.props.getUser}
                 customerID={this.state.stripeCustomerID}
                 user={this.props.user}
                 properties={this.props.properties}
@@ -107,6 +109,7 @@ export default class Billing extends Component {
             <FlexRow style={{ marginTop: "25px" }}>
               <PlanModal
                 customerID={this.state.stripeCustomerID}
+                getUser={this.props.getUser}
                 user={this.props.user}
                 properties={this.props.properties}
               />

@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { Tab, Segment, Dimmer, Loader } from "semantic-ui-react";
+import { Tab, Dimmer, Loader } from "semantic-ui-react";
 import { Container } from '../../custom-components/index';
 import Billing from "./billing";
 import Account from "./account.js";
@@ -51,17 +51,19 @@ export default class Settings extends Component {
     let loading;
     if (this.loading) {
       loading = (
-        <Container style={{ height: "100vh", width: "65vw", display: 'flex', alignItems: 'center'}}>
           <Dimmer active inverted>
             <Loader inverted>Loading</Loader>
           </Dimmer>
-          <Tab menu={{ attached: false }} panes={this.panes} />
-        </Container>
       );
     } else {
-      loading = <Tab menu={{ attached: false }} panes={this.panes} />;
+       loading = null
     }
 
-    return <React.Fragment style={{ height: "100vh", width: "65vw", display: 'flex', alignItems: 'center'}} >{loading}</React.Fragment>;
+    return (
+    <Container style={{ width: "65vw", display: 'flex', alignItems: 'center'}} >
+      {loading}
+      <Tab menu={{ attached: false }} panes={this.panes} style={{ width: '90%', marginTop: '2em', marginBottom: '2em'}} />
+    </Container >
+    )
   }
 }

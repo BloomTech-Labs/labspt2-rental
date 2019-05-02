@@ -55,8 +55,7 @@ export default class UpdateBillingModal extends Component {
   };
 
   render() {
-    const { open } = this.state;
-    const { address1, city, state } = this.state;
+    const { open, address1, city, state } = this.state;
 
     return (
       <div>
