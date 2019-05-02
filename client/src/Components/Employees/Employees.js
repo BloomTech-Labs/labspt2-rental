@@ -4,7 +4,6 @@ import { FlexColumn, FlexRow } from "custom-components";
 import EmployeeList from "./EmployeeList";
 import Search from "../shared/Search/Search";
 import styled from "styled-components";
-import { Link } from "react-router-dom";
 
 const DesktopButton = styled.button`
   &&& {
