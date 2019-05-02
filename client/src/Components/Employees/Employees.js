@@ -88,7 +88,7 @@ export default class Employees extends Component {
       );
     }
     return (
-      <FlexColumn style={{ height: "100vh", width: "65vw" }} alignCenter>
+      <FlexColumn style={{ width: "65vw" }} alignCenter>
         {loadingComponent}
         <FlexRow width="full" justifyBetween alignCenter spaceBottom>
           <Header as="h1" style={{ margin: 0 }}>
