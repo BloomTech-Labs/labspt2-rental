@@ -97,7 +97,6 @@ export const updateProperty = (body = {}) => dispatch => {
     });
 };
 
-// YOU WERE HERE. HOOK THIS TO REDUX.
 export const sendEmail = msg => dispatch => {
   dispatch({ type: actions.SENDGRID_STARTED });
   axios

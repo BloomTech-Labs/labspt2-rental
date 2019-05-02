@@ -32,7 +32,6 @@ export default class Billing extends Component {
 
   render() {
     const { nextBilling, billingPlan } = this.state;
-    console.log("stripeCustomerID", this.state.stripeCustomerID, billingPlan);
 
     let loading;
     if (this.state.billingPlan === "") {
