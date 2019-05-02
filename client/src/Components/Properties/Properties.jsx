@@ -127,7 +127,7 @@ class Properties extends Component {
     let renderComponent;
     if (this.props.loading) {
       renderComponent = (
-        <FlexColumn style={{ height: "100vh", width: "65vw" }} alignCenter>
+        <FlexColumn style={{ width: "65vw" }} alignCenter>
           <Dimmer active inverted>
             <Loader inverted>Loading</Loader>
           </Dimmer>
@@ -163,7 +163,7 @@ class Properties extends Component {
       );
     } else {
       renderComponent = (
-        <FlexColumn style={{ height: "100vh", width: "65vw" }} alignCenter>
+        <FlexColumn style={{ width: "65vw" }} alignCenter>
           {modal}
 
           <FlexRow width="full" justifyBetween alignCenter spaceBottom>
