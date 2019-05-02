@@ -223,8 +223,6 @@ export const fetchIncompletedTaskCount = (
 ) => dispatch => {
   dispatch({ type: actions.FETCH_TASK_ATTEMPT });
 
-
-
   function getIncompletedTaskCounts(status = null, completed = false) {
     return axios.get(
       `${config.apiUrl}/api/tasks/count?filter=${JSON.stringify({
@@ -234,15 +232,15 @@ export const fetchIncompletedTaskCount = (
     );
   }
 
-    return axios 
-      .all([
-        getIncompletedTaskCounts("overdue"),
-        getIncompletedTaskCounts("due today"),
-        getIncompletedTaskCounts("upcoming")
-      ])
-      .then(
-        axios.spread((overdueIncompleted, duetodayIncompleted, upcomingIncompleted) => {
-
+  return axios
+    .all([
+      getIncompletedTaskCounts("overdue"),
+      getIncompletedTaskCounts("due today"),
+      getIncompletedTaskCounts("upcoming")
+    ])
+    .then(
+      axios.spread(
+        (overdueIncompleted, duetodayIncompleted, upcomingIncompleted) => {
           const taskResult = {
             overdueIncompleted: overdueIncompleted.data.count,
             duetodayIncompleted: duetodayIncompleted.data.count,

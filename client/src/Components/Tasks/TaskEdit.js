@@ -240,12 +240,10 @@ class TaskEdit extends Component {
             <br />
 
             <FlexRow width="full" justifyCenter>
-              {role === "employee" && permissions.task === false ? (
-                null
-              ) : (
-              <Button basic color="red" onClick={this.openModal}>
-                Delete Task
-              </Button>
+              {role === "employee" && permissions.task === false ? null : (
+                <Button basic color="red" onClick={this.openModal}>
+                  Delete Task
+                </Button>
               )}
               <Button basic onClick={this.handleCancel}>
                 Cancel Update

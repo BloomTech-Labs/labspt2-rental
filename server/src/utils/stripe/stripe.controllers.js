@@ -4,9 +4,9 @@ import stripeModule from 'stripe';
 import { User } from '../../resources/user/user.model';
 import { Reservation } from '../../resources/reservations/reservations.model';
 
-const keyPublishable = config.stripe.stripe_pub;
-const keySecret = config.stripe.stripe_secret;
-const planid = config.stripe.stripe_plan;
+const keyPublishable = config.stripePublishable;
+const keySecret = config.stripeSecret;
+const planid = config.stripePlan;
 
 const stripe = stripeModule(keySecret);
 

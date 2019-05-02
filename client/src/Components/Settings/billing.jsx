@@ -33,8 +33,13 @@ export default class Billing extends Component {
   };
 
   render() {
+<<<<<<< HEAD
     const { nextBilling, billingPlan, subscriptionID } = this.state;
     console.log('stripeCustomerID', this.state.stripeCustomerID, billingPlan, subscriptionID)
+=======
+    const { nextBilling, billingPlan } = this.state;
+    console.log("stripeCustomerID", this.state.stripeCustomerID, billingPlan);
+>>>>>>> 783664a174a5504ea306105134aaeff832b54a29
 
     let loading;
     if (this.state.billingPlan === "") {
@@ -46,7 +51,7 @@ export default class Billing extends Component {
           </Dimmer>
         </Segment>
       );
-    } else if(!this.state.stripeCustomerID){
+    } else if (!this.state.stripeCustomerID) {
       loading = (
         <React.Fragment>
           <Header as="h1">Billing Details</Header>
@@ -67,7 +72,7 @@ export default class Billing extends Component {
           </Segment>
         </React.Fragment>
       );
-    }else {
+    } else {
       loading = (
         <React.Fragment>
           <Header as="h1">Billing Details</Header>
@@ -96,11 +101,7 @@ export default class Billing extends Component {
       );
     }
 
-    return (
-      <div>
-        {loading}
-      </div>
-    );
+    return <div>{loading}</div>;
   }
 }
 
