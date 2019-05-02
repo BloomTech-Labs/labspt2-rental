@@ -17,12 +17,12 @@ class ReservationView extends Component {
     this.props.fetchSingleReservation(this.props.match.params.id);
   }
 
-  calculateTotal = () => {
-    const nights = differenceInDays(
-      new Date(this.props.reservation.checkOut),
-      new Date(this.props.reservation.checkIn)
-    );
-  };
+  // calculateTotal = () => {
+  //   const nights = differenceInDays(
+  //     new Date(this.props.reservation.checkOut),
+  //     new Date(this.props.reservation.checkIn)
+  //   );
+  // };
 
   render() {
     const { reservation } = this.props;

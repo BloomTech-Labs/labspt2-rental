@@ -43,10 +43,7 @@ export default class Settings extends Component {
   }
 
   componentDidMount = () => {
-    this.props
-      .getUser()
-      .then(response => console.log(this.props))
-      .catch(err => console.log(err));
+    this.props.getUser();
     this.props.getProperties().catch(err => console.log(err));
   };
 

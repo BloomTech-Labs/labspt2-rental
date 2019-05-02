@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import { Menu, Sidebar, Button, Icon, Segment } from "semantic-ui-react";
 import { Link } from "react-router-dom";
-import { FlexRow, FlexColumn } from "custom-components";
+import { FlexColumn } from "custom-components";
 
 export class Mobile extends Component {
   state = {
@@ -59,7 +59,6 @@ export class Mobile extends Component {
         </Sidebar>
 
         <Sidebar.Pusher as={Segment} style={{ marginTop: 0 }}>
-          {/*style={{ marginLeft: visible && "140px" }}*/}
           <FlexColumn width="full" justifyCenter>
             <Button
               circular

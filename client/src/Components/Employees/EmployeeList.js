@@ -1,16 +1,13 @@
 import React from "react";
-import { Pagination, Button } from "semantic-ui-react";
+import { Pagination } from "semantic-ui-react";
 import { FlexColumn, Divider, FlexRow } from "custom-components";
 import EmployeeListItem from "./EmployeeListItem";
-import { Link } from "react-router-dom";
 
 import taskPropertyAssign from "./taskPropertyHelper";
 
 const EmployeeList = props => {
-  const { page, handlePageChange, user, loading } = props;
+  const { page, handlePageChange, loading } = props;
   const numPages = props.numPages ? props.numPages : 0;
-
-  const role = user ? user.role : null;
 
   // modEmployees is used as a temp replacement for employees because employees is read-only at this point and cannot be directly modified
   const modEmployees = taskPropertyAssign(props);

@@ -1,8 +1,7 @@
 import React from "react";
-import { Button, Pagination } from "semantic-ui-react";
+import { Pagination } from "semantic-ui-react";
 import { FlexColumn, FlexRow, Divider } from "custom-components";
 import ReservationListItem from "./ReservationListItem";
-import { Link } from "react-router-dom";
 
 export default props => {
   const { reservations, loading, handlePageChange, count } = props;
