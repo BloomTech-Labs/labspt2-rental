@@ -4,10 +4,10 @@ import {
   Segment,
   Button,
   Modal,
-  Grid,
   Form,
   Input
 } from "semantic-ui-react";
+import { FlexRow } from '../../custom-components/index';
 import { Elements, StripeProvider } from "react-stripe-elements";
 import UpdateCardModal from "./updateCardModal";
 import { config } from "../../config/dev";
@@ -67,58 +67,46 @@ export default class UpdateBillingModal extends Component {
           <Modal.Header>Update Your Billing Details</Modal.Header>
 
           <Modal.Content>
-            <Segment>
-              <Header as="h3" style={{ marginBottom: "40px" }}>
-                Billing Address
-              </Header>
-              <Grid divided columns={2}>
-                <Form>
-                  <Grid.Column>
-                    <Grid row={2}>
-                      <Grid.Row textAlign="left">
-                        <Form.Field>
-                          <label>Address</label>
-                          <Input
-                            name="address1"
-                            value={address1 || ""}
-                            type="text"
-                            onChange={this.handleChange}
-                          />
-                        </Form.Field>
-                      </Grid.Row>
-
-                      <Grid.Row textAlign="left">
-                        <Form.Field>
-                          <label>City</label>
-                          <Input
-                            name="city"
-                            value={city || ""}
-                            type="text"
-                            onChange={this.handleChange}
-                          />
-                        </Form.Field>
-                      </Grid.Row>
-                    </Grid>
-                  </Grid.Column>
-
-                  <Grid.Column>
-                    <Grid row={1}>
-                      <Grid.Row textAlign="left">
-                        <Form.Field>
-                          <label>State</label>
-                          <Input
-                            name="state"
-                            value={state || ""}
-                            type="text"
-                            onChange={this.handleChange}
-                          />
-                        </Form.Field>
-                      </Grid.Row>
-                    </Grid>
-                  </Grid.Column>
-                </Form>
-              </Grid>
-            </Segment>
+          <Segment>
+                <Header as="h3" style={{ marginBottom: "40px" }}>
+                  Billing Address
+                </Header>
+  
+                  <Form>
+                    <FlexRow justifyBetween >
+                      <Form.Field style={{ width: '30%'}} >
+                        <label>Address</label>
+                        <Input
+                          name="address1"
+                          value={address1 || ""}
+                          type="text"
+                          onChange={this.handleChange}
+                        />
+                      </Form.Field>
+  
+                      <Form.Field style={{ width: '30%'}} >
+                        <label>City</label>
+                        <Input
+                          name="city"
+                          value={city || ""}
+                          type="text"
+                          onChange={this.handleChange}
+                        />
+                      </Form.Field>
+  
+                      <Form.Field style={{ width: '30%'}} >
+                        <label>State</label>
+                        <Input
+                          name="state"
+                          value={state || ""}
+                          type="text"
+                          onChange={this.handleChange}
+                        />
+                      </Form.Field>
+                    </FlexRow>
+  
+                  </Form>
+              </Segment>
 
             <StripeProvider apiKey={config.stripeApiKey}>
               <Elements>

@@ -27,7 +27,9 @@ export default class Billing extends Component {
   componentDidUpdate = prevProps => {
     if (this.props !== prevProps) {
       this.setState({
+        stripeCustomerID: this.props.user.stripeCustomerID,
         billingPlan: this.props.user.billingPlan,
+        subscriptionID: this.props.user.subscriptionID
       });
     }
   };
