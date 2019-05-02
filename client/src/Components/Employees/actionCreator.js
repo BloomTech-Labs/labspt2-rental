@@ -39,7 +39,7 @@ export const getEmployees = (filterSort = {}) => dispatch => {
     ])
     .then(
       axios.spread((employees, properties, tasks, count, user) => {
-        const numPages = Math.ceil(count.data.count / 4);
+        const numPages = Math.ceil(count.data.count / filterSort.pageSize);
         const result = {
           employees: employees.data.data,
           properties: properties.data.data,
