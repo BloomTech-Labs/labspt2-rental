@@ -1,7 +1,7 @@
 import config from '../../config';
 const sgMail = require('@sendgrid/mail');
 
-const sendgridKey = config.sendgrid;
+const sendgridKey = config.keys.sendgrid;
 
 const sendMail = async (req, res, next) => {
   sgMail.setApiKey(sendgridKey);
