@@ -9,7 +9,7 @@ export const GetStarted = ({ mobile }) => (
     alignCenter
     style={{
       width: "100%",
-      height: mobile ? "105vh" : "80vh",
+      height: mobile ? "105vh" : "100vh",
       backgroundColor: "#1a1b1c",
       display: "flex",
       paddingTop: mobile ? "10em" : "12em",
