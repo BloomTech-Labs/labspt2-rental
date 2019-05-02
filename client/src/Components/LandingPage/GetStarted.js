@@ -16,14 +16,14 @@ export const GetStarted = ({ mobile }) => (
       paddingBottom: "15em"
     }}
   >
-    <Header inverted as="h2" content="Get started in three simple steps:" />
+    <Header inverted as="h2" content="Get started in three simple steps:" style={{ marginBottom: mobile ? '2em' : null}}/>
 
     <Container
       style={{
         display: "flex",
         justifyContent: "center",
         alignItems: "center",
-        marginTop: mobile ? "3em" : "4em",
+        marginTop: mobile ? "1em" : "4em",
         paddingBottom: mobile ? "5em" : "5em"
       }}
     >
