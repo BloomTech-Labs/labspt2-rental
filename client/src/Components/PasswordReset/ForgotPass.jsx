@@ -44,7 +44,6 @@ class ForgotPass extends Component {
   };
 
   render() {
-    console.log(this.props);
     return (
       <FlexColumn
         width="full"

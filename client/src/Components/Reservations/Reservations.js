@@ -3,7 +3,6 @@ import { Button, Header, Tab, Loader, Dimmer } from "semantic-ui-react";
 import { FlexColumn, FlexRow } from "custom-components";
 import ReservationList from "./ReservationList";
 import Search from "../shared/Search/Search";
-import { Link } from "react-router-dom";
 import styled from "styled-components";
 
 const DesktopButton = styled.button`

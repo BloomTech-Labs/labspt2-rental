@@ -81,7 +81,6 @@ class EmployeeAdd extends Component {
               }
             })
             .catch(err => {
-              console.log(err);
               this.setState({
                 errorModalOpen: true,
                 modalMessage:
@@ -90,7 +89,6 @@ class EmployeeAdd extends Component {
             });
         })
         .catch(err => {
-          console.log(err);
           this.setState({
             errorModalOpen: true,
             modalMessage: "Could not update your information. Please try again."

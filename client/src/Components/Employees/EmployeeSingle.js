@@ -1,11 +1,6 @@
 import React, { Component } from "react";
 import styled from "styled-components";
-import {
-  Icon,
-  Image,
-  Header,
-  Checkbox
-} from "semantic-ui-react";
+import { Icon, Image, Header, Checkbox } from "semantic-ui-react";
 import { FlexRow, FlexColumn } from "custom-components";
 
 import EmployeePropertyCard from "./EmployeePropertyCard";
@@ -57,14 +52,12 @@ class EmployeeSingle extends Component {
 
   // this is a reusable component for the permission selections with logic that removes the options if an employee is viewing it.
   PermissionDropdown = (options = {}) => {
-    console.log(options.default);
     return options.user.role === "owner" ? (
       <Checkbox
         toggle
         className="space-left-20"
         defaultChecked={options.default}
         onChange={(e, val) => {
-          console.log(val);
           this.permissionChange({
             ...options.employee,
             permissions: {
@@ -108,20 +101,28 @@ class EmployeeSingle extends Component {
           )
         ) : (
           <FlexColumn justifyCenter alignStart width="full">
-            <FlexRow justifyAround width="full" >
-              <FlexColumn alignStart width="40%" >
-                <Header as="h1" block color="blue" >
+            <FlexRow justifyAround width="full">
+              <FlexColumn alignStart width="40%">
+                <Header as="h1" block color="blue">
                   {" "}
                   {employee.firstName} {employee.lastName}{" "}
                 </Header>
-                <Header as="h4" style={{marginTop: "0px"} }> Email: {employee.email} </Header>
-                <Header as="h4" style={{marginTop: "0px"}}> Phone: {employee.phone} </Header>
+                <Header as="h4" style={{ marginTop: "0px" }}>
+                  {" "}
+                  Email: {employee.email}{" "}
+                </Header>
+                <Header as="h4" style={{ marginTop: "0px" }}>
+                  {" "}
+                  Phone: {employee.phone}{" "}
+                </Header>
                 <Header as="h4">
                   {`Today's Tasks: `}
                   {employee.todayTask}
                 </Header>
-                <Header as="h4" style={{marginTop: "0px"}}>Overdue Tasks: {employee.overdue}</Header>
-              </FlexColumn >
+                <Header as="h4" style={{ marginTop: "0px" }}>
+                  Overdue Tasks: {employee.overdue}
+                </Header>
+              </FlexColumn>
               {employee.image ? (
                 <Image
                   src={`https://res.cloudinary.com/roostr-labpt2/image/upload/c_lfill,g_center,h_375,w_300/v1556336341/${
