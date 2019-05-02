@@ -4,7 +4,8 @@ const initialState = {
   loading: false,
   error: false,
   user: {},
-  properties: []
+  properties: [],
+  subscription: {}
 };
 
 const settingsReducer = (state = initialState, action) => {
@@ -38,6 +39,23 @@ const settingsReducer = (state = initialState, action) => {
         properties: action.payload
       };
     case actions.STRIPE_PROPERTY_FAILURE:
+      return {
+        ...state,
+        loading: false,
+        error: action.error
+      };
+      case actions.STRIPE_FETCH_SUBSCRIPTION_STARTED:
+      return {
+        ...state,
+        loading: true
+      };
+    case actions.STRIPE_FETCH_SUBSCRIPTION_SUCCESS:
+      return {
+        ...state,
+        loading: false,
+        subscription: action.payload
+      };
+    case actions.STRIPE_FETCH_SUBSCRIPTION_ERROR:
       return {
         ...state,
         loading: false,

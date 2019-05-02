@@ -10,7 +10,8 @@ export default class Billing extends Component {
     this.state = {
       nextBilling: "",
       billingPlan: "",
-      stripeCustomerID: ""
+      stripeCustomerID: "",
+      subscriptionID: ""
     };
   }
 
@@ -18,21 +19,22 @@ export default class Billing extends Component {
     this.setState({
       nextBilling: "April 21, 2019",
       billingPlan: this.props.user.billingPlan,
-      stripeCustomerID: this.props.user.stripeCustomerID
+      stripeCustomerID: this.props.user.stripeCustomerID,
+      subscriptionID: this.props.user.subscriptionID
     });
   };
 
   componentDidUpdate = prevProps => {
     if (this.props !== prevProps) {
       this.setState({
-        billingPlan: this.props.user.billingPlan
+        billingPlan: this.props.user.billingPlan,
       });
     }
   };
 
   render() {
-    const { nextBilling, billingPlan } = this.state;
-    console.log('stripeCustomerID', this.state.stripeCustomerID, billingPlan)
+    const { nextBilling, billingPlan, subscriptionID } = this.state;
+    console.log('stripeCustomerID', this.state.stripeCustomerID, billingPlan, subscriptionID)
 
     let loading;
     if (this.state.billingPlan === "") {

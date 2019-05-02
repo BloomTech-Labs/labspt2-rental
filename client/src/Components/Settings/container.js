@@ -3,7 +3,8 @@ import {
   updateUser,
   getUser,
   updatePassword,
-  getProperties
+  getProperties,
+  getSubscription
 } from "./actionCreator";
 import Settings from "./settings";
 
@@ -11,10 +12,11 @@ const mapStateToProps = ({ settings }) => ({
   loading: settings.loading,
   error: settings.error,
   user: settings.user,
-  properties: settings.properties
+  properties: settings.properties,
+  subscription: settings.subscription
 });
 
 export default connect(
   mapStateToProps,
-  { updateUser, getUser, updatePassword, getProperties }
+  { updateUser, getUser, updatePassword, getProperties, getSubscription }
 )(Settings);

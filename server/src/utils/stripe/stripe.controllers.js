@@ -58,7 +58,6 @@ const createSubscription = async (err, customer, res) => {
         userObject.subscriptionID = subscription.id;
         const subscriptionItemID = subscription.items.data[0].id;
         userObject.subscriptionItemID = subscriptionItemID;
-        console.log('userObject', userObject)
         const updateUser = await updateUserWithStripeInfo(err, res);
         if (updateUser) {
           return res.status(200).send(updateUser);
@@ -88,7 +87,6 @@ const updateUserWithStripeInfo = async (err, res) => {
         .exec();
 
       if (user) {
-        console.log('updated user:', user)
         return res.status(201).send(user);
       }
     } catch (err) {
@@ -148,6 +146,25 @@ export const subscribe = async (req, res) => {
     console.error(err);
     res.status(500).end();
   }
+};
+
+// Fetches user's subscription details
+
+export const getSubscription = async (req, res) => {
+  stripe.subscriptions.retrieve(
+    req.body.subscriptionID,
+    (err, subscription) => {
+      if (err && err != null) {
+        return res.status(500).json({
+          message: 'Failed to fetch user subscription',
+          err
+        });
+      } else {
+        console.log('User subscription: ', subscription);
+        return res.status(201);
+      }
+    }
+  );
 };
 
 // Used for updating the quantity of properties on the user object and sending the updated usage amount to Stripe for adjusting their monthly subscription charge
@@ -299,44 +316,3 @@ export const updateCC = async (req, res) => {
     res.status(500).end();
   }
 };
-
-// Updating card details but not card number:
-
-// export const updateCC = async (req, res) => {
-//   try {
-//     userID = req.user._id;
-//     const { customerID, cardID } = req.body;
-
-//     const {
-//       id,
-//       email,
-//       address_line1,
-//       address_city,
-//       address_state,
-//       address_zip,
-//       name
-//     } = req.body.token;
-
-//     stripe.customers.updateCard(
-//       customerID,
-//       cardID,
-//       {
-//         // fields to change
-//       },
-//       (err, card) => {
-//         if (err && err != null) {
-//           return res
-//             .status(500)
-//             .json({ message: 'Could not update user card', err });
-//         } else {
-//           console.log('updated card', card);
-//           // Update user schema with new billing details
-//           return res.status(200).json(card);
-//         }
-//       }
-//     );
-//   } catch (err) {
-//     console.log(err);
-//     res.status(500).end();
-//   }
-// };
