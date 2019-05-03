@@ -1,6 +1,6 @@
 import PropTypes from "prop-types";
 import React from "react";
-import { Button, Container, Header, Icon } from "semantic-ui-react";
+import { Button, Container, Header, Icon, Image } from "semantic-ui-react";
 import { Link } from "react-router-dom";
 import { FlexColumn, BouncingArrow } from "../../custom-components/index";
 
@@ -11,7 +11,25 @@ import { FlexColumn, BouncingArrow } from "../../custom-components/index";
 
 export const HomePageHeader = ({ mobile }) => (
   <Container text>
-    <FlexColumn alignCenter>
+    <FlexColumn alignCenter >
+
+      <div style={{ 
+        marginTop: mobile ? '3em' : '2em', 
+        display: 'flex', 
+        justifyContent: 'center', 
+        minHeight: mobile ? '14vh' : '20vh' 
+        }}>
+
+        <Image 
+        src={`https://res.cloudinary.com/divjebnjg/image/upload/v1556828692/nashville-3340046_960_720.png`} 
+        style={{ 
+          width: '80%', 
+          height: mobile ? '14vh' : '20vh' 
+        }}
+        />
+
+      </div>
+
       <Header
         as="h1"
         content="Roostr"
@@ -20,7 +38,7 @@ export const HomePageHeader = ({ mobile }) => (
           fontSize: mobile ? "3em" : "4em",
           fontWeight: "normal",
           marginBottom: mobile ? "1em" : 0,
-          marginTop: mobile ? "3em" : "1.5em"
+          marginTop: mobile ? "1em" : "0.5em"
         }}
       />
       <Header
@@ -38,7 +56,7 @@ export const HomePageHeader = ({ mobile }) => (
         <Button
           primary
           size="huge"
-          style={{ marginBottom: mobile ? "4em" : 0 }}
+          style={{ marginBottom: mobile ? "2em" : 0 }}
         >
           Get Started
           <Icon name="right arrow" />
@@ -51,9 +69,9 @@ export const HomePageHeader = ({ mobile }) => (
         size="large"
         name="down arrow"
         style={{
-          marginTop: mobile ? "5em" : "8em",
+          marginTop: mobile ? "1em" : "3em",
           opacity: "0.8",
-          marginBottom: mobile ? "2em" : null
+          marginBottom: mobile ? "1em" : null
         }}
       />
     </BouncingArrow>

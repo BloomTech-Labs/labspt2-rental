@@ -14,7 +14,6 @@ export const getReservation = reservationID => {
         payload: reservation.data.data
       });
     } catch (err) {
-      console.error(err);
       dispatch({ type: actions.FETCH_RESERVATION_ERROR, payload: err.message });
     }
   };
@@ -35,7 +34,6 @@ export const checkout = (token, amount, reservationID) => {
       });
       return payment.status;
     } catch (err) {
-      console.error(err);
       dispatch({ type: actions.CHECKOUT_ERROR, payload: err });
     }
   };

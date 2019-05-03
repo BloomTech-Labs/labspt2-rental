@@ -48,8 +48,6 @@ class CheckoutElement extends Component {
       name: this.state.billingName
     });
 
-    console.log(this.props.totalAmount, token);
-
     let response = await this.props.checkout(
       token,
       this.props.totalAmount,

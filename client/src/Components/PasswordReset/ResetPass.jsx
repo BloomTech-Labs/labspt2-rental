@@ -39,7 +39,6 @@ class ResetPass extends Component {
           loading: false,
           id: response.data.id
         });
-        console.log(this.state);
       })
       .catch(err => {
         this.setState({
@@ -60,7 +59,6 @@ class ResetPass extends Component {
           }
         })
         .catch(err => {
-          console.log(err);
           this.setState({
             open: true,
             modalMessage: "Password could not be updated. Please try again."

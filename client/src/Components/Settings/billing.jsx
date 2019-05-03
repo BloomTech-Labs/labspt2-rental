@@ -10,29 +10,32 @@ export default class Billing extends Component {
     this.state = {
       nextBilling: "",
       billingPlan: "",
-      stripeCustomerID: ""
+      stripeCustomerID: "",
+      subscriptionID: ""
     };
   }
 
   componentDidMount = () => {
     this.setState({
-      nextBilling: "April 21, 2019",
+      nextBilling: "May 30, 2019",
       billingPlan: this.props.user.billingPlan,
-      stripeCustomerID: this.props.user.stripeCustomerID
+      stripeCustomerID: this.props.user.stripeCustomerID,
+      subscriptionID: this.props.user.subscriptionID
     });
   };
 
   componentDidUpdate = prevProps => {
     if (this.props !== prevProps) {
       this.setState({
-        billingPlan: this.props.user.billingPlan
+        stripeCustomerID: this.props.user.stripeCustomerID,
+        billingPlan: this.props.user.billingPlan,
+        subscriptionID: this.props.user.subscriptionID
       });
     }
   };
 
   render() {
     const { nextBilling, billingPlan } = this.state;
-    console.log("stripeCustomerID", this.state.stripeCustomerID, billingPlan);
 
     let loading;
     if (this.state.billingPlan === "") {
@@ -43,6 +46,28 @@ export default class Billing extends Component {
             <Loader inverted>Loading</Loader>
           </Dimmer>
         </Segment>
+      );
+    } else if (!this.state.billingPlan) {
+      loading = (
+        <React.Fragment>
+          <Header as="h1">Billing Details</Header>
+          <Segment>
+            <Header as="h2">Current Plan:</Header>
+            <Segment.Inline>
+              {" "}
+              <strong>{billingPlans['free'].name}</strong>:{" "}
+              {billingPlans['free'].description}
+            </Segment.Inline>
+            <FlexRow style={{ marginTop: "25px" }}>
+              <PlanModal
+                customerID={this.state.stripeCustomerID}
+                user={this.props.user}
+                getUser={this.props.getUser}
+                properties={this.props.properties}
+              />
+            </FlexRow>
+          </Segment>
+        </React.Fragment>
       );
     } else if (!this.state.stripeCustomerID) {
       loading = (
@@ -57,6 +82,7 @@ export default class Billing extends Component {
             </Segment.Inline>
             <FlexRow style={{ marginTop: "25px" }}>
               <PlanModal
+                getUser={this.props.getUser}
                 customerID={this.state.stripeCustomerID}
                 user={this.props.user}
                 properties={this.props.properties}
@@ -85,6 +111,7 @@ export default class Billing extends Component {
             <FlexRow style={{ marginTop: "25px" }}>
               <PlanModal
                 customerID={this.state.stripeCustomerID}
+                getUser={this.props.getUser}
                 user={this.props.user}
                 properties={this.props.properties}
               />

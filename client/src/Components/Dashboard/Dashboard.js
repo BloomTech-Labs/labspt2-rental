@@ -25,7 +25,9 @@ class Dashboard extends Component {
             style={{
               width: "100%",
               maxWidth: "fit-content",
-              maxHeight: "100vh"
+              maxHeight: "100vh",
+              overflowY: 'scroll',
+              overflowX: 'hidden'
             }}
           >
             <Route

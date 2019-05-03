@@ -1,12 +1,5 @@
 import React, { Component } from "react";
-import {
-  Header,
-  Input,
-  Button,
-  Divider,
-  Dropdown,
-  Dimmer
-} from "semantic-ui-react";
+import { Header, Input, Button, Dropdown, Dimmer } from "semantic-ui-react";
 import { FlexRow, FlexColumn } from "custom-components";
 
 class EmployeeAdd extends Component {
@@ -100,7 +93,7 @@ class EmployeeAdd extends Component {
         justifyBetween
         alignCenter
         width="80%"
-        style={{ marginLeft: "10%" }}
+        style={{ padding: "2%" }}
       >
         <Dimmer
           active={this.state.dimmerOpen}
@@ -147,9 +140,9 @@ class EmployeeAdd extends Component {
 
         <br />
 
-        <FlexRow width="full">
+        <FlexRow width="100%" alignCenter>
           <Input
-            style={{ flexGrow: "1" }}
+            style={{ width: "100%", flexGrow: "1" }}
             placeholder="Email"
             onChange={e =>
               this.handleChange("employee", {
@@ -160,59 +153,57 @@ class EmployeeAdd extends Component {
           />
         </FlexRow>
 
-        <Divider style={{ width: "100%" }} />
-
         <br />
         <br />
 
-        <FlexColumn width="50%">
-          <div>
-            Can re-assign tasks
-            <Dropdown
-              className="space-left-20"
-              inline
-              options={permissionValues}
-              defaultValue={false}
-              onChange={(e, val) =>
-                this.handleChange("permissions", {
-                  ...permissions,
-                  task: val.value
-                })
-              }
-            />
-          </div>
+        <FlexColumn>
+          <Dropdown
+            text="Re-assign tasks?"
+            defaultValue={false}
+            onChange={(e, val) =>
+              this.handleChange("permissions", {
+                ...permissions,
+                task: val.value
+              })
+            }
+          >
+            <Dropdown.Menu>
+              <Dropdown.Item text="Yes" value="true" key="yes" />
+              <Dropdown.Item text="No" value="false" key="no" />
+            </Dropdown.Menu>
+          </Dropdown>
           <br />
-          <div>
-            Can re-assign properties{"   "}
-            <Dropdown
-              className="space-left-20"
-              inline
-              options={permissionValues}
-              defaultValue={false}
-              onChange={(e, val) =>
-                this.handleChange("permissions", {
-                  ...permissions,
-                  property: val.value
-                })
-              }
-            />
-          </div>
+          <Dropdown
+            text="Re-assign properties?"
+            defaultValue={false}
+            onChange={(e, val) =>
+              this.handleChange("permissions", {
+                ...permissions,
+                property: val.value
+              })
+            }
+          >
+            <Dropdown.Menu>
+              <Dropdown.Item text="Yes" value="true" key="yes" />
+              <Dropdown.Item text="No" value="false" key="no" />
+            </Dropdown.Menu>
+          </Dropdown>
           <br />
-          <div>
-            Can bill guests{"   "}
-            <Dropdown
-              className="space-left-20"
-              inline
-              options={permissionValues}
-              defaultValue={false}
-              onChange={(e, val) =>
-                this.handleChange("permissions", {
-                  ...permissions,
-                  checkout: val.value
-                })
-              }
-            />
-          </div>
+          <Dropdown
+            text="Process payments?"
+            defaultValue={false}
+            onChange={(e, val) =>
+              this.handleChange("permissions", {
+                ...permissions,
+                checkout: val.value
+              })
+            }
+          >
+            <Dropdown.Menu>
+              <Dropdown.Item text="Yes" value="true" key="yes" />
+              <Dropdown.Item text="No" value="false" key="no" />
+            </Dropdown.Menu>
+          </Dropdown>
         </FlexColumn>
 
         <br />

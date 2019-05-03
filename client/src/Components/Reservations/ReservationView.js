@@ -6,23 +6,23 @@ import {
   Icon,
   Image,
   Dimmer,
-  Loader
+  Loader,
+  Responsive
 } from "semantic-ui-react";
 import { FlexRow, FlexColumn, Container } from "custom-components";
 import { Link } from "react-router-dom";
 import { differenceInDays, format } from "date-fns";
+import styled from "styled-components";
+
+const getWidth = () => {
+  const isSSR = typeof window === "undefined";
+  return isSSR ? Responsive.onlyTablet.minWidth : window.innerWidth;
+};
 
 class ReservationView extends Component {
   componentDidMount() {
     this.props.fetchSingleReservation(this.props.match.params.id);
   }
-
-  calculateTotal = () => {
-    const nights = differenceInDays(
-      new Date(this.props.reservation.checkOut),
-      new Date(this.props.reservation.checkIn)
-    );
-  };
 
   render() {
     const { reservation } = this.props;
@@ -100,16 +100,69 @@ class ReservationView extends Component {
               )}
             </FlexRow>
 
-            <FlexRow
-              justifyBetween
-              style={{
-                width: "90%",
-                minHeight: "125px",
-                alignItems: "center",
-                marginBottom: "1em",
-                alignSelf: "center"
-              }}
-            >
+            <MobileContainer>
+              <FlexColumn style={{ width: "80%" }}>
+                <Header as="h3">{reservation.property.name}</Header>
+
+                <p style={{ marginBottom: 0 }}>
+                  {reservation.property.address1}
+                </p>
+                <p>
+                  {reservation.property.city}, {reservation.property.state}{" "}
+                  {reservation.property.zip}
+                </p>
+
+                <FlexColumn
+                  style={{
+                    width: "60%",
+                    alignItems: "baseline",
+                    marginTop: "2%"
+                  }}
+                >
+                  <FlexRow
+                    style={{
+                      marginTop: "5%",
+                      width: "100%",
+                      alignItems: "center",
+                      marginBottom: '3%'
+                    }}
+                  >
+                    <Icon
+                      name="moon outline"
+                      size="large"
+                      style={{ marginRight: "2%", color: "light green" }}
+                    />
+                    <p style={{ marginLeft: "5%" }}>{nights} nights</p>
+                  </FlexRow>
+
+                  <FlexRow
+                    style={{
+                      marginTop: "1%",
+                      width: "100%",
+                      alignItems: "center"
+                    }}
+                  >
+                    <Icon
+                      name="user outline"
+                      size="large"
+                      style={{ marginRight: "2%" }}
+                    />
+                    <p style={{ marginLeft: "5%" }}>
+                      Guests: {this.props.reservation.guests}
+                    </p>
+                  </FlexRow>
+                </FlexColumn>
+              </FlexColumn>
+
+              <Image
+                src={`https://res.cloudinary.com/roostr-labpt2/image/upload/c_scale,w_180/v1556327124/${
+                  reservation.property.image
+                }.jpg`}
+                style={{ marginBottom: '1em'}}
+              />
+              </MobileContainer>
+
+              <DesktopContainer>
               <FlexColumn style={{ width: "80%" }}>
                 <Header as="h3">{reservation.property.name}</Header>
 
@@ -123,7 +176,7 @@ class ReservationView extends Component {
 
                 <FlexRow
                   style={{
-                    width: "60%",
+                    width: "90%",
                     alignItems: "baseline",
                     marginTop: "2%"
                   }}
@@ -167,7 +220,7 @@ class ReservationView extends Component {
                   reservation.property.image
                 }.jpg`}
               />
-            </FlexRow>
+              </DesktopContainer>
 
             {/* Check In and Check Out View */}
             <FlexRow
@@ -301,3 +354,42 @@ class ReservationView extends Component {
 }
 
 export default ReservationView;
+
+const DesktopContainer = styled.div`
+  &&& {
+    display: flex;
+    justify-content: space-between;
+    width: 90%;
+    min-height: 125px;
+    align-items: center;
+    margin-bottom: 1em;
+    align-self: center;
+    
+    @media (max-width: 470px) {
+    display: none;
+    justify-content: space-between;
+    width: 90%;
+    min-height: 125px;
+    align-items: center;
+    margin-bottom: 1em;
+    align-self: center;
+    border: 1px solid blue;
+    }
+  }
+`;
+
+const MobileContainer = styled.div`
+&&& {
+  display: none;
+  @media (max-width: 470px) {
+    display: flex;
+    flex-direction: column-reverse;
+    justify-content: space-between;
+    width: 90%;
+    min-height: 125px;
+    align-items: center;
+    margin-bottom: 1em;
+    align-self: center;
+  }
+}
+`;

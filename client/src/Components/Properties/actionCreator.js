@@ -188,7 +188,6 @@ export const getUser = user => {
         payload: user.data.data
       });
     } catch (err) {
-      console.error(err);
       dispatch({ type: actions.USER_ERROR, payload: err });
     }
   };

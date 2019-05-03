@@ -9,21 +9,21 @@ export const GetStarted = ({ mobile }) => (
     alignCenter
     style={{
       width: "100%",
-      height: mobile ? "105vh" : "80vh",
+      height: mobile ? "105vh" : "100vh",
       backgroundColor: "#1a1b1c",
       display: "flex",
       paddingTop: mobile ? "10em" : "12em",
       paddingBottom: "15em"
     }}
   >
-    <Header inverted as="h2" content="Get started in three simple steps:" />
+    <Header inverted as="h2" content="Get started in three simple steps:" style={{ marginBottom: mobile ? '2em' : null}}/>
 
     <Container
       style={{
         display: "flex",
         justifyContent: "center",
         alignItems: "center",
-        marginTop: mobile ? "3em" : "4em",
+        marginTop: mobile ? "1em" : "4em",
         paddingBottom: mobile ? "5em" : "5em"
       }}
     >
