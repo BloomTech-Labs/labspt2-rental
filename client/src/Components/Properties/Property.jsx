@@ -55,6 +55,15 @@ class Property extends Component {
     const property = this.props.properties.find(
       property => property._id === this.props.match.params.id
     );
+
+    const propImage = property
+      ? property.image
+        ? `http://res.cloudinary.com/roostr-labpt2/image/upload/c_scale,q_80,r_0,w_640/v1556327124/${
+            property.image
+          }.jpg`
+        : `https://res.cloudinary.com/roostr-labpt2/image/upload/c_fill,h_150,w_200/v1556771202/q01phvk7ecxb4ztfyll2.jpg`
+      : null;
+
     return (
       <>
         {property && (
@@ -174,7 +183,7 @@ class Property extends Component {
                       <p>
                         <strong>Name:</strong>{" "}
                         {property.assistants.length
-                          ? `${property.assistants[0].firstName} 
+                          ? `${property.assistants[0].firstName}
                   ${property.assistants[0].lastName}`
                           : `Not Assigned`}
                       </p>
@@ -183,9 +192,7 @@ class Property extends Component {
                 </FlexColumn>
                 <FlexColumn style={{ width: "50%", alignItems: "flex-end" }}>
                   <Image
-                    src={`http://res.cloudinary.com/roostr-labpt2/image/upload/c_scale,q_80,r_0,w_640/v1556327124/${
-                      property.image
-                    }.jpg`}
+                    src={propImage}
                     style={{ width: "100%" }}
                     size="medium"
                   />

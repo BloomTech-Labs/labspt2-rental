@@ -16,7 +16,7 @@ class PropertyAdd extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      image: "https://i.imgur.com/Cn7QlCX.jpg",
+      image: null,
       address2: null,
       occupants: null,
       assistants: [],
@@ -190,13 +190,6 @@ class PropertyAdd extends Component {
               onChange={e => this.handleChange("occupants", e.target.value)}
             />
           </Form.Group>
-          <Form.Field
-            control={Input}
-            label="Image URL"
-            style={{ margin: "5px" }}
-            placeholder="Optional"
-            onChange={e => this.handleChange("image", e.target.value)}
-          />
           <Form.Field
             control={Dropdown}
             label="Assigned Employee"
