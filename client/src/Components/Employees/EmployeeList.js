@@ -1,6 +1,6 @@
 import React from "react";
 import { Pagination } from "semantic-ui-react";
-import { FlexColumn, Divider, FlexRow } from "custom-components";
+import { FlexColumn, Divider, FlexRow, ResponsiveDiv } from "custom-components";
 import EmployeeListItem from "./EmployeeListItem";
 
 import taskPropertyAssign from "./taskPropertyHelper";
@@ -28,10 +28,10 @@ const EmployeeList = props => {
       </FlexRow>
       {!loading ? (
         modEmployees.map(item => (
-          <div key={item._id}>
+          <ResponsiveDiv key={item._id}>
             <EmployeeListItem employee={item} />
             <Divider />
-          </div>
+          </ResponsiveDiv>
         ))
       ) : (
         <div>Please wait...</div>

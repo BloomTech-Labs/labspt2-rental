@@ -146,3 +146,15 @@ export const Scrollbar = styled.div`
   background: #41617D !important; 
 }
 `;
+
+// This widens each InfoCard when the window is larger
+export const ResponsiveDiv = styled.div`
+
+  @media (min-width: 850px) {
+    width: 87%;
+  }
+
+  @media (min-width: 1060px) {
+    width: 95%;
+  }
+`;

@@ -1,6 +1,6 @@
 import React from "react";
 import { Pagination } from "semantic-ui-react";
-import { FlexColumn, Divider } from "custom-components";
+import { FlexColumn, Divider, ResponsiveDiv } from "custom-components";
 import PropertyCard from "./PropertyCard";
 
 export default props => {
@@ -22,7 +22,7 @@ export default props => {
       {!loading &&
         properties.length &&
         properties.map(property => (
-          <div key={property._id}>
+          <ResponsiveDiv key={property._id}>
             <PropertyCard
               id={property._id}
               image={property.image}
@@ -47,7 +47,7 @@ export default props => {
               linkto={`/dashboard/properties/view/${property._id}`}
             />
             <Divider />
-          </div>
+          </ResponsiveDiv>
         ))}
     </FlexColumn>
   );

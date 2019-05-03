@@ -8,7 +8,11 @@ class InfoCardTablet extends Component {
     const { components, link, linkName } = this.props;
 
     return (
-      <FlexRow alignCenter justifyBetween width="full">
+      <FlexRow 
+        alignCenter 
+        justifyBetween 
+        width="full"
+      >
         {components.image}
 
         <FlexColumn spaceLeft="20px" width="65%">

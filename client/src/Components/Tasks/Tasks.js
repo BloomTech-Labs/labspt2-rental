@@ -153,88 +153,89 @@ class Tasks extends Component {
         </Dimmer>
       );
     }
-    return (
-      <FlexColumn style={{ flexWrap: "wrap" }}>
-        {loadingComponent}
-        <FlexRow width="full" justifyBetween alignCenter spaceBottom>
-          <Header as="h1" style={{ margin: 0 }}>
-            Tasks
-          </Header>
-          <Button
-            as={DesktopButton}
-            color="blue"
-            onClick={() => this.props.history.push("/dashboard/tasks/add")}
-          >
-            Create Task
-          </Button>
-          <Button
-            as={MobileButton}
-            color="blue"
-            onClick={() => this.props.history.push("/dashboard/tasks/add")}
-          >
-            Create
-          </Button>
-        </FlexRow>
 
-        <FlexRow
-          style={{
-            alignItems: "baseline",
-            marginTop: "10px",
-            marginBottom: "10px"
-          }}
-        >
-          <Segment style={{ marginRight: "15px" }}>
-            <Checkbox toggle onChange={this.filterTasksByCompleted} />
-          </Segment>
-          <Header as="h5">Hide Completed</Header>
-        </FlexRow>
+  return (
+    <FlexColumn style={{ flexWrap: "wrap" }}>
+    {loadingComponent}
+    <FlexRow width="full" justifyBetween alignCenter spaceBottom>
+      <Header as="h1" style={{ margin: 0 }}>
+        Tasks
+      </Header>
+      <Button
+        as={DesktopButton}
+        color="blue"
+        onClick={() => this.props.history.push("/dashboard/tasks/add")}
+      >
+        Create Task
+      </Button>
+      <Button
+        as={MobileButton}
+        color="blue"
+        onClick={() => this.props.history.push("/dashboard/tasks/add")}
+      >
+        Create
+      </Button>
+    </FlexRow>
 
-        <CustomWidthTab
-          onTabChange={this.handleTabChange}
-          menu={{ attached: false }}
-          panes={[
-            ...tabs.map((tab, index) => ({
-              menuItem: (
-                <Menu.Item key={index}>
-                  {tab.name}
-                  {counts[index] === 0 ? null : (
-                    <Label floating circular color={tab.color}>
-                      {counts[index]}
-                    </Label>
-                  )}
-                </Menu.Item>
-              ),
-              render: () => (
-                <Tab.Pane attached={false}>
-                  {!tasks ? (
-                    <h2>Loading...</h2>
-                  ) : (
-                    <TaskList
-                      status={tab}
-                      tasks={tasks}
-                      handlePageChange={this.handlePageChange}
-                      loading={loading}
-                      count={Math.ceil(taskCount / pageSize)}
-                      page={page}
-                      toggleComplete={this.toggleComplete}
-                    />
-                  )}
-                </Tab.Pane>
-              )
-            })),
-            {
-              menuItem: (
-                <Search
-                  key="A"
-                  onChange={this.handleSearchChange}
-                  style={{ minWidth: "230px", flexGrow: "1" }}
+    <FlexRow
+      style={{
+        alignItems: "baseline",
+        marginTop: "10px",
+        marginBottom: "10px"
+      }}
+    >
+      <Segment style={{ marginRight: "15px" }}>
+        <Checkbox toggle onChange={this.filterTasksByCompleted} />
+      </Segment>
+      <Header as="h5">Hide Completed</Header>
+    </FlexRow>
+
+    <CustomWidthTab
+      onTabChange={this.handleTabChange}
+      menu={{ attached: false }}
+      panes={[
+        ...tabs.map((tab, index) => ({
+          menuItem: (
+            <Menu.Item key={index}>
+              {tab.name}
+              {counts[index] === 0 ? null : (
+                <Label floating circular color={tab.color}>
+                  {counts[index]}
+                </Label>
+              )}
+            </Menu.Item>
+          ),
+          render: () => (
+            <Tab.Pane attached={false}>
+              {!tasks ? (
+                <h2>Loading...</h2>
+              ) : (
+                <TaskList
+                  status={tab}
+                  tasks={tasks}
+                  handlePageChange={this.handlePageChange}
+                  loading={loading}
+                  count={Math.ceil(taskCount / pageSize)}
+                  page={page}
+                  toggleComplete={this.toggleComplete}
                 />
-              )
-            }
-          ]}
-        />
-      </FlexColumn>
-    );
+              )}
+            </Tab.Pane>
+          )
+        })),
+        {
+          menuItem: (
+            <Search
+              key="A"
+              onChange={this.handleSearchChange}
+              style={{ minWidth: "230px", flexGrow: "1" }}
+            />
+          )
+        }
+      ]}
+    />
+  </FlexColumn>
+    )
   }
 }
 

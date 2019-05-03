@@ -1,7 +1,9 @@
 import React from "react";
 import { Pagination } from "semantic-ui-react";
-import { FlexColumn, FlexRow, Divider } from "custom-components";
+import { FlexColumn, FlexRow, Divider, ResponsiveDiv } from "custom-components";
 import ReservationListItem from "./ReservationListItem";
+
+
 
 export default props => {
   const { reservations, loading, handlePageChange, count } = props;
@@ -23,10 +25,10 @@ export default props => {
       {!loading &&
         reservations.length &&
         reservations.map((reservation, ind) => (
-          <div key={ind}>
+          <ResponsiveDiv key={ind}>
             <ReservationListItem reservation={reservation} />
             <Divider />
-          </div>
+          </ResponsiveDiv>
         ))}
     </FlexColumn>
   );

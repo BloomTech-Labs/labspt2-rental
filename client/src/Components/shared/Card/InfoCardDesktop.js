@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { Button } from "semantic-ui-react";
+import { Button, Grid } from "semantic-ui-react";
 import { FlexRow, FlexColumn } from "custom-components";
 import { Link } from "react-router-dom";
 
@@ -16,28 +16,45 @@ class InfoCardDesktop extends Component {
       >
         {components.image}
 
-        <FlexColumn grow="1" spaceLeft="20px" width="full">
+        <FlexColumn spaceLeft="20px" width="full">
           <FlexRow alignCenter spaceBottom="10px">
             {components.title}
             {components.id}
           </FlexRow>
 
-          <FlexRow justifyBetween alignCenter width="full">
-            {components.label}
+        
+        <FlexRow justifyBetween alignCenter width="full">
+          <Grid columns='equal' style={{ flexGrow: "1", alignItems: "baseline", alignContent: "center" }}>
+          <Grid.Row style={{ display: "flex", alignItems: "Center" }}>
 
-            <FlexRow grow="1" spaceRight="20px" spaceLeft="20px" justifyCenter>
-              {components.statA}
-              {components.statB}
-            </FlexRow>
+          
+            <Grid.Column style={{ marginRight: "-40px" }}>
+              {components.label}
+            </Grid.Column>
 
-            <FlexColumn>
-              <Link to={link}>
-                <Button style={{ margin: "10px 0", minWidth: "30%" }}>
-                  {linkName || "More Info"}
-                </Button>
-              </Link>
-            </FlexColumn>
-          </FlexRow>
+
+            <Grid.Column width={8}>
+              <FlexRow 
+                justifyBetween
+                alignCenter
+              >
+                  {components.statA}
+                  {components.statB}
+              </FlexRow>
+            </Grid.Column>
+
+            <Grid.Column>
+              <FlexColumn style={{ alignItems: "center" }}>
+                <Link to={link}>
+                  <Button style={{ margin: "10px 0", minWidth: "30%" }}>
+                    {linkName || "More Info"}
+                  </Button>
+                </Link>
+              </FlexColumn>
+            </Grid.Column>
+            </Grid.Row>
+          </Grid>
+        </FlexRow>
         </FlexColumn>
       </FlexRow>
     );

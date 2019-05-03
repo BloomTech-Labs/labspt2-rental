@@ -13,6 +13,9 @@ const EmployeeListItem = props => {
       </InfoCard.Label>
       <InfoCard.ID>{props.employee._id}</InfoCard.ID>
       <InfoCard.StatA label="Due Today">
+        {props.employee.todayTask}        
+      </InfoCard.StatA>
+      <InfoCard.StatA label="Due Today">
         {props.employee.todayTask}
       </InfoCard.StatA>
       <InfoCard.StatB label="Overdue">{props.employee.overdue}</InfoCard.StatB>

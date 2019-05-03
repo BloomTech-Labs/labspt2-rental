@@ -29,7 +29,10 @@ class InfoCardMobile extends Component {
 
     return (
       <FlexColumn width="full">
-        <FlexRow width="full" justifyBetween alignCenter>
+        <FlexRow width="full" 
+          justifyBetween 
+          alignCenter
+        >
           <ImageContainer>
             {components.image}
             <LabelContainer>{components.label}</LabelContainer>
