@@ -4,7 +4,7 @@ import InfoCard from "../shared/Card/InfoCard";
 const EmployeeListItem = props => {
   return (
     <InfoCard link={`/dashboard/employees/${props.employee._id}`}>
-      <InfoCard.Image>{props.employee.imageLoc}</InfoCard.Image>
+      <InfoCard.Image>{props.employee.image}</InfoCard.Image>
       <InfoCard.Title>{`${props.employee.firstName} ${
         props.employee.lastName
       }`}</InfoCard.Title>

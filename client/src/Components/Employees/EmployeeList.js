@@ -1,19 +1,19 @@
 import React from "react";
-import { Pagination, Button } from "semantic-ui-react";
+import { Pagination } from "semantic-ui-react";
 import { FlexColumn, Divider, FlexRow } from "custom-components";
 import EmployeeListItem from "./EmployeeListItem";
-import { Link } from "react-router-dom";
 
 import taskPropertyAssign from "./taskPropertyHelper";
 
 const EmployeeList = props => {
-  const { numPages, page, handlePageChange } = props;
+  const { page, handlePageChange, loading } = props;
+  const numPages = props.numPages ? props.numPages : 0;
 
   // modEmployees is used as a temp replacement for employees because employees is read-only at this point and cannot be directly modified
   const modEmployees = taskPropertyAssign(props);
   return (
-    <FlexColumn width="full" alignCenter >
-      <FlexRow>
+    <FlexColumn width="full" alignCenter>
+      <FlexRow width="full" justifyCenter spaceBottom="20px">
         <Pagination
           onPageChange={handlePageChange}
           className="space-bottom"
@@ -25,21 +25,17 @@ const EmployeeList = props => {
           siblingRange={1}
           totalPages={numPages}
         />
-        <Link to="/dashboard/employees/add">
-          <Button
-            className="space-left-20"
-            circular
-            icon="plus"
-            color="orange"
-          />
-        </Link>
       </FlexRow>
-      {modEmployees.map(item => (
-        <>
-          <EmployeeListItem key={item._id} employee={item} />
-          <Divider />
-        </>
-      ))}
+      {!loading ? (
+        modEmployees.map(item => (
+          <div key={item._id}>
+            <EmployeeListItem employee={item} />
+            <Divider />
+          </div>
+        ))
+      ) : (
+        <div>Please wait...</div>
+      )}
     </FlexColumn>
   );
 };

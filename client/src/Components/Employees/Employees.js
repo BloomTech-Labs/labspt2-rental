@@ -1,8 +1,27 @@
 import React, { Component } from "react";
-import { Header, Tab } from "semantic-ui-react";
-import { FlexColumn } from "custom-components";
+import { Button, Header, Tab, Dimmer, Loader } from "semantic-ui-react";
+import { FlexColumn, FlexRow } from "custom-components";
 import EmployeeList from "./EmployeeList";
 import Search from "../shared/Search/Search";
+import styled from "styled-components";
+
+const DesktopButton = styled.button`
+  &&& {
+    margin: 0;
+    @media (max-width: 420px) {
+      display: none;
+    }
+  }
+`;
+
+const MobileButton = styled.button`
+  &&& {
+    margin: 0;
+    @media (min-width: 421px) {
+      display: none;
+    }
+  }
+`;
 
 export default class Employees extends Component {
   constructor(props) {
@@ -14,7 +33,7 @@ export default class Employees extends Component {
 
     this.query = {
       page: 1,
-      pageSize: 4,
+      pageSize: 3,
       sort: "_id",
       search: ""
     };
@@ -22,13 +41,11 @@ export default class Employees extends Component {
 
   componentDidMount() {
     this.props.getEmployees({ ...this.query });
-    this.props.getNumberEmployees({ ...this.query });
   }
 
   handleSearchChange = value => {
     this.query.search = value || "";
-    this.props.searchEmployees({ ...this.query });
-    this.props.getNumberEmployees({ ...this.query });
+    this.props.getEmployees({ ...this.query });
   };
 
   handleTabChange = e => {
@@ -38,7 +55,6 @@ export default class Employees extends Component {
       sort: "_id"
     };
     this.props.getEmployees({ ...this.query });
-    this.props.getNumberEmployees({ ...this.query });
   };
 
   handlePageChange = (e, data) => {
@@ -49,12 +65,61 @@ export default class Employees extends Component {
   render() {
     const { tabs } = this.state;
     const { page, pageSize } = this.query;
-    const { employees, loading, numPages, tasks, properties } = this.props;
-
+    const {
+      employees,
+      loading,
+      numPages,
+      tasks,
+      properties,
+      user
+    } = this.props;
+    let loadingComponent;
+    if (loading) {
+      loadingComponent = (
+        <Dimmer active inverted>
+          <Loader inverted>Loading</Loader>
+        </Dimmer>
+      );
+    } else {
+      loadingComponent = (
+        <Dimmer inverted>
+          <Loader inverted>Loading</Loader>
+        </Dimmer>
+      );
+    }
     return (
-      <FlexColumn>
-        <Header as="h1">Employees</Header>
+      <FlexColumn style={{ width: "65vw" }} alignCenter>
+        {loadingComponent}
+        <FlexRow width="full" justifyBetween alignCenter spaceBottom>
+          <Header as="h1" style={{ margin: 0 }}>
+            Employees
+          </Header>
+
+          {user && user.role === "owner" && (
+            <>
+              <Button
+                as={DesktopButton}
+                color="blue"
+                onClick={() =>
+                  this.props.history.push("/dashboard/employees/add")
+                }
+              >
+                Create Employee
+              </Button>
+              <Button
+                as={MobileButton}
+                color="blue"
+                onClick={() =>
+                  this.props.history.push("/dashboard/employees/add")
+                }
+              >
+                Create
+              </Button>
+            </>
+          )}
+        </FlexRow>
         <Tab
+          style={{ width: "60vw" }}
           onTabChange={this.handleTabChange}
           menu={{ attached: false }}
           panes={[
@@ -63,13 +128,14 @@ export default class Employees extends Component {
               render: () => (
                 <Tab.Pane attached={false}>
                   <EmployeeList
-                    key={tab + index}
                     status={tab}
+                    user={user}
                     employees={employees}
                     tasks={tasks}
                     properties={properties}
                     page={page}
                     pageSize={pageSize}
+                    loading={loading}
                     numPages={numPages}
                     handlePageChange={this.handlePageChange}
                   />

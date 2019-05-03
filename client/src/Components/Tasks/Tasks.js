@@ -1,9 +1,52 @@
 import React, { Component } from "react";
-import { Header, Tab, Icon, Segment } from "semantic-ui-react";
+import {
+  Header,
+  Tab,
+  Segment,
+  Label,
+  Menu,
+  Checkbox,
+  Button,
+  Dimmer,
+  Loader
+} from "semantic-ui-react";
 import { FlexColumn, FlexRow } from "custom-components";
-import { Link } from "react-router-dom";
 import Search from "../shared/Search/Search";
 import TaskList from "./TaskList";
+import styled from "styled-components";
+
+const DesktopButton = styled.button`
+  &&& {
+    margin: 0;
+    @media (max-width: 420px) {
+      display: none;
+    }
+  }
+`;
+
+const MobileButton = styled.button`
+  &&& {
+    margin: 0;
+    @media (min-width: 421px) {
+      display: none;
+    }
+  }
+`;
+
+const CustomWidthTab = styled(Tab)`
+  @media (max-width: 420px) {
+    width: 85vw;
+  }
+  @media (min-width: 421px) and (max-width: 700px) {
+    width: 85vw;
+  }
+  @media (min-width: 701px) {
+    width: 65vw;
+  }
+  @media (min-width: 850px) {
+    width: 75vw;
+  }
+`;
 
 class Tasks extends Component {
   constructor(props) {
@@ -11,21 +54,28 @@ class Tasks extends Component {
 
     this.query = {
       page: 1,
-      pageSize: 5,
+      pageSize: 4,
       search: "",
       filter: { status: "overdue" },
       sort: "_id"
     };
 
     this.state = {
-      tabs: ["Overdue", "Due Today", "Upcoming"]
+      tabs: [
+        { name: "Overdue", color: "red" },
+        { name: "Due Today", color: "orange" },
+        { name: "Upcoming", color: "green" }
+      ],
+      filterByCompleted: false
     };
   }
 
   componentDidMount() {
     const { page, pageSize, sort, filter } = this.query;
     this.props.getTasks({ page, pageSize, sort, filter });
-    this.props.fetchTaskCount("overdue");
+    this.props.fetchTaskCount(filter);
+    this.props.fetchUserLog();
+    this.props.fetchIncompletedTaskCount();
   }
 
   handleSearchChange = value => {
@@ -35,11 +85,11 @@ class Tasks extends Component {
 
   handleTabChange = (e, data) => {
     const { tabs } = this.state;
-    const activeTab = tabs[data.activeIndex].toLowerCase();
+    const activeTab = tabs[data.activeIndex].name.toLowerCase();
     this.query.page = 1;
-    this.query.filter = { status: activeTab };
+    this.query.filter.status = activeTab;
     this.props.getTasks({ ...this.query });
-    this.props.fetchTaskCount(activeTab);
+    this.props.fetchTaskCount(this.query.filter);
   };
 
   handlePageChange = (event, data) => {
@@ -49,33 +99,111 @@ class Tasks extends Component {
 
   toggleComplete = task => {
     task.completed = task.completed ? false : true;
-    this.props.toggleTask(task);
+    this.props.toggleTask(task).then(() => {
+      this.props.fetchIncompletedTaskCount();
+    });
+  };
+
+  filterTasksByCompleted = () => {
+    this.query.page = 1;
+    const { page, pageSize, sort, filter } = this.query;
+
+    if (this.state.filterByCompleted === false) {
+      this.setState({ filterByCompleted: true });
+      this.query.filter.completed = false;
+    } else {
+      this.setState({ filterByCompleted: false });
+      delete this.query.filter.completed;
+    }
+    this.props.getTasks({ page, pageSize, sort, filter });
+    this.props.fetchTaskCount(this.query.filter);
   };
 
   render() {
     const { tabs } = this.state;
     const {
-      tasks: { tasks, loading, taskCount }
+      tasks: {
+        tasks,
+        loading,
+        taskCount,
+        overdueIncompleted,
+        duetodayIncompleted,
+        upcomingIncompleted
+        // user
+      }
     } = this.props;
+    const counts = [
+      overdueIncompleted,
+      duetodayIncompleted,
+      upcomingIncompleted
+    ];
     const { pageSize, page } = this.query;
-
+    // const role = user ? user.role : null;
+    let loadingComponent;
+    if (!tasks) {
+      loadingComponent = (
+        <Dimmer active inverted>
+          <Loader inverted>Loading</Loader>
+        </Dimmer>
+      );
+    } else {
+      loadingComponent = (
+        <Dimmer inverted>
+          <Loader inverted>Loading</Loader>
+        </Dimmer>
+      );
+    }
     return (
-      <FlexColumn>
-        <FlexRow width="100%" justifyBetween style={{ alignItems: "baseline" }}>
-          <Header as="h1">Tasks</Header>
-          <Link to="/dashboard/tasks/add">
-            <Segment style={{ marginBottom: "14px" }}>
-              <Icon name="add" />
-            </Segment>
-          </Link>
+      <FlexColumn style={{ flexWrap: "wrap" }}>
+        {loadingComponent}
+        <FlexRow width="full" justifyBetween alignCenter spaceBottom>
+          <Header as="h1" style={{ margin: 0 }}>
+            Tasks
+          </Header>
+          <Button
+            as={DesktopButton}
+            color="blue"
+            onClick={() => this.props.history.push("/dashboard/tasks/add")}
+          >
+            Create Task
+          </Button>
+          <Button
+            as={MobileButton}
+            color="blue"
+            onClick={() => this.props.history.push("/dashboard/tasks/add")}
+          >
+            Create
+          </Button>
         </FlexRow>
 
-        <Tab
+        <FlexRow
+          style={{
+            alignItems: "baseline",
+            marginTop: "10px",
+            marginBottom: "10px"
+          }}
+        >
+          <Segment style={{ marginRight: "15px" }}>
+            <Checkbox toggle onChange={this.filterTasksByCompleted} />
+          </Segment>
+          <Header as="h5">Hide Completed</Header>
+        </FlexRow>
+
+        <CustomWidthTab
           onTabChange={this.handleTabChange}
           menu={{ attached: false }}
           panes={[
-            ...tabs.map(tab => ({
-              menuItem: tab,
+            ...tabs.map((tab, index) => ({
+              menuItem: (
+                <Menu.Item key={index}>
+                  {tab.name}
+                  {counts[index] === 0 ? null : (
+                    <Label floating circular color={tab.color}>
+                      {counts[index]}
+                    </Label>
+                  )}
+                </Menu.Item>
+              ),
               render: () => (
                 <Tab.Pane attached={false}>
                   {!tasks ? (
@@ -97,8 +225,9 @@ class Tasks extends Component {
             {
               menuItem: (
                 <Search
+                  key="A"
                   onChange={this.handleSearchChange}
-                  style={{ minWidth: "300px", flexGrow: "1" }}
+                  style={{ minWidth: "230px", flexGrow: "1" }}
                 />
               )
             }

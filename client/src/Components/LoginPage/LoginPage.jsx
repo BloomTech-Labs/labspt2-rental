@@ -89,7 +89,11 @@ class LoginPage extends Component {
 
     let submitButton;
     if (disabled) {
-      submitButton = <Button basic color='green' type='submit' disabled>Update</Button>;
+      submitButton = (
+        <Button basic color="green" type="submit" disabled>
+          Submit
+        </Button>
+      );
     } else {
       submitButton = (
         <Button color="green" type="submit" active>
@@ -102,10 +106,22 @@ class LoginPage extends Component {
     if (active) {
       success = (
         <Dimmer active onClickOutside={this.dimmerClose} page>
-          <Header as="h2" icon inverted>
-            <Icon name="check circle outline" />
-            Login Successful!
-          </Header>
+          <FlexColumn alignCenter>
+            <Header as="h2" icon inverted>
+              <Icon
+                name="check circle outline"
+                style={{ marginBottom: "0.5em" }}
+              />
+              Login Successful!
+            </Header>
+            <Button
+              onClick={this.dimmerClose}
+              inverted
+              style={{ marginTop: "1em" }}
+            >
+              Continue
+            </Button>
+          </FlexColumn>
         </Dimmer>
       );
     } else {
@@ -113,60 +129,77 @@ class LoginPage extends Component {
     }
 
     return (
-      <FlexColumn
-        width="full"
-        alignCenter
-        justifyCenter
-        style={{ backgroundColor: "#1a1b1c", height: "100vh" }}
-      >
-        <Segment className="sm-container">
-          <Header size="large" style={{ color: "#4ca34b" }}>
-            Login
-          </Header>
-          {success}
-          <Divider />
+      <div style={{ backgroundColor: "#f6f9fc" }}>
+        <FlexColumn
+          width="full"
+          alignCenter
+          justifyBetween
+          style={{
+            backgroundColor: "#1a1b1c",
+            paddingBottom: "50vh",
+            paddingTop: "2%"
+          }}
+        >
+          <Link
+            to="/"
+            style={{
+              alignSelf: "flex-start",
+              marginLeft: "2%",
+              marginBottom: "8em"
+            }}
+          >
+            <Button inverted>Back</Button>
+          </Link>
 
-          <Form onSubmit={this.handleSubmit}>
-            <Form.Field>
-              <label htmlFor="email-input">Email</label>
-              <input
-                id="email-input"
-                placeholder="Email"
-                name="email"
-                value={this.state.email}
-                onChange={this.handleInputChange}
-              />
-            </Form.Field>
+          <Segment className="sm-container">
+            <Header size="large" style={{ color: "#4ca34b" }}>
+              Login
+            </Header>
+            {success}
+            <Divider />
 
-            <Form.Field>
-              <label htmlFor="password-input">Password</label>
-              <input
-                id="password-input"
-                placeholder="Password"
-                name="password"
-                type="password"
-                value={this.state.password}
-                onChange={this.handleInputChange}
-              />
-            </Form.Field>
+            <Form onSubmit={this.handleSubmit}>
+              <Form.Field>
+                <label htmlFor="email-input">Email</label>
+                <input
+                  id="email-input"
+                  placeholder="Email"
+                  name="email"
+                  value={this.state.email}
+                  onChange={this.handleInputChange}
+                />
+              </Form.Field>
 
-            {messageAlert}
+              <Form.Field>
+                <label htmlFor="password-input">Password</label>
+                <input
+                  id="password-input"
+                  placeholder="Password"
+                  name="password"
+                  type="password"
+                  value={this.state.password}
+                  onChange={this.handleInputChange}
+                />
+              </Form.Field>
+              <Link to="/forgot">Forgot Password?</Link>
+              {messageAlert}
 
-            <FlexRow width="full" alignEnd justifyBetween>
-              <FlexColumn alignStart justifyBetween>
-                <p style={{ color: "#1a1b1c", marginLeft: "5px" }}>
-                  Not yet registered?
-                </p>
-                <Link to="/register">
-                  <Button type='button'>Register</Button >
-                </Link>
-              </FlexColumn>
+              <FlexRow width="full" alignEnd justifyBetween>
+                <FlexColumn alignStart justifyBetween>
+                  <p style={{ color: "#1a1b1c", marginLeft: "5px" }}>
+                    Not yet registered?
+                  </p>
+                  <Link to="/register">
+                    <Button type="button">Register</Button>
+                  </Link>
+                </FlexColumn>
 
-              {submitButton}
-            </FlexRow>
-          </Form>
-        </Segment>
-      </FlexColumn>
+                {submitButton}
+              </FlexRow>
+            </Form>
+          </Segment>
+        </FlexColumn>
+      </div>
     );
   }
 }

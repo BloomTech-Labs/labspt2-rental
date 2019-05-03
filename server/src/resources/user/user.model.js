@@ -86,9 +86,16 @@ const userSchema = new Schema(
     phone: {
       type: String
     },
+    image: String,
     createdBy: {
       type: mongoose.SchemaTypes.ObjectId,
       ref: 'user'
+    },
+    resetPasswordToken: {
+      type: String
+    },
+    resetPasswordExpires: {
+      type: Number
     }
   },
   { timestamps: true }

@@ -10,22 +10,26 @@ export default class Billing extends Component {
     this.state = {
       nextBilling: "",
       billingPlan: "",
-      stripeCustomerID: ""
+      stripeCustomerID: "",
+      subscriptionID: ""
     };
   }
 
   componentDidMount = () => {
     this.setState({
-      nextBilling: "April 21, 2019",
+      nextBilling: "May 30, 2019",
       billingPlan: this.props.user.billingPlan,
-      stripeCustomerID: this.props.user.stripeCustomerID
+      stripeCustomerID: this.props.user.stripeCustomerID,
+      subscriptionID: this.props.user.subscriptionID
     });
   };
 
   componentDidUpdate = prevProps => {
     if (this.props !== prevProps) {
       this.setState({
-        billingPlan: this.props.user.billingPlan
+        stripeCustomerID: this.props.user.stripeCustomerID,
+        billingPlan: this.props.user.billingPlan,
+        subscriptionID: this.props.user.subscriptionID
       });
     }
   };
@@ -43,38 +47,81 @@ export default class Billing extends Component {
           </Dimmer>
         </Segment>
       );
+    } else if (!this.state.billingPlan) {
+      loading = (
+        <React.Fragment>
+          <Header as="h1">Billing Details</Header>
+          <Segment>
+            <Header as="h2">Current Plan:</Header>
+            <Segment.Inline>
+              {" "}
+              <strong>{billingPlans['free'].name}</strong>:{" "}
+              {billingPlans['free'].description}
+            </Segment.Inline>
+            <FlexRow style={{ marginTop: "25px" }}>
+              <PlanModal
+                customerID={this.state.stripeCustomerID}
+                user={this.props.user}
+                getUser={this.props.getUser}
+                properties={this.props.properties}
+              />
+            </FlexRow>
+          </Segment>
+        </React.Fragment>
+      );
+    } else if (!this.state.stripeCustomerID) {
+      loading = (
+        <React.Fragment>
+          <Header as="h1">Billing Details</Header>
+          <Segment>
+            <Header as="h2">Current Plan:</Header>
+            <Segment.Inline>
+              {" "}
+              <strong>{billingPlans[billingPlan].name}</strong>:{" "}
+              {billingPlans[billingPlan].description}
+            </Segment.Inline>
+            <FlexRow style={{ marginTop: "25px" }}>
+              <PlanModal
+                getUser={this.props.getUser}
+                customerID={this.state.stripeCustomerID}
+                user={this.props.user}
+                properties={this.props.properties}
+              />
+            </FlexRow>
+          </Segment>
+        </React.Fragment>
+      );
     } else {
       loading = (
-        <Segment>
-          <Header as="h2">Current Plan:</Header>
-          <Segment.Inline>
-            {" "}
-            <strong>{billingPlans[billingPlan].name}</strong>:{" "}
-            {billingPlans[billingPlan].description}
-          </Segment.Inline>
-          <FlexRow style={{ marginTop: "25px" }}>
-            <PlanModal
-              customerID={this.state.stripeCustomerID}
-              user={this.props.user}
-              properties={this.props.properties}
-            />
+        <React.Fragment>
+          <Header as="h1">Billing Details</Header>
+          <CreditCard user={this.props.user} />
+
+          <FlexRow style={{ marginTop: "25px", marginBottom: "35px" }}>
+            <p>Your next bill will be sent on {nextBilling}.</p>
           </FlexRow>
-        </Segment>
+
+          <Segment>
+            <Header as="h2">Current Plan:</Header>
+            <Segment.Inline>
+              {" "}
+              <strong>{billingPlans[billingPlan].name}</strong>:{" "}
+              {billingPlans[billingPlan].description}
+            </Segment.Inline>
+            <FlexRow style={{ marginTop: "25px" }}>
+              <PlanModal
+                customerID={this.state.stripeCustomerID}
+                getUser={this.props.getUser}
+                user={this.props.user}
+                properties={this.props.properties}
+              />
+            </FlexRow>
+          </Segment>
+        </React.Fragment>
       );
     }
 
-    return (
-      <div>
-        <Header as="h1">Billing Details</Header>
-        <CreditCard user={this.props.user} />
-
-        <FlexRow style={{ marginTop: "25px", marginBottom: "35px" }}>
-          <p>Your next bill will be sent on {nextBilling}.</p>
-        </FlexRow>
-
-        {loading}
-      </div>
-    );
+    return <div>{loading}</div>;
   }
 }
 

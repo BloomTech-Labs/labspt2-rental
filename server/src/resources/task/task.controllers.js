@@ -38,8 +38,21 @@ class TaskControllers extends BaseController {
       '_id'
     ];
 
-    console.log(req.query.search);
     return this.search(req, res, next, { lookup, search });
+  };
+
+  deleteMany = async (req, res, next) => {
+    let propertyID = req.body;
+    try {
+      this.mongooseModel.deleteMany({ property: propertyID }, (err, data) => {
+        err
+          ? res.status(500).json({ message: 'Could not delete tasks' })
+          : res.status(200).json({ message: 'tasks deleted' });
+      });
+    } catch (err) {
+      console.log(err);
+      next(err);
+    }
   };
 
   count = (req, res, next) => {

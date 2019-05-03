@@ -1,9 +1,27 @@
 import React, { Component } from "react";
-import { Header, Tab, Button } from "semantic-ui-react";
+import { Button, Header, Tab, Loader, Dimmer } from "semantic-ui-react";
 import { FlexColumn, FlexRow } from "custom-components";
 import ReservationList from "./ReservationList";
 import Search from "../shared/Search/Search";
-import ReservationAdd from "./ReservationAdd";
+import styled from "styled-components";
+
+const DesktopButton = styled.button`
+  &&& {
+    margin: 0;
+    @media (max-width: 420px) {
+      display: none;
+    }
+  }
+`;
+
+const MobileButton = styled.button`
+  &&& {
+    margin: 0;
+    @media (min-width: 421px) {
+      display: none;
+    }
+  }
+`;
 
 export default class Reservations extends Component {
   constructor(props) {
@@ -11,7 +29,7 @@ export default class Reservations extends Component {
 
     this.query = {
       page: 1,
-      pageSize: 4,
+      pageSize: 3,
       sort: "_id",
       filter: { status: "upcoming" },
       search: ""
@@ -50,11 +68,48 @@ export default class Reservations extends Component {
     const { pageSize } = this.query;
     const { tabs } = this.state;
     const { reservations, loading, reservationCount } = this.props;
-
+    let loadingComponent;
+    if (loading) {
+      loadingComponent = (
+        <Dimmer active inverted>
+          <Loader inverted>Loading</Loader>
+        </Dimmer>
+      );
+    } else {
+      loadingComponent = (
+        <Dimmer inverted>
+          <Loader inverted>Loading</Loader>
+        </Dimmer>
+      );
+    }
     return (
-      <FlexColumn>
-        <Header as="h1">Reservations</Header>
+      <FlexColumn style={{ width: "65vw" }} alignCenter>
+        {loadingComponent}
+        <FlexRow width="full" justifyBetween alignCenter spaceBottom>
+          <Header as="h1" style={{ margin: 0 }}>
+            Reservations
+          </Header>
+          <Button
+            as={DesktopButton}
+            color="blue"
+            onClick={() =>
+              this.props.history.push("/dashboard/reservations/add")
+            }
+          >
+            Create Reservation
+          </Button>
+          <Button
+            as={MobileButton}
+            color="blue"
+            onClick={() =>
+              this.props.history.push("/dashboard/reservations/add")
+            }
+          >
+            Create
+          </Button>
+        </FlexRow>
         <Tab
+          style={{ width: "60vw", marginBottom: "5px" }}
           onTabChange={this.handleTabChange}
           menu={{ attached: false }}
           panes={[
@@ -66,7 +121,7 @@ export default class Reservations extends Component {
                     status={tab}
                     loading={loading}
                     reservations={reservations}
-                    count={Math.round(reservationCount / pageSize)}
+                    count={Math.ceil(reservationCount / pageSize)}
                     handlePageChange={this.handlePageChange}
                   />
                 </Tab.Pane>
@@ -76,6 +131,7 @@ export default class Reservations extends Component {
               menuItem: (
                 <Search
                   onChange={this.handleSearchChange}
+                  key="1"
                   style={{ minWidth: "300px", flexGrow: "1" }}
                 />
               )

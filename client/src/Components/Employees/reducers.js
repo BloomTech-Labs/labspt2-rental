@@ -3,7 +3,8 @@ import * as actions from "./actions";
 const initialState = {
   loading: false,
   error: false,
-  employees: []
+  employees: [],
+  sendgridStatus: null
 };
 
 const employeesReducer = (state = initialState, action) => {
@@ -17,7 +18,11 @@ const employeesReducer = (state = initialState, action) => {
       return {
         ...state,
         loading: false,
-        employees: action.payload
+        employees: action.payload.employees,
+        properties: action.payload.properties,
+        tasks: action.payload.tasks,
+        numPages: action.payload.numPages,
+        user: action.payload.user
       };
     case actions.EMPLOYEE_FAILURE:
       return {
@@ -25,36 +30,34 @@ const employeesReducer = (state = initialState, action) => {
         loading: false,
         error: action.error
       };
-    case actions.NUM_EMPLOYEE_SUCCESS:
-      const numPages = Math.ceil(action.payload / 4);
+    case actions.EMPLOYEE_PROPERTY_STARTED:
       return {
         ...state,
-        numPages: numPages
+        loading: true
       };
-    case actions.NUM_EMPLOYEE_FAIL:
+    case actions.EMPLOYEE_UPDATE_PROPERTY_SUCCESS:
+      return {
+        ...state
+      };
+    case actions.EMPLOYEE_PROPERTY_FAILURE:
       return {
         ...state,
         error: action.error
       };
-    case actions.TASKLIST_SUCCESS:
+    case actions.SENDGRID_FAILURE:
       return {
         ...state,
-        tasks: action.payload
+        error: action.payload
       };
-    case actions.TASKLIST_FAILURE:
+    case actions.SENDGRID_SUCCESS:
       return {
         ...state,
-        error: action.error
+        sendgridStatus: action.payload
       };
-    case actions.PROPERTIES_SUCCESS:
+    case actions.SENDGRID_STARTED:
       return {
         ...state,
-        properties: action.payload.data
-      };
-    case actions.PROPERTIES_FAILURE:
-      return {
-        ...state,
-        error: action.error
+        loading: true
       };
     default:
       return { ...state };

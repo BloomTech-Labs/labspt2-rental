@@ -1,7 +1,14 @@
 import React, { Component } from "react";
-import { Header, Segment, Button, Modal, Grid, Divider } from "semantic-ui-react";
+import {
+  Header,
+  Segment,
+  Button,
+  Modal,
+  Grid,
+  Divider
+} from "semantic-ui-react";
 import { Elements, StripeProvider } from "react-stripe-elements";
-import CheckoutElement from './checkoutElement';
+import CheckoutElement from "./checkoutElement";
 import { config } from "../../config/dev";
 
 export default class CheckoutModal extends Component {
@@ -28,29 +35,28 @@ export default class CheckoutModal extends Component {
 
           <Modal.Content>
             <Segment>
-              <Grid divided='vertically' >
+              <Grid divided="vertically">
                 <Grid.Row columns={2}>
-                <Grid.Column textAlign="left">
-                  <p>
-                    <b>Nightly Price:</b> {this.props.price}
-                  </p>
-                  <p>
-                    <b>Nights:</b> {this.props.nights}
-                  </p>
-                  <p>
-                    <b>Cleaning Fee:</b> {this.props.cleaningFee}
-                  </p>
-                </Grid.Column>
-                </Grid.Row>
-                
-                <Grid.Row>
-                <Grid.Column>
-                    <p style={{ fontSize: '2em'}}>
-                        <b>Total:</b> ${this.props.total}
+                  <Grid.Column textAlign="left">
+                    <p>
+                      <b>Nightly Price:</b> {this.props.price}
                     </p>
-                </Grid.Column>
+                    <p>
+                      <b>Nights:</b> {this.props.nights}
+                    </p>
+                    <p>
+                      <b>Cleaning Fee:</b> {this.props.cleaningFee}
+                    </p>
+                  </Grid.Column>
                 </Grid.Row>
 
+                <Grid.Row>
+                  <Grid.Column>
+                    <p style={{ fontSize: "2em" }}>
+                      <b>Total:</b> ${this.props.total}
+                    </p>
+                  </Grid.Column>
+                </Grid.Row>
               </Grid>
             </Segment>
 
@@ -58,10 +64,10 @@ export default class CheckoutModal extends Component {
               <Elements>
                 <CheckoutElement
                   close={this.close}
-                  guest={this.props.guest} 
-                  checkout={this.props.checkout} 
+                  guest={this.props.guest}
+                  checkout={this.props.checkout}
                   totalAmount={stripeTotalAmount}
-                  reservationID={this.props.reservationID   }
+                  reservationID={this.props.reservationID}
                 />
               </Elements>
             </StripeProvider>

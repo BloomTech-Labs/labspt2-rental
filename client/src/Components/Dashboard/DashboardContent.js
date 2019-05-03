@@ -1,13 +1,12 @@
 import React, { Component } from "react";
-import { FlexColumn, Container } from "custom-components";
-
-import DashboardCards from "./DashboardCards";
+import { FlexColumn, Container, FlexRow } from "custom-components";
+import { Responsive, Dimmer, Tab, Loader } from "semantic-ui-react";
+import { DashboardStats } from "./DashboardStats";
+import { EmployeeList } from "./EmployeeList";
+import { WelcomeMessage } from "./WelcomeMessage";
+import { PropertyStats } from "./PropertyStats";
 
 export default class DashboardContent extends Component {
-  constructor(props) {
-    super(props);
-  }
-
   componentDidMount() {
     this.props.getEverything();
     this.props.getUserRole();
@@ -16,86 +15,93 @@ export default class DashboardContent extends Component {
   render() {
     const {
       reservTotals,
-      reservActive,
       propTotal,
-      propInactive,
-      emplTotal,
       tasksToday,
-      tasksOverdue
+      tasksOverdue,
+      propertiesWithoutReservations,
+      employeeTasks,
+      employees,
+      loading,
+      user
     } = this.props;
 
-    // this sets the color of the overdue label to red if any exist
-    let overdueColor = "blue";
-    if (tasksOverdue) overdueColor = "red";
-
-    // this sets the color of unreserved properties label to yellow if any exist and red if more than 50% of total exist
-    let propInactiveColor = "blue";
-    let inactiveHomeText = "None of the homes are unreserved";
-    if (propInactive) {
-      if (propInactive >= propTotal / 2) {
-        propInactiveColor = "red";
-        inactiveHomeText = "50% or more homes are unreserved";
-      } else {
-        propInactiveColor = "yellow";
-        inactiveHomeText = "Some of the homes are unreserved";
-      }
-    }
-
-    // this sets the color of the active reservations and total reservations labels to red if none exist
-    let reservTotalsColor = "blue";
-    let reservActiveColor = "blue";
-    if (!reservTotals) reservTotalsColor = "red";
-    if (!reservActive) reservActiveColor = "red";
-
-    return (
-      <Container>
-        <FlexColumn alignCenter width="full">
-          <DashboardCards
-            title="Reservations"
-            iconName="book"
-            value1={reservTotals}
-            label1="Total"
-            color1={reservTotalsColor}
-            popupText1="Total reservations"
-            value2={reservActive}
-            label2="Active"
-            color2={reservActiveColor}
-            popupText2="Current reservations"
+    getWidth();
+    let container;
+    if (getWidth() < Responsive.onlyTablet.minWidth) {
+      container = (
+        <FlexColumn alignCenter style={{ width: "100%", marginTop: "1em" }}>
+          <EmployeeList
+            mobile={true}
+            employeeTasks={employeeTasks}
+            employees={employees}
           />
-          <DashboardCards
-            title="Properties"
-            iconName="home"
-            value1={propTotal}
-            label1="Total"
-            color1="blue"
-            popupText1="Total homes"
-            value2={propInactive}
-            label2="Unreserved"
-            color2={propInactiveColor}
-            popupText2={inactiveHomeText}
-          />
-          <DashboardCards
-            title="Employees"
-            iconName="address card"
-            value1={emplTotal}
-            label1="Total"
-            color1="blue"
-            popupText1="Total employees"
-          />
-          <DashboardCards
-            title="Tasks"
-            iconName="clipboard list"
-            value1={tasksToday}
-            label1="Today"
-            color1="blue"
-            popupText1="Tasks due today"
-            value2={tasksOverdue}
-            label2="Overdue"
-            color2={overdueColor}
-            popupText2="Overdue tasks"
+          <PropertyStats
+            mobile={true}
+            propTotal={propTotal}
+            noReservations={propertiesWithoutReservations}
           />
         </FlexColumn>
-      </Container>
-    );
+      );
+    } else if (getWidth() > Responsive.onlyMobile.maxWidth) {
+      container = (
+        <FlexRow
+          justifyAround
+          style={{ width: "100%", marginTop: "2em", marginBottom: "2em" }}
+        >
+          <EmployeeList
+            mobile={false}
+            employeeTasks={employeeTasks}
+            employees={employees}
+          />
+          <PropertyStats
+            mobile={false}
+            propTotal={propTotal}
+            noReservations={propertiesWithoutReservations}
+          />
+        </FlexRow>
+      );
+    }
+
+    let welcomeMobile;
+    if (getWidth() < Responsive.onlyTablet.minWidth) {
+      welcomeMobile = true;
+    } else if (getWidth() > Responsive.onlyMobile.maxWidth) {
+      welcomeMobile = false;
+    }
+
+    let loadingSpinner;
+    if (loading) {
+      loadingSpinner = (
+        <Container width="full" style={{ display: "flex" }}>
+          <Dimmer active inverted>
+            <Loader inverted>Loading</Loader>
+          </Dimmer>
+          <Tab menu={{ attached: false }} panes={this.panes} />
+        </Container>
+      );
+    } else {
+      loadingSpinner = (
+        <Container>
+          <FlexColumn alignCenter width="full">
+            <WelcomeMessage user={user} mobile={welcomeMobile} />
+
+            <DashboardStats
+              reservTotals={reservTotals}
+              tasksOverdue={tasksOverdue}
+              tasksToday={tasksToday}
+            />
+
+            {container}
+          </FlexColumn>
+        </Container>
+      );
+    }
+
+    return <React.Fragment>{loadingSpinner}</React.Fragment>;
   }
 }
+
+const getWidth = () => {
+  const isSSR = typeof window === "undefined";
+  return isSSR ? Responsive.onlyTablet.minWidth : window.innerWidth;
+};

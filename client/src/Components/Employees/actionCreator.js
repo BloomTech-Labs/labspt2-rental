@@ -3,114 +3,63 @@ import * as actions from "./actions";
 import config from "../../config/index";
 
 export const getEmployees = (filterSort = {}) => dispatch => {
-  const { filter, sort, page, pageSize } = filterSort;
-
   dispatch({ type: actions.EMPLOYEE_STARTED });
 
-  return axios
-    .get(
-      `${config.apiUrl}/api/employees?filter=${JSON.stringify(filter) ||
-        ""}&sort=${sort}&limit=${pageSize}&skip=${(page - 1) * pageSize}`
-    )
-    .then(dispatch(getTaskList()))
-    .then(dispatch(getProperties()))
-    .then(({ data }) => {
-      dispatch({
-        type: actions.EMPLOYEE_SUCCESS,
-        payload: data.data
-      });
-    })
-    .catch(err => {
-      dispatch({ type: actions.EMPLOYEE_FAILURE, error: err });
-    });
-};
-
-export const searchEmployees = (filterSort = {}) => dispatch => {
-  const { filter, sort, page, pageSize, search } = filterSort;
-
-  dispatch({ type: actions.EMPLOYEE_STARTED });
-
-  return axios
-    .get(
-      `${config.apiUrl}/api/employees/search?search=${search ||
+  // function that takes in a string (database) and the filterSort and returns the axios call (from search, if exists)
+  function getInfo(database, filterSort = {}) {
+    const { filter, sort, page, pageSize, search } = filterSort;
+    database = search ? `${database}/search` : database;
+    return axios.get(
+      `${config.apiUrl}/api/${database}?search=${search ||
         ""}&filter=${JSON.stringify(filter) ||
         ""}&sort=${sort}&limit=${pageSize}&skip=${(page - 1) * pageSize}`
+    );
+  }
+  // function that takes in the filterSort and returns the count of employees
+  function getCounts(filterSort = {}) {
+    const { filter, search } = filterSort;
+    return axios.get(
+      `${config.apiUrl}/api/employees/count?search=${search ||
+        ""}&filter=${JSON.stringify(filter) || ""}`
+    );
+  }
+
+  function getUser() {
+    return axios.get(`${config.apiUrl}/api/users/me`);
+  }
+
+  // gets all my information and sends it all over to the reducer
+  return axios
+    .all([
+      getInfo("employees", filterSort),
+      getInfo("properties"),
+      getInfo("tasks"),
+      getCounts(filterSort),
+      getUser()
+    ])
+    .then(
+      axios.spread((employees, properties, tasks, count, user) => {
+        const numPages = Math.ceil(count.data.count / filterSort.pageSize);
+        const result = {
+          employees: employees.data.data,
+          properties: properties.data.data,
+          tasks: tasks.data.data,
+          numPages: numPages,
+          user: user.data.data
+        };
+        dispatch({ type: actions.EMPLOYEE_SUCCESS, payload: result });
+      })
     )
-    .then(dispatch(getNumberEmployees(filterSort)))
-    .then(({ data }) => {
-      dispatch({ type: actions.EMPLOYEE_SUCCESS, payload: data.data });
-    })
     .catch(err => {
       dispatch({ type: actions.EMPLOYEE_FAILURE, error: err });
     });
-};
-
-export const getNumberEmployees = (filterSort = {}) => {
-  const { filter, sort, page, search } = filterSort;
-  const pageSize = 10000;
-
-  return dispatch => {
-    axios
-      .get(
-        `${config.apiUrl}/api/employees/search?search=${search ||
-          ""}&filter=${JSON.stringify(filter) ||
-          ""}&sort=${sort}&limit=${pageSize}&skip=${(page - 1) * pageSize}`
-      )
-      .then(data => {
-        dispatch({
-          type: actions.NUM_EMPLOYEE_SUCCESS,
-          payload: data.data.data.length
-        });
-      })
-      .catch(err => {
-        dispatch({ type: actions.NUM_EMPLOYEE_FAIL, error: err });
-      });
-  };
-};
-
-export const getTaskList = () => {
-  return dispatch => {
-    axios
-      .get(`${config.apiUrl}/api/tasks`)
-      .then(({ data }) => {
-        dispatch({
-          type: actions.TASKLIST_SUCCESS,
-          payload: data.data
-        });
-      })
-      .catch(err => {
-        dispatch({
-          type: actions.TASKLIST_FAILURE,
-          error: err
-        });
-      });
-  };
-};
-
-export const getProperties = () => {
-  return dispatch => {
-    axios
-      .get(`${config.apiUrl}/api/properties`)
-      .then(data => {
-        dispatch({
-          type: actions.PROPERTIES_SUCCESS,
-          payload: data.data
-        });
-      })
-      .catch(err => {
-        dispatch({
-          type: actions.PROPERTIES_FAILURE,
-          error: err
-        });
-      });
-  };
 };
 
 export const createEmployee = body => dispatch => {
   return axios
     .post(`${config.apiUrl}/api/employees`, body)
     .then(({ data }) => {
-      dispatch(getEmployees());
+      getEmployees();
       return data.data;
     })
     .catch(err => {
@@ -122,10 +71,46 @@ export const updateEmployee = (id, body) => dispatch => {
   return axios
     .put(`${config.apiUrl}/api/employees/${id}`, body)
     .then(({ data }) => {
-      console.log(data);
       dispatch(getEmployees());
     })
     .catch(err => {
       dispatch({ type: actions.EMPLOYEE_FAILURE, error: err });
+    });
+};
+
+export const updateProperty = (body = {}) => dispatch => {
+  dispatch({ type: actions.EMPLOYEE_PROPERTY_STARTED });
+
+  return axios
+    .put(`${config.apiUrl}/api/properties/${body._id}`, body)
+    .then(data => {
+      dispatch({
+        type: actions.EMPLOYEE_UPDATE_PROPERTY_SUCCESS,
+        payload: data.data
+      });
+    })
+    .catch(err => {
+      dispatch({
+        type: actions.EMPLOYEE_PROPERTY_FAILURE,
+        payload: err
+      });
+    });
+};
+
+export const sendEmail = msg => dispatch => {
+  dispatch({ type: actions.SENDGRID_STARTED });
+  axios
+    .post(`${config.apiUrl}/api/sendgrid/mail/send`, msg)
+    .then(data => {
+      dispatch({
+        type: actions.SENDGRID_SUCCESS,
+        payload: data.status
+      });
+    })
+    .catch(err => {
+      dispatch({
+        type: actions.SENDGRID_FAILURE,
+        payload: err
+      });
     });
 };

@@ -6,7 +6,12 @@ import {
   addProperty,
   getEmployees,
   getReservations,
-  deleteProperty
+  deleteProperty,
+  getUser,
+  getTasks,
+  deleteTasks,
+  searchProperties,
+  fetchPropertyCount
 } from "./actionCreator";
 import _Properties from "./Properties";
 import _Property from "./Property";
@@ -20,19 +25,27 @@ const mapStateToProps = data => ({
   error: data.properties.error,
   property: data.properties.property,
   employees: data.properties.employees,
-  reservations: data.properties.reservations
+  reservations: data.properties.reservations,
+  user: data.properties.user,
+  tasks: data.properties.tasks,
+  propertyCount: data.properties.propertyCount
 });
 
 const connector = connect(
   mapStateToProps,
   {
+    getTasks,
+    deleteTasks,
     getProperties,
     getProperty,
     updateProperty,
     addProperty,
     getEmployees,
     getReservations,
-    deleteProperty
+    deleteProperty,
+    getUser,
+    searchProperties,
+    fetchPropertyCount
   }
 );
 

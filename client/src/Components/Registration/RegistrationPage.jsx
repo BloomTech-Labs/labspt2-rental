@@ -7,10 +7,13 @@ import {
   Header,
   Message,
   Dimmer,
+  Popup,
   Icon
 } from "semantic-ui-react";
 import { FlexColumn, FlexRow } from "custom-components";
 import { Link } from "react-router-dom";
+
+import { complexityCheck } from "./complexityCheck";
 
 class RegistrationPage extends Component {
   constructor(props) {
@@ -23,6 +26,7 @@ class RegistrationPage extends Component {
       firstName: "",
       lastName: "",
       message: "",
+      popupErrorMessage: "",
       disabled: true,
       active: false
     };
@@ -65,7 +69,7 @@ class RegistrationPage extends Component {
 
   dimmerClose = () => {
     this.setState({ active: false });
-    this.props.history.push(`/dashboard/`);
+    this.props.history.push(`/dashboard`);
   };
 
   handleSubmit = event => {
@@ -76,7 +80,8 @@ class RegistrationPage extends Component {
       password: this.state.password,
       firstName: this.state.firstName,
       lastName: this.state.lastName,
-      role: "owner"
+      role: "owner",
+      billingPlan: "free"
     };
 
     event.preventDefault();
@@ -85,6 +90,7 @@ class RegistrationPage extends Component {
       .registerUser(user)
       .then(success => {
         if (this.props.registration.token) {
+          localStorage.setItem("authorization", this.props.registration.token);
           this.setState({
             active: true
           });
@@ -101,12 +107,75 @@ class RegistrationPage extends Component {
       });
   };
 
+  passwordComplexity = e => {
+    const password = e.target.value;
+    const checks = complexityCheck(password);
+    const {
+      length,
+      validChar,
+      capital,
+      lowercase,
+      number,
+      specChar,
+      validPW
+    } = checks;
+    let lengthErr,
+      validCharErr,
+      capitalErr,
+      lowercaseErr,
+      numberErr,
+      specCharErr;
+    // --Error message builder--
+    if (!validPW) {
+      // First define all relevant error messages
+      if (!length) lengthErr = <div> - contain at least 8 chars</div>;
+      if (!validChar)
+        validCharErr = <div> - contain only valid characters</div>;
+      if (!lowercase)
+        lowercaseErr = <div> - contain at least one lowercase letter</div>;
+      if (!capital)
+        capitalErr = <div> - contain at least one capital letter</div>;
+      if (!specChar)
+        specCharErr = <div>{` - contain one of !,#,$,%,&,?,@,^,~`}</div>;
+      if (!number) numberErr = <div> - contain at least one number</div>;
+      // Use the relevant error messages to to build the message
+      const popup = (
+        <>
+          <div>Please correct the following:</div>
+          {lengthErr}
+          {validCharErr}
+          {capitalErr}
+          {lowercaseErr}
+          {numberErr}
+          {specCharErr}
+        </>
+      );
+      // send the message to render
+      this.setState({
+        message: "checker",
+        popupErrorMessage: popup
+      });
+      // prevent someone from changing focus
+      this.password.focus();
+    } else {
+      // resets the message on successful password
+      this.setState({ message: "" });
+    }
+  };
+
   render() {
-    const { message, disabled, active } = this.state;
+    const { message, disabled, active, popupErrorMessage } = this.state;
 
     let messageAlert;
     if (message === "mismatch") {
       messageAlert = <Message size="tiny">Passwords must match!</Message>;
+    } else if (message === "checker") {
+      messageAlert = (
+        <Message size="tiny">
+          Please enter a valid password
+          <Popup trigger={<Icon name="info" />} content={popupErrorMessage} />
+        </Message>
+      );
     } else if (message !== "") {
       messageAlert = <Message size="tiny">{message}</Message>;
     } else {
@@ -115,7 +184,11 @@ class RegistrationPage extends Component {
 
     let submitButton;
     if (disabled) {
-      submitButton = <Button basic color='green' type='submit' disabled>Update</Button>;
+      submitButton = (
+        <Button basic color="green" type="submit" disabled>
+          Submit
+        </Button>
+      );
     } else {
       submitButton = (
         <Button color="green" type="submit" active>
@@ -128,10 +201,22 @@ class RegistrationPage extends Component {
     if (active) {
       success = (
         <Dimmer active onClickOutside={this.dimmerClose} page>
-          <Header as="h2" icon inverted>
-            <Icon name="check circle outline" />
-            Account created!
-          </Header>
+          <FlexColumn alignCenter>
+            <Header as="h2" icon inverted>
+              <Icon
+                name="check circle outline"
+                style={{ marginBottom: "0.5em" }}
+              />
+              Account Created!
+            </Header>
+            <Button
+              onClick={this.dimmerClose}
+              inverted
+              style={{ marginTop: "1em" }}
+            >
+              Login
+            </Button>
+          </FlexColumn>
         </Dimmer>
       );
     } else {
@@ -142,11 +227,28 @@ class RegistrationPage extends Component {
       <FlexColumn
         width="full"
         alignCenter
-        justifyCenter
-        style={{ backgroundColor: "#1a1b1c", height: "100vh" }}
+        justifyBetween
+        style={{
+          backgroundColor: "#1a1b1c",
+          paddingBottom: "10vh",
+          paddingTop: "2%"
+        }}
       >
+        <Link
+          to="/"
+          style={{
+            alignSelf: "flex-start",
+            marginLeft: "2%",
+            marginBottom: "2em"
+          }}
+        >
+          <Button inverted>Back</Button>
+        </Link>
+
         <Segment className="sm-container">
-          <Header size='large' style={{color:"#4ca34b"}}>Registration</Header>
+          <Header size="large" style={{ color: "#4ca34b" }}>
+            Registration
+          </Header>
           {success}
           <Divider />
 
@@ -212,6 +314,10 @@ class RegistrationPage extends Component {
                 type="password"
                 value={this.state.password}
                 onChange={this.handleInputChange}
+                onBlur={this.passwordComplexity}
+                ref={input => {
+                  this.password = input;
+                }}
               />
             </Form.Field>
             <Form.Field>
@@ -234,7 +340,7 @@ class RegistrationPage extends Component {
                   Already registered?
                 </p>
                 <Link to="/login">
-                  <Button type='button'>Login</Button >
+                  <Button type="button">Login</Button>
                 </Link>
               </FlexColumn>
 

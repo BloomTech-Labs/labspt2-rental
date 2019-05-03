@@ -9,6 +9,7 @@ router
   .post(controllers.createOne);
 
 router.route('/count').get(controllers.count);
+router.route('/search').get(controllers.searchAll);
 
 router
   .route('/:id')

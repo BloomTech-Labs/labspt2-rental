@@ -1,24 +1,9 @@
 import React, { Component } from "react";
 import { FlexColumn, FlexRow } from "custom-components";
-import { Button, Image, Dimmer, Header } from "semantic-ui-react";
+import { Button, Dimmer, Header, Image, Icon } from "semantic-ui-react";
 import { Link } from "react-router-dom";
 import DeleteModal from "./DeleteModal";
 import ErrorModal from "./ErrorModal";
-import styled from "styled-components";
-
-const Label = styled.span`
-  font-weight: bold;
-  text-transform: uppercase;
-  font-size: 0.8rem;
-  letter-spacing: 0.1rem;
-  margin-right: 5px;
-`;
-
-const Text = styled.span`
-  text-transform: uppercase;
-  font-size: 0.8rem;
-  letter-spacing: 0.1rem;
-`;
 
 class Property extends Component {
   state = {
@@ -73,7 +58,16 @@ class Property extends Component {
     return (
       <>
         {property && (
-          <div>
+          <div
+            style={{
+              width: "50vw",
+              height: "100vh",
+              display: "flex",
+              justifyContent: "space-between",
+              margin: "1em",
+              paddingTop: "2em"
+            }}
+          >
             <Dimmer
               size="fullscreen"
               active={this.state.dimmerOpen}
@@ -97,57 +91,125 @@ class Property extends Component {
               modalMessage={this.state.modalMessage}
               modalClose={this.modalClose}
             />
-            <FlexRow>
-              <FlexColumn justifyBetween>
-                <h1>{property.name}</h1>
+
+            <FlexColumn>
+              <FlexRow justifyBetween>
                 <FlexColumn
                   className="address"
                   spaceBottom
-                  style={{ color: "gray" }}
+                  style={{ color: "gray", padding: "10px", width: "50%" }}
                 >
-                  <FlexRow wrap>{property.address1}</FlexRow>
-                  <FlexRow wrap style={{ maxWidth: "200px" }}>
+                  <Header as="h1">{property.name}</Header>
+                  <FlexRow wrap style={{ padding: "5px" }}>
+                    {property.address1}
+                  </FlexRow>
+                  <FlexRow wrap style={{ padding: "5px" }}>
                     {property.city}, {property.state} {property.zip}
                   </FlexRow>
-                </FlexColumn>
+                  <FlexRow
+                    style={{
+                      width: "60%",
+                      alignItems: "baseline",
+                      marginTop: "10%"
+                    }}
+                  >
+                    <FlexRow
+                      style={{
+                        marginTop: "5%",
+                        width: "80%",
+                        alignItems: "center"
+                      }}
+                    >
+                      <Icon
+                        name="moon outline"
+                        size="large"
+                        style={{ marginRight: "5%", color: "black" }}
+                      />
+                      <p style={{ marginLeft: "10%" }}>
+                        ${property.price} per night
+                      </p>
+                    </FlexRow>
 
-                <FlexColumn spaceBottom="20px">
-                  <FlexRow>
-                    <Label>Price per night: </Label>
-                    <Text>${property.price}</Text>
+                    <FlexRow
+                      style={{
+                        marginTop: "1%",
+                        width: "80%",
+                        alignItems: "center"
+                      }}
+                    >
+                      <Icon
+                        name="user outline"
+                        size="large"
+                        style={{ marginRight: "5%", color: "black" }}
+                      />
+                      <p style={{ marginLeft: "10%" }}>
+                        Guests: {property.occupants}
+                      </p>
+                    </FlexRow>
                   </FlexRow>
-                  <FlexRow>
-                    <Label>Max Guests:</Label>
-                    <Text> {property.occupants}</Text>
-                  </FlexRow>
-                  <FlexRow>
-                    <Label>Default Employee:</Label>
-                    <Text>
-                      {property.assistants.length
-                        ? `${property.assistants[0].firstName}`
-                        : "Not Assigned"}
-                    </Text>
+                  <FlexRow
+                    style={{
+                      marginTop: "40%",
+                      width: "80%",
+                      alignItems: "center",
+                      marginBottom: "2%",
+                      minHeight: "12vh"
+                    }}
+                  >
+                    <Image
+                      src={`https://res.cloudinary.com/roostr-labpt2/image/upload/c_lfill,g_center,h_500,w_400/v1556336341/${
+                        property.assistants[0].image
+                      }.jpg`}
+                      size="tiny"
+                      style={{ marginRight: "10px" }}
+                    />
+
+                    <FlexColumn
+                      style={{
+                        marginLeft: "5%",
+                        alignItems: "flex-start"
+                      }}
+                    >
+                      <Header as="h3">On Site Contact</Header>
+                      <p>
+                        <strong>Name:</strong>{" "}
+                        {property.assistants.length
+                          ? `${property.assistants[0].firstName} 
+                  ${property.assistants[0].lastName}`
+                          : `Not Assigned`}
+                      </p>
+                    </FlexColumn>
                   </FlexRow>
                 </FlexColumn>
-                <FlexRow>
-                  <Link to={`/dashboard/properties/edit/${property._id}`}>
-                    <Button content="Edit" color="blue" />
-                  </Link>
-                  &nbsp;&nbsp;&nbsp;&nbsp;
-                  <Button basic color="red" onClick={this.openModal}>
-                    Delete
-                  </Button>
-                </FlexRow>
-              </FlexColumn>
-              <FlexColumn height="100%" justifyCenter>
-                <Image rounded src={property.image} size="medium" />
-              </FlexColumn>
-            </FlexRow>
+                <FlexColumn style={{ width: "50%", alignItems: "flex-end" }}>
+                  <Image
+                    src={`http://res.cloudinary.com/roostr-labpt2/image/upload/c_scale,q_80,r_0,w_640/v1556327124/${
+                      property.image
+                    }.jpg`}
+                    style={{ width: "100%" }}
+                    size="medium"
+                  />
+                  <FlexRow style={{ marginTop: "35%" }}>
+                    <FlexColumn spaceBottom="20px" spaceTop="10%" />
+                    <FlexRow>
+                      {" "}
+                      <Link to={`/dashboard/properties/edit/${property._id}`}>
+                        <Button content="Edit" color="blue" />
+                      </Link>
+                      &nbsp;&nbsp;&nbsp;&nbsp;
+                      <Button basic color="red" onClick={this.openModal}>
+                        Delete
+                      </Button>
+                    </FlexRow>
+                  </FlexRow>
+                </FlexColumn>
+              </FlexRow>
+            </FlexColumn>
+            <FlexColumn height="100%" justifyCenter />
           </div>
         )}
       </>
     );
   }
 }
-
 export default Property;

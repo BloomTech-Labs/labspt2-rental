@@ -15,20 +15,11 @@ import { Footer } from "./Footer";
 import { GetStarted } from "./GetStarted";
 import { Features } from "./Features";
 
-// Heads up!
-// We using React Static to prerender our docs with server side rendering, this is a quite simple solution.
-// For more advanced usage please check Responsive docs under the "Usage" section.
-
 const getWidth = () => {
   const isSSR = typeof window === "undefined";
 
   return isSSR ? Responsive.onlyTablet.minWidth : window.innerWidth;
 };
-
-/* Heads up!
- * Neither Semantic UI nor Semantic UI React offer a responsive navbar, however, it can be implemented easily.
- * It can be more complicated, but you can create really flexible markup.
- */
 
 class DesktopContainer extends Component {
   state = {};
@@ -72,7 +63,6 @@ class DesktopContainer extends Component {
 
                   <Link to="/register">
                     <Button
-                      as="a"
                       inverted={!fixed}
                       primary={fixed}
                       style={{ marginLeft: "0.5em" }}
@@ -89,7 +79,7 @@ class DesktopContainer extends Component {
             <Responsive
               getWidth={getWidth}
               minWidth={Responsive.onlyTablet.minWidth}
-              style={{ backgroundColor: "#f6f9fc" }}
+              style={{ backgroundColor: "#f6f9fc", marginTop: "100px" }}
             >
               <Testimonials />
               <GetStarted />
@@ -98,7 +88,7 @@ class DesktopContainer extends Component {
             <Responsive
               getWidth={getWidth}
               minWidth={Responsive.onlyTablet.minWidth}
-              style={{ backgroundColor: "#f6f9fc", border: "1px solid green" }}
+              style={{ backgroundColor: "#f6f9fc" }}
             >
               <Features />
             </Responsive>

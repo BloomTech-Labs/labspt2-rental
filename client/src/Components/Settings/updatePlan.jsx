@@ -20,7 +20,9 @@ class CheckoutForm extends Component {
     this.submit = this.submit.bind(this);
   }
 
-  dimmerClose = () => this.setState({ active: false, open: false });
+  dimmerClose = () => {
+    this.setState({ active: false, open: false })
+  };
 
   async submit(ev) {
     this.setState({
@@ -39,19 +41,21 @@ class CheckoutForm extends Component {
 
     let { token } = await this.props.stripe.createToken({
       email: this.props.user.email,
-      address_line1: this.props.user.billingAddress.address1,
-      address_city: this.props.user.billingAddress.city,
-      address_state: this.props.user.billingAddress.state,
-      address_zip: this.props.user.billingAddress.zip,
       name: `${this.props.user.firstName} ${this.props.user.lastName}`
     });
 
     let response = await axios.post(`${config.apiUrl}/api/stripe/subscribe`, {
       token: token,
-      updatedPlan: planType
+      updatedPlan: planType,
+      address: {
+        address_line1: this.props.billingAddress.address1,
+        address_city: this.props.billingAddress.city,
+        address_state: this.props.billingAddress.state,
+      }
     });
 
     if (response) {
+      this.props.getUser();
       this.setState({
         loading: false
       });
@@ -104,6 +108,7 @@ class CheckoutForm extends Component {
             positive
             content="Update"
             onClick={this.submit}
+            style={{ marginRight: "1%" }}
           />
         </Segment>
       </div>

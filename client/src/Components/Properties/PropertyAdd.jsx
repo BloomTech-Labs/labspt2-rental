@@ -5,11 +5,10 @@ import {
   Dropdown,
   Form,
   Dimmer,
-  Icon,
   Header
 } from "semantic-ui-react";
 import { Link } from "react-router-dom";
-import { FlexColumn, FlexRow } from "custom-components";
+import { FlexColumn } from "custom-components";
 import MonthlyFeeModal from "./MonthlyFeeModal";
 import ErrorModal from "./ErrorModal";
 
@@ -49,7 +48,8 @@ class PropertyAdd extends Component {
       price: this.state.price,
       occupants: this.state.occupants,
       assistants: this.state.assistants,
-      image: this.state.image
+      image: this.state.image,
+      cleaningFee: this.state.cleaningFee
     };
     this.props.addProperty(newProp).then(response => {
       this.setState({
@@ -174,6 +174,13 @@ class PropertyAdd extends Component {
               style={{ margin: "5px" }}
               placeholder="Required"
               onChange={e => this.handleChange("price", e.target.value)}
+            />
+            <Form.Field
+              control={Input}
+              label="Cleaning Fee"
+              style={{ margin: "5px" }}
+              placeholder="Optional"
+              onChange={e => this.handleChange("cleaningFee", e.target.value)}
             />
             <Form.Field
               control={Input}

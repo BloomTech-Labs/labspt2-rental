@@ -6,10 +6,6 @@ const mapStateToProps = ({ auth }) => ({
   auth
 });
 
-const mapDispatchToProps = () => ({
-  loginUser
-});
-
 export default connect(
   mapStateToProps,
   { loginUser }

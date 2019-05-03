@@ -7,7 +7,6 @@ export const apartment = ({ mobile }) => (
     data-name="Layer 1"
     xmlns="http://www.w3.org/2000/svg"
     width={mobile ? "175px" : "200px"}
-    height="auto"
     viewBox="0 0 1006.8115 762"
   >
     <title>apartment rent</title>

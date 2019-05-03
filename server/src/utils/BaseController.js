@@ -18,9 +18,14 @@ export class BaseController {
   };
 
   getOne = async (req, res, next) => {
+    let userId;
+
+    userId = req.user.createdBy ? req.user.createdBy : req.user._id;
+
     try {
       const doc = await this.mongooseModel
-        .findOne({ createdBy: req.user._id, _id: req.params.id })
+        .findOne({ createdBy: userId, _id: req.params.id })
+        .select('-password')
         .exec();
 
       if (!doc) {
@@ -37,7 +42,9 @@ export class BaseController {
   };
 
   getMany = async (req, res, next, query = null) => {
-    let filter, sort, skip, limit;
+    let filter, sort, skip, limit, userId;
+
+    userId = req.user.createdBy ? req.user.createdBy : req.user._id;
 
     if (req.query.filter) {
       filter = JSON.parse(req.query.filter);
@@ -67,7 +74,8 @@ export class BaseController {
 
     try {
       const docs = await this.mongooseModel
-        .find({ createdBy: req.user._id, ...filter })
+        .find({ createdBy: userId, ...filter })
+        .select('-password')
         .sort(sort)
         .limit(limit)
         .skip(skip)
@@ -81,14 +89,17 @@ export class BaseController {
 
   search = async (req, res, next, opts = {}) => {
     const { lookup, search, filter } = opts;
+    let userId;
 
-    let pipeline = [];
+    userId = req.user.createdBy ? req.user.createdBy : req.user._id;
+
+    let pipeline = [{ $project: { password: false } }];
 
     if (lookup && lookup.length) {
       pipeline.push(...lookup);
     }
 
-    pipeline.push({ $match: { createdBy: req.user._id } });
+    pipeline.push({ $match: { createdBy: userId } });
 
     if (filter) {
       pipeline.push({ $match: filter });
@@ -152,11 +163,15 @@ export class BaseController {
   };
 
   updateOne = async (req, res, next) => {
+    let userId;
+
+    userId = req.user.createdBy ? req.user.createdBy : req.user._id;
+
     try {
       const updatedDoc = await this.mongooseModel
         .findOneAndUpdate(
           {
-            createdBy: req.user._id,
+            createdBy: userId,
             _id: req.params.id
           },
           req.body,
@@ -177,9 +192,13 @@ export class BaseController {
   };
 
   removeOne = async (req, res, next) => {
+    let userId;
+
+    userId = req.user.createdBy ? req.user.createdBy : req.user._id;
+
     try {
       const removed = await this.mongooseModel.findOneAndRemove({
-        createdBy: req.user._id,
+        createdBy: userId,
         _id: req.params.id
       });
 
@@ -196,6 +215,9 @@ export class BaseController {
 
   countMine = async (req, res, next) => {
     let filter = {};
+    let userId;
+
+    userId = req.user.createdBy ? req.user.createdBy : req.user._id;
 
     if (req.query.filter) {
       filter = JSON.parse(req.query.filter);
@@ -203,7 +225,7 @@ export class BaseController {
 
     try {
       this.mongooseModel.countDocuments(
-        { createdBy: req.user._id, ...filter },
+        { createdBy: userId, ...filter },
         (err, count) => {
           if (err) {
             const error = new Error('Error counting documents');

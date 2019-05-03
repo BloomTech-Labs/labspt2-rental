@@ -95,3 +95,24 @@ export const getProperties = () => {
     }
   };
 };
+
+export const getSubscription = (subscriptionID) => {
+  return async dispatch => {
+    dispatch({
+      type: actions.STRIPE_FETCH_SUBSCRIPTION_STARTED
+    });
+    try {
+      const subscription = await axios.get(
+        `${config.apiUrl}/api/stripe/subscription`, 
+        subscriptionID
+      );
+      dispatch({
+        type: actions.STRIPE_FETCH_SUBSCRIPTION_SUCCESS,
+        payload: subscription.data.data
+      });
+    } catch (err) {
+      console.error(err);
+      dispatch({ type: actions.STRIPE_FETCH_SUBSCRIPTION_ERROR, payload: err });
+    }
+  };
+};

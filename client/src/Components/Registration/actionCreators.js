@@ -10,6 +10,7 @@ export const registerUser = newUser => {
         `${config.apiUrl}/api/users/register`,
         newUser
       );
+
       dispatch({
         type: actions.REGISTER_USER_SUCCESS,
         payload: "Bearer " + token.data.token

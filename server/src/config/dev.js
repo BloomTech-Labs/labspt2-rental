@@ -1,11 +1,15 @@
+require('dotenv').config();
+
 export const config = {
   secrets: {
-    jwt: 'mentor and stuff'
+    jwt: process.env.JWT_SECRET
   },
   keys: {
-    stripePublishable: 'pk_test_Il1MCOR4thnvsuNgiwCaJzOw',
-    stripeSecret: 'sk_test_DNgeIDV0yXsWhahC6Wq4ZKg9',
-    stripePlan: 'plan_EpLtM3j2EMurWg'
+    stripePublishable: process.env.STRIPE_PUB,
+    stripeSecret: process.env.STRIPE_SECRET,
+    stripePlan: process.env.STRIPE_PLAN,
+    sendgrid: process.env.SENDGRID
   },
-  dbUrl: 'mongodb://localhost:27017/mentorlabs-dev'
+  dbUrl: 'mongodb://localhost:27017/mentorlabs-dev',
+  origin: 'http://localhost:3000'
 };

@@ -3,27 +3,21 @@ import {
   Header,
   Button,
   Label,
-  Statistic,
-  Popup,
-  Icon
+  Icon,
+  Image,
+  Dimmer,
+  Loader,
+  Responsive
 } from "semantic-ui-react";
-import { FlexRow, FlexColumn, Text } from "custom-components";
+import { FlexRow, FlexColumn, Container } from "custom-components";
 import { Link } from "react-router-dom";
+import { differenceInDays, format } from "date-fns";
 import styled from "styled-components";
-import moment from "moment";
 
-const HeaderBar = styled(FlexRow)`
-  border-bottom: thin solid lightgrey;
-  padding: 10px;
-`;
-
-const ReservationContainer = styled(FlexColumn)`
-  span {
-    color: grey;
-  }
-`;
-
-// BUG: Needs to update when routed back to after payment to display paid: true
+const getWidth = () => {
+  const isSSR = typeof window === "undefined";
+  return isSSR ? Responsive.onlyTablet.minWidth : window.innerWidth;
+};
 
 class ReservationView extends Component {
   componentDidMount() {
@@ -31,97 +25,371 @@ class ReservationView extends Component {
   }
 
   render() {
-    const { reservation, loading } = this.props;
+    const { reservation } = this.props;
+
     let processPaymentButton;
-    if(reservation.paid) {
-      processPaymentButton = null
+
+    if (reservation.paid) {
+      processPaymentButton = null;
     } else {
-      processPaymentButton = <Link to={`/dashboard/checkout/${reservation._id}`} ><Button basic color="blue">
-      Process Payment
-    </Button> </Link>
+      processPaymentButton = (
+        <Link to={`/dashboard/checkout/${reservation._id}`}>
+          <Button basic color="blue">
+            Process Payment
+          </Button>{" "}
+        </Link>
+      );
     }
-    return loading ? (
-      "Loading..."
-    ) : (
-      <>
-        {reservation._id && (
-          <ReservationContainer justifyBetween alignCenter width="full">
-            <HeaderBar width="full" spaceBottom alignCenter justifyBetween>
-              <FlexRow alignCenter>
-                <Header as="h3" style={{ margin: 0 }}>
-                  {reservation.property.name}
-                </Header>
-                &nbsp;
-                <Popup
-                  position="right center"
-                  trigger={
-                    <Label circular>
-                      <Icon fitted name="info" />
-                    </Label>
-                  }
-                  content={reservation._id}
-                />
-              </FlexRow>
 
-              <Header as="h4" style={{ color: "grey", margin: 0 }}>
-                {reservation.guest.firstName}&nbsp;{reservation.guest.lastName}
+    let loadingComponent;
+    if (!reservation.guest) {
+      loadingComponent = (
+        <Container width="full" style={{ display: "flex" }}>
+          <Dimmer active inverted>
+            <Loader inverted>Loading</Loader>
+          </Dimmer>
+        </Container>
+      );
+    } else {
+      const nights = differenceInDays(
+        new Date(reservation.checkOut),
+        new Date(reservation.checkIn)
+      );
+
+      const checkIn = format(new Date(reservation.checkIn), "MM/DD/YYYY");
+
+      const checkInMonth = format(new Date(reservation.checkIn), "MMM");
+
+      const checkInDay = format(new Date(reservation.checkIn), "dddd");
+
+      const checkOut = format(new Date(reservation.checkOut), "MM/DD/YYYY");
+
+      const checkOutMonth = format(new Date(reservation.checkOut), "MMM");
+
+      const checkOutDay = format(new Date(reservation.checkOut), "dddd");
+
+      loadingComponent = (
+        <FlexRow
+          alignCenter
+          justifyBetween
+          style={{
+            width: "full",
+            display: "flex",
+            justifyContent: "center",
+            margin: "1em",
+            paddingTop: "2em"
+          }}
+        >
+          <FlexColumn style={{ paddingLeft: "2%", paddingTop: "2%" }}>
+            <FlexRow justifyBetween style={{ width: "100%" }}>
+              <Header as="h1" style={{ marginBottom: "2em" }}>
+                {reservation.guest.firstName} {reservation.guest.lastName}'s
+                Reservation
               </Header>
-            </HeaderBar>
 
-            <FlexRow width="full" justifyBetween>
               {!reservation.paid && (
-                <Label color="red" center style={{ marginBottom: "5px" }}>
+                <Label color="red" style={{ marginRight: "5%" }}>
                   Not Paid
                 </Label>
               )}
 
               {reservation.paid && (
-                <Label color="green" center>
+                <Label color="green" style={{ marginRight: "5%" }}>
                   Paid
                 </Label>
               )}
+            </FlexRow>
 
-              <FlexColumn alignEnd>
-                <span>{reservation.guest.email}</span>
-                <span>{reservation.guest.phoneNumber}</span>
+            <MobileContainer>
+              <FlexColumn style={{ width: "80%" }}>
+                <Header as="h3">{reservation.property.name}</Header>
+
+                <p style={{ marginBottom: 0 }}>
+                  {reservation.property.address1}
+                </p>
+                <p>
+                  {reservation.property.city}, {reservation.property.state}{" "}
+                  {reservation.property.zip}
+                </p>
+
+                <FlexColumn
+                  style={{
+                    width: "60%",
+                    alignItems: "baseline",
+                    marginTop: "2%"
+                  }}
+                >
+                  <FlexRow
+                    style={{
+                      marginTop: "5%",
+                      width: "100%",
+                      alignItems: "center",
+                      marginBottom: '3%'
+                    }}
+                  >
+                    <Icon
+                      name="moon outline"
+                      size="large"
+                      style={{ marginRight: "2%", color: "light green" }}
+                    />
+                    <p style={{ marginLeft: "5%" }}>{nights} nights</p>
+                  </FlexRow>
+
+                  <FlexRow
+                    style={{
+                      marginTop: "1%",
+                      width: "100%",
+                      alignItems: "center"
+                    }}
+                  >
+                    <Icon
+                      name="user outline"
+                      size="large"
+                      style={{ marginRight: "2%" }}
+                    />
+                    <p style={{ marginLeft: "5%" }}>
+                      Guests: {this.props.reservation.guests}
+                    </p>
+                  </FlexRow>
+                </FlexColumn>
               </FlexColumn>
+
+              <Image
+                src={`https://res.cloudinary.com/roostr-labpt2/image/upload/c_scale,w_180/v1556327124/${
+                  reservation.property.image
+                }.jpg`}
+                style={{ marginBottom: '1em'}}
+              />
+              </MobileContainer>
+
+              <DesktopContainer>
+              <FlexColumn style={{ width: "80%" }}>
+                <Header as="h3">{reservation.property.name}</Header>
+
+                <p style={{ marginBottom: 0 }}>
+                  {reservation.property.address1}
+                </p>
+                <p>
+                  {reservation.property.city}, {reservation.property.state}{" "}
+                  {reservation.property.zip}
+                </p>
+
+                <FlexRow
+                  style={{
+                    width: "90%",
+                    alignItems: "baseline",
+                    marginTop: "2%"
+                  }}
+                >
+                  <FlexRow
+                    style={{
+                      marginTop: "5%",
+                      width: "80%",
+                      alignItems: "center"
+                    }}
+                  >
+                    <Icon
+                      name="moon outline"
+                      size="large"
+                      style={{ marginRight: "2%", color: "light green" }}
+                    />
+                    <p style={{ marginLeft: "5%" }}>{nights} nights</p>
+                  </FlexRow>
+
+                  <FlexRow
+                    style={{
+                      marginTop: "1%",
+                      width: "80%",
+                      alignItems: "center"
+                    }}
+                  >
+                    <Icon
+                      name="user outline"
+                      size="large"
+                      style={{ marginRight: "2%" }}
+                    />
+                    <p style={{ marginLeft: "5%" }}>
+                      Guests: {this.props.reservation.guests}
+                    </p>
+                  </FlexRow>
+                </FlexRow>
+              </FlexColumn>
+
+              <Image
+                src={`https://res.cloudinary.com/roostr-labpt2/image/upload/c_scale,w_180/v1556327124/${
+                  reservation.property.image
+                }.jpg`}
+              />
+              </DesktopContainer>
+
+            {/* Check In and Check Out View */}
+            <FlexRow
+              justifyBetween
+              style={{ marginTop: "3em", width: "90%", alignSelf: "center" }}
+            >
+              <FlexRow style={{ width: "25vw", marginRight: "5vw" }}>
+                <FlexColumn
+                  alignCenter
+                  style={{
+                    backgroundColor: "#e2e2e2",
+                    width: "60px",
+                    height: "54px",
+                    marginRight: "7%"
+                  }}
+                >
+                  <p
+                    style={{
+                      marginBottom: "-5%",
+                      marginTop: "13%",
+                      fontWeight: "bold"
+                    }}
+                  >
+                    {checkInMonth}
+                  </p>
+                  <p style={{ fontWeight: "bold" }}>
+                    {checkIn[3]}
+                    {checkIn[4]}
+                  </p>
+                </FlexColumn>
+
+                <FlexColumn>
+                  <p style={{ margin: 0, marginTop: "4%", marginBottom: "1%" }}>
+                    {checkInDay} Check In
+                  </p>
+                  <p style={{}}>2 PM - 8 PM</p>
+                </FlexColumn>
+              </FlexRow>
+
+              <FlexRow style={{ width: "25vw", marginRight: "5vw" }}>
+                <FlexColumn
+                  alignCenter
+                  style={{
+                    backgroundColor: "#e2e2e2",
+                    width: "60px",
+                    height: "54px",
+                    marginRight: "7%"
+                  }}
+                >
+                  <p
+                    style={{
+                      marginBottom: "-5%",
+                      marginTop: "13%",
+                      fontWeight: "bold"
+                    }}
+                  >
+                    {checkOutMonth}
+                  </p>
+                  <p style={{ fontWeight: "bold" }}>
+                    {checkOut[3]}
+                    {checkOut[4]}
+                  </p>
+                </FlexColumn>
+
+                <FlexColumn>
+                  <p style={{ margin: 0, marginTop: "4%", marginBottom: "1%" }}>
+                    {checkOutDay} Check Out
+                  </p>
+                  <p style={{}}>10AM</p>
+                </FlexColumn>
+              </FlexRow>
             </FlexRow>
 
             <FlexRow
-              width="full"
-              justifyCenter
-              alignCenter
-              spaceTop="40px"
-              spaceBottom="40px"
+              style={{
+                marginTop: "7%",
+                width: "80%",
+                marginLeft: "5%",
+                alignItems: "center",
+                marginBottom: "2%",
+                minHeight: "12vh"
+              }}
             >
-              <Statistic size="tiny" style={{ margin: "0 15px" }}>
-                <Statistic.Label>Check In</Statistic.Label>
-                <Statistic.Value>
-                  {moment(reservation.checkIn).format("MM/DD")}
-                </Statistic.Value>
-              </Statistic>
+              <Image
+                src={`https://res.cloudinary.com/roostr-labpt2/image/upload/c_lfill,g_center,h_500,w_400/v1556336341/${
+                  reservation.assistant.image
+                }.jpg`}
+                size="tiny"
+              />
 
-              <Statistic size="tiny" style={{ margin: "0 15px" }}>
-                <Statistic.Label>Check Out</Statistic.Label>
-                <Statistic.Value>
-                  {moment(reservation.checkOut).format("MM/DD")}
-                </Statistic.Value>
-              </Statistic>
+              <FlexColumn
+                style={{ marginLeft: "5%", alignItems: "flex-start" }}
+              >
+                <Header as="h3">On Site Contact</Header>
+                <p>
+                  <strong>Name:</strong> {reservation.assistant.firstName}{" "}
+                  {reservation.assistant.lastName}
+                </p>
+                <p>
+                  <strong>Email:</strong> {reservation.assistant.email}
+                </p>
+              </FlexColumn>
             </FlexRow>
 
-            <FlexRow width="300px" spaceTop alignEnd justifyBetween>
-              <Link to={`/dashboard/reservations/edit/${reservation._id}`}>
-                <Button basic>Edit</Button>
-              </Link>
+            <React.Fragment>
+              <FlexRow
+                width="90%"
+                spaceTop
+                alignEnd
+                justifyBetween
+                style={{
+                  alignSelf: "center",
+                  marginTop: "3em",
+                  marginBottom: "2em"
+                }}
+              >
+                <Link to={`/dashboard/reservations/edit/${reservation._id}`}>
+                  <Button basic>Edit</Button>
+                </Link>
 
-              {processPaymentButton}
+                {processPaymentButton}
+              </FlexRow>
+            </React.Fragment>
+          </FlexColumn>
+        </FlexRow>
+      );
+    }
 
-            </FlexRow>
-          </ReservationContainer>
-        )}
-      </>
-    );
+    return <React.Fragment>{loadingComponent}</React.Fragment>;
   }
 }
 
 export default ReservationView;
+
+const DesktopContainer = styled.div`
+  &&& {
+    display: flex;
+    justify-content: space-between;
+    width: 90%;
+    min-height: 125px;
+    align-items: center;
+    margin-bottom: 1em;
+    align-self: center;
+    
+    @media (max-width: 470px) {
+    display: none;
+    justify-content: space-between;
+    width: 90%;
+    min-height: 125px;
+    align-items: center;
+    margin-bottom: 1em;
+    align-self: center;
+    border: 1px solid blue;
+    }
+  }
+`;
+
+const MobileContainer = styled.div`
+&&& {
+  display: none;
+  @media (max-width: 470px) {
+    display: flex;
+    flex-direction: column-reverse;
+    justify-content: space-between;
+    width: 90%;
+    min-height: 125px;
+    align-items: center;
+    margin-bottom: 1em;
+    align-self: center;
+  }
+}
+`;

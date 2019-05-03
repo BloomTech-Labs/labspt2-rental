@@ -14,7 +14,7 @@ import { EmployeeSingle, EmployeeAdd, Employees } from "../Employees";
 import { CheckoutCart } from "../Checkout";
 import { Tasks, TaskAdd, TaskEdit } from "../Tasks";
 import { Settings } from "../Settings";
-import { Sidebar } from "./components";
+import { Sidebar } from "./Sidebar";
 
 class Dashboard extends Component {
   render() {
@@ -22,8 +22,13 @@ class Dashboard extends Component {
       <Container>
         <Sidebar location={this.props.location}>
           <Segment
-            className="space-left-20"
-            style={{ width: "100%", maxWidth: "fit-content" }}
+            style={{
+              width: "100%",
+              maxWidth: "fit-content",
+              maxHeight: "100vh",
+              overflowY: 'scroll',
+              overflowX: 'hidden'
+            }}
           >
             <Route
               exact
@@ -53,7 +58,7 @@ class Dashboard extends Component {
             <Route
               exact
               path="/dashboard/checkout/:id"
-              render={(props) => <CheckoutCart {...props} />}
+              render={props => <CheckoutCart {...props} />}
             />
             <Route
               exact
@@ -107,7 +112,10 @@ class Dashboard extends Component {
               render={() => <PropertyAdd />}
             />
             {/*<Route path="/dashboard/tasks" render={() => <Tasks/>}/>*/}
-            <Route path="/dashboard/settings" render={(props) => <Settings {...props} />} />
+            <Route
+              path="/dashboard/settings"
+              render={props => <Settings {...props} />}
+            />
           </Segment>
         </Sidebar>
       </Container>

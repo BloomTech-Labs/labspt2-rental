@@ -62,11 +62,7 @@ export const fetchTaskCount = (status = null) => dispatch => {
   dispatch({ type: actions.FETCH_TASK_ATTEMPT });
 
   return axios
-    .get(
-      `${config.apiUrl}/api/tasks/count?filter=${JSON.stringify({
-        status
-      })}`
-    )
+    .get(`${config.apiUrl}/api/tasks/count?filter=${JSON.stringify(status)}`)
     .then(({ data }) => {
       dispatch({
         type: actions.TASK_COUNT_SUCCESS,
@@ -86,7 +82,7 @@ export const fetchProperties = () => dispatch => {
     .get(`${config.apiUrl}/api/properties`)
     .then(({ data }) => {
       dispatch({
-        type: actions.PROPERTIES_SUCCESS,
+        type: actions.TASKS_PROPERTIES_SUCCESS,
         payload: { properties: data.data }
       });
     })
@@ -102,7 +98,7 @@ export const fetchEmployees = () => dispatch => {
     .get(`${config.apiUrl}/api/employees`)
     .then(({ data }) => {
       dispatch({
-        type: actions.EMPLOYEES_SUCCESS,
+        type: actions.TASKS_EMPLOYEES_SUCCESS,
         payload: { employees: data.data }
       });
     })
@@ -118,7 +114,7 @@ export const fetchReservations = () => dispatch => {
     .get(`${config.apiUrl}/api/reservations`)
     .then(({ data }) => {
       dispatch({
-        type: actions.RESERVATIONS_SUCCESS,
+        type: actions.TASKS_RESERVATIONS_SUCCESS,
         payload: { reservations: data.data }
       });
     })
@@ -201,5 +197,63 @@ export const deleteTask = id => dispatch => {
         type: actions.FETCH_TASK_FAILURE,
         payload: err
       });
+    });
+};
+
+// Needed for permissions
+export const fetchUserLog = () => dispatch => {
+  dispatch({ type: actions.FETCH_TASK_ATTEMPT });
+  return axios
+    .get(`${config.apiUrl}/api/users/me`)
+    .then(({ data }) => {
+      dispatch({
+        type: actions.TASKS_USER_SUCCESS,
+        payload: { user: data.data }
+      });
+    })
+    .catch(err => {
+      dispatch({ type: actions.FETCH_TASK_FAILURE, payload: err });
+    });
+};
+
+// Needed for labels
+export const fetchIncompletedTaskCount = (
+  status = null,
+  completed = false
+) => dispatch => {
+  dispatch({ type: actions.FETCH_TASK_ATTEMPT });
+
+  function getIncompletedTaskCounts(status = null, completed = false) {
+    return axios.get(
+      `${config.apiUrl}/api/tasks/count?filter=${JSON.stringify({
+        status,
+        completed
+      })}`
+    );
+  }
+
+  return axios
+    .all([
+      getIncompletedTaskCounts("overdue"),
+      getIncompletedTaskCounts("due today"),
+      getIncompletedTaskCounts("upcoming")
+    ])
+    .then(
+      axios.spread(
+        (overdueIncompleted, duetodayIncompleted, upcomingIncompleted) => {
+          const taskResult = {
+            overdueIncompleted: overdueIncompleted.data.count,
+            duetodayIncompleted: duetodayIncompleted.data.count,
+            upcomingIncompleted: upcomingIncompleted.data.count
+          };
+          dispatch({
+            type: actions.TASK_INCOMPLETED_COUNT_SUCCESS,
+            payload: taskResult
+          });
+        }
+      )
+    )
+    .catch(err => {
+      dispatch({ type: actions.FETCH_TASK_FAILURE, payload: err });
     });
 };
