@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { FlexColumn, Divider } from "custom-components";
+import { FlexColumn, Divider, ResponsiveDiv } from "custom-components";
 import { Pagination, Responsive } from "semantic-ui-react";
 import TaskListItemDesktop from "./TaskListItemDesktop";
 import TaskListItemMobile from "./TaskListItemMobile";
@@ -33,7 +33,7 @@ class TaskList extends Component {
           />
         )}
         {this.props.tasks.map((task, index) => (
-          <div style={{ width: "100%" }} key={index}>
+          <ResponsiveDiv style={{ width: "100%" }} key={index}>
             {/* <Responsive maxWidth={475}> */}
             <Responsive maxWidth={779}>
               <TaskListItemMobile
@@ -58,7 +58,7 @@ class TaskList extends Component {
             </Responsive>
 
             <Divider />
-          </div>
+          </ResponsiveDiv>
         ))}
       </FlexColumn>
     );
