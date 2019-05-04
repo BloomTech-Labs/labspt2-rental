@@ -161,7 +161,7 @@ export default class Employees extends Component {
               )
             })),
             {
-              menuItem: <Search key="1" style={{ minWidth: "230px", flexGrow: "1" }} onChange={this.handleSearchChange} />
+              menuItem: <Search active="false" key="1" style={{ minWidth: "230px", flexGrow: "1" }} onChange={this.handleSearchChange} />
             }
           ]}
         />

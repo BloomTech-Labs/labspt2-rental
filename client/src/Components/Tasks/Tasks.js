@@ -225,6 +225,7 @@ class Tasks extends Component {
             {
               menuItem: (
                 <Search
+                  active="false"
                   key="A"
                   onChange={this.handleSearchChange}
                   style={{ minWidth: "230px", flexGrow: "1" }}
