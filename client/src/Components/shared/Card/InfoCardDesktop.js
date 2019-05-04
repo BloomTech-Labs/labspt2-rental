@@ -25,36 +25,36 @@ class InfoCardDesktop extends Component {
         
         <FlexRow justifyBetween alignCenter width="full">
           <Grid columns='equal' style={{ flexGrow: "1", alignItems: "baseline", alignContent: "center" }}>
-          <Grid.Row style={{ display: "flex", alignItems: "Center" }}>
+            <Grid.Row style={{ display: "flex", alignItems: "Center" }}>
 
-          
-            <Grid.Column style={{ marginRight: "-40px" }}>
-              {components.label}
-            </Grid.Column>
-
-
-            <Grid.Column width={8}>
-              <FlexRow 
-                justifyBetween
-                alignCenter
+              <Grid.Column 
+                style={{ marginRight: "-40px" }}
               >
+                {components.label}
+              </Grid.Column>
+
+              <Grid.Column width={8}>
+                <FlexRow 
+                  justifyBetween
+                  alignCenter
+                >
                   {components.statA}
                   {components.statB}
               </FlexRow>
             </Grid.Column>
 
-            <Grid.Column>
-              <FlexColumn style={{ alignItems: "center" }}>
-                <Link to={link}>
-                  <Button style={{ margin: "10px 0", minWidth: "30%" }}>
-                    {linkName || "More Info"}
-                  </Button>
-                </Link>
-              </FlexColumn>
-            </Grid.Column>
+              <Grid.Column>
+                <FlexColumn style={{ alignItems: "center" }}>
+                  <Link to={link}>
+                    <Button style={{ margin: "10px 0", minWidth: "30%" }}>
+                      {linkName || "More Info"}
+                    </Button>
+                  </Link>
+                </FlexColumn>
+              </Grid.Column>
             </Grid.Row>
-          </Grid>
-        </FlexRow>
+            </Grid>
+          </FlexRow>
         </FlexColumn>
       </FlexRow>
     );
