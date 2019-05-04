@@ -255,6 +255,7 @@ class EmployeeAdd extends Component {
           <FlexRow width="full">
             <Input
               required
+              type="password"
               style={{ flexGrow: 1 }}
               className="space-bottom space-right"
               placeholder="Current Password"
@@ -264,6 +265,7 @@ class EmployeeAdd extends Component {
             />
             <Input
               required
+              type="password"
               style={{ flexGrow: 1 }}
               className="space-bottom space-right"
               placeholder="New Password"
