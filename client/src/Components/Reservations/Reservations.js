@@ -23,6 +23,21 @@ const MobileButton = styled.button`
   }
 `;
 
+const CustomWidthTab = styled(Tab)`
+  @media (max-width: 420px) {
+    width: 85vw;
+  }
+  @media (min-width: 421px) and (max-width: 700px) {
+    width: 85vw;
+  }
+  @media (min-width: 701px) {
+    width: 65vw;
+  }
+  @media (min-width: 850px) {
+    width: 75vw;
+  }
+`;
+
 export default class Reservations extends Component {
   constructor(props) {
     super(props);
@@ -83,7 +98,10 @@ export default class Reservations extends Component {
       );
     }
     return (
-      <FlexColumn style={{ width: "65vw" }} alignCenter>
+      <FlexColumn 
+      // style={{ width: "65vw" }} 
+      // alignCenter
+      >
         {loadingComponent}
         <FlexRow width="full" justifyBetween alignCenter spaceBottom>
           <Header as="h1" style={{ margin: 0 }}>
@@ -108,8 +126,8 @@ export default class Reservations extends Component {
             Create
           </Button>
         </FlexRow>
-        <Tab
-          style={{ width: "60vw", marginBottom: "5px" }}
+        <CustomWidthTab
+          // style={{ width: "60vw", marginBottom: "5px" }}
           onTabChange={this.handleTabChange}
           menu={{ attached: false }}
           panes={[
@@ -130,9 +148,10 @@ export default class Reservations extends Component {
             {
               menuItem: (
                 <Search
+                  active="false"
                   onChange={this.handleSearchChange}
                   key="1"
-                  style={{ minWidth: "300px", flexGrow: "1" }}
+                  style={{ minWidth: "230px", flexGrow: "1" }}
                 />
               )
             }

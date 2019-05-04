@@ -24,6 +24,21 @@ const MobileButton = styled.button`
   }
 `;
 
+const CustomWidthTab = styled(Tab)`
+  @media (max-width: 420px) {
+    width: 85vw;
+  }
+  @media (min-width: 421px) and (max-width: 700px) {
+    width: 85vw;
+  }
+  @media (min-width: 701px) {
+    width: 65vw;
+  }
+  @media (min-width: 850px) {
+    width: 75vw;
+  }
+`;
+
 class Properties extends Component {
   constructor(props) {
     super(props);
@@ -116,9 +131,10 @@ class Properties extends Component {
       {
         menuItem: (
           <Search
+            active="false"
             key="a"
             onChange={this.handleSearchChange}
-            style={{ minWidth: "300px", flexGrow: "1" }}
+            style={{ minWidth: "230px", flexGrow: "1" }}
           />
         )
       }
@@ -127,7 +143,10 @@ class Properties extends Component {
     let renderComponent;
     if (this.props.loading) {
       renderComponent = (
-        <FlexColumn style={{ width: "65vw" }} alignCenter>
+        <FlexColumn 
+        // style={{ width: "65vw" }} 
+        // alignCenter
+        >
           <Dimmer active inverted>
             <Loader inverted>Loading</Loader>
           </Dimmer>
@@ -153,8 +172,8 @@ class Properties extends Component {
             </Button>
           </FlexRow>
 
-          <Tab
-            style={{ width: "60vw" }}
+          <CustomWidthTab
+            // style={{ width: "60vw" }}
             onTabChange={this.handleTabChange}
             menu={{ attached: false }}
             panes={panes}
@@ -163,7 +182,10 @@ class Properties extends Component {
       );
     } else {
       renderComponent = (
-        <FlexColumn style={{ width: "65vw" }} alignCenter>
+        <FlexColumn 
+        // style={{ width: "65vw" }} 
+        // alignCenter
+        >
           {modal}
 
           <FlexRow width="full" justifyBetween alignCenter spaceBottom>
@@ -187,8 +209,8 @@ class Properties extends Component {
             </Button>
           </FlexRow>
 
-          <Tab
-            style={{ width: "60vw" }}
+          <CustomWidthTab
+            // style={{ width: "60vw" }}
             onTabChange={this.handleTabChange}
             menu={{ attached: false }}
             panes={panes}
