@@ -20,13 +20,13 @@ Wireframe: https://balsamiq.cloud/snv27r3/pwc7ekv/rCF28
 - [Contributing](#Contributing)
 
 ### Team
-| Members           |      GitHub   |  LinkedIn |
-|-------------------|--------------  |------|
-| Bryce Evans       |   |   |
-| Jess Harrison     |   |   |
-| Julie Jonak       |   |   |
-| Kyle Baker        |   |   |
-| Michael Littleton | https://github.com/mglittleton  | https://www.linkedin.com/in/michael-littleton-5b9a5462/  |
+| Members           |      GitHub                         |  LinkedIn                                        |
+|-------------------|-------------------------------------|--------------------------------------------------|
+| Bryce Evans       | https://github.com/BryceEvans       | https://www.linkedin.com/in/bryce-evans/         |
+| Jess Harrison     | https://github.com/jessharrison83   |   |
+| Julie Jonak       | https://github.com/juliejonak       |    |
+| Kyle Baker        | https://github.com/kybak            |   |
+| Michael Littleton | https://github.com/mglittleton      | https://www.linkedin.com/in/michaelglittleton/   |
 
 ### Motivation
 
@@ -44,21 +44,6 @@ With a simplistic UI design, Rental POS combines the standard SaaS software that
 - Tasks view that provides a to-do list style view of all things that are happening right now
 - Property view that allow an owner to manage all aspects of a property
 - Settings can be changed, including passwords, user info, billing info, etc.
-
-### Installation
-
-
-#### Instructions for .env Variables:
-
-
-#### Client:
-
-
-#### Server:
-
-
-### Using the App
-
 
 ### Tech Stack
 
