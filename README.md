@@ -14,7 +14,6 @@ Wireframe: https://balsamiq.cloud/snv27r3/pwc7ekv/rCF28
 - [Team](#team)
 - [Motivation](#Motivation)
 - [Features](#Features)
-- [Installation](#Installation)
 - [Tech Stack](#tech-stack)
 - [API](#API)
 - [Contributing](#Contributing)
