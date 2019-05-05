@@ -28,7 +28,6 @@ Wireframe: https://balsamiq.cloud/snv27r3/pwc7ekv/rCF28
 | Kyle Baker        |   |   |
 | Michael Littleton | https://github.com/mglittleton  | https://www.linkedin.com/in/michael-littleton-5b9a5462/  |
 
-
 ### Motivation
 
 Roostr is a SaaS application that gives short-term rental property managers the ability to manage properties more easily. Our software makes it easy for a manager to view properties and their availabilities, bookings, maintenance issues, and keep track of all to do items before, during and after a guest’s stay
@@ -52,47 +51,29 @@ With a simplistic UI design, Rental POS combines the standard SaaS software that
 #### Instructions for .env Variables:
 
 
-##### Client:
+#### Client:
 
 
-##### Server:
+#### Server:
+
+
+### Using the App
 
 
 ### Tech Stack
 
 #### Front End
 
-- Front End Tech
-    - React
-    - Dependencies
-        - @babel/core
-        - axios
-        - babel-loader
-        - date-fns
-        - faker
-        - lodash"
-        - moment
-        - react
-        - react-calendar
-        - react-dates
-        - react-dom
-        - react-redux
-        - react-router-dom
-        - react-scripts
-        - react-slick
-        - react-stripe-elements
-        - react-testing-library
-        - react-throttle
-        - react-with-direction
-        - redux
-        - redux-logger
-        - redux-thunk
-        - semantic-ui-css
-        - semantic-ui-react
-        - styled-components
+- Core: React w/ Redux
+- Style: Semantic UI & styled components
+- Netlify
 
-### Using the App
+#### Back End
 
+- Node.js and Express
+- MongoDB modeled via Mongoose
+- Sendgrid email delivery
+- Stripe billing
 
 ### API
 
@@ -100,3 +81,4 @@ Please visit [this site](https://app.swaggerhub.com/apis-docs/Roostr/roostr-rent
 
 ### Contributing
 
+If you would like to contribute to this repository, please first discuss the change you wish to make via GitHub, email, or any other method with the authors of this repository.
