@@ -1,4 +1,5 @@
 # Roostr
+
 ## One app to manage your rental properties
 
 [![Netlify Status](https://api.netlify.com/api/v1/badges/98ec96bf-5891-4699-bf51-abbe35d29821/deploy-status)](https://app.netlify.com/sites/roostr/deploys)
@@ -10,6 +11,7 @@ Server Deployment: http://138.197.202.158/<br>
 Wireframe: https://balsamiq.cloud/snv27r3/pwc7ekv/rCF28
 
 ## Table of Contents
+
 - [Team](#team)
 - [Motivation](#Motivation)
 - [Features](#Features)
@@ -17,12 +19,14 @@ Wireframe: https://balsamiq.cloud/snv27r3/pwc7ekv/rCF28
 - [API](#API)
 - [Contributing](#Contributing)
 
+
 ## Team
 |   [**Bryce Evans**](https://github.com/BryceEvans)  |   [**Jess Harrison**](https://github.com/jessharrison83)   |    [**Julie Jonak**](https://github.com/juliejonak)    |   [**Kyle Baker**](https://github.com/kybak)  |   [**Michael Littleton**](https://github.com/mglittleton)  |
 |:----------------:|:----------------:|:---------------:|:---------------:|:---------------:|
 | [<img src="https://avatars3.githubusercontent.com/u/1979676?s=400&v=4" width="80">](https://github.com/BryceEvans) | [<img src="https://avatars1.githubusercontent.com/u/38193167?s=400&v=4" width="80">](https://github.com/jessharrison83)  | [<img src="https://avatars0.githubusercontent.com/u/41002881?s=460&v=4" width="80">](https://github.com/juliejonak) | [<img src="https://avatars2.githubusercontent.com/u/40449620?s=400&v=4" width="80">](https://github.com/kybak) | [<img src="https://avatars2.githubusercontent.com/u/40123075?s=400&v=4" width="80">](https://github.com/mglittleton) 
 | [<img src="https://github.com/favicon.ico" width="15"> Github](https://github.com/BryceEvans)  |  [<img src="https://github.com/favicon.ico" width="15"> Github](https://github.com/jessharrison83) | [<img src="https://github.com/favicon.ico" width="15"> Github](https://github.com/juliejonak)  | [<img src="https://github.com/favicon.ico" width="15"> Github](https://github.com/kybak) | [<img src="https://github.com/favicon.ico" width="15"> Github](https://github.com/mglittleton)  
 | [ <img src="https://static.licdn.com/sc/h/al2o9zrvru7aqj8e1x2rzsrca" width="15"> LinkedIn](https://www.linkedin.com/in/bryce-evans/) | [ <img src="https://static.licdn.com/sc/h/al2o9zrvru7aqj8e1x2rzsrca" width="15"> LinkedIn](https://www.linkedin.com/in/jessica-harrison-2018/) | [ <img src="https://static.licdn.com/sc/h/al2o9zrvru7aqj8e1x2rzsrca" width="15"> LinkedIn](https://www.linkedin.com/in/juliejonak/) | [ <img src="https://static.licdn.com/sc/h/al2o9zrvru7aqj8e1x2rzsrca" width="15"> LinkedIn](https://www.linkedin.com/in/kylepattonbaker/) | [ <img src="https://static.licdn.com/sc/h/al2o9zrvru7aqj8e1x2rzsrca" width="15"> LinkedIn](https://www.linkedin.com/in/michael-littleton-5b9a5462/) |
+
 
 ### Motivation
 
