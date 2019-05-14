@@ -3,7 +3,7 @@ import { Header, Input, Button, Divider, Dimmer } from "semantic-ui-react";
 import { FlexRow, FlexColumn } from "custom-components";
 import ErrorModal from "./ErrorModal";
 
-class EmployeeAdd extends Component {
+class newUserUpdate extends Component {
   constructor() {
     super();
 
@@ -255,6 +255,7 @@ class EmployeeAdd extends Component {
           <FlexRow width="full">
             <Input
               required
+              type="password"
               style={{ flexGrow: 1 }}
               className="space-bottom space-right"
               placeholder="Current Password"
@@ -264,6 +265,7 @@ class EmployeeAdd extends Component {
             />
             <Input
               required
+              type="password"
               style={{ flexGrow: 1 }}
               className="space-bottom space-right"
               placeholder="New Password"
@@ -285,4 +287,4 @@ class EmployeeAdd extends Component {
   }
 }
 
-export default EmployeeAdd;
+export default newUserUpdate;

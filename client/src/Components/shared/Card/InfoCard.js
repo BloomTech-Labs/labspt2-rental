@@ -33,8 +33,9 @@ const image = ({ children }) =>
       src={`https://res.cloudinary.com/roostr-labpt2/image/upload/c_fill,g_face,h_150,w_200/v1556336341/${children}.jpg`}
     />
   ) : (
-    <Icon className="space-left-20" name="user circle" size="massive" />
+    <Image rounded size="small" src={'https://res.cloudinary.com/roostr-labpt2/image/upload/c_fill,h_150,w_200/v1556771202/q01phvk7ecxb4ztfyll2.jpg'} />
   );
+
 const id = ({ children }) => (
   <Popup
     trigger={

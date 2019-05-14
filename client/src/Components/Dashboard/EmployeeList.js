@@ -387,35 +387,41 @@ const createEmployeeTaskObject = (employee0, employee1, employee2) => {
     employee2: false
   };
 
-  if (employee0.length > 0) {
-    employeeTaskCount = {
-      ...employeeTaskCount,
-      employee0: countEmployees(employee0)
-    };
-    employeeRender.employee0 = true;
+  if (employee0) {
+    if (employee0.length > 0) {
+      employeeTaskCount = {
+        ...employeeTaskCount,
+        employee0: countEmployees(employee0)
+      };
+      employeeRender.employee0 = true;
+    }
+    if (employee0.length === 0) {
+      employeeTaskCount = { ...employeeTaskCount, employee0: 0 };
+    }
   }
-  if (employee0.length === 0) {
-    employeeTaskCount = { ...employeeTaskCount, employee0: 0 };
+  if (employee1) {
+    if (employee1.length > 0) {
+      employeeTaskCount = {
+        ...employeeTaskCount,
+        employee1: countEmployees(employee1)
+      };
+      employeeRender.employee1 = true;
+    }
+    if (employee1.length === 0) {
+      employeeTaskCount = { ...employeeTaskCount, employee1: 0 };
+    }
   }
-  if (employee1.length > 0) {
-    employeeTaskCount = {
-      ...employeeTaskCount,
-      employee1: countEmployees(employee1)
-    };
-    employeeRender.employee1 = true;
-  }
-  if (employee1.length === 0) {
-    employeeTaskCount = { ...employeeTaskCount, employee1: 0 };
-  }
-  if (employee2.length > 0) {
-    employeeTaskCount = {
-      ...employeeTaskCount,
-      employee2: countEmployees(employee2)
-    };
-    employeeRender.employee2 = true;
-  }
-  if (employee2.length === 0) {
-    employeeTaskCount = { ...employeeTaskCount, employee2: 0 };
+  if (employee2) {
+    if (employee2.length > 0) {
+      employeeTaskCount = {
+        ...employeeTaskCount,
+        employee2: countEmployees(employee2)
+      };
+      employeeRender.employee2 = true;
+    }
+    if (employee2.length === 0) {
+      employeeTaskCount = { ...employeeTaskCount, employee2: 0 };
+    }
   }
 
   return { render: employeeRender, count: employeeTaskCount };

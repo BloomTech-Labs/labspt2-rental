@@ -136,14 +136,14 @@ class ResetPass extends Component {
         <Input
           placeholder="New Password"
           name="newPassword"
-          type="text"
+          type="password"
           onChange={this.handleChange}
           style={{ margin: "1%" }}
         />
         <Input
           placeholder="Reenter Password"
           name="passwordCheck"
-          type="text"
+          type="password"
           onChange={this.handleChange}
           style={{ margin: "1%" }}
         />

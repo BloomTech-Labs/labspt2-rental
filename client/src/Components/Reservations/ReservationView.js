@@ -27,6 +27,14 @@ class ReservationView extends Component {
   render() {
     const { reservation } = this.props;
 
+    const propImage = reservation.property
+    ? reservation.property.image
+      ? `http://res.cloudinary.com/roostr-labpt2/image/upload/c_scale,q_80,r_0,w_640/v1556327124/${
+        reservation.property.image
+        }.jpg`
+      : `https://res.cloudinary.com/roostr-labpt2/image/upload/c_fill,h_150,w_200/v1556771202/q01phvk7ecxb4ztfyll2.jpg`
+    : null;
+
     let processPaymentButton;
 
     if (reservation.paid) {
@@ -155,9 +163,7 @@ class ReservationView extends Component {
               </FlexColumn>
 
               <Image
-                src={`https://res.cloudinary.com/roostr-labpt2/image/upload/c_scale,w_180/v1556327124/${
-                  reservation.property.image
-                }.jpg`}
+                src={propImage}
                 style={{ marginBottom: '1em'}}
               />
               </MobileContainer>
@@ -216,9 +222,7 @@ class ReservationView extends Component {
               </FlexColumn>
 
               <Image
-                src={`https://res.cloudinary.com/roostr-labpt2/image/upload/c_scale,w_180/v1556327124/${
-                  reservation.property.image
-                }.jpg`}
+                src={propImage}
               />
               </DesktopContainer>
 
@@ -364,7 +368,7 @@ const DesktopContainer = styled.div`
     align-items: center;
     margin-bottom: 1em;
     align-self: center;
-    
+
     @media (max-width: 470px) {
     display: none;
     justify-content: space-between;
